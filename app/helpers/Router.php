@@ -21,7 +21,7 @@ class Router
         if (class_exists($controller)) {
             $controller = new $controller;
             if (method_exists($controller, $method)) {
-                die($controller->$method);
+                die($controller->$method());
             }
         }
 

@@ -13,7 +13,7 @@
 
     <?php require_once LAYOUT_PATH . "/navbar.php" ?>
 
-    <?php $yield ?>
+    <?php echo  $yield ?>
 
     <?php require_once LAYOUT_PATH . "/footer.php" ?>
 
