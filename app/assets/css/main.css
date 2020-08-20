@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+:root {
+  --var-white: #fff;
+}
+
 body {
   overflow-x: hidden;
 }
@@ -16,6 +20,7 @@ h4,
 h5 {
   font-family: "PT Sans", sans-serif;
   font-weight: 500;
+  line-height: 175%;
 }
 
 a,
@@ -28,6 +33,7 @@ input,
 label,
 textarea {
   font-family: "Roboto", sans-serif;
+  line-height: 150%;
 }
 
 @media screen and( max-width:400px) {
@@ -60,6 +66,7 @@ textarea {
   .row {
     grid-template-columns: 16.66% 16.66% 16.66% 16.66% 16.66% 16.66%;
   }
+
   :root {
     font-size: 14px;
   }
@@ -73,6 +80,20 @@ textarea {
   }
 }
 
+.row.full {
+  min-height: 50vh;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 100%;
+}
+
+.row.half {
+  min-height: 50vh;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
 .row {
   min-height: 50vh;
   width: 100%;
@@ -84,4 +105,22 @@ textarea {
   padding: 16px;
   display: flex;
   flex-direction: column;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  height: 2rem;
+}
+
+.btn {
+  min-height: 3.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #6f3;
+  color: var(--var-white);
+  font-size: 1.5rem;
 }
