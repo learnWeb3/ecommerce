@@ -11,10 +11,19 @@
     </div>
     <div class="col">
         <h4>Titre h4</h4>
+        <div class="form-group">
+            <label for="">text here :</label>
+            <select name="" id="">
+                <option value="">aaa</option>
+                <option value="">vvvv</option>
+                <option value="">jjjj</option>
+                <option value="">mmm</option>
+            </select>
+        </div>
     </div>
 
     <div class="col">
-        <p>Paragraphe</p>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore natus repudiandae molestiae sit ad voluptatum asperiores libero eligendi. Odio dignissimos sed debitis. Eius dolorum omnis nam voluptates magnam aspernatur corrupti.</p>
     </div>
     <div class="col">
         <div class="form-group">

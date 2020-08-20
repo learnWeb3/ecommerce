@@ -30,10 +30,14 @@ ol,
 li,
 select,
 input,
-label,
 textarea {
   font-family: "Roboto", sans-serif;
   line-height: 150%;
+}
+
+label{
+  font-family: "Roboto", sans-serif;
+  line-height: 175%;
 }
 
 @media screen and( max-width:400px) {
@@ -112,7 +116,7 @@ textarea {
   flex-direction: column;
 }
 
-input {
+input,select {
   height: 2rem;
 }
 
