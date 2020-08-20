@@ -1,0 +1,87 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&family=Roboto&display=swap");
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 500;
+}
+
+a,
+p,
+ul,
+ol,
+li,
+select,
+input,
+label,
+textarea {
+  font-family: "Roboto", sans-serif;
+}
+
+@media screen and( max-width:400px) {
+  .row {
+    grid-template-columns: 100%;
+  }
+  :root {
+    font-size: 8px;
+  }
+}
+
+@media screen and (min-width: 400px) and (max-width: 600px) {
+  .row {
+    grid-template-columns: 50% 50%;
+  }
+  :root {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 900px) {
+  .row {
+    grid-template-columns: 25% 25% 25% 25%;
+  }
+  :root {
+    font-size: 12px;
+  }
+}
+@media screen and (min-width: 900px) and (max-width: 1200px) {
+  .row {
+    grid-template-columns: 16.66% 16.66% 16.66% 16.66% 16.66% 16.66%;
+  }
+  :root {
+    font-size: 14px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .row {
+    grid-template-columns: 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5%;
+  }
+  :root {
+    font-size: 16px;
+  }
+}
+
+.row {
+  min-height: 50vh;
+  width: 100%;
+  display: grid;
+}
+
+.col {
+  grid-column: auto/auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}

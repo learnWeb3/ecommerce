@@ -8,4 +8,5 @@ define("SERVICE_PATH", APP_PATH . "/services");
 define("HELPER_PATH", APP_PATH . "/helpers");
 define("LAYOUT_PATH", APP_PATH . "/layouts");
 define("ERROR_PATH", APP_PATH . "/layouts/errors");
-define("ABSOLUTE_ASSET_PATH", "http://localhost/ecommerce/app/assets");
+
+define("ABSOLUTE_ASSET_PATH", "http://" . $_SERVER["SERVER_NAME"] . "/ecommerce/app/assets");

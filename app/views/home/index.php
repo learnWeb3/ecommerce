@@ -1,1 +1,28 @@
-<h1>hello world</h1>
+<div class="row">
+
+    <div class="col">
+        <h1>Titre h1</h1>
+    </div>
+    <div class="col">
+        <h2>Titre h2</h2>
+    </div>
+    <div class="col">
+        <h3>Titre h3</h3>
+    </div>
+    <div class="col">
+        <h4>Titre h4</h4>
+    </div>
+
+    <div class="col">
+        <p>Paragraphe</p>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <label for="">label for input text</label>
+            <input type="text">
+        </div>
+    </div>
+    <div class="col"></div>
+    <div class="col"></div>
+
+</div>

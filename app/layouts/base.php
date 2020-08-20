@@ -7,13 +7,16 @@
     <title><?php echo $title ?></title>
     <meta name="author" content="Antoine LE GUILLOU">
     <meta name="description" content="<?php echo $description ?>">
+    <link rel="stylesheet" href="<?php echo ABSOLUTE_ASSET_PATH . "/css/main.css" ?>">
 </head>
 
 <body>
 
     <?php require_once LAYOUT_PATH . "/navbar.php" ?>
 
-    <?php echo  $yield ?>
+    <main>
+        <?php echo  $yield ?>
+    </main>
 
     <?php require_once LAYOUT_PATH . "/footer.php" ?>
 
