@@ -48,7 +48,7 @@
             <input type="text">
         </div>
     </div>
-    <div class="col"><button class="btn btn-success">valider</button></div>
-    <div class="col"><button class="btn btn-danger">valider</button></div>
+    <div class="col"><button class="btn btn-lg btn-success">valider</button></div>
+    <div class="col"><button class="btn btn-lg btn-danger">valider</button></div>
 
 </div>

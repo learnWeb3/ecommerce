@@ -1,17 +1,31 @@
+/* GENERAL MARKUP STYLES */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* COLOR SCHEME */
+
 :root {
   --var-white: #fff;
+  --var-black: ;
+  --var-dark: ;
+  --var-light: ;
+  --var-success: ;
+  --var-danger: ;
+  --var-warning: ;
+  --var-info: ;
+  --var-primary: ;
+  --var-secondary: ;
 }
 
 body {
   overflow-x: hidden;
 }
 
+/* FONT TYPE */
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&family=Roboto&display=swap");
 
 h1,
@@ -41,6 +55,8 @@ label {
   font-family: "Roboto", sans-serif;
   line-height: 175%;
 }
+
+/* GENERAL LAYOUT UTILITIES */
 
 @media screen and( max-width:400px) {
   .row.divide-xs-1 {
@@ -140,17 +156,8 @@ label {
 input,
 select {
   height: 2rem;
+  width: 100%;
 }
-
-.btn {
-  min-height: 3.5rem;
-  border: none;
-  border-radius: 0.5rem;
-  background-color: #6f3;
-  color: var(--var-white);
-  font-size: 1.5rem;
-}
-
 .jumbotron {
   height: 100%;
   width: 100%;
@@ -198,6 +205,8 @@ select {
   right: 1rem;
 }
 
+/* JUMBOTRON WELCOME */
+
 @media screen and (max-width: 1200px) {
   #welcome {
     grid-template-rows: 100%;
@@ -224,6 +233,9 @@ select {
     display: none;
   }
 }
+
+/* JUMBOTRON WELCOME */
+
 @media screen and (min-width: 1200px) {
   #welcome {
     grid-template-rows: 25% 25% 25% 25%;
@@ -251,4 +263,174 @@ select {
     height: 10rem;
     width: 8rem;
   }
+}
+
+/* POSITION */
+
+.fixed {
+  position: fixed;
+}
+
+/* NAVBAR */
+
+nav {
+  display: flex;
+  width: 100%;
+  z-index: 2;
+  justify-content: space-evenly;
+  padding: 1rem;
+  background-color: #fff;
+}
+
+nav ul {
+  list-style-type: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+nav ul li {
+  width: 100%;
+}
+
+/* FORMS */
+
+form.form-inline {
+  display: flex;
+  width: 100%;
+}
+
+/* BUTTONS */
+
+.btn {
+  border: none;
+  border-radius: 0.5rem;
+  color: var(--var-white);
+  cursor: pointer;
+}
+
+.btn-success {
+  background-color: #6f3;
+}
+
+.btn.btn-sm {
+  min-width: 6rem;
+  font-size: 1rem;
+}
+
+.btn.btn-lg {
+  min-height: 3.5rem;
+  font-size: 1.5rem;
+}
+
+/* MARGINS */
+
+/* MARGIN LEFT */
+.ml-1 {
+  margin-left: 0.5rem;
+}
+.ml-2 {
+  margin-left: 1rem;
+}
+.ml-3 {
+  margin-left: 1.5rem;
+}
+.ml-4 {
+  margin-left: 2rem;
+}
+.ml-5 {
+  margin-left: 2.5rem;
+}
+/* MARGIN RIGHT */
+.mr-1 {
+  margin-right: 0.5rem;
+}
+.mr-2 {
+  margin-right: 1rem;
+}
+.mr-3 {
+  margin-right: 1.5rem;
+}
+.mr-4 {
+  margin-right: 2rem;
+}
+.mr-5 {
+  margin-right: 2.5rem;
+}
+
+/* MARGIN TOP */
+.mt-1 {
+  margin-top: 0.5rem;
+}
+.mt-2 {
+  margin-top: 1rem;
+}
+.mt-3 {
+  margin-top: 1.5rem;
+}
+.mt-4 {
+  margin-top: 2rem;
+}
+.mt-5 {
+  margin-top: 2.5rem;
+}
+
+/* MARGIN BOTTOM */
+.mb-1 {
+  margin-bottom: 0.5rem;
+}
+.mb-2 {
+  margin-bottom: 1rem;
+}
+.mb-3 {
+  margin-bottom: 1.5rem;
+}
+.mb-4 {
+  margin-bottom: 2rem;
+}
+.mb-5 {
+  margin-bottom: 2.5rem;
+}
+
+/* MARGIN BOTTOM + TOP */
+.my-1 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.my-2 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.my-3 {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.my-4 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.my-5 {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+/* MARGIN LEFT + RIGHT */
+.mx-1 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+.mx-2 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+.mx-3 {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+.mx-4 {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+.mx-5 {
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
 }
