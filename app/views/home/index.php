@@ -1,4 +1,21 @@
-<div class="row">
+<div class="jumbotron" id="welcome">
+
+    <img src="<?php echo ABSOLUTE_ASSET_PATH . "/img/book_choice.jpg" ?>" alt="">
+
+    <img src="<?php echo ABSOLUTE_ASSET_PATH . "/img/happy_reading.jpg" ?>" alt="">
+
+
+    <div class="mask-img-1">
+        <img src="<?php echo ABSOLUTE_ASSET_PATH . "/img/livre-promo-one.jpeg" ?>" alt="" id="one">
+        <img src="<?php echo ABSOLUTE_ASSET_PATH . "/img/livre-promo-two.jpeg" ?>" alt="" id="two">
+        <h1>La Nuit des temps : librairie engagée de proximitée</h1>
+        <img src="<?php echo ABSOLUTE_ASSET_PATH . "/img/livre-promo-three.jpeg" ?>" alt="" id="three">
+    </div>
+
+</div>
+
+
+<div class="row divide-xl-2 divide-lg-4 divide-md-4 divide-sm-2 divide-xs-1">
 
     <div class="col">
         <h1>Titre h1</h1>
