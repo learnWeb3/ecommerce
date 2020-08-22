@@ -182,28 +182,14 @@ select {
   height: 100%;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.66);
-  display: flex;
+  display: grid;
   justify-content: center;
   flex-direction: column;
-  grid-template-columns: 25% auto 25%;
-  grid-template-rows: 25% auto 25%;
+  grid-template-columns: 100%;
+  grid-template-rows: 33.33% 33.33% 33.33%;
   padding: 2rem;
 }
 
-#welcome .mask-img-1 img#one {
-  top: 1rem;
-  left: 1rem;
-}
-
-#welcome .mask-img-1 img#two {
-  top: 1rem;
-  right: 1rem;
-}
-
-#welcome .mask-img-1 img#three {
-  bottom: 1rem;
-  right: 1rem;
-}
 
 /* JUMBOTRON WELCOME */
 
@@ -362,6 +348,7 @@ nav ul#search-form-container li {
   cursor: pointer;
   height: 2.5rem;
   width: 2.5rem;
+  position: relative;
 }
 
 #menu,
@@ -609,4 +596,14 @@ form.form-inline {
 }
 .w-100 {
   width: 100%;
+}
+
+.badge-shopping-cart {
+  height: 1.5rem;
+  width: 1.5rem;
+  background-color: #6f3;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  border-radius: 50%;
 }

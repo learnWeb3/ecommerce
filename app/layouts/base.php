@@ -7,8 +7,12 @@
     <title><?php echo $title ?></title>
     <meta name="author" content="Antoine LE GUILLOU">
     <meta name="description" content="<?php echo $description ?>">
+    <!-- MAIN STYLESHEET -->
     <link rel="stylesheet" href="<?php echo ABSOLUTE_ASSET_PATH . "/css/main.css" ?>">
+    <!-- JQUERY LIBRARY -->
     <script src="<?php echo ABSOLUTE_ASSET_PATH . "/vendor/jquery-3.5.1.min.js" ?>"></script>
+    <!-- NAVBAR JS STYLES -->
+    <script src="<?php echo ABSOLUTE_ASSET_PATH . "/js/navbar.js" ?>"></script>
 </head>
 
 <body>
@@ -20,37 +24,6 @@
     </main>
 
     <?php require_once LAYOUT_PATH . "/footer.php" ?>
-
-
-    <script>
-        // NAVBAR FIXED POSITION ON SCROLL DOWN
-        $(window).scroll(function() {
-            var scrollPos = $(this).scrollTop();
-            var navHeight = $('nav').outerHeight();
-            if (scrollPos > navHeight) {
-                $('nav').addClass('fixed')
-            } else {
-                $('nav').removeClass('fixed')
-            }
-        })
-
-        //
-
-        $("#menu-open img").click(function() {
-            $("#menu").removeClass('closed').addClass('opened')
-        });
-        $("#menu .menu-close img").click(function() {
-            $("#menu").removeClass('opened').addClass('closed')
-        });
-
-        $("#shopping-cart img").click(function() {
-            $("#shopping-cart-menu").removeClass('closed').addClass('opened')
-        });
-
-        $("#shopping-cart-menu .menu-close img").click(function() {
-            $("#shopping-cart-menu").removeClass('opened').addClass('closed')
-        });
-    </script>
 
 </body>
 

@@ -28,7 +28,9 @@
         </ul>
 
         <ul>
-            <li id="shopping-cart"><img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/shopping_cart.svg" ?>" alt="logo icon"></li>
+            <li id="shopping-cart"><img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/shopping_cart.svg" ?>" alt="logo icon">
+                <div class="badge-shopping-cart"></div>
+            </li>
         </ul>
 
     </nav>
