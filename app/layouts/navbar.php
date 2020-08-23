@@ -16,7 +16,7 @@
             <li>
                 <form action="" method="post" class="form-inline">
                     <input type="search" name="" id="">
-                    <select name="" id="" class="w-33">
+                    <select name="" id="" class="w-33 ml-1">
                         <option value=""></option>
                         <option value=""></option>
                         <option value=""></option>
@@ -35,43 +35,10 @@
 
     </nav>
 
-    <div id="menu" class="closed">
-
-        <ul>
-            <li class="menu-close"><img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/navigation/close.svg" ?>" alt="logo icon"></li>
-        </ul>
-
-        <ul>
-            <li><a href="">Lorem ipsum dolor.</a></li>
-            <li><a href="">Lorem ipsum dolor.</a></li>
-            <li><a href="">Lorem ipsum dolor.</a></li>
-            <li><a href="">Lorem ipsum dolor.</a></li>
-            <li><a href="">Lorem ipsum dolor.</a></li>
-            <li><a href="">Lorem ipsum dolor.</a></li>
-        </ul>
+    <?php require_once 'hamburger-menu.php' ?>
 
 
-    </div>
-
-
-    <div id="shopping-cart-menu">
-
-        <ul>
-            <li class="menu-close"><img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/navigation/close.svg" ?>" alt="logo icon"></li>
-        </ul>
-
-        <ul>
-            <li><a href="">Lorem ipsum dolor.</a></li>
-            <li><a href="">Lorem ipsum dolor.</a></li>
-            <li><a href="">Lorem ipsum dolor.</a></li>
-            <li><a href="">Lorem ipsum dolor.</a></li>
-            <li><a href="">Lorem ipsum dolor.</a></li>
-            <li><a href="">Lorem ipsum dolor.</a></li>
-        </ul>
-
-
-    </div>
-
+    <?php require_once 'shopping-cart.php' ?>
 
 
 </header>
