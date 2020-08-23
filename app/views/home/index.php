@@ -27,37 +27,22 @@
 </section>
 
 
-<section class="row divide-xl-2 divide-lg-2 divide-md-2 divide-sm-1 divide-xs-1">
+<section class="row divide-xl-1 divide-lg-1 divide-md-1 divide-sm-1 divide-xs-1">
 
     <div class="col">
         <h2> Les Nouveautées :</h2>
         <div class="carroussel">
-            <ul>
-                <li><img src="https://lewebpedagogique.com/bibliorians/files/2015/03/Nouveaut%C3%A9s.jpg" alt=""></li>
-                <li><img src="https://static.fnac-static.com/multimedia/Images/FD/Comete/130255/CCP_IMG_ORIGINAL/1703765.jpg" alt=""></li>
-                <li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQTA5g5nqFwdhZtj9w97ELKrKAuJ95O6T5GNQ&usqp=CAU" alt=""></li>
-            </ul>
+            <div class="carroussel-item"></div>
+            <div class="carroussel-item"></div>
+            <div class="carroussel-item"></div>
+            <div class="carroussel-item"></div>
+            <div class="carroussel-item"></div>
             <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_left.svg" ?>" alt="" class="prev">
             <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_right.svg" ?>" alt="" class="next">
         </div>
 
     </div>
 
-    <div class="col">
-
-        <h2>Les plus populaires :</h2>
-        <div class="carroussel">
-            <ul>
-                <li><img src="" alt=""></li>
-                <li><img src="" alt=""></li>
-                <li><img src="" alt=""></li>
-            </ul>
-
-            <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_left.svg" ?>" alt="" class="prev">
-            <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_right.svg" ?>" alt="" class="next">
-        </div>
-
-    </div>
 
 </section>
 
@@ -113,23 +98,23 @@
         }, "slow", "linear");
     })
 
-    $(".carroussel .next").click(function() {
-        $(this).siblings('ul').animate({
-            transform: 'translate(-45vw)'
-        }, 1, function() {
-            $(this).css({
-                marginLeft: 0
-            }).find("li:last").after($(this).find("li:first"));
-        })
-    });
+    // $(".carroussel .next").click(function() {
+    //     $(this).siblings('ul').animate({
+    //         transform: 'translate(-50%)'
+    //     }, 1, function() {
+    //         $(this).css({
+    //             transform: 'unset'
+    //         }).find("li:last").after($(this).find("li:first"));
+    //     })
+    // });
 
-    $(".carroussel .prev").click(function() {
-        $(this).siblings('ul').animate({
-            transform: 'translate(45vw)'
-        },1, function() {
-            $(this).css({
-                marginLeft: 0
-            }).find("li:last").after($(this).find("li:first"));
-        })
-    })
+    // $(".carroussel .prev").click(function() {
+    //     $(this).siblings('ul').animate({
+    //         transform: 'translate(50%)'
+    //     }, 1, function() {
+    //         $(this).css({
+    //             transform: 'unset'
+    //         }).find("li:last").after($(this).find("li:first"));
+    //     })
+    // })
 </script>
