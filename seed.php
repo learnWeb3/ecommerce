@@ -53,16 +53,26 @@ class Scrapper
             }
 
             foreach ($navigation_menu_node->find('div.arborescence-expand .wrapper-arborescence-level-2 a') as $subcategory_node) {
-                $subcategories[] = array("name" => $subcategory_node->innertext, "link" => $subcategory_node->href);
+                $subcategories[] = array("name" => $subcategory_node->innertext, "link" => "https://www.mollat.com" . $subcategory_node->href);
             }
 
-            $results[] = array($category_name => array("subcategories" => $subcategories));
+
+            foreach ($subcategories as $subcategory) {
+                $html = file_get_html($subcategory["link"]);
+                foreach ($html->find("section.bloc .bloc-content .row:nth-child(2)") as $section_product) {
+                    var_dump($section_product->innertext);
+                }
+            }
+
+            $datas[] = array($category_name => array("subcategories" => $subcategories));
+
+            sleep(1);
         }
 
 
-        
 
-        return $results;
+
+        return $datas;
     }
 }
 
@@ -70,4 +80,4 @@ class Scrapper
 
 $scrapper = new Scrapper("https://www.mollat.com/");
 
-var_dump($scrapper->getDatas());
+$scrapper->getDatas();
