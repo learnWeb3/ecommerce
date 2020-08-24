@@ -4,7 +4,10 @@
 <?php
 
 
+require_once 'vendor/autoload.php';
 require_once 'app/assets/vendor/simple_html_dom_parser/simple_html_dom.php';
+
+use Symfony\Component\DomCrawler\Crawler;
 
 
 class Scrapper
@@ -32,52 +35,66 @@ class Scrapper
     }
 
 
-
-
-    // [
-
-    //     "category"=>["name"=>, "subcategories"=>[["name"=>,"link"=>], ["name"=>,"link"=>], ["name"=>,"link"=>]]]
-
-    // ]
-
-
-
-    public function getDatas()
+    public function getDatas($limit_result_per_page = 10)
     {
+
+        $client = \Symfony\Component\Panther\Client::createChromeClient();
 
         $html = file_get_html($this->url);
 
-        foreach ($html->find('nav.row .col-md-12 ul.nav-arborescence li.nav-arborescence-item') as $navigation_menu_node) {
-            foreach ($navigation_menu_node->find('a span.arborescence-level-1') as $category_title_node) {
-                $category_name = $category_title_node->innertext;
-            }
-
-            foreach ($navigation_menu_node->find('div.arborescence-expand .wrapper-arborescence-level-2 a') as $subcategory_node) {
-                $subcategories[] = array("name" => $subcategory_node->innertext, "link" => "https://www.mollat.com" . $subcategory_node->href);
-            }
-
-
-            foreach ($subcategories as $subcategory) {
-                $html = file_get_html($subcategory["link"]);
-                foreach ($html->find("section.bloc .bloc-content .row:nth-child(2)") as $section_product) {
-                    var_dump($section_product->innertext);
-                }
-            }
-
-            $datas[] = array($category_name => array("subcategories" => $subcategories));
-
-            sleep(1);
+        foreach ($html->find("#wrapbg2 div ul#foldingList li.level0 a") as $targeted_node) {
+            $categories[] = array("name" => $targeted_node->innertext, "link" => $targeted_node->href . "?limit=$limit_result_per_page");
         }
 
+        foreach ($categories as $index => $category) {
+            $url = $category["link"];
+            $crawler = $client->request("GET", $url);
+            $categories[$index]["books"] = $crawler->filter("div.bookBox")->each(function (Crawler $node, $i) {
+                $image = $node->filter(".product-image-container a img")->each(function (Crawler $image, $i) {
+                    return $image->attr('src');
+                });
 
+                $title = $node->filter(".bookLink a")->each(function (Crawler $title, $i) {
+                    return $title->text();
+                });
 
+                $author = $node->filter(".author p a.authorLink")->each(function (Crawler $author, $i) {
+                    return $author->text();
+                });
 
-        return $datas;
+                $collection = $node->filter(".collection a")->each(function (Crawler $collection, $i) {
+                    return $collection->text();
+                });
+
+                $year = $node->filter(".collection")->each(function (Crawler $year, $i) {
+                    preg_match_all("/\d+/", $year->text(), $year);
+                    return intval($year[0]);
+                });
+
+                $price = $node->filter(".buyBook .price-box span.regular-price span.price")->each(function (Crawler $price, $i) {
+                    preg_match_all("/\d+\.\d+/", $price->text(), $result);
+                    return floatval($result[0]);
+                });
+
+                if (!empty($image) && !empty($title) && !empty($author)) {
+                    return  array("image" => $image, "title" => $title, "author" => $author, "collection" => $collection, "year" => $year, "price" => $price);
+                };
+            });
+
+            $categories[$index]["books"] = array_filter($categories[$index]["books"], function ($el) {
+                if (is_null($el)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+        }
+
+        return $categories;
     }
 }
 
 
 
-$scrapper = new Scrapper("https://www.mollat.com/");
-
-$scrapper->getDatas();
+$scrapper = new Scrapper("https://www.livrenpoche.com/genres");
+var_dump($scrapper->getDatas(1000));

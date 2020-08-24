@@ -1,0 +1,8 @@
+{
+
+    "require": {
+        "symfony/panther": "^0.7.1",
+        "symfony/dom-crawler": "^5.1",
+        "symfony/css-selector": "^5.1"
+    }
+}
