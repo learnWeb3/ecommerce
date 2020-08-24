@@ -1,28 +1,8 @@
 <section class="jumbotron" id="welcome">
 
-    <img src="<?php echo ABSOLUTE_ASSET_PATH . "/img/book_choice.jpg" ?>" alt="">
-
     <img src="<?php echo ABSOLUTE_ASSET_PATH . "/img/happy_reading.jpg" ?>" alt="">
 
     <video src="<?php echo ABSOLUTE_ASSET_PATH . "/video/commercial-book-shop.mp4" ?>" muted autoplay loop></video>
-
-    <div class="mask-img-1">
-        <h1 class="font-white title">La Nuit des temps : <br>
-            librairie engagée de proximitée</h1>
-    </div>
-
-    <div class="mask-menu-container">
-        <ul class="w-100 flex justify-content-evenly">
-            <li><a href="" class="link-product ">LIVRES</a></li>
-            <li><a href="" class="link-product ">PRESSE</a></li>
-        </ul>
-
-        <ul class="w-100 flex justify-content-evenly">
-            <li><a href="" class="link-product ">PAPETERIE</a></li>
-            <li><a href="" class="link-product ">EVENEMENTS</a></li>
-        </ul>
-    </div>
-
 
 </section>
 
@@ -31,15 +11,7 @@
 
     <div class="col">
         <h2> Les Nouveautées :</h2>
-        <div class="carroussel">
-            <div class="carroussel-item"></div>
-            <div class="carroussel-item"></div>
-            <div class="carroussel-item"></div>
-            <div class="carroussel-item"></div>
-            <div class="carroussel-item"></div>
-            <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_left.svg" ?>" alt="" class="prev">
-            <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_right.svg" ?>" alt="" class="next">
-        </div>
+
 
     </div>
 
