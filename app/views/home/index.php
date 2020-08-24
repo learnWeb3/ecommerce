@@ -12,7 +12,7 @@
 
     <h2 class="ml-4">Nouveautées</h2>
 
-    <div class="row divide-xl-4 divide-lg-4 divide-md-1 divide-sm-1 divide-xs-1">
+    <div class="row-autoflow">
 
         <div class="col">
             <div class="card-product"></div>
@@ -29,17 +29,35 @@
             <div class="card-product"></div>
         </div>
 
+
+        <div class="col">
+            <div class="card-product"></div>
+
+        </div>
+
+        <div class="col">
+            <div class="card-product"></div>
+        </div>
+        <div class="col">
+            <div class="card-product"></div>
+        </div>
+        <div class="col">
+            <div class="card-product"></div>
+        </div>
 
     </div>
 
-</section>
+    <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_left.svg" ?>" alt="chevron left icon" class="chevron-left">
+    <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_right.svg" ?>" alt="chevron right icon" class="chevron-right">
 
+
+</section>
 
 <section class="py-4 teaser-container">
 
     <h2 class="ml-4">Nouveautées</h2>
 
-    <div class="row divide-xl-4 divide-lg-4 divide-md-1 divide-sm-1 divide-xs-1">
+    <div class="row-autoflow">
 
         <div class="col">
             <div class="card-product"></div>
@@ -56,10 +74,30 @@
             <div class="card-product"></div>
         </div>
 
+
+        <div class="col">
+            <div class="card-product"></div>
+
+        </div>
+
+        <div class="col">
+            <div class="card-product"></div>
+        </div>
+        <div class="col">
+            <div class="card-product"></div>
+        </div>
+        <div class="col">
+            <div class="card-product"></div>
+        </div>
 
     </div>
 
+    <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_left.svg" ?>" alt="chevron left icon" class="chevron-left">
+    <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_right.svg" ?>" alt="chevron right icon" class="chevron-right">
+
+
 </section>
+
 
 <div class="row divide-xl-2 divide-lg-4 divide-md-4 divide-sm-2 divide-xs-1">
 
@@ -113,23 +151,14 @@
         }, "slow", "linear");
     })
 
-    // $(".carroussel .next").click(function() {
-    //     $(this).siblings('ul').animate({
-    //         transform: 'translate(-50%)'
-    //     }, 1, function() {
-    //         $(this).css({
-    //             transform: 'unset'
-    //         }).find("li:last").after($(this).find("li:first"));
-    //     })
-    // });
 
-    // $(".carroussel .prev").click(function() {
-    //     $(this).siblings('ul').animate({
-    //         transform: 'translate(50%)'
-    //     }, 1, function() {
-    //         $(this).css({
-    //             transform: 'unset'
-    //         }).find("li:last").after($(this).find("li:first"));
-    //     })
-    // })
+    $('.chevron-right').click(function() {
+        var scrollLeft = $('.teaser-container .row-autoflow').scrollLeft();
+        $(this).siblings('.row-autoflow').scrollLeft(scrollLeft + 50);
+    });
+
+    $('.chevron-left').click(function() {
+        var scrollLeft = $('.teaser-container .row-autoflow').scrollLeft();
+        $(this).siblings('.row-autoflow').scrollLeft(scrollLeft - 50);
+    });
 </script>

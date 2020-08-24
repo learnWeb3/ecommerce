@@ -711,6 +711,7 @@
     
     .card-product {
         height: 550px;
+        width: 375px;
         border: 1px solid #4F38B4;
         transform-origin: bottom;
         transform: rotateX(10deg);
@@ -721,6 +722,34 @@
         transform: unset;
     }
     
+    .teaser-container {
+        position: relative;
+    }
+    
     .teaser-container .col {
         perspective: 3000px;
+    }
+    
+    .row-autoflow {
+        grid-auto-flow: column;
+        display: grid;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .chevron-left,
+    .chevron-right {
+        position: absolute;
+        top: 50%;
+        height: 4rem;
+        width: 4rem;
+        cursor: pointer;
+    }
+    
+    .chevron-left {
+        left: 0;
+    }
+    
+    .chevron-right {
+        right: 0;
     }
