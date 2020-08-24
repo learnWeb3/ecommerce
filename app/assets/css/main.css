@@ -8,6 +8,7 @@
     
     .flex {
         display: flex;
+        flex-wrap: wrap;
     }
     
     .justify-content-evenly {
@@ -185,7 +186,7 @@
     .jumbotron-video,
     .jumbotron img,
     .jumbotron .overlay-light {
-        height: 125vh;
+        height: 100vh;
         width: 100%;
     }
     
@@ -196,6 +197,8 @@
     
     .jumbotron video {
         object-fit: cover;
+        width: 100%;
+        z-index: 10;
     }
     
     .jumbotron img {
@@ -206,7 +209,7 @@
     }
     
     .jumbotron .overlay-light {
-        background: linear-gradient(rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, .3), rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 1) 75%, rgba(255, 255, 255, 1) 100%);
+        background: linear-gradient(rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, .3) 25%, rgba(0, 0, 0, .33) 50%, rgba(0, 0, 0, .33) 50%, rgba(0, 0, 0, .5) 100%);
         position: absolute;
         display: flex;
         flex-direction: column;
@@ -621,6 +624,32 @@
         padding-left: 2.5rem;
         padding-right: 2.5rem;
     }
+    /* MARGIN BOTTOM + TOP */
+    
+    .py-1 {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+    
+    .py-2 {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+    
+    .py-3 {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+    
+    .py-4 {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+    
+    .py-5 {
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
+    }
     /* SIZING UTILITIES */
     
     .w-0 {
@@ -673,4 +702,25 @@
         height: 25rem;
         width: 15rem;
         margin-top: auto;
+    }
+    /* BACKGROUNDS COLOR */
+    
+    .bg-white {
+        background-color: var(--var-white);
+    }
+    
+    .card-product {
+        height: 550px;
+        border: 1px solid #4F38B4;
+        transform-origin: bottom;
+        transform: rotateX(10deg);
+        transition: transform .25s ease-in-out
+    }
+    
+    .card-product:hover {
+        transform: unset;
+    }
+    
+    .teaser-container .col {
+        perspective: 3000px;
     }

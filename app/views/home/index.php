@@ -8,14 +8,56 @@
 </section>
 
 
-<section class="row divide-xl-1 divide-lg-1 divide-md-1 divide-sm-1 divide-xs-1">
+<section class="py-4 teaser-container">
 
-    <div class="col">
-        <h2> Les Nouveautées :</h2>
+    <h2 class="ml-4">Nouveautées</h2>
+
+    <div class="row divide-xl-4 divide-lg-4 divide-md-1 divide-sm-1 divide-xs-1">
+
+        <div class="col">
+            <div class="card-product"></div>
+
+        </div>
+
+        <div class="col">
+            <div class="card-product"></div>
+        </div>
+        <div class="col">
+            <div class="card-product"></div>
+        </div>
+        <div class="col">
+            <div class="card-product"></div>
+        </div>
 
 
     </div>
 
+</section>
+
+
+<section class="py-4 teaser-container">
+
+    <h2 class="ml-4">Nouveautées</h2>
+
+    <div class="row divide-xl-4 divide-lg-4 divide-md-1 divide-sm-1 divide-xs-1">
+
+        <div class="col">
+            <div class="card-product"></div>
+
+        </div>
+
+        <div class="col">
+            <div class="card-product"></div>
+        </div>
+        <div class="col">
+            <div class="card-product"></div>
+        </div>
+        <div class="col">
+            <div class="card-product"></div>
+        </div>
+
+
+    </div>
 
 </section>
 
@@ -59,14 +101,14 @@
 
 
 <script>
-    $('.mask-img-1').mouseenter(function() {
-        $('#welcome video').animate({
+    $('.jumbotron').mouseenter(function() {
+        $('.jumbotron video').animate({
             'opacity': 100
         }, "slow", "linear");
     });
 
-    $('.mask-img-1').mouseleave(function() {
-        $('#welcome video').animate({
+    $('.jumbotron').mouseleave(function() {
+        $('.jumbotron video').animate({
             'opacity': 0
         }, "slow", "linear");
     })

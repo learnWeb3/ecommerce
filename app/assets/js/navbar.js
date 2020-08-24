@@ -1,31 +1,37 @@
-$(document).ready(function () {
-  // NAVBAR FIXED POSITION ON SCROLL DOWN
-  $(window).scroll(function () {
-    var scrollPos = $(this).scrollTop();
-    var navHeight = $("nav").outerHeight();
-    if (scrollPos > navHeight) {
-      $("nav").addClass("fixed");
-    } else {
-      $("nav").removeClass("fixed");
-    }
-  });
+$(document).ready(function() {
+    // NAVBAR FIXED POSITION ON SCROLL DOWN
+    $(window).scroll(function() {
+        var scrollPos = $(this).scrollTop();
+        var navHeight = $("nav").outerHeight();
+        if (scrollPos > navHeight) {
+            $("nav").addClass("fixed");
+        } else {
+            $("nav").removeClass("fixed");
+        }
 
-  // NAVBAR MENU OPEN AND CLOSE
+        if (scrollPos >= $('.jumbotron').outerHeight() / 4) {
+            $("nav").addClass('bg-white')
+        } else {
+            $("nav").removeClass('bg-white')
+        }
+    });
 
-  $("#menu-open img").click(function () {
-    $("#menu").removeClass("closed").addClass("opened");
-  });
-  $("#menu .menu-close img").click(function () {
-    $("#menu").removeClass("opened").addClass("closed");
-  });
+    // NAVBAR MENU OPEN AND CLOSE
 
-  // NAVBAR SHOPPING CART OPEN AND CLOSE
+    $("#menu-open img").click(function() {
+        $("#menu").removeClass("closed").addClass("opened");
+    });
+    $("#menu .menu-close img").click(function() {
+        $("#menu").removeClass("opened").addClass("closed");
+    });
 
-  $("#shopping-cart img").click(function () {
-    $("#shopping-cart-menu").removeClass("closed").addClass("opened");
-  });
+    // NAVBAR SHOPPING CART OPEN AND CLOSE
 
-  $("#shopping-cart-menu .menu-close img").click(function () {
-    $("#shopping-cart-menu").removeClass("opened").addClass("closed");
-  });
+    $("#shopping-cart img").click(function() {
+        $("#shopping-cart-menu").removeClass("closed").addClass("opened");
+    });
+
+    $("#shopping-cart-menu .menu-close img").click(function() {
+        $("#shopping-cart-menu").removeClass("opened").addClass("closed");
+    });
 });
