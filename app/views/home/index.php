@@ -53,9 +53,59 @@
 
 </section>
 
+
+<section>
+
+    <h2 class="ml-4">Les coups de coeur</h2>
+    <div class="row divide-xl-4 divide-lg-2 divide-md-2 divide-sm-1 divide-xs-1">
+
+        <div class="col">
+            <div class="card-product"></div>
+        </div>
+        <div class="col justify-content-evenly">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse corporis voluptas maiores deleniti adipisci earum ducimus temporibus quisquam reiciendis veritatis laborum soluta iure consequuntur nihil distinctio quos impedit, ab suscipit?</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse corporis voluptas maiores deleniti adipisci earum ducimus temporibus quisquam reiciendis veritatis laborum soluta iure consequuntur nihil distinctio quos impedit, ab suscipit?</p>
+        </div>
+        <div class="col">
+            <div class="card-product"></div>
+        </div>
+        <div class="col justify-content-evenly">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse corporis voluptas maiores deleniti adipisci earum ducimus temporibus quisquam reiciendis veritatis laborum soluta iure consequuntur nihil distinctio quos impedit, ab suscipit?</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse corporis voluptas maiores deleniti adipisci earum ducimus temporibus quisquam reiciendis veritatis laborum soluta iure consequuntur nihil distinctio quos impedit, ab suscipit?</p>
+        </div>
+
+
+    </div>
+</section>
+
+
+<section>
+
+    <h2 class="ml-4">Découvertes : </h2>
+    <div class="row divide-xl-4 divide-lg-2 divide-md-2 divide-sm-1 divide-xs-1">
+
+        <div class="col">
+            <div class="card-product"></div>
+        </div>
+        <div class="col justify-content-evenly">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse corporis voluptas maiores deleniti adipisci earum ducimus temporibus quisquam reiciendis veritatis laborum soluta iure consequuntur nihil distinctio quos impedit, ab suscipit?</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse corporis voluptas maiores deleniti adipisci earum ducimus temporibus quisquam reiciendis veritatis laborum soluta iure consequuntur nihil distinctio quos impedit, ab suscipit?</p>
+        </div>
+        <div class="col">
+            <div class="card-product"></div>
+        </div>
+        <div class="col justify-content-evenly">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse corporis voluptas maiores deleniti adipisci earum ducimus temporibus quisquam reiciendis veritatis laborum soluta iure consequuntur nihil distinctio quos impedit, ab suscipit?</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse corporis voluptas maiores deleniti adipisci earum ducimus temporibus quisquam reiciendis veritatis laborum soluta iure consequuntur nihil distinctio quos impedit, ab suscipit?</p>
+        </div>
+
+
+    </div>
+</section>
+
 <section class="py-4 teaser-container">
 
-    <h2 class="ml-4">Nouveautées</h2>
+    <h2 class="ml-4">Les + populaires </h2>
 
     <div class="row-autoflow">
 
