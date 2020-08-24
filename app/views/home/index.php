@@ -1,9 +1,10 @@
-<section class="jumbotron" id="welcome">
-
-    <img src="<?php echo ABSOLUTE_ASSET_PATH . "/img/happy_reading.jpg" ?>" alt="">
-
+<section class="jumbotron">
+    <img alt="" src="<?php echo ABSOLUTE_ASSET_PATH . "/img/jumbotron-welcome.jpg" ?>">
     <video src="<?php echo ABSOLUTE_ASSET_PATH . "/video/commercial-book-shop.mp4" ?>" muted autoplay loop></video>
+    <div class="overlay-light">
 
+        <h1 class="title font-white">La Nuit des temps: librairie engagée de proximitée</h1>
+    </div>
 </section>
 
 
