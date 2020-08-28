@@ -19,7 +19,7 @@ class Product {
             " </div>" +
             "<div class='col'>" +
 
-            "<h2 class='product-title'>" + "<a href='" + this.url + "'>" + this.title + "</a>" + "</h2>" +
+            "<h2 class='product-title'>" + "<a href='" + this.url + "'>" + this.name + "</a>" + "</h2>" +
             "<h4 class='product-price'>" + this.price + "</h4>" +
             "<p class='product-description'>" + this.description + "</p>" +
 

@@ -50,6 +50,10 @@ class Scrapper
             $url = $category["link"];
             $crawler = $client->request("GET", $url);
             $categories[$index]["books"] = $crawler->filter("div.bookBox")->each(function (Crawler $node, $i) {
+
+                $link = $node->filter(".product-image-container a.product-image")->each(function (Crawler $link, $i) {
+                    return $link->attr('href');
+                });
                 $image = $node->filter(".product-image-container a img")->each(function (Crawler $image, $i) {
                     return $image->attr('src');
                 });
@@ -67,8 +71,7 @@ class Scrapper
                 });
 
                 $year = $node->filter(".collection")->each(function (Crawler $year, $i) {
-                    preg_match_all("/\d+/", $year->text(), $year);
-                    return intval($year[0]);
+                    return $year->text();
                 });
 
                 $price = $node->filter(".buyBook div.price-box span.regular-price span.price")->each(function (Crawler $price, $i) {
@@ -76,13 +79,14 @@ class Scrapper
                 });
 
 
-                if (!empty($image) && !empty($title) && !empty($author)) {
-                    return  array("image" => $image, "title" => $title, "author" => $author, "collection" => $collection, "year" => $year, "price" => $price);
+
+                if (!empty($image) && !empty($title) && !empty($author) && !empty($collection) && !empty($price) && !empty($year) && !empty($link)) {
+                    return  array("image" => $image[0], "title" => $title[0], "author" => $author[0], "collection" => $collection[0], "year" => $year[0], "price" => $price[0], "link" => $link[0]);
                 };
             });
 
             $categories[$index]["books"] = array_filter($categories[$index]["books"], function ($el) {
-                if (is_null($el)) {
+                if (is_null($el) || empty($el["link"]) || empty($el["price"]) || empty($el["year"] || empty($el["author"]) || empty($el["collection"] || empty($el["image"] || empty($el["title"]))))) {
                     return false;
                 } else {
                     return true;
@@ -90,7 +94,32 @@ class Scrapper
             });
         }
 
-        return $categories;
+
+
+        return array_map(function ($el) use ($client) {
+            return  array_map(function ($e) use ($client) {
+                preg_match_all("/\d+,\d+/", $e["price"], $price);
+                preg_match_all("/\d{4}/", $e["year"], $year);
+                $e["price"] = floatval($price[0][0]);
+                $e["year"] = intval($year[0]);
+
+                $crawler = $client->request("GET", $e["link"]);
+
+
+                $e["description"] = $crawler->filter('.liWrap > span > .bookDesc')->each(function (Crawler $description, $i) {
+                    return $description->text();
+                });
+
+
+                if (isset($e["description"][0])) {
+                    $e["description"] = $e["description"][0];
+                } else {
+                    $e["description"] = "";
+                }
+
+                return $e;
+            }, $el["books"]);
+        }, $categories);
     }
 }
 
