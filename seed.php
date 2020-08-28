@@ -71,10 +71,10 @@ class Scrapper
                     return intval($year[0]);
                 });
 
-                $price = $node->filter(".buyBook .price-box span.regular-price span.price")->each(function (Crawler $price, $i) {
-                    preg_match_all("/\d+\.\d+/", $price->text(), $result);
-                    return floatval($result[0]);
+                $price = $node->filter(".buyBook div.price-box span.regular-price span.price")->each(function (Crawler $price, $i) {
+                    return $price->text();
                 });
+
 
                 if (!empty($image) && !empty($title) && !empty($author)) {
                     return  array("image" => $image, "title" => $title, "author" => $author, "collection" => $collection, "year" => $year, "price" => $price);
@@ -97,4 +97,4 @@ class Scrapper
 
 
 $scrapper = new Scrapper("https://www.livrenpoche.com/genres");
-var_dump($scrapper->getDatas(1000));
+var_dump($scrapper->getDatas(10));

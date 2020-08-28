@@ -34,4 +34,12 @@ $(document).ready(function() {
     $("#shopping-cart-menu .menu-close img").click(function() {
         $("#shopping-cart-menu").removeClass("opened").addClass("closed");
     });
+
+    $("#search-open img").click(function() {
+        $("#search-menu").removeClass("closed").addClass("opened");
+    });
+
+    $("#search-menu .menu-close img").click(function() {
+        $("#search-menu").removeClass("opened").addClass("closed");
+    });
 });

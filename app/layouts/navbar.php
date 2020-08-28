@@ -28,17 +28,22 @@
         </ul>
 
         <ul>
-            <li id="shopping-cart"><img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/shopping_cart.svg" ?>" alt="logo icon">
+            <li id="search-open" class="mr-4"><img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/search.svg" ?>" alt="search icon" title="rechercher un produit"></li>
+            <li id="shopping-cart"><img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/shopping_cart.svg" ?>" alt="logo icon" title="voir le panier">
                 <div class="badge-shopping-cart"></div>
             </li>
         </ul>
 
     </nav>
 
+
     <?php require_once 'hamburger-menu.php' ?>
 
 
     <?php require_once 'shopping-cart.php' ?>
+
+
+    <?php require_once 'search-menu.php' ?>
 
 
 </header>
