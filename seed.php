@@ -38,6 +38,8 @@ class Scrapper
     public function getDatas($limit_result_per_page = 10)
     {
 
+        set_time_limit(0);
+
         $client = \Symfony\Component\Panther\Client::createChromeClient();
 
         $html = file_get_html($this->url);
@@ -100,8 +102,8 @@ class Scrapper
             return  array_map(function ($e) use ($client) {
                 preg_match_all("/\d+,\d+/", $e["price"], $price);
                 preg_match_all("/\d{4}/", $e["year"], $year);
-                $e["price"] = floatval($price[0][0]);
-                $e["year"] = intval($year[0]);
+                $e["price"] = floatval(str_replace(',', '.',$price[0][0]));
+                $e["year"] = strftime("%Y",strtotime($year[0]));
 
                 $crawler = $client->request("GET", $e["link"]);
 
@@ -126,4 +128,4 @@ class Scrapper
 
 
 $scrapper = new Scrapper("https://www.livrenpoche.com/genres");
-var_dump($scrapper->getDatas(10));
+var_dump($scrapper->getDatas(20));
