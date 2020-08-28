@@ -99,7 +99,7 @@ class Scrapper
 
 
         return array_map(function ($el) use ($client) {
-            return  array_map(function ($e) use ($client) {
+            $el["books"] = array_map(function ($e) use ($client) {
                 preg_match_all("/\d+,\d+/", $e["price"], $price);
                 preg_match_all("/\d{4}/", $e["year"], $year);
                 $e["price"] = floatval(str_replace(',', '.',$price[0][0]));
@@ -121,6 +121,7 @@ class Scrapper
 
                 return $e;
             }, $el["books"]);
+            return $el;
         }, $categories);
     }
 }
