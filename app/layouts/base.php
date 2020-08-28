@@ -13,6 +13,7 @@
     <script src="<?php echo ABSOLUTE_ASSET_PATH . "/vendor/jquery-3.5.1.min.js" ?>"></script>
     <!-- NAVBAR JS STYLES -->
     <script src="<?php echo ABSOLUTE_ASSET_PATH . "/js/navbar.js" ?>"></script>
+    <script src="<?php echo ABSOLUTE_ASSET_PATH ?>/js/classes/Product.js"></script>
 </head>
 
 <body>

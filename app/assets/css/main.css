@@ -90,7 +90,7 @@
     }
     /* GENERAL LAYOUT UTILITIES */
     
-    @media screen and( max-width:400px) {
+    @media screen and (max-width:400px) {
         .row.divide-xs-1 {
             grid-template-columns: 100%;
         }
@@ -208,7 +208,7 @@
     }
     
     .jumbotron .overlay-light {
-        padding: 4rem;
+        padding: 1rem;
     }
     
     .jumbotron {
@@ -398,7 +398,7 @@
         #menu,
         #shopping-cart-menu,
         #search-menu {
-            width: 66vw;
+            width: 100vw;
         }
         #menu.opened {
             left: 0;
@@ -408,19 +408,19 @@
             right: 0;
         }
         #menu.closed {
-            left: -66vw;
+            left: -100vw;
         }
         #shopping-cart-menu.closed,
         #search-menu.closed {
-            right: -66vw;
+            right: -100vw;
         }
     }
     
-    @media screen and (min-width: 900px) {
+    @media screen and (min-width: 900px) and (max-width:1200px) {
         #menu,
         #shopping-cart-menu,
         #search-menu {
-            width: 33vw;
+            width: 75vw;
         }
         #menu.opened {
             left: 0;
@@ -430,11 +430,33 @@
             right: 0;
         }
         #menu.closed {
-            left: -33vw;
+            left: -75vw;
         }
         #shopping-cart-menu.closed,
         #search-menu.closed {
-            right: -33vw;
+            right: -75vw;
+        }
+    }
+    
+    @media screen and (min-width:1200px) {
+        #menu,
+        #shopping-cart-menu,
+        #search-menu {
+            width: 40vw;
+        }
+        #menu.opened {
+            left: 0;
+        }
+        #shopping-cart-menu.opened,
+        #search-menu.opened {
+            right: 0;
+        }
+        #menu.closed {
+            left: -40vw;
+        }
+        #shopping-cart-menu.closed,
+        #search-menu.closed {
+            right: -40vw;
         }
     }
     /* FORMS */
@@ -760,9 +782,24 @@
         background-color: var(--var-white);
     }
     
+    @media screen and (min-width:400px) {
+        .card-product {
+            width: 300px;
+        }
+    }
+    
+    .row-autoflow .card-product {
+        width: 300px;
+    }
+    
+    @media screen and (max-width:399px) {
+        .card-product {
+            width: 100%;
+        }
+    }
+    
     .card-product {
-        height: 550px;
-        width: 375px;
+        height: 450px;
         border: 1px solid #4F38B4;
         transform-origin: bottom;
         transform: rotateX(10deg);

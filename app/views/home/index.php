@@ -188,27 +188,20 @@
 </div>
 
 
+<script src="<?php echo ABSOLUTE_ASSET_PATH ?>/js/jumbotron.js"></script>
+
+<script src="<?php echo ABSOLUTE_ASSET_PATH ?>/js/row-autoflow.js"></script>
+
 <script>
-    $('.jumbotron').mouseenter(function() {
-        $('.jumbotron video').animate({
-            'opacity': 100
-        }, "slow", "linear");
-    });
+    $(document).ready(function() {
 
-    $('.jumbotron').mouseleave(function() {
-        $('.jumbotron video').animate({
-            'opacity': 0
-        }, "slow", "linear");
+        var name = "ssssss";
+        var url = "";
+        var description = "ddddddd";
+        var price = 200;
+        var quantity = 1;
+        var product = new Product(name, url, description, price, quantity)
+
+        product.appendTemplate();
     })
-
-
-    $('.chevron-right').click(function() {
-        var scrollLeft = $('.teaser-container .row-autoflow').scrollLeft();
-        $(this).siblings('.row-autoflow').scrollLeft(scrollLeft + 50);
-    });
-
-    $('.chevron-left').click(function() {
-        var scrollLeft = $('.teaser-container .row-autoflow').scrollLeft();
-        $(this).siblings('.row-autoflow').scrollLeft(scrollLeft - 50);
-    });
 </script>
