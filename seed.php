@@ -102,8 +102,14 @@ class Scrapper
             $el["books"] = array_map(function ($e) use ($client) {
                 preg_match_all("/\d+,\d+/", $e["price"], $price);
                 preg_match_all("/\d{4}/", $e["year"], $year);
-                $e["price"] = floatval(str_replace(',', '.',$price[0][0]));
-                $e["year"] = strftime("%Y",strtotime($year[0]));
+                $e["price"] = floatval(str_replace(',', '.', $price[0][0]));
+
+
+                if (count($year[0]) > 1) {
+                    $e["year"] = strftime("%Y", strtotime($year[0][1]));
+                } else {
+                    $e["year"] = strftime("%Y", strtotime($year[0][0]));
+                }
 
                 $crawler = $client->request("GET", $e["link"]);
 
@@ -129,4 +135,4 @@ class Scrapper
 
 
 $scrapper = new Scrapper("https://www.livrenpoche.com/genres");
-var_dump($scrapper->getDatas(20));
+var_dump($scrapper->getDatas(5));
