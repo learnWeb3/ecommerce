@@ -53,18 +53,10 @@ trait Db
         // STATEMENT
         $statement = "INSERT INTO $table_name ($columns) VALUES ($prepared_values)";
 
-        var_dump($statement);
         // WRITING INTO DATABASE
         $prepared_statement = $this->connect()->prepare($statement);
         return $prepared_statement->execute($values);
     }
-
-
-    public function sayHello($name)
-    {
-        return "hello" . $name;
-    }
-
 
     public function update()
     {
@@ -108,5 +100,24 @@ trait Db
         $prepared_statement = $this->connect()->prepare($statement);
         $prepared_statement->execute();
         return $prepared_statement->fetchAll(PDO::FETCH_CLASS);
+    }
+
+
+    public function destroy()
+    {
+        $table_name = DB_NAMING_CONVENTIONS[get_class($this)];
+        // STATEMENT
+        $statement = "DELETE FROM $table_name WHERE id=?";
+        // READING AND FETCHING FROM DATABASE
+        $prepared_statement = $this->connect()->prepare($statement);
+        return $prepared_statement->execute(array($this->getId()));
+    }
+
+
+    public function resetAutoIncrement($table_name)
+    {
+        $statement = "ALTER TABLE $table_name AUTO_INCREMENT=1";
+        // EXECUTING QUERY
+        return $this->connect()->query($statement);
     }
 }
