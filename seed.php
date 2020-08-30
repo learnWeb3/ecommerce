@@ -3,9 +3,15 @@
 
 <?php
 
-
+require_once 'app/config/paths.php';
+require_once 'app/config/db_credentials.php';
+require_once 'app/config/db_naming_conventions.php';
+require_once 'app/config/autoloader.php';
+require_once 'app/helpers/Autoloader.php';
 require_once 'vendor/autoload.php';
 require_once 'app/assets/vendor/simple_html_dom_parser/simple_html_dom.php';
+
+Autoloader::register();
 
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -94,45 +100,79 @@ class Scrapper
                     return true;
                 }
             });
-        }
+
+            foreach ($categories[$index]["books"] as $i => $book) {
+                preg_match_all("/\d+,\d+/", $book["price"], $price);
+                preg_match_all("/\d{4}/", $book["year"], $year);
+                $book["price"] = floatval(str_replace(',', '.', $price[0][0]));
 
 
-
-        return array_map(function ($el) use ($client) {
-            $el["books"] = array_map(function ($e) use ($client) {
-                preg_match_all("/\d+,\d+/", $e["price"], $price);
-                preg_match_all("/\d{4}/", $e["year"], $year);
-                $e["price"] = floatval(str_replace(',', '.', $price[0][0]));
-
-
-                if (count($year[0]) > 1) {
-                    $e["year"] = strftime("%Y", strtotime($year[0][1]));
-                } else {
-                    $e["year"] = strftime("%Y", strtotime($year[0][0]));
+                if (isset($year[0])) {
+                    if (count($year[0]) > 1) {
+                        if (isset($year[0][1])) {
+                            $book["year"] = strtotime($year[0][1]);
+                        }
+                    } else {
+                        if (isset($year[0][0])) {
+                            $book["year"] = strtotime($year[0][0]);
+                        }
+                    }
                 }
 
-                $crawler = $client->request("GET", $e["link"]);
+                $crawler = $client->request("GET", $book["link"]);
 
 
-                $e["description"] = $crawler->filter('.liWrap > span > .bookDesc')->each(function (Crawler $description, $i) {
+                $book["description"] = $crawler->filter('.liWrap > span > .bookDesc')->each(function (Crawler $description, $i) {
                     return $description->text();
                 });
 
 
-                if (isset($e["description"][0])) {
-                    $e["description"] = $e["description"][0];
+                if (isset($book["description"][0])) {
+                    $book["description"] = $book["description"][0];
                 } else {
-                    $e["description"] = "";
+                    unset($book);
                 }
+                if (isset($book)) {
+                    $categories[$index]["books"][$i] = $book;
+                }
+            };
+        };
 
-                return $e;
-            }, $el["books"]);
+        return array_map(function ($el) {
+
+            array_filter(
+                $el["books"],
+                function ($e) {
+                    if (empty($e["description"])) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            );
+
             return $el;
         }, $categories);
+    }
+
+
+    public function registerDatas($datas)
+    {
+        foreach ($datas as $index => $category) {
+            $category = new Category($category["name"]);
+
+            $category->create();
+            foreach ($category["books"] as $i => $book) {
+                $book = new Book($book["title"], $book["author"], $book["editor"], $book["price"], $book["year"], $book["image"], $book["description"]);
+                $book->create();
+            }
+        }
     }
 }
 
 
 
 $scrapper = new Scrapper("https://www.livrenpoche.com/genres");
-var_dump($scrapper->getDatas(5));
+$datas = $scrapper->getDatas(5);
+
+var_dump($datas);

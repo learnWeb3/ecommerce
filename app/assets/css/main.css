@@ -54,6 +54,20 @@
         --var-primary: #4F38B4;
         --var-secondary: #E79345;
     }
+    /* BACKGROUNDS COLOR */
+    
+    .bg-white {
+        background-color: var(--var-white);
+    }
+    
+    .bg-primary {
+        background: #4e54c8;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #4e54c8, #8f94fb);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #4e54c8, #8f94fb);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
     
     body {
         overflow-x: hidden;
@@ -181,6 +195,8 @@
     .form-group {
         display: flex;
         flex-direction: column;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
     }
     
     input,
@@ -776,11 +792,6 @@
         width: 15rem;
         margin-top: auto;
     }
-    /* BACKGROUNDS COLOR */
-    
-    .bg-white {
-        background-color: var(--var-white);
-    }
     
     @media screen and (min-width:400px) {
         .card-product {
@@ -859,9 +870,11 @@
     #shopping-cart-menu .card-product {
         display: flex;
         position: relative;
-        height: 20rem;
-        width: 100%;
+        height: 15rem;
+        width: 75%;
         overflow: hidden;
+        transition: none;
+        transform: none;
     }
     
     #shopping-cart-menu .card-product .col {
@@ -892,4 +905,42 @@
         position: absolute;
         top: 1rem;
         right: 1rem;
+    }
+    /* FORMS */
+    
+    #sign-container {
+        justify-content: center;
+        margin: auto;
+        background-color: var(--var-white);
+    }
+    
+    @media screen and (min-width:600px) {
+        #sign-container {
+            height: 75vh;
+        }
+    }
+    
+    @media screen and (min-width:1200px) {
+        #sign-container {
+            width: 33vw;
+        }
+    }
+    
+    @media screen and (min-width:900px) and (max-width:1200px) {
+        #sign-container {
+            width: 50vw;
+        }
+    }
+    
+    @media screen and (min-width:600px) and (max-width:900px) {
+        #sign-container {
+            width: 66vw;
+        }
+    }
+    
+    @media screen and (max-width:600px) {
+        #sign-container {
+            width: 100vw;
+            height: 100vh;
+        }
     }
