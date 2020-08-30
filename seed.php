@@ -187,7 +187,7 @@ class Scrapper
 
 
 $scrapper = new Scrapper("https://www.livrenpoche.com/genres");
-$scrapper->registerDatas(250);
+$scrapper->registerDatas(50);
 
 
 
