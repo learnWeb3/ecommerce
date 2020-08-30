@@ -54,7 +54,7 @@ class Scrapper
             foreach ($targeted_node->find('span') as $title) {
                 $title = $title->innertext;
             }
-            $categories[] = array("name" => $title, "link" => $targeted_node->href . "?limit=$limit_result_per_page");
+            $categories[] = array("name" => $targeted_node, "link" => $targeted_node->href . "?limit=$limit_result_per_page");
         }
 
         foreach ($categories as $index => $category) {
@@ -143,7 +143,7 @@ class Scrapper
 
         return array_map(function ($el) {
 
-            $el = array_filter(
+            $el["books"] = array_filter(
                 $el["books"],
                 function ($e) {
                     if (empty($e["description"])) {
@@ -167,6 +167,9 @@ class Scrapper
         DbRecords::resetAutoIncrement("books");
 
         $datas =  $this->getDatas($entry_number_per_category);
+
+        var_dump($datas);
+
         foreach ($datas as $index => $category) {
             $category_obj =  new Category($category['name']);
             $category_obj = $category_obj->create();
@@ -182,7 +185,7 @@ class Scrapper
 
 
 $scrapper = new Scrapper("https://www.livrenpoche.com/genres");
-$scrapper->registerDatas(100);
+$scrapper->registerDatas(10);
 
 
 

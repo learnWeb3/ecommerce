@@ -5,7 +5,7 @@ trait Db
 {
 
 
-    public function connect()
+    public static function connect()
     {
 
         $dsn = "mysql:" . "host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=" . DB_CHARSET;
@@ -57,7 +57,7 @@ trait Db
         $statement = "INSERT INTO $table_name ($columns) VALUES ($prepared_values)";
 
         // WRITING INTO DATABASE
-        $prepared_statement = $this->connect()->prepare($statement);
+        $prepared_statement = Db::connect()->prepare($statement);
 
         $prepared_statement->execute($values);
 
@@ -71,7 +71,7 @@ trait Db
         // STATEMENT
         $statement = "SELECT * FROM $table_name ORDER BY created_at DESC LIMIT 1";
         // READING AND FETCHING FROM DATABASE
-        $prepared_statement = $this->connect()->prepare($statement);
+        $prepared_statement =  Db::connect()->prepare($statement);
         $prepared_statement->execute(array($this->getId()));
         return $prepared_statement->fetchAll(PDO::FETCH_CLASS, get_class($this))[0];
     }
@@ -93,59 +93,59 @@ trait Db
         // STATEMENT
         $statement = "UPDATE $table_name SET $datas WHERE id=?";
         // WRITING INTO DATABASE
-        $prepared_statement = $this->connect()->prepare($statement);
+        $prepared_statement =  Db::connect()->prepare($statement);
         $fields = array_merge($values, $this->getId());
         return $prepared_statement->execute($fields);
     }
 
 
-    public function find($id)
+    public static function find($id)
     {
-        $table_name = DB_NAMING_CONVENTIONS[get_class($this)];
+        $table_name = DB_NAMING_CONVENTIONS[get_called_class()];
         // STATEMENT
         $statement = "SELECT * FROM $table_name WHERE id=?";
         // READING AND FETCHING FROM DATABASE
-        $prepared_statement = $this->connect()->prepare($statement);
-        $prepared_statement->execute(array($this->getId()));
-        return $prepared_statement->fetchAll(PDO::FETCH_CLASS, get_class($this));
+        $prepared_statement =  Db::connect()->prepare($statement);
+        $prepared_statement->execute(array($id));
+        return $prepared_statement->fetchAll(PDO::FETCH_CLASS, get_called_class());
     }
 
-    public function findAll($order_column, $inversed = true)
+    public static function findAll($order_column, $inversed = true)
     {
-        $table_name = DB_NAMING_CONVENTIONS[get_class($this)];
+        $table_name = DB_NAMING_CONVENTIONS[get_called_class()];
         // STATEMENT
         $order = ($inversed) ? "DESC" : "ASC";
         $statement = "SELECT * FROM $table_name ORDER BY $order_column $order";
         // READING AND FETCHING FROM DATABASE
-        $prepared_statement = $this->connect()->prepare($statement);
+        $prepared_statement = Db::connect()->prepare($statement);
         $prepared_statement->execute();
-        return $prepared_statement->fetchAll(PDO::FETCH_CLASS, get_class($this));
+        return $prepared_statement->fetchAll(PDO::FETCH_CLASS, get_called_class());
     }
 
 
-    public function where($searched_column,$searched_value, $order_column, $inversed = true)
+    public static function where($searched_column,$searched_value, $order_column, $inversed = true)
     {
-        $table_name = DB_NAMING_CONVENTIONS[get_class($this)];
+        $table_name = DB_NAMING_CONVENTIONS[get_called_class()];
         // STATEMENT
         $order = ($inversed) ? "DESC" : "ASC";
         $statement = "SELECT * FROM $table_name WHERE $searched_column=$searched_value ORDER BY $order_column $order";
         // READING AND FETCHING FROM DATABASE
-        $prepared_statement = $this->connect()->prepare($statement);
+        $prepared_statement = Db::connect()->prepare($statement);
         $prepared_statement->execute();
-        return $prepared_statement->fetchAll(PDO::FETCH_CLASS, get_class($this));
+        return $prepared_statement->fetchAll(PDO::FETCH_CLASS, get_called_class());
     }
 
 
-    public function like($searched_column,$searched_value, $order_column, $inversed = true)
+    public static function like($searched_column,$searched_value, $order_column, $inversed = true)
     {
-        $table_name = DB_NAMING_CONVENTIONS[get_class($this)];
+        $table_name = DB_NAMING_CONVENTIONS[get_called_class()];
         // STATEMENT
         $order = ($inversed) ? "DESC" : "ASC";
         $statement = "SELECT * FROM $table_name WHERE $searched_column LIKE $searched_value ORDER BY $order_column $order";
         // READING AND FETCHING FROM DATABASE
-        $prepared_statement = $this->connect()->prepare($statement);
+        $prepared_statement = Db::connect()->prepare($statement);
         $prepared_statement->execute();
-        return $prepared_statement->fetchAll(PDO::FETCH_CLASS, get_class($this));
+        return $prepared_statement->fetchAll(PDO::FETCH_CLASS, get_called_class());
     }
 
 
