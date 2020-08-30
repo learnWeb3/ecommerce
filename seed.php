@@ -143,7 +143,7 @@ class Scrapper
 
         return array_map(function ($el) {
 
-            array_filter(
+            $el = array_filter(
                 $el["books"],
                 function ($e) {
                     if (empty($e["description"])) {
@@ -162,7 +162,7 @@ class Scrapper
     public function registerDatas(int $entry_number_per_category)
     {
         DbRecords::destroyAll(array("categories", "books"));
-        
+
         DbRecords::resetAutoIncrement("categories");
         DbRecords::resetAutoIncrement("books");
 
@@ -182,7 +182,7 @@ class Scrapper
 
 
 $scrapper = new Scrapper("https://www.livrenpoche.com/genres");
-$scrapper->registerDatas(5);
+$scrapper->registerDatas(100);
 
 
 
