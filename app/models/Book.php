@@ -3,6 +3,7 @@
 class Book extends DbRecords
 {
 
+    // ATTRIBUTES
     protected $title;
     protected $author;
     protected $collection;
@@ -12,6 +13,7 @@ class Book extends DbRecords
     protected $description;
     protected $category_id;
 
+    // CONSTRUCTOR
     public function __construct($title = null, $author = null, $collection = null, $price = null, $publication_year = null, $image_path = null, $description = null,$category_id=null, $id = null, $created_at = null, $updated_at = null)
     {
         if (func_get_args() != null) {

@@ -2,6 +2,7 @@
 
 class User extends DbRecords
 {
+    // ATTRIBUTES
     protected $email;
     protected $password;
 
@@ -10,6 +11,7 @@ class User extends DbRecords
     protected $date_of_birth;
     protected $age;
 
+    // CONSTRUCTOR
     public function __construct( $email=null, $password=null,$first_name=null,$last_name=null, $date_of_birth = null, $id = null, $created_at = null, $updated_at = null)
     {
 
@@ -32,7 +34,7 @@ class User extends DbRecords
     }
 
 
-
+    // GET BASKET CONTENT FOR A SPECIFC USER
     public function getBasketContent()
     {
         $connection = Db::connect();
