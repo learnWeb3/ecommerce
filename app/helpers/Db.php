@@ -58,7 +58,10 @@ trait Db
 
         // WRITING INTO DATABASE
         $prepared_statement = $this->connect()->prepare($statement);
+
         $prepared_statement->execute($values);
+
+        var_dump($statement);
 
         return $this->lastCreated();
     }

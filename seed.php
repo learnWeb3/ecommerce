@@ -113,11 +113,11 @@ class Scrapper
                 if (isset($year[0])) {
                     if (count($year[0]) > 1) {
                         if (isset($year[0][1])) {
-                            $book["year"] = strtotime($year[0][1]);
+                            $book["year"] = strftime("%Y-%m-%d",strtotime($year[0][1]));
                         }
                     } else {
                         if (isset($year[0][0])) {
-                            $book["year"] = strtotime($year[0][0]);
+                            $book["year"] =  strftime("%Y-%m-%d",strtotime($year[0][0]));
                         }
                     }
                 }
@@ -178,3 +178,6 @@ class Scrapper
 
 $scrapper = new Scrapper("https://www.livrenpoche.com/genres");
 $scrapper->registerDatas(5);
+
+
+
