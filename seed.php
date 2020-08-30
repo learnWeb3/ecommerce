@@ -161,13 +161,18 @@ class Scrapper
 
     public function registerDatas(int $entry_number_per_category)
     {
-
         DbRecords::destroyAll(array("categories", "books"));
+        
+        DbRecords::resetAutoIncrement("categories");
+        DbRecords::resetAutoIncrement("books");
+
         $datas =  $this->getDatas($entry_number_per_category);
         foreach ($datas as $index => $category) {
             $category_obj =  new Category($category['name']);
+            $category_obj = $category_obj->create();
+            var_dump($category_obj);
             foreach ($category["books"] as $i => $book) {
-                $book = new Book($book["title"], $book["author"], $book["editor"], $book["price"], $book["year"], $book["image"], $book["description"], $category_obj->getId());
+                $book = new Book($book["title"], $book["author"], $book["collection"], $book["price"], $book["year"], $book["image"], $book["description"], $category_obj->getId());
                 var_dump($book->create());
             }
         }

@@ -49,4 +49,12 @@ class DbRecords
             $prepared_statement->execute();
         }
     }
+
+    public static function resetAutoIncrement($table_name)
+    {
+        $db = new DbRecords();
+        $statement = "ALTER TABLE $table_name AUTO_INCREMENT=1";
+        // EXECUTING QUERY
+        return $db->connect()->query($statement);
+    }
 }

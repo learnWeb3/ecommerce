@@ -61,8 +61,6 @@ trait Db
 
         $prepared_statement->execute($values);
 
-        var_dump($statement);
-
         return $this->lastCreated();
     }
 
@@ -133,12 +131,4 @@ trait Db
         return $prepared_statement->execute(array($this->getId()));
     }
 
-
-
-    public function resetAutoIncrement($table_name)
-    {
-        $statement = "ALTER TABLE $table_name AUTO_INCREMENT=1";
-        // EXECUTING QUERY
-        return $this->connect()->query($statement);
-    }
 }
