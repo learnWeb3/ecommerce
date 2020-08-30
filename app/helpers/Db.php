@@ -99,26 +99,55 @@ trait Db
     }
 
 
-    public function find($table_name)
+    public function find($id)
     {
+        $table_name = DB_NAMING_CONVENTIONS[get_class($this)];
         // STATEMENT
         $statement = "SELECT * FROM $table_name WHERE id=?";
         // READING AND FETCHING FROM DATABASE
         $prepared_statement = $this->connect()->prepare($statement);
         $prepared_statement->execute(array($this->getId()));
-        return $prepared_statement->fetchAll(PDO::FETCH_CLASS);
+        return $prepared_statement->fetchAll(PDO::FETCH_CLASS, get_class($this));
     }
 
-    public function findAll($table_name, $order_column, $inversed = true)
+    public function findAll($order_column, $inversed = true)
     {
+        $table_name = DB_NAMING_CONVENTIONS[get_class($this)];
         // STATEMENT
         $order = ($inversed) ? "DESC" : "ASC";
         $statement = "SELECT * FROM $table_name ORDER BY $order_column $order";
         // READING AND FETCHING FROM DATABASE
         $prepared_statement = $this->connect()->prepare($statement);
         $prepared_statement->execute();
-        return $prepared_statement->fetchAll(PDO::FETCH_CLASS);
+        return $prepared_statement->fetchAll(PDO::FETCH_CLASS, get_class($this));
     }
+
+
+    public function where($searched_column,$searched_value, $order_column, $inversed = true)
+    {
+        $table_name = DB_NAMING_CONVENTIONS[get_class($this)];
+        // STATEMENT
+        $order = ($inversed) ? "DESC" : "ASC";
+        $statement = "SELECT * FROM $table_name WHERE $searched_column=$searched_value ORDER BY $order_column $order";
+        // READING AND FETCHING FROM DATABASE
+        $prepared_statement = $this->connect()->prepare($statement);
+        $prepared_statement->execute();
+        return $prepared_statement->fetchAll(PDO::FETCH_CLASS, get_class($this));
+    }
+
+
+    public function like($searched_column,$searched_value, $order_column, $inversed = true)
+    {
+        $table_name = DB_NAMING_CONVENTIONS[get_class($this)];
+        // STATEMENT
+        $order = ($inversed) ? "DESC" : "ASC";
+        $statement = "SELECT * FROM $table_name WHERE $searched_column LIKE $searched_value ORDER BY $order_column $order";
+        // READING AND FETCHING FROM DATABASE
+        $prepared_statement = $this->connect()->prepare($statement);
+        $prepared_statement->execute();
+        return $prepared_statement->fetchAll(PDO::FETCH_CLASS, get_class($this));
+    }
+
 
 
     public function destroy()
