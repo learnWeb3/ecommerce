@@ -54,7 +54,7 @@ class Scrapper
             foreach ($targeted_node->find('span') as $title) {
                 $title = $title->innertext;
             }
-            $categories[] = array("name" => $targeted_node, "link" => $targeted_node->href . "?limit=$limit_result_per_page");
+            $categories[] = array("name" => $title, "link" => $targeted_node->href . "?limit=$limit_result_per_page");
         }
 
         foreach ($categories as $index => $category) {
@@ -168,7 +168,7 @@ class Scrapper
 
         $datas =  $this->getDatas($entry_number_per_category);
 
-        var_dump($datas);
+        // var_dump($datas);
 
         foreach ($datas as $index => $category) {
             $category_obj =  new Category($category['name']);

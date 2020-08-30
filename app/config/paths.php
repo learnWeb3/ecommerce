@@ -1,5 +1,5 @@
 <?php
-define("ROOT_PATH", $_SERVER['DOCUMENT_ROOT'] . "ecommerce");
+define("ROOT_PATH", $_SERVER['DOCUMENT_ROOT'] ."/". "ecommerce");
 define("APP_PATH", ROOT_PATH . "/app");
 define("CONTROLLER_PATH", APP_PATH . "/controllers");
 define("VIEW_PATH", APP_PATH . "/views");

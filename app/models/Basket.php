@@ -28,12 +28,19 @@ class Basket
 
     public function getContent()
     {
-        $connection = 
+        $connection = Db::connect();
         $statement = "SELECT * FROM baskets 
             JOIN users ON baskets.user_id=users.id 
             JOIN books ON books.id=baskets.book_id 
             JOIN states ON states.id=baskets.state_id 
         WHERE states.name = 'current'";
+
+        $query = $connection->query($statement);
+
+        while($row = $query->fetch())
+        {
+            $results[]= new Book($row['title'],$row['author'],$row['collection'],$row['price'],$row['publication_year'], $row['image_path'],$row['descripton'],$row['id'],$row['created_at'],$row['updated_at'])
+        }
 
         
     }

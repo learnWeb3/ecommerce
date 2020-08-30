@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5
+-- version 4.9.5deb2
 -- https://www.phpmyadmin.net/
 --
--- Client :  localhost:3306
--- Généré le :  Jeu 20 Août 2020 à 11:46
--- Version du serveur :  5.7.31-0ubuntu0.18.04.1
--- Version de PHP :  7.2.24-0ubuntu0.18.04.6
+-- Host: localhost:3306
+-- Generation Time: Aug 30, 2020 at 05:41 PM
+-- Server version: 8.0.21-0ubuntu0.20.04.4
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `ecommerce`
+-- Database: `ecommerce`
 --
 CREATE DATABASE IF NOT EXISTS `ecommerce` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `ecommerce`;
@@ -25,12 +27,12 @@ USE `ecommerce`;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `adresses`
+-- Table structure for table `adresses`
 --
 
 CREATE TABLE `adresses` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -38,14 +40,14 @@ CREATE TABLE `adresses` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `baskets`
+-- Table structure for table `baskets`
 --
 
 CREATE TABLE `baskets` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `book_id` int(11) NOT NULL,
-  `state_id` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `book_id` int NOT NULL,
+  `state_id` int NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -53,20 +55,19 @@ CREATE TABLE `baskets` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `books`
+-- Table structure for table `books`
 --
 
 CREATE TABLE `books` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `title` varchar(255) NOT NULL,
   `author` varchar(255) NOT NULL,
-  `editor` varchar(255) NOT NULL,
+  `collection` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `description` text NOT NULL,
-  `prix` double NOT NULL,
-  `publication_date` datetime NOT NULL,
-  `isbn_code` varchar(255) NOT NULL,
+  `price` double NOT NULL,
+  `publication_year` date NOT NULL,
   `image_path` varchar(255) NOT NULL,
-  `subcategory_id` int(11) NOT NULL,
+  `category_id` int NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -74,13 +75,12 @@ CREATE TABLE `books` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE `categories` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -88,13 +88,13 @@ CREATE TABLE `categories` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `invoices`
+-- Table structure for table `invoices`
 --
 
 CREATE TABLE `invoices` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `accountance_id` varchar(255) NOT NULL,
-  `order_id` int(11) NOT NULL,
+  `order_id` int NOT NULL,
   `total_amount` double NOT NULL,
   `stripe_customer_id` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL,
@@ -104,13 +104,13 @@ CREATE TABLE `invoices` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `orders`
+-- Table structure for table `orders`
 --
 
 CREATE TABLE `orders` (
-  `id` int(11) NOT NULL,
-  `basket_id` int(11) NOT NULL,
-  `state_id` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `basket_id` int NOT NULL,
+  `state_id` int NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -118,11 +118,11 @@ CREATE TABLE `orders` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `states`
+-- Table structure for table `states`
 --
 
 CREATE TABLE `states` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `name` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
@@ -131,13 +131,13 @@ CREATE TABLE `states` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `stocks`
+-- Table structure for table `stocks`
 --
 
 CREATE TABLE `stocks` (
-  `id` int(11) NOT NULL,
-  `book_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `book_id` int NOT NULL,
+  `quantity` int NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -145,41 +145,26 @@ CREATE TABLE `stocks` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `subcategories`
---
-
-CREATE TABLE `subcategories` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL,
-  `category_id` int(11) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `email` varchar(255) NOT NULL,
   `lastname` varchar(255) NOT NULL,
   `firstname` varchar(255) NOT NULL,
   `date_of_birth` datetime NOT NULL,
-  `age` int(11) DEFAULT NULL,
+  `age` int DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Index pour les tables exportées
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `adresses`
+-- Indexes for table `adresses`
 --
 ALTER TABLE `adresses`
   ADD PRIMARY KEY (`id`),
@@ -187,7 +172,7 @@ ALTER TABLE `adresses`
   ADD KEY `user_id_2` (`user_id`);
 
 --
--- Index pour la table `baskets`
+-- Indexes for table `baskets`
 --
 ALTER TABLE `baskets`
   ADD PRIMARY KEY (`id`),
@@ -196,27 +181,27 @@ ALTER TABLE `baskets`
   ADD KEY `state_id` (`state_id`);
 
 --
--- Index pour la table `books`
+-- Indexes for table `books`
 --
 ALTER TABLE `books`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `subcategory_id` (`subcategory_id`);
+  ADD KEY `category_id` (`category_id`);
 
 --
--- Index pour la table `categories`
+-- Indexes for table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `invoices`
+-- Indexes for table `invoices`
 --
 ALTER TABLE `invoices`
   ADD PRIMARY KEY (`id`),
   ADD KEY `order_id` (`order_id`);
 
 --
--- Index pour la table `orders`
+-- Indexes for table `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
@@ -224,97 +209,94 @@ ALTER TABLE `orders`
   ADD KEY `state_id` (`state_id`);
 
 --
--- Index pour la table `states`
+-- Indexes for table `states`
 --
 ALTER TABLE `states`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `stocks`
+-- Indexes for table `stocks`
 --
 ALTER TABLE `stocks`
   ADD PRIMARY KEY (`id`),
   ADD KEY `book_id` (`book_id`);
 
 --
--- Index pour la table `subcategories`
---
-ALTER TABLE `subcategories`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `category_id` (`category_id`);
-
---
--- Index pour la table `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT pour les tables exportées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `adresses`
+-- AUTO_INCREMENT for table `adresses`
 --
 ALTER TABLE `adresses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT pour la table `baskets`
+-- AUTO_INCREMENT for table `baskets`
 --
 ALTER TABLE `baskets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT pour la table `books`
+-- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT pour la table `categories`
+-- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT pour la table `invoices`
+-- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT pour la table `orders`
+-- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT pour la table `states`
+-- AUTO_INCREMENT for table `states`
 --
 ALTER TABLE `states`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT pour la table `stocks`
+-- AUTO_INCREMENT for table `stocks`
 --
 ALTER TABLE `stocks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT pour la table `subcategories`
---
-ALTER TABLE `subcategories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
 --
--- Contraintes pour les tables exportées
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `adresses`
+-- Constraints for table `adresses`
 --
 ALTER TABLE `adresses`
   ADD CONSTRAINT `adresses_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `baskets`
+-- Constraints for table `baskets`
 --
 ALTER TABLE `baskets`
   ADD CONSTRAINT `baskets_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
@@ -322,35 +304,24 @@ ALTER TABLE `baskets`
   ADD CONSTRAINT `baskets_ibfk_3` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `books`
---
-ALTER TABLE `books`
-  ADD CONSTRAINT `books_ibfk_1` FOREIGN KEY (`subcategory_id`) REFERENCES `subcategories` (`id`) ON DELETE CASCADE;
-
---
--- Contraintes pour la table `invoices`
+-- Constraints for table `invoices`
 --
 ALTER TABLE `invoices`
   ADD CONSTRAINT `invoices_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `orders`
+-- Constraints for table `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`basket_id`) REFERENCES `baskets` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `stocks`
+-- Constraints for table `stocks`
 --
 ALTER TABLE `stocks`
   ADD CONSTRAINT `stocks_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`) ON DELETE CASCADE;
-
---
--- Contraintes pour la table `subcategories`
---
-ALTER TABLE `subcategories`
-  ADD CONSTRAINT `subcategories_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
