@@ -39,6 +39,9 @@
         height: 100%;
         width: 100%;
         overflow: auto;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
     }
     /* COLOR SCHEME */
     
@@ -61,11 +64,11 @@
     }
     
     .bg-primary {
-        background: #4e54c8;
+        background: rgba(78, 84, 200, 0.75);
         /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, #4e54c8, #8f94fb);
+        background: -webkit-linear-gradient(to right, rgba(78, 84, 200, 0.50), rgba(143, 148, 251, 0.50));
         /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to right, #4e54c8, #8f94fb);
+        background: linear-gradient(to right, rgba(78, 84, 200, 0.50), rgba(143, 148, 251, 0.50));
         /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     }
     

@@ -25,7 +25,7 @@ class DbRecords
 
     public function getId()
     {
-        return $this->id;
+        return intval($this->id);
     }
 
     public function getCreatedAt()
@@ -38,8 +38,15 @@ class DbRecords
         return $this->updated_at;
     }
 
-    public function getObjectVars()
+    public static function destroyAll($table_names)
     {
-        return get_object_vars($this);
+        $db = new DbRecords();
+
+        foreach ($table_names as $table_name) {
+            $statement = "DELETE FROM $table_name";
+            // READING AND FETCHING FROM DATABASE
+            $prepared_statement = $db->connect()->prepare($statement);
+            $prepared_statement->execute();
+        }
     }
 }

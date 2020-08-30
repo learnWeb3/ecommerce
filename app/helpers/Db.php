@@ -16,7 +16,10 @@ trait Db
         }
     }
 
-
+    public function getObjectVars()
+    {
+        return get_object_vars($this);
+    }
 
     private function getFields(): array
     {
@@ -55,7 +58,21 @@ trait Db
 
         // WRITING INTO DATABASE
         $prepared_statement = $this->connect()->prepare($statement);
-        return $prepared_statement->execute($values);
+        $prepared_statement->execute($values);
+
+        return $this->lastCreated();
+    }
+
+
+    private function lastCreated()
+    {
+        $table_name = DB_NAMING_CONVENTIONS[get_class($this)];
+        // STATEMENT
+        $statement = "SELECT * FROM $table_name ORDER BY created_at DESC LIMIT 1";
+        // READING AND FETCHING FROM DATABASE
+        $prepared_statement = $this->connect()->prepare($statement);
+        $prepared_statement->execute(array($this->getId()));
+        return $prepared_statement->fetchAll(PDO::FETCH_CLASS, get_class($this))[0];
     }
 
     public function update()
@@ -112,6 +129,7 @@ trait Db
         $prepared_statement = $this->connect()->prepare($statement);
         return $prepared_statement->execute(array($this->getId()));
     }
+
 
 
     public function resetAutoIncrement($table_name)

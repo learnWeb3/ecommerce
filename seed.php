@@ -51,7 +51,10 @@ class Scrapper
         $html = file_get_html($this->url);
 
         foreach ($html->find("#wrapbg2 div ul#foldingList li.level0 a") as $targeted_node) {
-            $categories[] = array("name" => $targeted_node->innertext, "link" => $targeted_node->href . "?limit=$limit_result_per_page");
+            foreach ($targeted_node->find('span') as $title) {
+                $title = $title->innertext;
+            }
+            $categories[] = array("name" => $title, "link" => $targeted_node->href . "?limit=$limit_result_per_page");
         }
 
         foreach ($categories as $index => $category) {
@@ -156,15 +159,16 @@ class Scrapper
     }
 
 
-    public function registerDatas($datas)
+    public function registerDatas(int $entry_number_per_category)
     {
-        foreach ($datas as $index => $category) {
-            $category = new Category($category["name"]);
 
-            $category->create();
+        DbRecords::destroyAll(array("categories", "books"));
+        $datas =  $this->getDatas($entry_number_per_category);
+        foreach ($datas as $index => $category) {
+            $category_obj =  new Category($category['name']);
             foreach ($category["books"] as $i => $book) {
-                $book = new Book($book["title"], $book["author"], $book["editor"], $book["price"], $book["year"], $book["image"], $book["description"]);
-                $book->create();
+                $book = new Book($book["title"], $book["author"], $book["editor"], $book["price"], $book["year"], $book["image"], $book["description"], $category_obj->getId());
+                var_dump($book->create());
             }
         }
     }
@@ -173,6 +177,4 @@ class Scrapper
 
 
 $scrapper = new Scrapper("https://www.livrenpoche.com/genres");
-$datas = $scrapper->getDatas(5);
-
-var_dump($datas);
+$scrapper->registerDatas(5);
