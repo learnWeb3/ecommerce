@@ -179,13 +179,15 @@ class Scrapper
                 var_dump($book->create());
             }
         }
+
+        return $datas;
     }
 }
 
 
 
 $scrapper = new Scrapper("https://www.livrenpoche.com/genres");
-$scrapper->registerDatas(10);
+$scrapper->registerDatas(250);
 
 
 

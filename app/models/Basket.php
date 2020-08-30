@@ -1,13 +1,24 @@
 <?php
 
-class Basket
+class Basket extends DbRecords
 {
 
     protected $user_id;
     protected $book_id;
     protected $state_id;
+    protected $quantity;
 
-    use Db;
+
+    public function __construct($user_id = null, $book_id = null, $state_id = null, $quantity = null, $id = null, $created_at = null, $updated_at = null)
+    {
+        if (func_get_args() != null) {
+            $this->user_id = $user_id;
+            $this->book_id = $book_id;
+            $this->state_id = $state_id;
+            $this->quantity = $quantity;
+        }
+        parent::__construct($id, $created_at, $updated_at);
+    }
 
 
     public function getUserId()
@@ -25,50 +36,53 @@ class Basket
         return intval($this->state_id);
     }
 
+    public function getQuantity()
+    {
+        return intval($this->quantity);
+    }
 
-    public function getContent()
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+        return $this;
+    }
+
+
+    private static function findBasket($book_id, $user_id)
     {
         $connection = Db::connect();
-        $statement = 
-        
-        "SELECT 
-            -- CATEGORIES
-            categories.id as category_id,
-            categories.name as category_name,
-            categories.created_at as category_created_at,
-            categories_updated_at as category_updated_at,
-            -- BOOKS
-            books.id as book_id,
-            books.created_at as book_created_at,
-            books.updated_at as book_updated_at
-            books.title as book_title,
-            books.author as book_author,
-            books.collection as books_collection,
-            books.description as book_description,
-            books.price as book_price,
-            books.publication_year as book_publication_year
-            books.image_path as book_image_path,
-            books.category_id as book_category_id,
-        FROM baskets 
-            JOIN users ON baskets.user_id=users.id 
-            JOIN books ON books.id=baskets.book_id 
-            JOIN states ON states.id=baskets.state_id 
-        WHERE states.name = 'current'";
+        $statement = "SELECT * FROM baskets WHERE book_id=? AND user_id=? ORDER BY created_at DESC LIMIT 1";
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute(array($book_id, $user_id));
+        $basket = $prepared_statement->fetchAll(PDO::FETCH_CLASS, __CLASS__)[0];
+        return $basket;
+    }
 
-        $query = $connection->query($statement);
 
-        $results = [];
-        while($row = $query->fetch())
-        {
-            $results[]= array(
-                "book"=>new Book($row['book_title'],$row['book_author'],$row['book_collection'],$row['book_price'],$row['book_publication_year'], $row['book_image_path'],$row['book_descripton'],$row['book_id'],$row['book_created_at'],$row['book_updated_at']),
-                "category"=>new Category($row['category_name'])
-            );
 
+    public function addProduct($user_id, $book_id, $state_id, $quantity = 1)
+    {
+        $basket = new Basket($user_id, $book_id, $state_id, $quantity);
+        return $basket->create();
+    }
+
+
+    public function removeProduct($user_id, $book_id)
+    {
+        $basket = Basket::findBasket($book_id, $user_id);
+
+        return $basket->destroy();
+    }
+
+
+    public function updateQuantity($user_id, $book_id, $quantity)
+    {
+        $basket = Basket::findBasket($book_id, $user_id);
+        if ($quantity > 0) {
+            $basket = $basket->setQuantity($quantity);
+            return $basket->update();
+        } else {
+            $basket->destroy();
         }
-
-        return $results;
-
-        
     }
 }
