@@ -57,4 +57,14 @@ class DbRecords
         // EXECUTING QUERY
         return $db->connect()->query($statement);
     }
+
+
+    public static function checkLimitAndOffset($limit, $offset)
+    {
+        if (gettype($limit) == "integer" && gettype($offset) == "integer" && $limit > 0 && $offset >= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

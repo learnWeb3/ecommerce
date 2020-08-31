@@ -820,6 +820,12 @@
         transition: transform .25s ease-in-out
     }
     
+    .card-product img {
+        height: 80%;
+        width: 100%;
+        position: relative;
+    }
+    
     .card-product:hover {
         transform: unset;
     }

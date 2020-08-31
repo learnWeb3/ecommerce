@@ -15,36 +15,20 @@
 
     <div class="row-autoflow">
 
-        <div class="col">
-            <div class="card-product"></div>
 
-        </div>
+        <?php foreach ($new_books as $new_book) : ?>
+            <div class="col">
+                <div class="card-product">
 
-        <div class="col">
-            <div class="card-product"></div>
-        </div>
-        <div class="col">
-            <div class="card-product"></div>
-        </div>
-        <div class="col">
-            <div class="card-product"></div>
-        </div>
+                 <img src="<?php echo $new_book['book']->getImagePath()?>" alt="">
+                
+                </div>
+
+            </div>
+
+        <?php endforeach; ?>
 
 
-        <div class="col">
-            <div class="card-product"></div>
-
-        </div>
-
-        <div class="col">
-            <div class="card-product"></div>
-        </div>
-        <div class="col">
-            <div class="card-product"></div>
-        </div>
-        <div class="col">
-            <div class="card-product"></div>
-        </div>
 
     </div>
 

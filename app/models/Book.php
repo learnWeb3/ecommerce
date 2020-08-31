@@ -13,11 +13,6 @@ class Book extends DbRecords
     protected $description;
     protected $category_id;
 
-    private const AUTHORIZED_FILTERS = array(
-        "authorized_columns" => array("title", "author", "collection", "price", "publication_year", "image_path", "description", "category_id"),
-        "authorized_order_type" => array("ASC", "DESC"),
-        "authorized_limit_offset_type" => "integer"
-    );
 
     // CONSTRUCTOR
     public function __construct($title = null, $author = null, $collection = null, $price = null, $publication_year = null, $image_path = null, $description = null, $category_id = null, $id = null, $created_at = null, $updated_at = null)
@@ -128,24 +123,18 @@ class Book extends DbRecords
         return $this;
     }
 
-    private static function checkAuthorizedFilters($order_column, $order_type, $limit, $offset)
+
+    public static function getMostRecentBoooks($limit, $offset)
     {
-        if (isset(self::AUTHORIZED_FILTERS["authorized_columns"][$order_column], self::AUTHORIZED_FILTERS["authorized_order_type"][$order_type]) && gettype($limit) == "integer" && gettype($offset = "integer")) {
-            return true;
-        } else {
+        
+        if (!self::checkLimitAndOffset($limit, $offset))
+        {
             return false;
         }
-    }
 
-
-
-    public static function getMostRecentBoooks($order_column, $order_type, $limit, $offset)
-    {
-   
         $connection = Db::connect();
         $statement =
-            "SELECT 
-        -- BOOKS
+        "SELECT 
         books.id as book_id,
         books.created_at as book_created_at,
         books.updated_at as book_updated_at,
@@ -154,26 +143,75 @@ class Book extends DbRecords
         books.collection as book_collection,
         books.price as book_price,
         books.publication_year as book_year,
+        books.category_id as book_category_id,
         books.image_path as book_image_path,
         books.description as book_description, 
-        -- CATEGORIES
         categories.name as category_name,
         categories.id as category_id,
         categories.created_at as category_created_at,
         categories.updated_at as category_updated_at
         FROM books 
-        JOIN categories ON books.category_id = categories.id 
-        ORDER BY $order_column $order_type LIMIT $limit  OFFSET $offset";
+        JOIN categories ON books.category_id = categories.id
+        ORDER BY books.created_at DESC
+        LIMIT $limit OFFSET $offset";
         $prepared_statement = $connection->prepare($statement);
         $prepared_statement->execute();
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_publication_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"])
             );
         }
 
         return $results;
     }
+
+
+    public static function getRecommendations($limit, $offset)
+    {
+         
+        if (!self::checkLimitAndOffset($limit, $offset))
+        {
+            return false;
+        }
+
+        $connection = Db::connect();
+        $statement =
+        "SELECT 
+        books.id as book_id,
+        books.created_at as book_created_at,
+        books.updated_at as book_updated_at,
+        books.title as book_title,
+        books.author  as book_author,
+        books.collection as book_collection,
+        books.price as book_price,
+        books.publication_year as book_year,
+        books.category_id as book_category_id,
+        books.image_path as book_image_path,
+        books.description as book_description, 
+        categories.name as category_name,
+        categories.id as category_id,
+        categories.created_at as category_created_at,
+        categories.updated_at as category_updated_at
+        FROM books 
+        JOIN categories ON books.category_id = categories.id
+        JOIN recommended_books ON recommended_books.book_id = books.id
+        ORDER BY books.created_at DESC
+        LIMIT $limit OFFSET $offset";
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute();
+        $results = [];
+        while ($row =  $prepared_statement->fetch()) {
+            $results[] = array(
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"])
+            );
+        }
+
+        return $results;
+    }
+
+
+
 }
