@@ -23,9 +23,9 @@
 
                         <img src="<?php echo $new_book['book']->getImagePath() ?>" alt="" class="poster">
 
-                        <h3 class="my-2"><a href=""><?php echo $new_book['book']->getTitle() ?></a></h3>
+                        <h3 class="my-2"><a href="<?php echo REDIRECT_BASE_URL."controller=book&method=show&id=". $new_book['book']->getId() ?>"><?php echo $new_book['book']->getTitle() ?></a></h3>
 
-                        <a href=""><?php echo $new_book['book']->getPrice() ?> &euro;</a>
+                        <p><?php echo $new_book['book']->getPrice() ?> &euro;</p>
 
                     </div>
 

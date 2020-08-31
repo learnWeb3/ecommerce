@@ -10,3 +10,4 @@ define("LAYOUT_PATH", APP_PATH . "/layouts");
 define("ERROR_PATH", APP_PATH . "/layouts/errors");
 
 define("ABSOLUTE_ASSET_PATH", "http://" . $_SERVER["SERVER_NAME"] . "/ecommerce/app/assets");
+define("REDIRECT_BASE_URL",  "http://" . $_SERVER["SERVER_NAME"] . "/ecommerce/index.php?" );
