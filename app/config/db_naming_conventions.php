@@ -8,6 +8,7 @@ define(
         "Category" => "categories",
         "Book" => "books",
         "BasketItem" => "basket_items",
+        "Basket" => "baskets",
         "State" => "states",
         "Order" => "orders",
         "Address" => "addresses",
