@@ -820,12 +820,6 @@
         transition: transform .25s ease-in-out
     }
     
-    .card-product img {
-        height: 80%;
-        width: 100%;
-        position: relative;
-    }
-    
     .card-product:hover {
         transform: unset;
     }
@@ -884,6 +878,12 @@
         overflow: hidden;
         transition: none;
         transform: none;
+    }
+    
+    .card-product .poster {
+        height: 75%;
+        width: 100%;
+        position: relative;
     }
     
     #shopping-cart-menu .card-product .col {

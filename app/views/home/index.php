@@ -20,7 +20,7 @@
             <div class="col">
                 <div class="card-product">
 
-                 <img src="<?php echo $new_book['book']->getImagePath()?>" alt="">
+                    <img src="<?php echo $new_book['book']->getImagePath()?>" alt="" class="poster">
                 
                 </div>
 
