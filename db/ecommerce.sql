@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : Dim 30 août 2020 à 19:48
+-- Généré le : lun. 31 août 2020 à 19:30
 -- Version du serveur :  10.4.14-MariaDB
 -- Version de PHP : 7.4.9
 
@@ -45,8 +45,21 @@ CREATE TABLE `adresses` (
 CREATE TABLE `baskets` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `book_id` int(11) NOT NULL,
   `state_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `basket_items`
+--
+
+CREATE TABLE `basket_items` (
+  `id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `basket_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
@@ -549,6 +562,20 @@ INSERT INTO `categories` (`id`, `name`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `coup_de_coeur_books`
+--
+
+CREATE TABLE `coup_de_coeur_books` (
+  `id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `udpated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `invoices`
 --
 
@@ -572,6 +599,20 @@ CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `basket_id` int(11) NOT NULL,
   `state_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `recommended_books`
+--
+
+CREATE TABLE `recommended_books` (
+  `id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -637,9 +678,14 @@ ALTER TABLE `adresses`
 --
 ALTER TABLE `baskets`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`,`book_id`,`state_id`),
-  ADD KEY `book_id` (`book_id`),
-  ADD KEY `state_id` (`state_id`);
+  ADD KEY `user_id` (`user_id`,`state_id`);
+
+--
+-- Index pour la table `basket_items`
+--
+ALTER TABLE `basket_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `book_id` (`book_id`,`basket_id`);
 
 --
 -- Index pour la table `books`
@@ -652,6 +698,12 @@ ALTER TABLE `books`
 -- Index pour la table `categories`
 --
 ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `coup_de_coeur_books`
+--
+ALTER TABLE `coup_de_coeur_books`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -668,6 +720,13 @@ ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
   ADD KEY `basket_id` (`basket_id`,`state_id`),
   ADD KEY `state_id` (`state_id`);
+
+--
+-- Index pour la table `recommended_books`
+--
+ALTER TABLE `recommended_books`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `book_id` (`book_id`,`user_id`);
 
 --
 -- Index pour la table `states`
@@ -705,6 +764,12 @@ ALTER TABLE `baskets`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT pour la table `basket_items`
+--
+ALTER TABLE `basket_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT pour la table `books`
 --
 ALTER TABLE `books`
@@ -717,6 +782,12 @@ ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
+-- AUTO_INCREMENT pour la table `coup_de_coeur_books`
+--
+ALTER TABLE `coup_de_coeur_books`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT pour la table `invoices`
 --
 ALTER TABLE `invoices`
@@ -726,6 +797,12 @@ ALTER TABLE `invoices`
 -- AUTO_INCREMENT pour la table `orders`
 --
 ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `recommended_books`
+--
+ALTER TABLE `recommended_books`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -757,14 +834,6 @@ ALTER TABLE `adresses`
   ADD CONSTRAINT `adresses_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `baskets`
---
-ALTER TABLE `baskets`
-  ADD CONSTRAINT `baskets_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `baskets_ibfk_2` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `baskets_ibfk_3` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`) ON DELETE CASCADE;
-
---
 -- Contraintes pour la table `invoices`
 --
 ALTER TABLE `invoices`
@@ -774,7 +843,7 @@ ALTER TABLE `invoices`
 -- Contraintes pour la table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`basket_id`) REFERENCES `baskets` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`basket_id`) REFERENCES `basket_items` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`) ON DELETE CASCADE;
 
 --

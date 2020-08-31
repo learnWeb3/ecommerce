@@ -37,7 +37,7 @@ class Book extends DbRecords
         return htmlspecialchars($this->title);
     }
 
-    public function setTitle($title)
+    public function setTitle(string $title)
     {
         $this->title = $title;
         return $this;
@@ -60,7 +60,7 @@ class Book extends DbRecords
         return htmlspecialchars($this->collection);
     }
 
-    public function setCollection($collection)
+    public function setCollection(string $collection)
     {
         $this->collection = $collection;
         return $this;
@@ -72,7 +72,7 @@ class Book extends DbRecords
         return floatval($this->price);
     }
 
-    public function setPrice($price)
+    public function setPrice(int $price)
     {
         $this->price = floatval($price);
         return $this;
@@ -84,7 +84,7 @@ class Book extends DbRecords
         return strftime("%Y",  strtotime($this->publication_year));
     }
 
-    public function setPublicationYear($publication_year)
+    public function setPublicationYear(int $publication_year)
     {
         $this->publication_year = $publication_year;
         return $this;
@@ -95,7 +95,7 @@ class Book extends DbRecords
         return htmlspecialchars($this->image_path);
     }
 
-    public function setImagePath($image_path)
+    public function setImagePath(string $image_path)
     {
         $this->image_path = $image_path;
         return $this;
@@ -106,7 +106,7 @@ class Book extends DbRecords
         return htmlspecialchars($this->description);
     }
 
-    public function setDescription($description)
+    public function setDescription(string $description)
     {
         $this->description = $description;
         return $this;
@@ -117,24 +117,23 @@ class Book extends DbRecords
         return intval($this->category_Id);
     }
 
-    public function setCategoryId($category_Id)
+    public function setCategoryId(int $category_Id)
     {
         $this->category_Id = $category_Id;
         return $this;
     }
 
 
-    public static function getMostRecentBoooks($limit, $offset)
+    public static function getMostRecentBoooks(int $limit, int $offset)
     {
-        
-        if (!self::checkLimitAndOffset($limit, $offset))
-        {
+
+        if (!self::checkLimitAndOffset($limit, $offset)) {
             return false;
         }
 
         $connection = Db::connect();
         $statement =
-        "SELECT 
+            "SELECT 
         books.id as book_id,
         books.created_at as book_created_at,
         books.updated_at as book_updated_at,
@@ -168,17 +167,16 @@ class Book extends DbRecords
     }
 
 
-    public static function getRecommendations($limit, $offset)
+    public static function getRecommendations(int $limit, int $offset)
     {
-         
-        if (!self::checkLimitAndOffset($limit, $offset))
-        {
+
+        if (!self::checkLimitAndOffset($limit, $offset)) {
             return false;
         }
 
         $connection = Db::connect();
         $statement =
-        "SELECT 
+            "SELECT 
         books.id as book_id,
         books.created_at as book_created_at,
         books.updated_at as book_updated_at,
@@ -213,17 +211,16 @@ class Book extends DbRecords
     }
 
 
-    public static function getCoupDeCoeur($limit, $offset)
+    public static function getCoupDeCoeur(int $limit, int $offset)
     {
-    
-        if (!self::checkLimitAndOffset($limit, $offset))
-        {
+
+        if (!self::checkLimitAndOffset($limit, $offset)) {
             return false;
         }
 
         $connection = Db::connect();
         $statement =
-        "SELECT 
+            "SELECT 
         books.id as book_id,
         books.created_at as book_created_at,
         books.updated_at as book_updated_at,
@@ -258,7 +255,7 @@ class Book extends DbRecords
             $results[] = array(
                 "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
-                "user"=>new User($row["user_email"], null, $row["user_firstname"], $row["user_lastname"], null, $row["user_id"], $row["user_created_at"], $row["user_updated_at"])
+                "user" => new User($row["user_email"], null, $row["user_firstname"], $row["user_lastname"], null, $row["user_id"], $row["user_created_at"], $row["user_updated_at"])
             );
         }
 
@@ -266,16 +263,15 @@ class Book extends DbRecords
     }
 
 
-    public static function getPopular($limit, $offset)
+    public static function getPopular(int $limit, int $offset)
     {
-        if (!self::checkLimitAndOffset($limit, $offset))
-        {
+        if (!self::checkLimitAndOffset($limit, $offset)) {
             return false;
         }
 
         $connection = Db::connect();
         $statement =
-        "SELECT 
+            "SELECT 
         books.id as book_id,
         books.created_at as book_created_at,
         books.updated_at as book_updated_at,
@@ -307,7 +303,7 @@ class Book extends DbRecords
             $results[] = array(
                 "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
-                "book_sales_count"=>$row["book_sales_count"]
+                "book_sales_count" => $row["book_sales_count"]
             );
         }
 
@@ -315,4 +311,68 @@ class Book extends DbRecords
     }
 
 
+    public static function getBy(string $column_name, $value, int $limit, int $offset, string $order_column, string $order)
+    {
+        $authorized_values = array(
+            "autorized_columns" => array(
+                "book_id",
+                "book_created_at",
+                "book_updated_at",
+                "book_title",
+                "book_author",
+                "book_collection",
+                "book_price",
+                "book_year",
+                "book_category_id"
+            ),
+            "authorized_order"=>array("DESC", "ASC")
+        );
+
+        if (!self::checkLimitAndOffset($limit, $offset)) {
+            return false;
+        }
+        if (!in_array($column_name, $authorized_values["authorized_columns"]) || !(in_array($order_column, $authorized_values["authorized_columns"])) || !in_array($order, $authorized_values["authorized_order"])) {
+            return false;
+        }
+
+        $connection = Db::connect();
+        $statement =
+            "SELECT 
+        books.id as book_id,
+        books.created_at as book_created_at,
+        books.updated_at as book_updated_at,
+        books.title as book_title,
+        books.author  as book_author,
+        books.collection as book_collection,
+        books.price as book_price,
+        books.publication_year as book_year,
+        books.category_id as book_category_id,
+        books.image_path as book_image_path,
+        books.description as book_description, 
+        categories.name as category_name,
+        categories.id as category_id,
+        categories.created_at as category_created_at,
+        categories.updated_at as category_updated_at
+        FROM books 
+        JOIN categories ON books.category_id = categories.id
+        JOIN basket_items ON basket_items.book_id = books.id
+        JOIN baskets ON basket_items.basket_id = baskets.id
+        JOIN orders ON orders.basket_id = baskets.id
+        WHERE $column_name = ?
+        LIMIT $limit OFFSET $offset
+        ORDER BY $order_column $order";
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute(
+            array($value)
+        );
+        $results = [];
+        while ($row =  $prepared_statement->fetch()) {
+            $results[] = array(
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
+            );
+        }
+
+        return $results;
+    }
 }
