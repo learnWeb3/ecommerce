@@ -266,4 +266,53 @@ class Book extends DbRecords
     }
 
 
+    public static function getPopular($limit, $offset)
+    {
+        if (!self::checkLimitAndOffset($limit, $offset))
+        {
+            return false;
+        }
+
+        $connection = Db::connect();
+        $statement =
+        "SELECT 
+        books.id as book_id,
+        books.created_at as book_created_at,
+        books.updated_at as book_updated_at,
+        books.title as book_title,
+        books.author  as book_author,
+        books.collection as book_collection,
+        books.price as book_price,
+        books.publication_year as book_year,
+        books.category_id as book_category_id,
+        books.image_path as book_image_path,
+        books.description as book_description, 
+        categories.name as category_name,
+        categories.id as category_id,
+        categories.created_at as category_created_at,
+        categories.updated_at as category_updated_at,
+        COUNT(books.id) as book_sales_count
+        FROM books 
+        JOIN categories ON books.category_id = categories.id
+        JOIN basket_items ON basket_items.book_id = books.id
+        JOIN baskets ON basket_items.basket_id = baskets.id
+        JOIN orders ON orders.basket_id = baskets.id
+        GROUP BY books.id
+        LIMIT $limit OFFSET $offset
+        ORDER BY book_sales_count DESC";
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute();
+        $results = [];
+        while ($row =  $prepared_statement->fetch()) {
+            $results[] = array(
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
+                "book_sales_count"=>$row["book_sales_count"]
+            );
+        }
+
+        return $results;
+    }
+
+
 }
