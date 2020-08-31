@@ -80,51 +80,39 @@
 
 <?php endif; ?>
 
+<?php if (!empty($best_sales_books)) : ?>
+    <section class="py-4 teaser-container">
 
-<section class="py-4 teaser-container">
+        <h2 class="ml-4">Les + populaires </h2>
 
-    <h2 class="ml-4">Les + populaires </h2>
+        <div class="row-autoflow">
 
-    <div class="row-autoflow">
+            <?php foreach ($best_sales_books as $best_sales_book) : ?>
+                <div class="col">
+                    <div class="card-product">
 
-        <div class="col">
-            <div class="card-product"></div>
+                        <img src="<?php echo $best_sales_book['book']->getImagePath() ?>" alt="" class="poster">
+
+                        <h3 class="my-2"><a href=""><?php echo $best_sales_book['book']->getTitle() ?></a></h3>
+
+                        <a href=""><?php echo $best_sales_book['book']->getPrice() ?> &euro;</a>
+
+                    </div>
+
+                </div>
+
+            <?php endforeach; ?>
+
 
         </div>
 
-        <div class="col">
-            <div class="card-product"></div>
-        </div>
-        <div class="col">
-            <div class="card-product"></div>
-        </div>
-        <div class="col">
-            <div class="card-product"></div>
-        </div>
+        <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_left.svg" ?>" alt="chevron left icon" class="chevron-left">
+        <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_right.svg" ?>" alt="chevron right icon" class="chevron-right">
 
 
-        <div class="col">
-            <div class="card-product"></div>
+    </section>
 
-        </div>
-
-        <div class="col">
-            <div class="card-product"></div>
-        </div>
-        <div class="col">
-            <div class="card-product"></div>
-        </div>
-        <div class="col">
-            <div class="card-product"></div>
-        </div>
-
-    </div>
-
-    <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_left.svg" ?>" alt="chevron left icon" class="chevron-left">
-    <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_right.svg" ?>" alt="chevron right icon" class="chevron-right">
-
-
-</section>
+<?php endif; ?>
 
 
 
