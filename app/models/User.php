@@ -15,9 +15,12 @@ class User extends DbRecords
     public function __construct( $email=null, $password=null,$first_name=null,$last_name=null, $date_of_birth = null, $id = null, $created_at = null, $updated_at = null)
     {
 
-        if ($email != null && $password != null)
+        if ($email != null)
         {
             $this->email= $email;
+        }
+        if ($password = null)
+        {
             $this->password=$password;
         }
         if ($first_name!=null) {

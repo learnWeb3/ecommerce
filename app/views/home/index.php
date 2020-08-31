@@ -9,84 +9,77 @@
 
 
 
-<section class="py-4 teaser-container">
+<?php if (!empty($new_books)) : ?>
+    <section class="py-4 teaser-container">
 
-    <h2 class="ml-4">Nouveautées</h2>
+        <h2 class="ml-4">Nouveautées</h2>
 
-    <div class="row-autoflow">
+        <div class="row-autoflow">
 
 
-        <?php foreach ($new_books as $new_book) : ?>
-            <div class="col">
-                <div class="card-product">
+            <?php foreach ($new_books as $new_book) : ?>
+                <div class="col">
+                    <div class="card-product">
 
-                    <img src="<?php echo $new_book['book']->getImagePath()?>" alt="" class="poster">
-                
+                        <img src="<?php echo $new_book['book']->getImagePath() ?>" alt="" class="poster">
+
+                        <h3 class="my-2"><a href=""><?php echo $new_book['book']->getTitle() ?></a></h3>
+
+                        <a href=""><?php echo $new_book['book']->getPrice() ?> &euro;</a>
+
+                    </div>
+
                 </div>
 
-            </div>
-
-        <?php endforeach; ?>
+            <?php endforeach; ?>
 
 
 
-    </div>
-
-    <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_left.svg" ?>" alt="chevron left icon" class="chevron-left">
-    <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_right.svg" ?>" alt="chevron right icon" class="chevron-right">
-
-
-</section>
-
-
-<section>
-
-    <h2 class="ml-4">Les coups de coeur</h2>
-    <div class="row divide-xl-4 divide-lg-2 divide-md-2 divide-sm-1 divide-xs-1">
-
-        <div class="col">
-            <div class="card-product"></div>
-        </div>
-        <div class="col justify-content-evenly">
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse corporis voluptas maiores deleniti adipisci earum ducimus temporibus quisquam reiciendis veritatis laborum soluta iure consequuntur nihil distinctio quos impedit, ab suscipit?</p>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse corporis voluptas maiores deleniti adipisci earum ducimus temporibus quisquam reiciendis veritatis laborum soluta iure consequuntur nihil distinctio quos impedit, ab suscipit?</p>
-        </div>
-        <div class="col">
-            <div class="card-product"></div>
-        </div>
-        <div class="col justify-content-evenly">
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse corporis voluptas maiores deleniti adipisci earum ducimus temporibus quisquam reiciendis veritatis laborum soluta iure consequuntur nihil distinctio quos impedit, ab suscipit?</p>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse corporis voluptas maiores deleniti adipisci earum ducimus temporibus quisquam reiciendis veritatis laborum soluta iure consequuntur nihil distinctio quos impedit, ab suscipit?</p>
         </div>
 
+        <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_left.svg" ?>" alt="chevron left icon" class="chevron-left">
+        <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_right.svg" ?>" alt="chevron right icon" class="chevron-right">
 
-    </div>
-</section>
+
+    </section>
+<?php endif; ?>
 
 
-<section>
-
-    <h2 class="ml-4">Découvertes : </h2>
-    <div class="row divide-xl-4 divide-lg-2 divide-md-2 divide-sm-1 divide-xs-1">
-
-        <div class="col">
-            <div class="card-product"></div>
+<?php if (!empty($recommended_books)) : ?>
+    <section>
+        <h2 class="ml-4">Les coups de coeur</h2>
+        <div class="row divide-xl-4 divide-lg-2 divide-md-2 divide-sm-1 divide-xs-1">
+            <?php foreach ($recommended_books as $index => $recommended_book) : ?>
+                <div class="col">
+                    <div class="card-product"></div>
+                </div>
+                <div class="col justify-content-evenly">
+                    <?php echo $recommended_book["book"]->getDescription() ?>
+                </div>
+            <?php endforeach; ?>
         </div>
-        <div class="col justify-content-evenly">
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse corporis voluptas maiores deleniti adipisci earum ducimus temporibus quisquam reiciendis veritatis laborum soluta iure consequuntur nihil distinctio quos impedit, ab suscipit?</p>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse corporis voluptas maiores deleniti adipisci earum ducimus temporibus quisquam reiciendis veritatis laborum soluta iure consequuntur nihil distinctio quos impedit, ab suscipit?</p>
-        </div>
-        <div class="col">
-            <div class="card-product"></div>
-        </div>
-        <div class="col justify-content-evenly">
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse corporis voluptas maiores deleniti adipisci earum ducimus temporibus quisquam reiciendis veritatis laborum soluta iure consequuntur nihil distinctio quos impedit, ab suscipit?</p>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse corporis voluptas maiores deleniti adipisci earum ducimus temporibus quisquam reiciendis veritatis laborum soluta iure consequuntur nihil distinctio quos impedit, ab suscipit?</p>
-        </div>
+    </section>
 
+<?php endif; ?>
 
-    </div>
-</section>
+<?php if (!empty($coup_de_coeur_books)) : ?>
+
+    <section>
+        <h2 class="ml-4">Decouvertes</h2>
+        <div class="row divide-xl-4 divide-lg-2 divide-md-2 divide-sm-1 divide-xs-1">
+            <?php foreach ($coup_de_coeur_books as $index => $$coup_de_coeur_book) : ?>
+                <div class="col">
+                    <div class="card-product"></div>
+                </div>
+                <div class="col justify-content-evenly">
+                    <?php echo $coup_de_coeur_book["book"]->getDescription() ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </section>
+
+<?php endif; ?>
+
 
 <section class="py-4 teaser-container">
 

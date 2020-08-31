@@ -213,5 +213,57 @@ class Book extends DbRecords
     }
 
 
+    public static function getCoupDeCoeur($limit, $offset)
+    {
+    
+        if (!self::checkLimitAndOffset($limit, $offset))
+        {
+            return false;
+        }
+
+        $connection = Db::connect();
+        $statement =
+        "SELECT 
+        books.id as book_id,
+        books.created_at as book_created_at,
+        books.updated_at as book_updated_at,
+        books.title as book_title,
+        books.author  as book_author,
+        books.collection as book_collection,
+        books.price as book_price,
+        books.publication_year as book_year,
+        books.category_id as book_category_id,
+        books.image_path as book_image_path,
+        books.description as book_description, 
+        categories.name as category_name,
+        categories.id as category_id,
+        categories.created_at as category_created_at,
+        categories.updated_at as category_updated_at,
+        users.firstname as user_firstname,
+        users.lastname as user_lastname,
+        users.email as user_email,
+        users.id as user_id,
+        users.created_at as user_created_at
+        users.udpated_at as user_updated_at
+        FROM books 
+        JOIN categories ON books.category_id = categories.id
+        JOIN coup_de_coeur_books ON recommended_books.book_id = books.id
+        JOIN users ON coups_de_coeur_books.user_id = users.id
+        ORDER BY books.created_at DESC
+        LIMIT $limit OFFSET $offset";
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute();
+        $results = [];
+        while ($row =  $prepared_statement->fetch()) {
+            $results[] = array(
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
+                "user"=>new User($row["user_email"], null, $row["user_firstname"], $row["user_lastname"], null, $row["user_id"], $row["user_created_at"], $row["user_updated_at"])
+            );
+        }
+
+        return $results;
+    }
+
 
 }

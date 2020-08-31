@@ -4,6 +4,8 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        text-decoration: none;
+        color: var(--var-black);
     }
     
     .flex {
@@ -47,7 +49,7 @@
     
      :root {
         --var-white: #fff;
-        --var-black: ;
+        --var-black: #202020;
         --var-dark: ;
         --var-light: #D0D0D0;
         --var-success: #00A129;
@@ -814,10 +816,16 @@
     
     .card-product {
         height: 450px;
-        border: 1px solid #4F38B4;
         transform-origin: bottom;
         transform: rotateX(10deg);
-        transition: transform .25s ease-in-out
+        transition: transform .25s ease-in-out;
+    }
+    
+    .row-autoflow .card-product {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
     
     .card-product:hover {
