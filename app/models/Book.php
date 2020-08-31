@@ -311,7 +311,7 @@ class Book extends DbRecords
     }
 
 
-    public static function getBy(string $column_name, $value, int $limit, int $offset, string $order_column, string $order)
+    public static function searchBy(string $column_name, $value, int $limit, int $offset, string $order_column, string $order)
     {
         $authorized_values = array(
             "autorized_columns" => array(
@@ -323,7 +323,8 @@ class Book extends DbRecords
                 "book_collection",
                 "book_price",
                 "book_year",
-                "book_category_id"
+                "book_category_id",
+                "category_name"
             ),
             "authorized_order"=>array("DESC", "ASC")
         );
@@ -355,9 +356,6 @@ class Book extends DbRecords
         categories.updated_at as category_updated_at
         FROM books 
         JOIN categories ON books.category_id = categories.id
-        JOIN basket_items ON basket_items.book_id = books.id
-        JOIN baskets ON basket_items.basket_id = baskets.id
-        JOIN orders ON orders.basket_id = baskets.id
         WHERE $column_name = ?
         LIMIT $limit OFFSET $offset
         ORDER BY $order_column $order";
@@ -375,4 +373,116 @@ class Book extends DbRecords
 
         return $results;
     }
+
+
+    public static function searchLike(string $column_name, $value, int $limit, int $offset, string $order_column, string $order)
+    {
+        $authorized_values = array(
+            "autorized_columns" => array(
+                "book_title",
+                "book_author",
+                "book_collection",
+                "category_name"
+            ),
+            "authorized_order"=>array("DESC", "ASC")
+        );
+
+        if (!self::checkLimitAndOffset($limit, $offset)) {
+            return false;
+        }
+        if (!in_array($column_name, $authorized_values["authorized_columns"]) || !(in_array($order_column, $authorized_values["authorized_columns"])) || !in_array($order, $authorized_values["authorized_order"])) {
+            return false;
+        }
+
+        $connection = Db::connect();
+        $statement =
+            "SELECT 
+        books.id as book_id,
+        books.created_at as book_created_at,
+        books.updated_at as book_updated_at,
+        books.title as book_title,
+        books.author  as book_author,
+        books.collection as book_collection,
+        books.price as book_price,
+        books.publication_year as book_year,
+        books.category_id as book_category_id,
+        books.image_path as book_image_path,
+        books.description as book_description, 
+        categories.name as category_name,
+        categories.id as category_id,
+        categories.created_at as category_created_at,
+        categories.updated_at as category_updated_at
+        FROM books 
+        JOIN categories ON books.category_id = categories.id
+        WHERE $column_name LIKE ?
+        LIMIT $limit OFFSET $offset
+        ORDER BY $order_column $order";
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute(
+            array("%".$value."%")
+        );
+        $results = [];
+        while ($row =  $prepared_statement->fetch()) {
+            $results[] = array(
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
+            );
+        }
+
+        return $results;
+    }
+
+
+    public static function searchByPrice(int $price_min, int $price_max, int $limit, int $offset, $order)
+    {
+        if (!self::checkLimitAndOffset($limit, $offset)) {
+            return false;
+        }
+
+        if (!in_array($order, array("DESC", "ASC")))
+        {
+            return false;
+        }
+
+        $connection = Db::connect();
+        $statement =
+            "SELECT 
+        books.id as book_id,
+        books.created_at as book_created_at,
+        books.updated_at as book_updated_at,
+        books.title as book_title,
+        books.author  as book_author,
+        books.collection as book_collection,
+        books.price as book_price,
+        books.publication_year as book_year,
+        books.category_id as book_category_id,
+        books.image_path as book_image_path,
+        books.description as book_description, 
+        categories.name as category_name,
+        categories.id as category_id,
+        categories.created_at as category_created_at,
+        categories.updated_at as category_updated_at
+        FROM books 
+        JOIN categories ON books.category_id = categories.id
+        WHERE books.price BETWEEN ? AND ?
+        LIMIT $limit OFFSET $offset
+        ORDER BY books.price $order";
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute(
+            array($price_min, $price_max)
+        );
+        $results = [];
+        while ($row =  $prepared_statement->fetch()) {
+            $results[] = array(
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
+            );
+        }
+
+        return $results;
+
+    }
+
+
+  
 }
