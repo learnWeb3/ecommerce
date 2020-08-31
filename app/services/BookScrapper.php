@@ -1,7 +1,7 @@
 <?php 
 
 use Symfony\Component\DomCrawler\Crawler;
-class Scrapper
+class BookScrapper
 {
 
     // ATTRIBUTES
