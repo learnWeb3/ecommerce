@@ -53,7 +53,17 @@ class Basket extends DbRecords
     // BASKET ITEMS IS AN ARRAY OF OBJECT OF CLASSE BASKETITEMS SO MERGING NEW ITEMS WITH PREVIOUS ONES
     public function addProduct(int $book_id)
     {
-        $this->basket_items[] = new BasketItem($book_id);
+        $book_in_basket_ids = array_map(function ($basket_item_obj) {
+            return $basket_item_obj->getBook()->getId();
+        }, $this->basket_items);
+
+        if (in_array($book_id, $book_in_basket_ids)) {
+            $quantity = $this->getProduct($book_id)->getQuantity() + 1;
+            $this->updateItem($book_id, $quantity);
+        } else {
+            $this->basket_items[] = new BasketItem($book_id);
+        }
+
         return $this;
     }
 
@@ -91,7 +101,11 @@ class Basket extends DbRecords
 
     public function getAllProducts()
     {
-        return array_map(function($el){ $book_id = $el->getBookId(); $book = Book::find($book_id)[0]; return $el->setBook($book);}, $this->basket_items);
+        return array_map(function ($el) {
+            $book_id = $el->getBookId();
+            $book = Book::find($book_id)[0];
+            return $el->setBook($book);
+        }, $this->basket_items);
     }
 
     public function getProduct($id)
@@ -99,17 +113,18 @@ class Basket extends DbRecords
 
         $basket_items = $this->basket_items;
         $basket_items = array_filter($basket_items, function ($book_object) use ($id) {
-            if ($book_object->getId() == $id) {
+            if ($book_object->getBookId() == $id) {
                 return true;
             } else {
                 return false;
             }
         });
 
+
         if (empty($basket_items)) {
             return false;
         } else {
-            return $basket_items[0];
+            return array_values($basket_items)[0];
         }
     }
 
@@ -119,11 +134,6 @@ class Basket extends DbRecords
         $basket_item = $basket_item->setQuantity($quantity);
 
         $basket_items = $this->basket_items;
-
-
-        $non_updated_items = array_diff($basket_items, array($basket_item));
-
-        $basket_items = array_merge($non_updated_items, array($basket_item));
 
         return $this->setBasketItems($basket_items);
     }
@@ -145,6 +155,4 @@ class Basket extends DbRecords
     {
         return (empty($this->basket_items) == false);
     }
-
-
 }

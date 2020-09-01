@@ -78,12 +78,14 @@
 
             var form = $(this).closest('form');
 
-            form.submit(function() {
+            form.submit(function(event) {
+
+                event.preventDefault();
 
                 $.ajax({
-                    url: "http://localhost/ecommerce/index.php",
+                    url: "/ecommerce/index.php",
                     method: "POST",
-                    data: "controller=basketitem&method=update" + $(this).serialize(),
+                    data: "controller=basketitem&method=update" + $(this).serialize() + "remote=true",
                     dataType: "JSON",
                     succes: function(result, status) {
                         console.log(result)
@@ -94,7 +96,7 @@
                 });
 
 
-            });
+            }).submit();
 
         });
 
