@@ -30,6 +30,10 @@
         justify-content: space-evenly;
     }
     
+    .justify-content-center {
+        justify-content: center;
+    }
+    
     .align-items-center {
         align-items: center;
     }
@@ -816,10 +820,11 @@
     }
     
     .card-product {
-        height: 450px;
+        height: 650px;
         transform-origin: bottom;
         transform: rotateX(10deg);
         transition: transform .25s ease-in-out;
+        position: relative;
     }
     
     .row-autoflow .card-product {
@@ -961,4 +966,21 @@
             width: 100vw;
             height: 100vh;
         }
+    }
+    
+    .card-product .book-title {
+        max-height: 2rem;
+        overflow: hidden;
+    }
+    
+    .card-product .price {
+        position: absolute;
+        bottom: 3rem;
+        width: 100%;
+    }
+    
+    .card-product .form-buy {
+        position: absolute;
+        bottom: 0rem;
+        width: 100%;
     }

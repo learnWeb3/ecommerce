@@ -23,9 +23,18 @@
 
                         <img src="<?php echo $new_book['book']->getImagePath() ?>" alt="" class="poster">
 
-                        <h3 class="my-2"><a href="<?php echo REDIRECT_BASE_URL."controller=book&method=show&id=". $new_book['book']->getId() ?>"><?php echo $new_book['book']->getTitle() ?></a></h3>
+                        <h3 class="book-title my-2"><a href="<?php echo REDIRECT_BASE_URL . "controller=book&method=show&id=" . $new_book['book']->getId() ?>"><?php echo $new_book['book']->getTitle() ?></a></h3>
+                     
+                            <p class="price"><?php echo $new_book['book']->getPrice() ?> &euro;</p>
 
-                        <p><?php echo $new_book['book']->getPrice() ?> &euro;</p>
+                            <form action="" method="post" class="form-buy">
+
+                                <input type="hidden" value="<?php echo $new_book['book']->getId() ?>">
+
+                                <button type="submit"><img src="<?php echo ABSOLUTE_ASSET_PATH . "/\icons\action\shopping_cart.svg" ?>" alt="basket icon"></button>
+
+                            </form>
+                      
 
                     </div>
 
