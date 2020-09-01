@@ -19,7 +19,7 @@
 
             <?php foreach ($new_books as $new_book) : ?>
                 <div class="col">
-                    <div class="card-product">
+                    <div class="card-product" id="<?php echo $new_book['book']->getId() ?>">
 
                         <img src="<?php echo $new_book['book']->getImagePath() ?>" alt="" class="poster">
 

@@ -66,17 +66,17 @@ class BasketitemController
 
             $basket->storeInSession();
 
+                
+            if (isset($_GET["remote"])) {
 
-            if (isset($_POST["remote"])) {
 
-
-                $basket_prepared_json = $basket->
-                echo json_encode();
-
-            } else {
+               
+            }else{
 
             }
         } else {
+
+    
         }
     }
 }

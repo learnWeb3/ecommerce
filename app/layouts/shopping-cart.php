@@ -74,31 +74,21 @@
 <script>
     $('.book_quantity').keyup(function() {
 
-        $('.book_quantity').keyup(function() {
+        var form = $(this).closest('form');
 
-            var form = $(this).closest('form');
+        $.ajax({
+                url: "/ecommerce/index.php",
+                method: "GET",
+                data: "controller=basketitem&method=update&"+"remote=true",
+                dataType: "JSON",
+                success: function(result, status) {
+                    console.log(result)
+                },
+                error: function(result, error, status) {
+                    console.log(status);
+                }
+            });
 
-            form.submit(function(event) {
-
-                event.preventDefault();
-
-                $.ajax({
-                    url: "/ecommerce/index.php",
-                    method: "POST",
-                    data: "controller=basketitem&method=update" + $(this).serialize() + "remote=true",
-                    dataType: "JSON",
-                    succes: function(result, status) {
-                        console.log(result)
-                    },
-                    error: function(result, error,status) {
-                        console.log(error);
-                    }
-                });
-
-
-            }).submit();
-
-        });
 
     });
 </script>
