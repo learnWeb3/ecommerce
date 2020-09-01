@@ -8,13 +8,17 @@ class Router
     {
         if (isset($_GET["controller"])) {
             $controller = ucfirst($_GET["controller"]) . "Controller";
-        }else{
+        } elseif (isset($_POST["controller"])) {
+            $controller = ucfirst($_POST["controller"]) . "Controller";
+        } else {
             $controller = "";
         }
 
         if (isset($_GET["method"])) {
             $method = $_GET["method"];
-        }else{
+        } elseif (isset($_POST["method"])) {
+            $method = $_POST["method"];
+        } else {
             $controller = "";
         }
 

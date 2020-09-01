@@ -67,9 +67,9 @@ class BasketitemController
             $basket->storeInSession();
 
                 
-            if (isset($_GET["remote"])) {
+            if (isset($_POST["remote"])) {
 
-
+                echo json_encode(array("book_id"=>$book_id, "quantity"=>$quantity));
                
             }else{
 

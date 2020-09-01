@@ -15,7 +15,7 @@
                 <?php foreach ($basket_products as $basket_product) : ?>
 
 
-                    <div class="card-product">
+                    <div class="card-product" id="<?php echo  $basket_product->getBook()->getId() ?>">
 
                         <div class="col">
                             <img src="<?php echo  $basket_product->getBook()->getimagePath() ?>" alt="" class="product-presentation">
@@ -76,19 +76,24 @@
 
         var form = $(this).closest('form');
 
-        $.ajax({
+        var quantityInput = form.find('.book_quantity')
+        
+        var quantityInputVal = quantityInput.val();
+
+        if (quantityInputVal != "" && typeof(quantityInputVal) == "string") {
+            $.ajax({
                 url: "/ecommerce/index.php",
-                method: "GET",
-                data: "controller=basketitem&method=update&"+"remote=true",
+                method: "POST",
+                data: "controller=basketitem&method=update&" + form.serialize() + "&remote=true",
                 dataType: "JSON",
                 success: function(result, status) {
-                    console.log(result)
+                    quantityInput.val(result.quantity);
                 },
                 error: function(result, error, status) {
                     console.log(status);
                 }
             });
-
+        }
 
     });
 </script>
