@@ -10,7 +10,6 @@ class DbRecords
     use Db;
 
 
-
     public function __construct($id = null, $created_at = null, $updated_at = null)
     {
         if ($id != null && $created_at != null) {

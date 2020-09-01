@@ -326,7 +326,7 @@ class Book extends DbRecords
                 "book_category_id",
                 "category_name"
             ),
-            "authorized_order"=>array("DESC", "ASC")
+            "authorized_order" => array("DESC", "ASC")
         );
 
         if (!self::checkLimitAndOffset($limit, $offset)) {
@@ -384,7 +384,7 @@ class Book extends DbRecords
                 "book_collection",
                 "category_name"
             ),
-            "authorized_order"=>array("DESC", "ASC")
+            "authorized_order" => array("DESC", "ASC")
         );
 
         if (!self::checkLimitAndOffset($limit, $offset)) {
@@ -419,7 +419,7 @@ class Book extends DbRecords
         ORDER BY $order_column $order";
         $prepared_statement = $connection->prepare($statement);
         $prepared_statement->execute(
-            array("%".$value."%")
+            array("%" . $value . "%")
         );
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
@@ -439,8 +439,7 @@ class Book extends DbRecords
             return false;
         }
 
-        if (!in_array($order, array("DESC", "ASC")))
-        {
+        if (!in_array($order, array("DESC", "ASC"))) {
             return false;
         }
 
@@ -480,9 +479,9 @@ class Book extends DbRecords
         }
 
         return $results;
-
     }
 
 
-  
+
+
 }

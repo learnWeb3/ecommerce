@@ -3,18 +3,25 @@
 class Session
 {
 
-    protected $id;
-
-    public function __construct()
-    {
-        $this->init();
-        $this->id = session_id();
-    }
-    public function init()
+    public static function init()
     {
         if (!isset($_SESSION))
         {
             session_start();
         }
     }
+
+    public static function isUserSignedIn()
+    {
+        return isset($_SESSION['current_user']);
+       
+    }
+
+    public static function getCurrenrUser()
+    {
+        return $_SESSION['current_user'];
+    }
+
+
+
 }

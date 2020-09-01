@@ -887,11 +887,12 @@
     #shopping-cart-menu .card-product {
         display: flex;
         position: relative;
-        height: 15rem;
-        width: 75%;
+        height: 20rem;
+        width: 100%;
         overflow: hidden;
         transition: none;
         transform: none;
+        padding: 2.5rem;
     }
     
     .card-product .poster {
@@ -912,11 +913,11 @@
     }
     
     #shopping-cart-menu .card-product .col:nth-child(1) {
-        width: 60%;
+        width: 40%;
     }
     
     #shopping-cart-menu .card-product .col:nth-child(2) {
-        width: 40%
+        width: 60%;
     }
     
     #shopping-cart-menu .card-product img.product-presentation {
@@ -983,4 +984,13 @@
         position: absolute;
         bottom: 0rem;
         width: 100%;
+    }
+    
+    .card-product .product-presentation {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    
+    .card-product form input {
+        max-width: 50%;
     }

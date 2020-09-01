@@ -6,4 +6,7 @@ require_once 'app/config/autoloader.php';
 require_once 'app/helpers/Autoloader.php';
 
 Autoloader::register();
+
+Session::init();
+
 Router::route();

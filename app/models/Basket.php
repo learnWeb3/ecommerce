@@ -1,5 +1,7 @@
 <?php
 
+require_once 'BasketItem.php';
+
 class Basket extends DbRecords
 {
     // ATTRIBUTES
@@ -27,6 +29,12 @@ class Basket extends DbRecords
         parent::__construct($id, $created_at, $updated_at);
     }
 
+
+    public function getBasketItems()
+    {
+        return $this->basket_items;
+    }
+
     // SETTER FOR BASKET ITEMS ATTRIBUTE
     public function setBasketItems(array $basket_items): object
     {
@@ -43,18 +51,21 @@ class Basket extends DbRecords
 
 
     // BASKET ITEMS IS AN ARRAY OF OBJECT OF CLASSE BASKETITEMS SO MERGING NEW ITEMS WITH PREVIOUS ONES
-    public function addProduct(array $new_products)
+    public function addProduct(int $book_id)
     {
-        $basket_items = array_merge($this->basket_items, $new_products);
-        $this->setBasketItems($basket_items);
+        $this->basket_items[] = new BasketItem($book_id);
         return $this;
     }
 
-    // BASKET ITEMS IS AN ARRAY OF OBJECT OF CLASSE BASKETITEMS SO GETTING DIFFERENCE BETWEEN BASKET CONTENT AND PRODUCT I WNAT TO REMOVE
-    public function removeProduct(array $products)
+    public function removeProduct(int $old_product_id)
     {
-        $basket_items = array_diff($this->basket_items, $products);
-        $this->setBasketItems($basket_items);
+        $this->basket_items = array_filter($this->basket_items, function ($basket_item_obj) use ($old_product_id) {
+            if ($basket_item_obj->getBookId() == $old_product_id) {
+                return false;
+            } else {
+                return true;
+            }
+        });
         return $this;
     }
 
@@ -77,6 +88,11 @@ class Basket extends DbRecords
         return $basket;
     }
 
+
+    public function getAllProducts()
+    {
+        return array_map(function($el){ $book_id = $el->getBookId(); $book = Book::find($book_id)[0]; return $el->setBook($book);}, $this->basket_items);
+    }
 
     public function getProduct($id)
     {
@@ -118,5 +134,17 @@ class Basket extends DbRecords
         $_SESSION['basket'] = $this;
         return $this;
     }
+
+
+    public function empty()
+    {
+        return (empty($this->basket_items) == true);
+    }
+
+    public function notEmpty()
+    {
+        return (empty($this->basket_items) == false);
+    }
+
 
 }
