@@ -50,6 +50,17 @@ class DbRecords
         }
     }
 
+
+    public static function destroy($id)
+    {
+        $class_name = get_called_class();
+        $table_name = strtolower($class_name);
+        $statement = "DELETE FROM $table_name WHERE id= ?";
+        $connection = Db::connect();
+        $prepared_statement = $connection->prepare($statement);
+        return  $prepared_statement->execute(array($id));
+    }
+
     public static function resetAutoIncrement($table_name)
     {
         $db = new DbRecords();

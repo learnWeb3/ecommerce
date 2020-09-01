@@ -9,7 +9,7 @@ class BasketItem extends DbRecords
 
 
     // CONSTRUCTOR
-    public function __construct($book_id = null, $basket_id = null, $quantity = null, $id = null, $created_at = null, $updated_at = null)
+    public function __construct($book_id = null, $basket_id = null, $quantity = 1, $id = null, $created_at = null, $updated_at = null)
     {
         if ($book_id != null) {
             $this->book_id = $book_id;
@@ -19,9 +19,7 @@ class BasketItem extends DbRecords
             $this->basket_id = $basket_id;
         }
 
-        if ($quantity != null) {
-            $this->quantity = $quantity;
-        }
+        $this->quantity = $quantity;
         
         parent::__construct($id, $created_at, $updated_at);
     }
@@ -46,11 +44,12 @@ class BasketItem extends DbRecords
 
 
     // SET NEW QUANTITY
-    private function setQuantity($quantity)
+    public  function setQuantity($quantity)
     {
         $this->quantity = $quantity;
         return $this;
     }
+
 
 
 }
