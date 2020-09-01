@@ -27,9 +27,9 @@
                      
                             <p class="price"><?php echo $new_book['book']->getPrice() ?> &euro;</p>
 
-                            <form action="" method="post" class="form-buy">
+                            <form action="<?php echo REDIRECT_BASE_URL."controller=basketitem&method=create"?>" method="post" class="form-buy">
 
-                                <input type="hidden" value="<?php echo $new_book['book']->getId() ?>">
+                                <input type="hidden" name="book_id" value="<?php echo $new_book['book']->getId() ?>">
 
                                 <button type="submit"><img src="<?php echo ABSOLUTE_ASSET_PATH . "/\icons\action\shopping_cart.svg" ?>" alt="basket icon"></button>
 
