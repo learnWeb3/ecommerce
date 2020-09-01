@@ -27,21 +27,21 @@
 
                             <hr class="light my-2">
 
-                            <form action="" method="post">
+                            <form action="<?php echo REDIRECT_BASE_URL . "controller=basketitem&method=update" ?>" method="post">
 
-                                <input type="hidden" name="product-id" value="<?php echo $basket_product->getBook()->getid() ?>">
+                                <input type="hidden" name="book_id" value="<?php echo $basket_product->getBook()->getid() ?>">
 
                                 <div class="form-group">
 
-                                    <label for="">Quantitée :</label>
+                                    <label for="<?php echo "book_quantity_" . $basket_product->getId() ?>">Quantitée :</label>
 
-                                    <input type="number" name="product_quantity" id="" value="<?php ?>" min="1" required>
+                                    <input type="number" class="book_quantity" name="book_quantity" id="<?php echo "book_quantity_" . $basket_product->getId() ?>" value="<?php echo $basket_product->getQuantity() ?>" min="1" required>
                                 </div>
 
                             </form>
                         </div>
 
-                        <form action="<?php echo REDIRECT_BASE_URL."controller=basketitem&method=destroy"?>" method="POST" class="delete-product">
+                        <form action="<?php echo REDIRECT_BASE_URL . "controller=basketitem&method=destroy" ?>" method="POST" class="delete-product">
 
                             <input type="hidden" name="book_id" value="<?php echo $basket_product->getBook()->getid() ?>">
                             <button type="submit"> <img src="http://localhost/ecommerce/app/assets/icons/navigation/close.svg" alt="remove product icon"></button>
@@ -70,3 +70,33 @@
 
 
 </div>
+
+<script>
+    $('.book_quantity').keyup(function() {
+
+        $('.book_quantity').keyup(function() {
+
+            var form = $(this).closest('form');
+
+            form.submit(function() {
+
+                $.ajax({
+                    url: "http://localhost/ecommerce/index.php",
+                    method: "POST",
+                    data: "controller=basketitem&method=update" + $(this).serialize(),
+                    dataType: "JSON",
+                    succes: function(result, status) {
+                        console.log(result)
+                    },
+                    error: function(result, error,status) {
+                        console.log(error);
+                    }
+                });
+
+
+            });
+
+        });
+
+    });
+</script>
