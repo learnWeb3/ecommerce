@@ -8,23 +8,39 @@ class Basket extends DbRecords
     protected $basket_items = [];
 
 
+
     // CONSTRUCTOR
     public function __construct($user_id = null, $state_id = null, $basket_items = null, $id = null, $created_at = null, $updated_at = null)
     {
-        if (func_get_args() != null) {
+
+        if ($user_id != null) {
             $this->user_id = $user_id;
+        }
+
+        if ($state_id != null) {
             $this->state_id = $state_id;
+        }
+
+        if ($basket_items != null) {
             $this->basket_items = $basket_items;
         }
         parent::__construct($id, $created_at, $updated_at);
     }
 
     // SETTER FOR BASKET ITEMS ATTRIBUTE
-    public function setBasketItems($basket_items)
+    public function setBasketItems(array $basket_items):object
     {
         $this->basket_items = $basket_items;
         return $this;
     }
+
+      // SETTER FOR BASKET ITEMS ATTRIBUTE
+      public function setUserId($user_id):object
+      {
+          $this->user_id = $user_id;
+          return $this;
+      }
+  
 
     // BASKET ITEMS IS AN ARRAY OF OBJECT OF CLASSE BASKETITEMS SO MERGING NEW ITEMS WITH PREVIOUS ONES
     public function addProduct(array $new_products)
