@@ -8,6 +8,14 @@
         color: var(--var-black);
     }
     
+    .top-offset {
+        margin-top: 10rem;
+    }
+    
+    main {
+        min-height: 100vh;
+    }
+    
     .flex {
         display: flex;
         flex-wrap: wrap;
@@ -32,6 +40,10 @@
     
     .justify-content-center {
         justify-content: center;
+    }
+    
+    .justify-content-between {
+        justify-content: space-between;
     }
     
     .align-items-center {
@@ -292,8 +304,9 @@
         z-index: 100;
         justify-content: space-evenly;
         padding: 1rem;
-        background-color: none;
+        background-color: unset;
         position: absolute;
+        top: 0;
     }
     
     nav ul {
@@ -993,4 +1006,22 @@
     
     .card-product form input {
         max-width: 50%;
+    }
+    
+    .book-presentation-show {
+        cursor: zoom-in;
+    }
+    
+    #modal-image-zoom-open {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        min-height: 100vh;
+        background-color: rgba(254, 254, 254, 0.6);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: 2;
     }
