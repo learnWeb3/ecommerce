@@ -155,6 +155,11 @@ class Product {
     static setBasketNumber() {
         var numberOfItemInBasket = $("#shopping-cart-menu .card-product").length;
         $("#shopping-cart-menu h2").text("Mon panier (" + numberOfItemInBasket + " article)");
+        if (numberOfItemInBasket == 0) {
+            $("#shopping-cart-menu .container").append(
+                "<img src='app/assets/icons/illustration/empty-basket.svg' alt='empty basket illustration' id='empty-basket'>" +
+                "<a href='' class='btn btn-lg btn-success my-2' id='see-product'>Les produits</a>");
+        };
     }
 }
 
