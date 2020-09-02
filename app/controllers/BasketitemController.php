@@ -20,9 +20,23 @@ class BasketitemController
             $basket->storeInSession();
 
     
-            // if (isset($_POST["remote"])) {
-            // } else {
-            // }
+            if (isset($_POST["remote"])) {
+
+                $basket = Basket::getBasket();
+                $added_product = $basket->getProduct($book_id);
+                $added_product = array(
+                    "book_id"=>$added_product->getBook()->getId(),
+                    "book_title"=>$added_product->getBook()->getTitle(),
+                    "book_image_path"=>$added_product->getBook()->getImagePath(),
+                    "book_price"=>$added_product->getBook()->getPrice(),
+                    "book_quantity"=>$added_product->getQuantity()
+                );
+    
+                echo json_encode($added_product);
+                die();
+
+            } else {
+            }
         } else {
         }
     }
@@ -43,7 +57,10 @@ class BasketitemController
             $basket->storeInSession();
 
             if (isset($_POST["remote"])) {
+
                 echo json_encode(array("book_id"=>$book_id, "message"=>"Panier mis à jour avec succès"));
+                die();
+
             } else {
             }
         } else {
@@ -70,6 +87,7 @@ class BasketitemController
             if (isset($_POST["remote"])) {
 
                 echo json_encode(array("book_id"=>$book_id, "quantity"=>$quantity, "message"=>"Panier mis à jour avec succès"));
+                die();
                
             }else{
 

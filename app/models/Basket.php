@@ -61,7 +61,8 @@ class Basket extends DbRecords
             $quantity = $this->getProduct($book_id)->getQuantity() + 1;
             $this->updateItem($book_id, $quantity);
         } else {
-            $this->basket_items[] = new BasketItem($book_id);
+            $book = Book::find($book_id)[0];
+            $this->basket_items[] = new BasketItem($book_id, null, $book);
         }
 
         return $this;
@@ -101,11 +102,7 @@ class Basket extends DbRecords
 
     public function getAllProducts()
     {
-        return array_map(function ($el) {
-            $book_id = $el->getBookId();
-            $book = Book::find($book_id)[0];
-            return $el->setBook($book);
-        }, $this->basket_items);
+        return $this->basket_items;
     }
 
     public function getProduct($id)
@@ -136,6 +133,12 @@ class Basket extends DbRecords
         $basket_items = $this->basket_items;
 
         return $this->setBasketItems($basket_items);
+    }
+
+
+    public function getLastProduct()
+    {
+        return $this->basket_items[count($this->basket_items) -1];
     }
 
 

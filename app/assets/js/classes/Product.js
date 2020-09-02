@@ -1,47 +1,50 @@
 class Product {
 
 
-    constructor(name, url, description, price, quantity) {
-        this.name = name;
-        this.url = url;
-        this.price = price;
-        this.quantity = quantity;
-        this.description = description
+    constructor(book_id, book_title, book_image_path, book_price, book_quantity) {
+        this.book_id = book_id
+        this.book_title = book_title;
+        this.book_image_path = book_image_path;
+        this.book_price = book_price;
+        this.book_quantity = book_quantity;
         this.card = this.setTemplate()
     }
 
 
     setTemplate() {
-        return "<div class='card-product'>" +
-
+        return "<div class='card-product' id=" + this.book_id + ">" +
             "<div class='col'>" +
-            "<img src='' alt='' class='product-presentation'>" +
+            "<img src='" + this.book_image_path + "' alt='' class='product-presentation'>" +
             " </div>" +
             "<div class='col'>" +
 
-            "<h2 class='product-title'>" + "<a href='" + this.url + "'>" + this.name + "</a>" + "</h2>" +
-            "<h4 class='product-price'>" + this.price + "</h4>" +
-            "<p class='product-description'>" + this.description + "</p>" +
+            "<h4 class='product-title'> <a href='" + "index.php?controller=book&method=show&id=" + this.book_id + "'>" + this.book_title + "</a> </h4>" +
+            "<h5 class='product-price'>" + this.book_price + "</h5>" +
 
             "<hr class='light my-2'>" +
 
-            "<form action='' method='post'>" +
+            "<form action='index.php?controller=basketitem&method=update' method='post'>" +
 
-            "<input type='hidden' name='product-id' value='<?php ?>'>" +
+            "<input type='hidden' name='book_id' value='" + this.book_id + "'>" +
 
             "<div class='form-group'>" +
 
-            " <label for=''>Quantitée :</label>" +
+            "<label for='book_quantity_" + this.book_id + "'>Quantitée :</label>" +
 
-            "<input type='number' name='product_quantity' id='' value='" + this.quantity + "' min='1' required>" +
-            "</div>" +
+            "<input type='number' class='book_quantity' name='book_quantity' id='book_quantity_'" + this.book_id + "' value='" + this.book_quantity + "' min='1' required>" +
+            " </div>" +
 
             "</form>" +
             "</div>" +
 
-            "<img src='http://localhost/ecommerce/app/assets/icons/navigation/close.svg' alt='remove product icon' class='delete-product'>" +
+            "<form action='index.php?controller=basketitem&method=destroy' method='POST' class='delete-product'>" +
 
-            "</div>";
+            "<input type='hidden' name='book_id' value='" + this.book_id + "'>" +
+            "<button type='submit'> <img src='http://localhost/ecommerce/app/assets/icons/navigation/close.svg' alt='remove product icon'></button>" +
+
+            "</form>" +
+
+            "</div>"
     }
 
 
@@ -53,14 +56,101 @@ class Product {
     appendTemplate() {
         $('#shopping-cart-menu').removeClass('closed').addClass('opened');
         setTimeout(() => {
-            $('#shopping-cart-menu .container-block').append(this.getTemplate())
+            var emptyBasketImage = $('#empty-basket')
+            var basketProductContainer = $('#shopping-cart-menu .container .container-block');
+            if (emptyBasketImage.length > 0) {
+                $("#see-product").remove();
+                $('#empty-basket').remove();
+            };
+            basketProductContainer.append(this.getTemplate());
+            Product.delete();
+            Product.update();
         }, 750);
+
     }
 
 
+    static delete() {
+
+        $('.delete-product').click(function(event) {
+
+            event.preventDefault();
+
+            $.ajax({
+                url: "/ecommerce/index.php",
+                method: "POST",
+                data: "controller=basketitem&method=destroy&" + $(this).serialize() + "&remote=true",
+                dataType: "JSON",
+                success: function(result, status) {
+                    $("#" + result.book_id).remove();
+                    $('#shopping-cart-menu h2').text(result.message);
+                },
+                error: function(result, error, status) {
+                    console.log(status);
+                }
+            })
+        })
+    }
+
+
+    static update() {
+        $('.book_quantity').keyup(function() {
+
+            var form = $(this).closest('form');
+
+            var quantityInput = form.find('.book_quantity')
+
+            var quantityInputVal = quantityInput.val();
+
+            if (quantityInputVal != "" && typeof(quantityInputVal) == "string") {
+                $.ajax({
+                    url: "/ecommerce/index.php",
+                    method: "POST",
+                    data: "controller=basketitem&method=update&" + form.serialize() + "&remote=true",
+                    dataType: "JSON",
+                    success: function(result, status) {
+                        quantityInput.val(result.quantity);
+                        $('#shopping-cart-menu h2').text(result.message);
+                    },
+                    error: function(result, error, status) {
+                        console.log(status);
+                    }
+                });
+            }
+
+        });
+
+    }
+
+
+    static create() {
+
+        $('.card-product .form-buy').submit(function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: "/ecommerce/index.php",
+                method: "POST",
+                data: "controller=basketitem&method=create&" + $(this).serialize() + "&remote=true",
+                dataType: "JSON",
+                success: function(result, status) {
+                    const product = new Product(result.book_id, result.book_title, result.book_image_path, result.book_price, result.book_quantity);
+                    product.appendTemplate();
+
+                },
+                error: function(result, error, status) {
+                    console.log(error)
+                },
+            })
+        });
 
 
 
-
-
+    }
 }
+
+
+$(document).ready(function() {
+    Product.create();
+    Product.delete();
+    Product.update();
+});

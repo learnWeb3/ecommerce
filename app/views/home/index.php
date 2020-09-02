@@ -129,17 +129,3 @@
 <script src="<?php echo ABSOLUTE_ASSET_PATH ?>/js/jumbotron.js"></script>
 
 <script src="<?php echo ABSOLUTE_ASSET_PATH ?>/js/row-autoflow.js"></script>
-
-<script>
-    $(document).ready(function() {
-
-        var name = "ssssss";
-        var url = "";
-        var description = "ddddddd";
-        var price = 200;
-        var quantity = 1;
-        var product = new Product(name, url, description, price, quantity)
-
-        product.appendTemplate();
-    })
-</script>
