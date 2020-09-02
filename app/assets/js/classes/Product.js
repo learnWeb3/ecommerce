@@ -62,9 +62,13 @@ class Product {
                 $("#see-product").remove();
                 $('#empty-basket').remove();
             };
+
             basketProductContainer.append(this.getTemplate());
+
             Product.delete();
             Product.update();
+            Product.setBasketNumber()
+
         }, 750);
 
     }
@@ -83,7 +87,7 @@ class Product {
                 dataType: "JSON",
                 success: function(result, status) {
                     $("#" + result.book_id).remove();
-                    $('#shopping-cart-menu h2').text(result.message);
+                    Product.setBasketNumber()
                 },
                 error: function(result, error, status) {
                     console.log(status);
@@ -145,6 +149,12 @@ class Product {
 
 
 
+    }
+
+
+    static setBasketNumber() {
+        var numberOfItemInBasket = $("#shopping-cart-menu .card-product").length;
+        $("#shopping-cart-menu h2").text("Mon panier (" + numberOfItemInBasket + " article)");
     }
 }
 
