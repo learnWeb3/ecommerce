@@ -88,6 +88,7 @@
                 dataType: "JSON",
                 success: function(result, status) {
                     quantityInput.val(result.quantity);
+                    $('#shopping-cart-menu h2').text("Votre panier à été mis à jour");
                 },
                 error: function(result, error, status) {
                     console.log(status);
@@ -96,4 +97,25 @@
         }
 
     });
+
+
+    $('.delete-product').click(function(event){
+        event.preventDefault();
+
+        $.ajax({
+            url:"/ecommerce/index.php",
+            method:"POST",
+            data:"controller=basketitem&method=destroy"+$(this).serialize()+"&remote=true",
+            dataType:"JSON",
+            success:function(result, status){
+
+                console.log($("#"+result.book_id));
+                $("#"+result.book_id).remove();
+                $('#shopping-cart-menu h2').text("Votre panier à été mis à jour");
+            },
+            error:function(result, error,status){
+                console.log(status);
+            }
+        })
+    })
 </script>

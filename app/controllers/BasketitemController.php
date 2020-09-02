@@ -42,10 +42,10 @@ class BasketitemController
 
             $basket->storeInSession();
 
-
-            // if (isset($_POST["remote"])) {
-            // } else {
-            // }
+            if (isset($_POST["remote"])) {
+                echo json_encode(array("book_id"=>$book_id, "message"=>"Panier mis à jour avec succès"));
+            } else {
+            }
         } else {
         }
     }
@@ -69,7 +69,7 @@ class BasketitemController
                 
             if (isset($_POST["remote"])) {
 
-                echo json_encode(array("book_id"=>$book_id, "quantity"=>$quantity));
+                echo json_encode(array("book_id"=>$book_id, "quantity"=>$quantity, "message"=>"Panier mis à jour avec succès"));
                
             }else{
 
