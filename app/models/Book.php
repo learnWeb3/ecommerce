@@ -620,19 +620,17 @@ class Book extends DbRecords
 
     public function getStripePriceId()
     {
+        $connection = Db::connect();
+        $statement = "SELECT * FROM stripe_details WHERE book_id=?";
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute(array(
+            $this->getId()
+        ));
+        $stripe_price_id = $prepared_statement->fetchAll(PDO::FETCH_ASSOC)[0]['stripe_price_id'];
+        $this->stripe_price_id = $stripe_price_id;
         return $this->stripe_price_id;
 
     }
-
-    public function setStripeProductId()
-    {
-
-        $stripe = new AppStripe(STRIPE_SECRET_KEY);
-        $stripe_obj = $stripe->createProduct($this->title);
-        $this->stripe_product_id = $stripe_obj->id;
-        return $this->stripe_product_id;
-    }
-
 
     public function setStripePriceId($quantity, $currency_symbol = 'eur')
     {
@@ -645,6 +643,25 @@ class Book extends DbRecords
 
     public function getStripeProductId()
     {
-        return $this->stripeProductId;
+        $connection = Db::connect();
+        $statement = "SELECT * FROM stripe_details WHERE book_id=?";
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute(array(
+            $this->getId()
+        ));
+        $stripe_product_id = $prepared_statement->fetchAll(PDO::FETCH_ASSOC)[0]['stripe_product_id'];
+        $this->stripe_porduct_id = $stripe_product_id;
+        return $this->stripe_product_id;
     }
+
+    public function setStripeProductId()
+    {
+
+        $stripe = new AppStripe(STRIPE_SECRET_KEY);
+        $stripe_obj = $stripe->createProduct($this->title);
+        $this->stripe_product_id = $stripe_obj->id;
+        return $this->stripe_product_id;
+    }
+
+
 }
