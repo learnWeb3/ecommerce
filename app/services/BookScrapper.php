@@ -172,7 +172,7 @@ class BookScrapper
             $category_obj = $category_obj->create();
             var_dump($category_obj);
             foreach ($category["books"] as $i => $book) {
-                $book = new Book($book["title"], $book["author"], $book["collection"], $book["price"], $book["year"], $book["image"], $book["description"], $category_obj->getId(), 1);
+                $book = new Book($book["title"], $book["author"], $book["collection"], $book["price"], $book["year"], $book["image"], $book["description"], $category_obj->getId());
                 var_dump($book->create());
             }
         }

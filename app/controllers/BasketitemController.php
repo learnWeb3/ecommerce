@@ -29,8 +29,7 @@ class BasketitemController
                     "book_title"=>$added_product->getBook()->getTitle(),
                     "book_image_path"=>$added_product->getBook()->getImagePath(),
                     "book_price"=>$added_product->getBook()->getPrice(),
-                    "book_quantity"=>$added_product->getQuantity(),
-                    "book_tva_value"=>$added_product->getTvaId()
+                    "book_quantity"=>$added_product->getQuantity()
                 );
     
                 echo json_encode($added_product);

@@ -12,11 +12,10 @@ class Book extends DbRecords
     protected $image_path;
     protected $description;
     protected $category_id;
-    protected $tva_id;
 
 
     // CONSTRUCTOR
-    public function __construct($title = null, $author = null, $collection = null, $price = null, $publication_year = null, $image_path = null, $description = null, $category_id = null,$tva_id=null, $id = null, $created_at = null, $updated_at = null)
+    public function __construct($title = null, $author = null, $collection = null, $price = null, $publication_year = null, $image_path = null, $description = null, $category_id = null, $id = null, $created_at = null, $updated_at = null)
     {
         if (func_get_args() != null) {
             $this->title = $title;
@@ -27,7 +26,6 @@ class Book extends DbRecords
             $this->image_path = $image_path;
             $this->description = $description;
             $this->category_id = $category_id;
-            $this->tva_id = $tva_id;
         }
 
         parent::__construct($id, $created_at, $updated_at);
@@ -73,12 +71,6 @@ class Book extends DbRecords
     {
         return floatval($this->price);
     }
-
-    public function getTvaId()
-    {
-        return $this->tva_id;
-    }
-
 
     public function setPrice(int $price)
     {
@@ -151,8 +143,6 @@ class Book extends DbRecords
         books.price as book_price,
         books.publication_year as book_year,
         books.category_id as book_category_id,
-        books.tva_id as book_tva_id,
-        tva.value as book_tva_value
         books.image_path as book_image_path,
         books.description as book_description, 
         categories.name as category_name,
@@ -161,7 +151,6 @@ class Book extends DbRecords
         categories.updated_at as category_updated_at
         FROM books 
         JOIN categories ON books.category_id = categories.id
-        JOIN tva ON books.tva_id = tva.id
         ORDER BY books.created_at DESC
         LIMIT $limit OFFSET $offset";
         $prepared_statement = $connection->prepare($statement);
@@ -169,7 +158,7 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_tva_value"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"])
             );
         }
@@ -197,8 +186,6 @@ class Book extends DbRecords
         books.price as book_price,
         books.publication_year as book_year,
         books.category_id as book_category_id,
-        books.tva_id as book_tva_id,
-        tva.value as book_tva_value
         books.image_path as book_image_path,
         books.description as book_description, 
         categories.name as category_name,
@@ -208,7 +195,6 @@ class Book extends DbRecords
         FROM books 
         JOIN categories ON books.category_id = categories.id
         JOIN recommended_books ON recommended_books.book_id = books.id
-        JOIN tva ON books.tva_id = tva.id
         ORDER BY books.created_at DESC
         LIMIT $limit OFFSET $offset";
         $prepared_statement = $connection->prepare($statement);
@@ -216,7 +202,7 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_tva_value"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"])
             );
         }
@@ -244,8 +230,6 @@ class Book extends DbRecords
         books.price as book_price,
         books.publication_year as book_year,
         books.category_id as book_category_id,
-        books.tva_id as book_tva_id,
-        tva.value as book_tva_value
         books.image_path as book_image_path,
         books.description as book_description, 
         categories.name as category_name,
@@ -262,7 +246,6 @@ class Book extends DbRecords
         JOIN categories ON books.category_id = categories.id
         JOIN coup_de_coeur_books ON recommended_books.book_id = books.id
         JOIN users ON coups_de_coeur_books.user_id = users.id
-        JOIN tva ON books.tva_id = tva.id
         ORDER BY books.created_at DESC
         LIMIT $limit OFFSET $offset";
         $prepared_statement = $connection->prepare($statement);
@@ -270,7 +253,7 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_tva_value"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
                 "user" => new User($row["user_email"], null, $row["user_firstname"], $row["user_lastname"], null, $row["user_id"], $row["user_created_at"], $row["user_updated_at"])
             );
@@ -298,8 +281,6 @@ class Book extends DbRecords
         books.price as book_price,
         books.publication_year as book_year,
         books.category_id as book_category_id,
-        books.tva_id as book_tva_id,
-        tva.value as book_tva_value
         books.image_path as book_image_path,
         books.description as book_description, 
         categories.name as category_name,
@@ -312,7 +293,6 @@ class Book extends DbRecords
         JOIN basket_items ON basket_items.book_id = books.id
         JOIN baskets ON basket_items.basket_id = baskets.id
         JOIN orders ON orders.basket_id = baskets.id
-        JOIN tva ON books.tva_id = tva.id
         GROUP BY books.id
         LIMIT $limit OFFSET $offset
         ORDER BY book_sales_count DESC";
@@ -321,7 +301,7 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_tva_value"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
                 "book_sales_count" => $row["book_sales_count"]
             );
@@ -368,8 +348,6 @@ class Book extends DbRecords
         books.price as book_price,
         books.publication_year as book_year,
         books.category_id as book_category_id,
-        books.tva_id as book_tva_id,
-        tva.value as book_tva_value
         books.image_path as book_image_path,
         books.description as book_description, 
         categories.name as category_name,
@@ -378,7 +356,6 @@ class Book extends DbRecords
         categories.updated_at as category_updated_at
         FROM books 
         JOIN categories ON books.category_id = categories.id
-        JOIN tva ON books.tva_id = tva.id
         WHERE $column_name = ?
         LIMIT $limit OFFSET $offset
         ORDER BY $order_column $order";
@@ -389,7 +366,7 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                 "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_tva_value"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
             );
         }
@@ -429,8 +406,6 @@ class Book extends DbRecords
         books.price as book_price,
         books.publication_year as book_year,
         books.category_id as book_category_id,
-        books.tva_id as book_tva_id,
-        tva.value as book_tva_value
         books.image_path as book_image_path,
         books.description as book_description, 
         categories.name as category_name,
@@ -439,7 +414,6 @@ class Book extends DbRecords
         categories.updated_at as category_updated_at
         FROM books 
         JOIN categories ON books.category_id = categories.id
-        JOIN tva ON books.tva_id = tva.id
         WHERE $column_name LIKE ?
         LIMIT $limit OFFSET $offset
         ORDER BY $order_column $order";
@@ -450,7 +424,7 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_tva_value"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
             );
         }
@@ -481,8 +455,6 @@ class Book extends DbRecords
         books.price as book_price,
         books.publication_year as book_year,
         books.category_id as book_category_id,
-        books.tva_id as book_tva_id,
-        tva.value as book_tva_value
         books.image_path as book_image_path,
         books.description as book_description, 
         categories.name as category_name,
@@ -491,7 +463,6 @@ class Book extends DbRecords
         categories.updated_at as category_updated_at
         FROM books 
         JOIN categories ON books.category_id = categories.id
-        JOIN tva ON books.tva_id = tva.id
         WHERE books.price BETWEEN ? AND ?
         LIMIT $limit OFFSET $offset
         ORDER BY books.price $order";
@@ -502,7 +473,7 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_tva_value"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
             );
         }

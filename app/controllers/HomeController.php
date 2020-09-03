@@ -30,14 +30,14 @@ class HomeController extends ApplicationController
         if (isset($_POST['remote']))
         {
 
-            // echo json_encode(array(
-            //     "new_books"=>,
-            //     "recommended_books"=>,
-            //     "coup_de_coeur_books"=>,
-            //     "best_sales_books"=>,
-            // ));
+            echo json_encode(array(
+                "new_books"=>,
+                "recommended_books"=>,
+                "coup_de_coeur_books"=>,
+                "best_sales_books"=>,
+            ));
 
-            die();
+            die()
 
 
         }else{

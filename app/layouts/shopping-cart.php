@@ -8,7 +8,7 @@
 
         <h2>Mon panier (<?php echo 0; ?> article)</h2>
 
-        <div class="container-block" style="max-height:75%">
+        <div class="container-block">
 
             <?php if ($basket->notEmpty()) : ?>
 
@@ -20,17 +20,6 @@
 
             <?php endif; ?>
         </div>
-
-        <div>
-            <h2>Total:</h2>
-            <hr class="light">
-            <h3>Sous-total:  <?php echo $basket->getTotal()?></h3>
-            <h3>Livraison:</h3>
-            <hr class="light">
-            <h2>Total (TVA incluse): </h2>
-        </div>
-
-       <buttton class="btn btn-lg btn-success">Payer</buttton>
 
         <?php if ($basket->Empty()) : ?>
             <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/illustration/empty-basket.svg"
