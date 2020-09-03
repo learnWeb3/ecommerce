@@ -152,6 +152,7 @@ class Book extends DbRecords
         books.publication_year as book_year,
         books.category_id as book_category_id,
         books.tva_id as book_tva_id,
+        tva.value as book_tva_value
         books.image_path as book_image_path,
         books.description as book_description, 
         categories.name as category_name,
@@ -168,7 +169,7 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_tva_value"], $row["book_created_at"], $row["book_updated_at"]),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"])
             );
         }
@@ -196,7 +197,8 @@ class Book extends DbRecords
         books.price as book_price,
         books.publication_year as book_year,
         books.category_id as book_category_id,
-         books.tva_id as book_tva_id,
+        books.tva_id as book_tva_id,
+        tva.value as book_tva_value
         books.image_path as book_image_path,
         books.description as book_description, 
         categories.name as category_name,
@@ -214,7 +216,7 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_tva_value"], $row["book_created_at"], $row["book_updated_at"]),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"])
             );
         }
@@ -243,6 +245,7 @@ class Book extends DbRecords
         books.publication_year as book_year,
         books.category_id as book_category_id,
         books.tva_id as book_tva_id,
+        tva.value as book_tva_value
         books.image_path as book_image_path,
         books.description as book_description, 
         categories.name as category_name,
@@ -267,7 +270,7 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                 "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_tva_value"], $row["book_created_at"], $row["book_updated_at"]),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
                 "user" => new User($row["user_email"], null, $row["user_firstname"], $row["user_lastname"], null, $row["user_id"], $row["user_created_at"], $row["user_updated_at"])
             );
@@ -296,6 +299,7 @@ class Book extends DbRecords
         books.publication_year as book_year,
         books.category_id as book_category_id,
         books.tva_id as book_tva_id,
+        tva.value as book_tva_value
         books.image_path as book_image_path,
         books.description as book_description, 
         categories.name as category_name,
@@ -317,7 +321,7 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                 "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_tva_value"], $row["book_created_at"], $row["book_updated_at"]),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
                 "book_sales_count" => $row["book_sales_count"]
             );
@@ -365,6 +369,7 @@ class Book extends DbRecords
         books.publication_year as book_year,
         books.category_id as book_category_id,
         books.tva_id as book_tva_id,
+        tva.value as book_tva_value
         books.image_path as book_image_path,
         books.description as book_description, 
         categories.name as category_name,
@@ -384,7 +389,7 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                 "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                 "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_tva_value"], $row["book_created_at"], $row["book_updated_at"]),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
             );
         }
@@ -425,6 +430,7 @@ class Book extends DbRecords
         books.publication_year as book_year,
         books.category_id as book_category_id,
         books.tva_id as book_tva_id,
+        tva.value as book_tva_value
         books.image_path as book_image_path,
         books.description as book_description, 
         categories.name as category_name,
@@ -444,7 +450,7 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                 "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_tva_value"], $row["book_created_at"], $row["book_updated_at"]),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
             );
         }
@@ -476,6 +482,7 @@ class Book extends DbRecords
         books.publication_year as book_year,
         books.category_id as book_category_id,
         books.tva_id as book_tva_id,
+        tva.value as book_tva_value
         books.image_path as book_image_path,
         books.description as book_description, 
         categories.name as category_name,
@@ -495,7 +502,7 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                 "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_tva_value"], $row["book_created_at"], $row["book_updated_at"]),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
             );
         }

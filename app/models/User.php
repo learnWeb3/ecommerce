@@ -60,7 +60,11 @@ class User extends DbRecords
             books.price as book_price,
             books.publication_year as book_publication_year,
             books.image_path as book_image_path,
-            books.category_id as book_category_id
+            books.category_id as book_category_id,
+            -- TVA
+            books.tva_id as book_tva_id,
+tva.value as book_tva_value
+            tva.value as book_tva_value,
         FROM users 
             JOIN baskets ON baskets.user_id=users.id 
             JOIN books ON books.id=baskets.book_id 
@@ -77,7 +81,7 @@ class User extends DbRecords
         while($row = $prepared_statement->fetch())
         {
             $results[]= array(
-                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"],$row["book_tva_id"], $row["book_tva_value"], $row["book_created_at"], $row["book_updated_at"]),
                 "category"=>new Category($row['category_name'], $row['category_id'],$row['category_created_at'],$row['category_updated_at'])
             );
 
