@@ -158,4 +158,9 @@ class Basket extends DbRecords
     {
         return (empty($this->basket_items) == false);
     }
+
+    public function getTotal()
+    {
+        return array_sum(array_map(function($el){return $el->getBook()->getPrice() * $el->getQuantity();}, $this->basket_items));
+    }
 }
