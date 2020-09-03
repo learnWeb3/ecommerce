@@ -12,10 +12,11 @@ class Book extends DbRecords
     protected $image_path;
     protected $description;
     protected $category_id;
+    protected $tva_id;
 
 
     // CONSTRUCTOR
-    public function __construct($title = null, $author = null, $collection = null, $price = null, $publication_year = null, $image_path = null, $description = null, $category_id = null, $id = null, $created_at = null, $updated_at = null)
+    public function __construct($title = null, $author = null, $collection = null, $price = null, $publication_year = null, $image_path = null, $description = null, $category_id = null, $tva_id = null, $id = null, $created_at = null, $updated_at = null)
     {
         if (func_get_args() != null) {
             $this->title = $title;
@@ -26,6 +27,7 @@ class Book extends DbRecords
             $this->image_path = $image_path;
             $this->description = $description;
             $this->category_id = $category_id;
+            $this->tva_id = $tva_id;
         }
 
         parent::__construct($id, $created_at, $updated_at);
@@ -117,6 +119,13 @@ class Book extends DbRecords
         return intval($this->category_Id);
     }
 
+
+    public function getTvaId()
+    {
+        return floatval($this->tva_Id);
+    }
+
+
     public function setCategoryId(int $category_Id)
     {
         $this->category_Id = $category_Id;
@@ -134,7 +143,7 @@ class Book extends DbRecords
         $connection = Db::connect();
         $statement =
             "SELECT 
-        books.id as book_id,
+               books.id as book_id,
         books.created_at as book_created_at,
         books.updated_at as book_updated_at,
         books.title as book_title,
@@ -144,7 +153,8 @@ class Book extends DbRecords
         books.publication_year as book_year,
         books.category_id as book_category_id,
         books.image_path as book_image_path,
-        books.description as book_description, 
+        books.description as book_description,
+        books.tva_id as book_tva_id, 
         categories.name as category_name,
         categories.id as category_id,
         categories.created_at as category_created_at,
@@ -158,7 +168,20 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book(
+                    $row["book_title"],
+                    $row["book_author"],
+                    $row["book_collection"],
+                    $row["book_price"],
+                    $row["book_year"],
+                    $row["book_image_path"],
+                    $row["book_description"],
+                    $row["book_category_id"],
+                    $row["book_tva_id"],
+                    $row["book_id"],
+                    $row["book_created_at"],
+                    $row["book_updated_at"]
+                ),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"])
             );
         }
@@ -177,7 +200,7 @@ class Book extends DbRecords
         $connection = Db::connect();
         $statement =
             "SELECT 
-        books.id as book_id,
+               books.id as book_id,
         books.created_at as book_created_at,
         books.updated_at as book_updated_at,
         books.title as book_title,
@@ -187,7 +210,8 @@ class Book extends DbRecords
         books.publication_year as book_year,
         books.category_id as book_category_id,
         books.image_path as book_image_path,
-        books.description as book_description, 
+        books.description as book_description,
+        books.tva_id as book_tva_id,  
         categories.name as category_name,
         categories.id as category_id,
         categories.created_at as category_created_at,
@@ -202,7 +226,20 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book(
+                    $row["book_title"],
+                    $row["book_author"],
+                    $row["book_collection"],
+                    $row["book_price"],
+                    $row["book_year"],
+                    $row["book_image_path"],
+                    $row["book_description"],
+                    $row["book_category_id"],
+                    $row["book_tva_id"],
+                    $row["book_id"],
+                    $row["book_created_at"],
+                    $row["book_updated_at"]
+                ),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"])
             );
         }
@@ -221,7 +258,7 @@ class Book extends DbRecords
         $connection = Db::connect();
         $statement =
             "SELECT 
-        books.id as book_id,
+               books.id as book_id,
         books.created_at as book_created_at,
         books.updated_at as book_updated_at,
         books.title as book_title,
@@ -231,7 +268,8 @@ class Book extends DbRecords
         books.publication_year as book_year,
         books.category_id as book_category_id,
         books.image_path as book_image_path,
-        books.description as book_description, 
+        books.description as book_description,
+        books.tva_id as book_tva_id,  
         categories.name as category_name,
         categories.id as category_id,
         categories.created_at as category_created_at,
@@ -253,7 +291,20 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book(
+                    $row["book_title"],
+                    $row["book_author"],
+                    $row["book_collection"],
+                    $row["book_price"],
+                    $row["book_year"],
+                    $row["book_image_path"],
+                    $row["book_description"],
+                    $row["book_category_id"],
+                    $row["book_tva_id"],
+                    $row["book_id"],
+                    $row["book_created_at"],
+                    $row["book_updated_at"]
+                ),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
                 "user" => new User($row["user_email"], null, $row["user_firstname"], $row["user_lastname"], null, $row["user_id"], $row["user_created_at"], $row["user_updated_at"])
             );
@@ -272,7 +323,7 @@ class Book extends DbRecords
         $connection = Db::connect();
         $statement =
             "SELECT 
-        books.id as book_id,
+               books.id as book_id,
         books.created_at as book_created_at,
         books.updated_at as book_updated_at,
         books.title as book_title,
@@ -282,7 +333,8 @@ class Book extends DbRecords
         books.publication_year as book_year,
         books.category_id as book_category_id,
         books.image_path as book_image_path,
-        books.description as book_description, 
+        books.description as book_description,
+        books.tva_id as book_tva_id,  
         categories.name as category_name,
         categories.id as category_id,
         categories.created_at as category_created_at,
@@ -301,7 +353,20 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book(
+                    $row["book_title"],
+                    $row["book_author"],
+                    $row["book_collection"],
+                    $row["book_price"],
+                    $row["book_year"],
+                    $row["book_image_path"],
+                    $row["book_description"],
+                    $row["book_category_id"],
+                    $row["book_tva_id"],
+                    $row["book_id"],
+                    $row["book_created_at"],
+                    $row["book_updated_at"]
+                ),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
                 "book_sales_count" => $row["book_sales_count"]
             );
@@ -339,7 +404,7 @@ class Book extends DbRecords
         $connection = Db::connect();
         $statement =
             "SELECT 
-        books.id as book_id,
+               books.id as book_id,
         books.created_at as book_created_at,
         books.updated_at as book_updated_at,
         books.title as book_title,
@@ -349,7 +414,8 @@ class Book extends DbRecords
         books.publication_year as book_year,
         books.category_id as book_category_id,
         books.image_path as book_image_path,
-        books.description as book_description, 
+        books.description as book_description,
+        books.tva_id as book_tva_id,  
         categories.name as category_name,
         categories.id as category_id,
         categories.created_at as category_created_at,
@@ -366,7 +432,20 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book(
+                    $row["book_title"],
+                    $row["book_author"],
+                    $row["book_collection"],
+                    $row["book_price"],
+                    $row["book_year"],
+                    $row["book_image_path"],
+                    $row["book_description"],
+                    $row["book_category_id"],
+                    $row["book_tva_id"],
+                    $row["book_id"],
+                    $row["book_created_at"],
+                    $row["book_updated_at"]
+                ),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
             );
         }
@@ -397,7 +476,7 @@ class Book extends DbRecords
         $connection = Db::connect();
         $statement =
             "SELECT 
-        books.id as book_id,
+               books.id as book_id,
         books.created_at as book_created_at,
         books.updated_at as book_updated_at,
         books.title as book_title,
@@ -407,7 +486,8 @@ class Book extends DbRecords
         books.publication_year as book_year,
         books.category_id as book_category_id,
         books.image_path as book_image_path,
-        books.description as book_description, 
+        books.description as book_description,
+        books.tva_id as book_tva_id,  
         categories.name as category_name,
         categories.id as category_id,
         categories.created_at as category_created_at,
@@ -424,7 +504,20 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book(
+                    $row["book_title"],
+                    $row["book_author"],
+                    $row["book_collection"],
+                    $row["book_price"],
+                    $row["book_year"],
+                    $row["book_image_path"],
+                    $row["book_description"],
+                    $row["book_category_id"],
+                    $row["book_tva_id"],
+                    $row["book_id"],
+                    $row["book_created_at"],
+                    $row["book_updated_at"]
+                ),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
             );
         }
@@ -446,7 +539,7 @@ class Book extends DbRecords
         $connection = Db::connect();
         $statement =
             "SELECT 
-        books.id as book_id,
+               books.id as book_id,
         books.created_at as book_created_at,
         books.updated_at as book_updated_at,
         books.title as book_title,
@@ -456,7 +549,8 @@ class Book extends DbRecords
         books.publication_year as book_year,
         books.category_id as book_category_id,
         books.image_path as book_image_path,
-        books.description as book_description, 
+        books.description as book_description,
+        books.tva_id as book_tva_id,  
         categories.name as category_name,
         categories.id as category_id,
         categories.created_at as category_created_at,
@@ -473,15 +567,24 @@ class Book extends DbRecords
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
-                "book" => new Book($row["book_title"], $row["book_author"], $row["book_collection"], $row["book_price"], $row["book_year"], $row["book_image_path"], $row["book_description"], $row["book_category_id"], $row["book_id"], $row["book_created_at"], $row["book_updated_at"]),
+                "book" => new Book(
+                    $row["book_title"],
+                    $row["book_author"],
+                    $row["book_collection"],
+                    $row["book_price"],
+                    $row["book_year"],
+                    $row["book_image_path"],
+                    $row["book_description"],
+                    $row["book_category_id"],
+                    $row["book_tva_id"],
+                    $row["book_id"],
+                    $row["book_created_at"],
+                    $row["book_updated_at"]
+                ),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
             );
         }
 
         return $results;
     }
-
-
-
-
 }
