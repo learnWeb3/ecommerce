@@ -66,6 +66,7 @@ class User extends DbRecords
             JOIN books ON books.id=baskets.book_id 
             JOIN categories ON categories.id=books.category_id
             JOIN states ON states.id=baskets.state_id 
+            JOIN tva ON books.tva_id = tva.id
         WHERE states.name = 'current'
         AND users.id= ?";
 
