@@ -169,4 +169,25 @@ class Basket extends DbRecords
     {
         return array_sum(array_map(function($el){return $el->getBook()->getHtPrice() * $el->getQuantity();}, $this->basket_items));
     }
+
+    //  $products =[
+    // [
+    //     'price' => $price_id,
+    //     'quantity' => $quantity,
+    //   ],
+    // ]
+    public function checkout()
+    {
+        $products = $this->getBasketItems();
+
+        return array_map(function($el){
+           return  array(
+                [
+                    'price'=>$el->getBook()->getPrice(),
+                    'quantity'=>$el->getQuantity()
+                ]
+                );
+        }, $products);
+    }
+
 }

@@ -1,6 +1,6 @@
 class Stripe {
 
-    static checkout(checkoutButton, stripeSecret, basketItems = []) {
+    static checkout(checkoutButton, stripeSecret) {
         // MAKE A JS OBJECT WITH ALL OF THAT
         // Create an instance of the Stripe object with your publishable API key
 
@@ -15,7 +15,7 @@ class Stripe {
             $.ajax({
                 url: "Stripe.php",
                 type: "POST",
-                data: "stripe_checkout=true",
+                data: "remote=true",
                 dataType: "JSON",
                 success: function(result, status) {
                     if (result.error) {

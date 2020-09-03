@@ -66,11 +66,3 @@ class AppStripe
     }
 
 }
-
-
-$stripe = new AppStripe(STRIPE_SECRET_KEY);
-
-// creating a checkout session
-$session = $stripe->createSession($products);
-
-echo json_encode($session);
