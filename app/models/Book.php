@@ -618,7 +618,7 @@ class Book extends DbRecords
     }
 
 
-    public function setStripePriceId()
+    public function getStripePriceId()
     {
         return $this->stripe_price_id;
 
@@ -627,16 +627,16 @@ class Book extends DbRecords
     public function setStripeProductId()
     {
 
-        $stripe = new AppStripe();
+        $stripe = new AppStripe(STRIPE_SECRET_KEY);
         $stripe_obj = $stripe->createProduct($this->title);
         $this->stripe_product_id = $stripe_obj->id;
         return $this->stripe_product_id;
     }
 
 
-    public function getStripePriceId($quantity, $currency_symbol = 'eur')
+    public function setStripePriceId($quantity, $currency_symbol = 'eur')
     {
-        $stripe = new AppStripe();
+        $stripe = new AppStripe(STRIPE_SECRET_KEY);
         $stripe_obj= $stripe->createPrice($this->stripe_product_id, $quantity, $currency_symbol);
         $this->stripe_price_id = $stripe_obj->id;
         return $this->stripe_price_id;
