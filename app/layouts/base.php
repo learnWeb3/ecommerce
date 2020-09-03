@@ -16,7 +16,7 @@
     <!-- NAVBAR JS STYLES -->
     <script src="<?php echo ABSOLUTE_ASSET_PATH . "/js/navbar.js" ?>"></script>
     <script src="<?php echo ABSOLUTE_ASSET_PATH ?>/js/classes/Product.js"></script>
-    <script src="<?php echo ABSOLUTE_ASSET_PATH?>/js/classes/Stripe.js"></script>
+    <script src="<?php echo ABSOLUTE_ASSET_PATH?>/js/classes/AppStripe.js"></script>
 </head>
 
 <body>

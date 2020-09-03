@@ -1,10 +1,15 @@
-class Stripe {
+class AppStripe {
 
-    static checkout(checkoutButton, stripeSecret) {
+
+    constructor() {
+        this.stripePublishableKey = 'pk_test_TYooMQauvdEDq54NiTphI7jx';
+    }
+
+    checkout(checkoutButton) {
         // MAKE A JS OBJECT WITH ALL OF THAT
         // Create an instance of the Stripe object with your publishable API key
 
-        var stripe = Stripe(stripeSecret);
+        var stripe = Stripe(this.stripePublishableKey);
         // var checkoutButton = document.getElementById('stripe-checkout');
 
         var checkoutButton = $(checkoutButton)
@@ -13,7 +18,7 @@ class Stripe {
         checkoutButton.click(function() {
 
             $.ajax({
-                url: "Stripe.php",
+                url: "/ecommerce/index.php?controller=checkout&method=create",
                 type: "POST",
                 data: "remote=true",
                 dataType: "JSON",
