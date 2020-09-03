@@ -31,6 +31,7 @@ class ComposerStaticInit19e42cdf77440d0a32b0583fa404df89
             'Symfony\\Component\\DomCrawler\\' => 29,
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\BrowserKit\\' => 29,
+            'Stripe\\' => 7,
         ),
         'P' => 
         array (
@@ -95,6 +96,10 @@ class ComposerStaticInit19e42cdf77440d0a32b0583fa404df89
         'Symfony\\Component\\BrowserKit\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/browser-kit',
+        ),
+        'Stripe\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
         ),
         'Psr\\Log\\' => 
         array (

@@ -160,8 +160,13 @@ class Basket extends DbRecords
     }
 
     
-    public function getTotal()
+    public function getTotalTTC()
     {
         return array_sum(array_map(function($el){return $el->getBook()->getPrice() * $el->getQuantity();}, $this->basket_items));
+    }
+
+    public function getTotalHT()
+    {
+        return array_sum(array_map(function($el){return $el->getBook()->getHtPrice() * $el->getQuantity();}, $this->basket_items));
     }
 }

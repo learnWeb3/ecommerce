@@ -6,7 +6,9 @@
     <div class="col">
 
         <h4 class="product-title"> <a href="<?php echo REDIRECT_BASE_URL . "controller=book&method=show&id=" . $basket_product->getBook()->getId() ?>"><?php echo $basket_product->getBook()->getTitle() ?></a> </h4>
-        <h5 class="product-price"> <?php echo $basket_product->getBook()->getPrice() ?></h5>
+
+        <h5> <?php echo $basket_product->getBook()->getHtPrice()?> &euro; HT</h5>
+        <h5 class="product-price"> <?php echo $basket_product->getBook()->getPrice() ?> &euro; TTC</h5>
 
         <hr class="light my-2">
 

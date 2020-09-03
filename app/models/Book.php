@@ -13,6 +13,7 @@ class Book extends DbRecords
     protected $description;
     protected $category_id;
     protected $tva_id;
+    protected $ht_price;
 
 
     // CONSTRUCTOR
@@ -81,6 +82,7 @@ class Book extends DbRecords
     }
 
 
+
     public function getPublicationYear()
     {
         return strftime("%Y",  strtotime($this->publication_year));
@@ -120,9 +122,27 @@ class Book extends DbRecords
     }
 
 
-    public function getTvaId()
+    private function getTvaId()
     {
-        return floatval($this->tva_Id);
+        return intval($this->tva_id);
+    }
+
+
+    public function getTva()
+    {
+        $connection = Db::connect();
+        $statement = "SELECT * FROM tva WHERE id=?";
+
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute(array($this->getTvaId()));
+        return floatval($prepared_statement->fetchAll(PDO::FETCH_ASSOC)[0]["value"]);
+    }
+
+
+    public function getHtPrice()
+    {
+        $this->ht_price = number_format($this->price * (1-$this->getTva()),2);
+        return $this->ht_price;
     }
 
 
