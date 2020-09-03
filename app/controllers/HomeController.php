@@ -6,7 +6,7 @@ class HomeController extends ApplicationController
     public function index()
     {
 
-        $book_most_recent_limit = (isset($_POST["book_most_recent_limit"])) ? $_POST["book_most_recent_limit"] : 10;
+        $book_most_recent_limit = (isset($_POST["book_most_recent_limit"])) ? $_POST["book_most_recent_limit"] : 5;
         $book_most_recent_offset = (isset($_POST["book_most_recent_offset"])) ? $_POST["books_most_recent_offset"] : 0;
 
         $book_coup_de_coeur_limit = (isset($_POST["book_coup_de_coeur_limit"])) ? $_POST["book_coup_de_coeur_limit"] : 2;
@@ -27,35 +27,17 @@ class HomeController extends ApplicationController
 
         $best_sales_books = Book::getPopular($book_best_sales_limit, $book_best_sales_offset);
 
-        if (isset($_POST['remote']))
-        {
 
-            echo json_encode(array(
-                "new_books"=>,
-                "recommended_books"=>,
-                "coup_de_coeur_books"=>,
-                "best_sales_books"=>,
-            ));
-
-            die()
-
-
-        }else{
-
-            $this->render(
-                "index",
-                "La Nuit des temps ",
-                "Bienvenue à La Nuit des temps: livres anciens et d'occasion, esprit miliatant et engagé",
-                array(
-                    "new_books" => $new_books,
-                    "recommended_books" => $recommended_books,
-                    "coup_de_coeur_books" => $coup_de_coeur_books,
-                    "best_sales_books" => $best_sales_books,
-                )
-            );
-
-        }
-
-      
+        $this->render(
+            "index",
+            "La Nuit des temps ",
+            "Bienvenue à La Nuit des temps: livres anciens et d'occasion, esprit miliatant et engagé",
+            array(
+                "new_books" => $new_books,
+                "recommended_books" => $recommended_books,
+                "coup_de_coeur_books" => $coup_de_coeur_books,
+                "best_sales_books" => $best_sales_books,
+            )
+        );
     }
 }

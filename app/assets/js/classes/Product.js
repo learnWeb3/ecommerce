@@ -65,8 +65,8 @@ class Product {
 
             basketProductContainer.append(this.getTemplate());
 
-            Product.delete(['.delete-product']);
-            Product.update(['.book_quantity']);
+            Product.delete();
+            Product.update();
             Product.setBasketNumber()
 
         }, 750);
@@ -74,95 +74,79 @@ class Product {
     }
 
 
-    static delete(targetedSelectors) {
+    static delete() {
 
-        targetedSelectors.forEach(targetedSelector => {
+        $('.delete-product').click(function(event) {
 
-            $(targetedSelector).click(function(event) {
+            event.preventDefault();
 
-                event.preventDefault();
+            $.ajax({
+                url: "/ecommerce/index.php",
+                method: "POST",
+                data: "controller=basketitem&method=destroy&" + $(this).serialize() + "&remote=true",
+                dataType: "JSON",
+                success: function(result, status) {
+                    $("#" + result.book_id).remove();
+                    Product.setBasketNumber()
+                },
+                error: function(result, error, status) {
+                    console.log(status);
+                }
+            })
+        })
+    }
 
+
+    static update() {
+        $('.book_quantity').keyup(function() {
+
+            var form = $(this).closest('form');
+
+            var quantityInput = form.find('.book_quantity')
+
+            var quantityInputVal = quantityInput.val();
+
+            if (quantityInputVal != "" && typeof(quantityInputVal) == "string") {
                 $.ajax({
                     url: "/ecommerce/index.php",
                     method: "POST",
-                    data: "controller=basketitem&method=destroy&" + $(this).serialize() + "&remote=true",
+                    data: "controller=basketitem&method=update&" + form.serialize() + "&remote=true",
                     dataType: "JSON",
                     success: function(result, status) {
-                        $("#" + result.book_id).remove();
-                        Product.setBasketNumber()
+                        quantityInput.val(result.quantity);
+                        $('#shopping-cart-menu h2').text(result.message);
                     },
                     error: function(result, error, status) {
                         console.log(status);
                     }
-                })
+                });
+            }
+
+        });
+
+    }
+
+
+    static create() {
+
+        $('.card-product .form-buy').submit(function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: "/ecommerce/index.php",
+                method: "POST",
+                data: "controller=basketitem&method=create&" + $(this).serialize() + "&remote=true",
+                dataType: "JSON",
+                success: function(result, status) {
+                    const product = new Product(result.book_id, result.book_title, result.book_image_path, result.book_price, result.book_quantity);
+                    product.appendTemplate();
+
+                },
+                error: function(result, error, status) {
+                    console.log(error)
+                },
             })
-
-        })
-
-    }
-
-
-    static update(targetedSelectors) {
-
-        targetedSelectors.forEach(targetedSelector => {
-
-            $(targetedSelector).keyup(function() {
-
-                var form = $(this).closest('form');
-
-                var quantityInput = form.find('.book_quantity')
-
-                var quantityInputVal = quantityInput.val();
-
-                if (quantityInputVal != "" && typeof(quantityInputVal) == "string") {
-                    $.ajax({
-                        url: "/ecommerce/index.php",
-                        method: "POST",
-                        data: "controller=basketitem&method=update&" + form.serialize() + "&remote=true",
-                        dataType: "JSON",
-                        success: function(result, status) {
-                            quantityInput.val(result.quantity);
-                            $('#shopping-cart-menu h2').text(result.message);
-                        },
-                        error: function(result, error, status) {
-                            console.log(status);
-                        }
-                    });
-                }
-
-            });
-
         });
 
-
-    }
-
-
-    static create(targetedSelectors) {
-
-
-        targetedSelectors.forEach(targetedSelector => {
-
-            $(targetedSelector).submit(function(event) {
-                event.preventDefault();
-                $.ajax({
-                    url: "/ecommerce/index.php",
-                    method: "POST",
-                    data: "controller=basketitem&method=create&" + $(this).serialize() + "&remote=true",
-                    dataType: "JSON",
-                    success: function(result, status) {
-                        const product = new Product(result.book_id, result.book_title, result.book_image_path, result.book_price, result.book_quantity);
-                        product.appendTemplate();
-
-                    },
-                    error: function(result, error, status) {
-                        console.log(error)
-                    },
-                })
-            });
-
-
-        });
 
 
     }
@@ -181,7 +165,7 @@ class Product {
 
 
 $(document).ready(function() {
-    Product.create(['.card-product .form-buy', '#form-buy']);
-    Product.delete(['.delete-product']);
-    Product.update(['.book_quantity']);
+    Product.create();
+    Product.delete();
+    Product.update();
 });
