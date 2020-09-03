@@ -607,4 +607,44 @@ class Book extends DbRecords
 
         return $results;
     }
+
+
+    public function createStripeDetails()
+    {   
+        $connection = Db::connect();
+        $statement = "INSERT INTO stripe_details (book_id,stripe_product_id,stripe_price_id) VALUES (?,?,?)";
+        $prepared_statement = $connection->prepare($statement);
+        return $prepared_statement->execute(array($this->book_id, $this->stripe_product_id,$this->stripe_price_id));
+    }
+
+
+    public function setStripePriceId()
+    {
+        return $this->stripe_price_id;
+
+    }
+
+    public function setStripeProductId()
+    {
+
+        $stripe = new AppStripe();
+        $stripe_obj = $stripe->createProduct($this->title);
+        $this->stripe_product_id = $stripe_obj->id;
+        return $this->stripe_product_id;
+    }
+
+
+    public function getStripePriceId($quantity, $currency_symbol = 'eur')
+    {
+        $stripe = new AppStripe();
+        $stripe_obj= $stripe->createPrice($this->stripe_product_id, $quantity, $currency_symbol);
+        $this->stripe_price_id = $stripe_obj->id;
+        return $this->stripe_price_id;
+
+    }
+
+    public function getStripeProductId()
+    {
+        return $this->stripeProductId;
+    }
 }

@@ -11,9 +11,12 @@
     <link rel="stylesheet" href="<?php echo ABSOLUTE_ASSET_PATH . "/css/main.css" ?>">
     <!-- JQUERY LIBRARY -->
     <script src="<?php echo ABSOLUTE_ASSET_PATH . "/vendor/jquery-3.5.1.min.js" ?>"></script>
+    <!-- STRIPE JS  -->
+    <script src="https://js.stripe.com/v3/"></script>
     <!-- NAVBAR JS STYLES -->
     <script src="<?php echo ABSOLUTE_ASSET_PATH . "/js/navbar.js" ?>"></script>
     <script src="<?php echo ABSOLUTE_ASSET_PATH ?>/js/classes/Product.js"></script>
+    <script src="<?php echo ABSOLUTE_ASSET_PATH?>/js/classes/Stripe.js"></script>
 </head>
 
 <body>

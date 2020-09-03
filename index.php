@@ -1,4 +1,5 @@
 <?php
+require_once 'vendor/autoload.php';
 require_once 'app/config/paths.php';
 require_once 'app/config/db_credentials.php';
 require_once 'app/config/db_naming_conventions.php';
