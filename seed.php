@@ -24,6 +24,8 @@ use Symfony\Component\DomCrawler\Crawler;
 
 // SEEDING PRODUCTS FROM SHOP ON STRIPE AND LINKING STRIPE IDS TO BOOK ON SPECIFIC TABLE
 
+set_time_limit(0);
+
 $books = Book::findAll("created_at");
 $book = $books[0];
 foreach($books as $book)
