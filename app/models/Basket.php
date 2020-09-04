@@ -105,6 +105,12 @@ class Basket extends DbRecords
         return $this->basket_items;
     }
 
+
+    public function getBasketItemNumber()
+    {
+        return count($this->basket_items);
+    }
+
     public function getProduct($id)
     {
 
@@ -183,7 +189,7 @@ class Basket extends DbRecords
         return array_map(function($el){
            return  array(
                 [
-                    'price'=>$el->getBook()->getPrice(),
+                    'price'=>$el->getBook()->getStripePriceId(),
                     'quantity'=>$el->getQuantity()
                 ]
                 );

@@ -6,7 +6,7 @@
 
     <div class="container p-4">
 
-        <h2>Mon panier (<?php echo 0; ?> article)</h2>
+        <h2>Mon panier (<?php echo $basket->getBasketItemNumber() ?> articles)</h2>
 
         <div class="container-block" style="max-height:50%">
 
