@@ -658,7 +658,7 @@ class Book extends DbRecords
     {
 
         $stripe = new AppStripe(STRIPE_SECRET_KEY);
-        $stripe_obj = $stripe->createProduct($this->title);
+        $stripe_obj = $stripe->createProduct($this->title, $this->description, array($this->image_path));
         $this->stripe_product_id = $stripe_obj->id;
         return $this->stripe_product_id;
     }

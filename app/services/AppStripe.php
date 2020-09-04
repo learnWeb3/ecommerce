@@ -18,7 +18,7 @@ class AppStripe
     // creating product object 
     // $product = $stripe->getProduct($_POST["products"]);
     // constructing product on the Stripe server
-    public function createProduct($name)
+    public function createProduct(string $name, string $description, array $images)
     {
         $stripe = new \Stripe\StripeClient(
             $this->stripe_secret_key
@@ -27,6 +27,8 @@ class AppStripe
         // return object(Stripe\Product)
         return $stripe->products->create([
             'name' => $name,
+            "description" => $description,
+            "images" => $images,
         ]);
     }
 
@@ -53,16 +55,30 @@ class AppStripe
     //     'quantity' => $quantity,
     //   ],
     // ]
-    public function createSession(array $products)
+    public function createSession(array $products, array $payment_methods = ['card'], string  $success_url = STRIPE_SUCCESS_URL, string $cancel_url = STRIPE_CANCEL_URL)
     {
         $stripe = new \Stripe\StripeClient($this->stripe_secret_key);
         return $stripe->checkout->sessions->create([
-            'success_url' => 'https://example.com/success',
-            'cancel_url' => 'https://example.com/cancel',
-            'payment_method_types' => ['card'],
-            'line_items' =>$products,
+            'success_url' => $success_url,
+            'cancel_url' => $cancel_url,
+            'payment_method_types' => $payment_methods,
+            'line_items' => $products,
             'mode' => 'payment',
         ]);
     }
 
+    public function updateProduct(string $stripe_product_id, string $product_name, string $product_description, array $images = [])
+    {
+        $stripe = new \Stripe\StripeClient(
+            $this->stripe_secret_key
+        );
+        return  $stripe->products->update(
+            $stripe_product_id,
+            array(
+                "name" => $product_name,
+                "description" => $product_description,
+                "images" => $images
+            )
+        );
+    }
 }
