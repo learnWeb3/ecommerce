@@ -53,7 +53,15 @@ class Product {
     }
 
 
+    basketItemExists() {
+        return $('#shopping-cart-menu .card-product#' + this.book_id).length > 0
+    }
+
+
     appendTemplate() {
+        if (this.basketItemExists()) {
+            $('#shopping-cart-menu .card-product#' + this.book_id).remove();
+        }
         $('#shopping-cart-menu').removeClass('closed').addClass('opened');
         setTimeout(() => {
             var emptyBasketImage = $('#empty-basket')
