@@ -16,6 +16,9 @@ Autoloader::register();
 
 use Symfony\Component\DomCrawler\Crawler;
 
+
+set_time_limit(0);
+
 // SCRAPPING BOOKS 
 
 // $scrapper = new BookScrapper("https://www.livrenpoche.com/genres");
@@ -24,14 +27,11 @@ use Symfony\Component\DomCrawler\Crawler;
 
 // SEEDING PRODUCTS FROM SHOP ON STRIPE AND LINKING STRIPE IDS TO BOOK ON SPECIFIC TABLE
 
-set_time_limit(0);
 
 $books = Book::findAll("created_at");
 $book = $books[0];
 foreach($books as $book)
 {
-    $book->setPrice(ceil($book->getPrice()));
-    $book->update();
     $book_stripe_product_id = $book->setStripeProductId();
     $price_value = ceil($book->getPrice()) * 100;
     $book->setStripePriceId($price_value);

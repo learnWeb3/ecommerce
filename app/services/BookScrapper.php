@@ -29,8 +29,6 @@ class BookScrapper
     // GET CATEGORIES AND BOOKS DATA ON livrenpoche.fr
     public function getDatas($limit_result_per_page = 10)
     {
-        // SCRIPT TIME LIMIT EXECUTION SET TO INFINITE
-        set_time_limit(0);
 
         // CREATING INSTANCE OF CHROME EMULATED BROWSER THROUGH PANTHER/SELENIUM TO USE CHROMEWEBDRIVER AND PARSE JAVASCRIPT GENERATED CONTENT
         $client = \Symfony\Component\Panther\Client::createChromeClient();
