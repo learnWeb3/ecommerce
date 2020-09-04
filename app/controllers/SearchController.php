@@ -13,8 +13,6 @@ class SearchController
             $order_column = "book_created_at";
             $order = "DESC";
             $search_matches = Book::searchLike($column_name, $value, $limit, $offset, $order_column, $order);
-
-            var_dump($search_matches);
             if (isset($_POST['remote'])) {
 
                 echo json_encode(
