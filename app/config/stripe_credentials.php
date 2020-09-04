@@ -1,4 +1,4 @@
 <?php 
-define("STRIPE_PUBLISHABLE_KEY", 'pk_test_TYooMQauvdEDq54NiTphI7jx');
-define("STRIPE_SECRET_KEY", "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+define("STRIPE_PUBLISHABLE_KEY", 'pk_test_51HKRyVBCSIgE2GxuO27KfzF7hek10vPdCAsNm1xy0MUemMPplqHD0QWGy2XCiIrfqu5zLka5ZuTo6ZViEMfVMHTz00XErL6cYA');
+define("STRIPE_SECRET_KEY", "sk_test_51HKRyVBCSIgE2Gxu1J5IqjK3yh4Wq4nlVmAY8ywa8AO7dRPaW4RsLD7l2tQHgkD95IsBWSzuLsLO1A5CwIOLKPCZ00dyq8AlUX");
 ?>

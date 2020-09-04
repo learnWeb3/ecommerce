@@ -2,7 +2,7 @@ class AppStripe {
 
 
     constructor() {
-        this.stripePublishableKey = 'pk_test_TYooMQauvdEDq54NiTphI7jx';
+        this.stripePublishableKey = 'pk_test_51HKRyVBCSIgE2GxuO27KfzF7hek10vPdCAsNm1xy0MUemMPplqHD0QWGy2XCiIrfqu5zLka5ZuTo6ZViEMfVMHTz00XErL6cYA';
     }
 
     checkout(checkoutButton) {

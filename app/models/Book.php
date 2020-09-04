@@ -614,7 +614,7 @@ class Book extends DbRecords
         $connection = Db::connect();
         $statement = "INSERT INTO stripe_details (book_id,stripe_product_id,stripe_price_id) VALUES (?,?,?)";
         $prepared_statement = $connection->prepare($statement);
-        return $prepared_statement->execute(array($this->book_id, $this->stripe_product_id,$this->stripe_price_id));
+        return $prepared_statement->execute(array($this->getId(), $this->stripe_product_id,$this->stripe_price_id));
     }
 
 

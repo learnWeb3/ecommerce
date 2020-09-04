@@ -24,17 +24,17 @@ trait Db
     private function getFields(): array
     {
         // OBJECT POSSES FIELDS WICH WILL BE POPULATED AUTOMATICALLY IN DB
-        $not_desired_columns = ["id", "created_at", "updated_at"];
+        $not_desired_columns = ["id", "created_at", "updated_at", "ht_price"];
         // GETTING OBJECT FIELDS AS AN ASSOCIATIVE ARRAY IN ORDER TO MANIPULATE IT MORE EASYLY
         $object_vars = $this->getObjectVars();
         // FILTERING OUT NOT NEEDED DESIRED FIELDS
-        $object_vars = array_filter(get_object_vars($this), function ($el) use ($object_vars, $not_desired_columns) {
-            if (in_array(array_search($el, $object_vars), $not_desired_columns)) {
+        $object_vars = array_filter(get_object_vars($this), function ($key) use ($object_vars, $not_desired_columns) {
+            if (in_array($key, $not_desired_columns)) {
                 return false;
             } else {
                 return true;
             }
-        });
+        }, ARRAY_FILTER_USE_KEY);
 
         return $object_vars;
     }
@@ -79,6 +79,7 @@ trait Db
     public function update()
     {
         $object_vars = $this->getFields();
+
         // GETTING THE NAME OF THE TABLE WE WANT TO WRITE IN  BASED ON OUR OWN CONVENTION 
         $table_name = DB_NAMING_CONVENTIONS[get_class($this)];
         // FORMATTING DATAS TO PASS IT TO A PREPARED STATEMENT DEALT BY PDO
@@ -87,14 +88,18 @@ trait Db
 
         $datas = "";
         foreach ($columns as $i => $v) {
-            $datas .= $v . "=" . "?";
+            if ($i < count($columns) - 1) {
+                $datas .= $v . "=" . "?, ";
+            } else {
+                $datas .= $v . "=" . "? ";
+            }
         }
 
         // STATEMENT
         $statement = "UPDATE $table_name SET $datas WHERE id=?";
         // WRITING INTO DATABASE
         $prepared_statement =  Db::connect()->prepare($statement);
-        $fields = array_merge($values, $this->getId());
+        $fields = array_merge($values, array($this->getId()));
         return $prepared_statement->execute($fields);
     }
 
@@ -123,7 +128,7 @@ trait Db
     }
 
 
-    public static function where($searched_column,$searched_value, $order_column, $inversed = true)
+    public static function where($searched_column, $searched_value, $order_column, $inversed = true)
     {
         $table_name = DB_NAMING_CONVENTIONS[get_called_class()];
         // STATEMENT
@@ -136,7 +141,7 @@ trait Db
     }
 
 
-    public static function like($searched_column,$searched_value, $order_column, $inversed = true)
+    public static function like($searched_column, $searched_value, $order_column, $inversed = true)
     {
         $table_name = DB_NAMING_CONVENTIONS[get_called_class()];
         // STATEMENT
@@ -159,5 +164,4 @@ trait Db
         $prepared_statement = $this->connect()->prepare($statement);
         return $prepared_statement->execute(array($this->getId()));
     }
-
 }

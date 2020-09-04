@@ -16,18 +16,25 @@ Autoloader::register();
 
 use Symfony\Component\DomCrawler\Crawler;
 
+// SCRAPPING BOOKS 
 
 // $scrapper = new BookScrapper("https://www.livrenpoche.com/genres");
 // $scrapper->registerDatas(50);
 
 
-$books = Book::findAll("created_at");
+// SEEDING PRODUCTS FROM SHOP ON STRIPE AND LINKING STRIPE IDS TO BOOK ON SPECIFIC TABLE
 
+$books = Book::findAll("created_at");
+$book = $books[0];
 foreach($books as $book)
 {
+    $book->setPrice(ceil($book->getPrice()));
+    $book->update();
     $book_stripe_product_id = $book->setStripeProductId();
-    $book->setStripePriceId($quantity, $currency_symbol = 'eur');
+    $price_value = ceil($book->getPrice()) * 100;
+    $book->setStripePriceId($price_value);
     $book->createStripeDetails();
+    sleep(.5);
 }
 
 
