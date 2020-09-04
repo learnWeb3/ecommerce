@@ -67,6 +67,8 @@ class AppStripe
         ]);
     }
 
+
+    // UPDATE STRIPE PRODUCT ATTRIBUTES ON STRIPE 
     public function updateProduct(string $stripe_product_id, string $product_name, string $product_description, array $images = [])
     {
         $stripe = new \Stripe\StripeClient(
@@ -80,5 +82,22 @@ class AppStripe
                 "images" => $images
             )
         );
+    }
+
+
+    // UPDATE STRIPE PRICE ATTRIBUTES ON STRIPE
+    public function updatePrice(string $stripe_price_id, string $stripe_product_id, string $currency_symbol, int $price)
+    {
+        $stripe = new \Stripe\StripeClient(
+            $this->stripe_secret_key
+          );
+          return $stripe->prices->update(
+            $stripe_price_id,
+            array(
+                "product"=> $stripe_product_id,
+                "currency"=> $currency_symbol,
+                "unit_amount"=> ceil($price * 100),
+            )
+          );
     }
 }
