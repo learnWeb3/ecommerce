@@ -164,4 +164,20 @@ trait Db
         $prepared_statement = $this->connect()->prepare($statement);
         return $prepared_statement->execute(array($this->getId()));
     }
+
+
+    public static function getSearchFilters()
+    {
+        $connection = self::connect();
+        $statement = "SELECT filter, filter_name FROM search_filters";
+        $query = $connection->query($statement);
+        $results = array();
+
+        while($row=$query->fetch())
+        {
+            $results[] = array('filter'=>$row['filter'],'filter_name'=> $row['filter_name']);
+        }
+
+        return $results;
+    }
 }

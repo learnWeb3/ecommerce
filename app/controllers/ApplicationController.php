@@ -15,6 +15,8 @@ class ApplicationController
             $current_user = Session::getCurrenrUser();
         }
 
+        $search_filters = Db::getSearchFilters();
+
         // GETTING BASKET ACCESSIBLE IN ALL VIEWS
         $basket = Basket::getBasket();
 

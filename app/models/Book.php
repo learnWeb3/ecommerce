@@ -399,27 +399,25 @@ class Book extends DbRecords
     public static function searchBy(string $column_name, $value, int $limit, int $offset, string $order_column, string $order)
     {
         $authorized_values = array(
-            "autorized_columns" => array(
-                "book_id",
-                "book_created_at",
-                "book_updated_at",
-                "book_title",
-                "book_author",
-                "book_collection",
-                "book_price",
-                "book_year",
-                "book_category_id",
-                "category_name"
+            "authorized_columns" => array(
+                "book_title"=>"books.title",
+                "book_author"=>"books.description",
+                "book_collection"=>"books.collection",
+                "book_category"=>"categories.name",
+                "book_description"=>"books.description",
+                "book_created_at"=>"books.created_at",
+                "book_updated_at"=>"books.updated_at"
             ),
             "authorized_order" => array("DESC", "ASC")
         );
-
         if (!self::checkLimitAndOffset($limit, $offset)) {
             return false;
         }
         if (!in_array($column_name, $authorized_values["authorized_columns"]) || !(in_array($order_column, $authorized_values["authorized_columns"])) || !in_array($order, $authorized_values["authorized_order"])) {
             return false;
         }
+
+        $column_name =  $authorized_values["authorized_columns"][$column_name];
 
         $connection = Db::connect();
         $statement =
@@ -443,12 +441,14 @@ class Book extends DbRecords
         FROM books 
         JOIN categories ON books.category_id = categories.id
         WHERE $column_name = ?
-        LIMIT $limit OFFSET $offset
-        ORDER BY $order_column $order";
+        ORDER BY $order_column $order
+        LIMIT $limit OFFSET $offset";
         $prepared_statement = $connection->prepare($statement);
         $prepared_statement->execute(
             array($value)
         );
+
+
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
@@ -477,21 +477,28 @@ class Book extends DbRecords
     public static function searchLike(string $column_name, $value, int $limit, int $offset, string $order_column, string $order)
     {
         $authorized_values = array(
-            "autorized_columns" => array(
-                "book_title",
-                "book_author",
-                "book_collection",
-                "category_name"
+            "authorized_columns" => array(
+                "book_title"=>"books.title",
+                "book_author"=>"books.description",
+                "book_collection"=>"books.collection",
+                "book_category"=>"categories.name",
+                "book_description"=>"books.description",
+                "book_created_at"=>"books.created_at",
+                "book_updated_at"=>"books.updated_at"
             ),
             "authorized_order" => array("DESC", "ASC")
         );
 
+    
         if (!self::checkLimitAndOffset($limit, $offset)) {
             return false;
         }
-        if (!in_array($column_name, $authorized_values["authorized_columns"]) || !(in_array($order_column, $authorized_values["authorized_columns"])) || !in_array($order, $authorized_values["authorized_order"])) {
+        if (!in_array($column_name, array_keys($authorized_values["authorized_columns"])) || !(in_array($order_column, array_keys($authorized_values["authorized_columns"]))) || !in_array($order, $authorized_values["authorized_order"])) {
             return false;
         }
+
+        $column_name =  $authorized_values["authorized_columns"][$column_name];
+        $order_column = $authorized_values["authorized_columns"][$order_column];
 
         $connection = Db::connect();
         $statement =
@@ -515,12 +522,16 @@ class Book extends DbRecords
         FROM books 
         JOIN categories ON books.category_id = categories.id
         WHERE $column_name LIKE ?
-        LIMIT $limit OFFSET $offset
-        ORDER BY $order_column $order";
+        ORDER BY $order_column $order
+        LIMIT $limit OFFSET $offset";
+
+        echo $statement;
         $prepared_statement = $connection->prepare($statement);
+
         $prepared_statement->execute(
-            array("%" . $value . "%")
+            array("%" . $value. "%")
         );
+
         $results = [];
         while ($row =  $prepared_statement->fetch()) {
             $results[] = array(
@@ -578,8 +589,8 @@ class Book extends DbRecords
         FROM books 
         JOIN categories ON books.category_id = categories.id
         WHERE books.price BETWEEN ? AND ?
-        LIMIT $limit OFFSET $offset
-        ORDER BY books.price $order";
+        ORDER BY books.price $order
+        LIMIT $limit OFFSET $offset";
         $prepared_statement = $connection->prepare($statement);
         $prepared_statement->execute(
             array($price_min, $price_max)
