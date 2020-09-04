@@ -6,7 +6,7 @@
 
     <div class="container p-4">
 
-        <h2>Mon panier (<?php echo $basket->getBasketItemNumber() ?> articles)</h2>
+        <h2 class="article-number">Mon panier (<?php echo $basket->getBasketItemNumber() ?> articles)</h2>
 
         <div class="container-block" style="max-height:50%">
 
@@ -14,7 +14,7 @@
 
                 <?php foreach ($basket_products as $basket_product) : ?>
 
-                    <?php require_once 'partials/basket_item/basket_item_product.php' ?>
+                    <?php require 'partials/basket_item/basket_item_product.php' ?>
 
                 <?php endforeach; ?>
 
@@ -25,10 +25,10 @@
         <div class="w-100">
             <h2>Total:</h2>
             <hr class="light my-2">
-            <h3>Sous-total (HT):  <?php echo $basket->getTotalHT()?> &euro;</h3>
+            <h3 id="basket-total-HT">Sous-total (HT):  <?php echo $basket->getTotalHT()?> &euro;</h3>
             <h3>Livraison:</h3>
             <hr class="light my-2">
-            <h2>Total (TVA incluse): <?php echo $basket->getTotalTTC() ?> &euro;</h2>
+            <h2 id="basket-total-TTC">Total (TVA incluse): <?php echo $basket->getTotalTTC() ?> &euro;</h2>
         </div>
 
        <buttton class="btn btn-lg btn-success my-4" id="stripe-checkout">Payer</buttton>

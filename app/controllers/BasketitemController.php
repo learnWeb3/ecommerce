@@ -19,22 +19,23 @@ class BasketitemController
 
             $basket->storeInSession();
 
-    
+
             if (isset($_POST["remote"])) {
 
                 $basket = Basket::getBasket();
                 $added_product = $basket->getProduct($book_id);
                 $added_product = array(
-                    "book_id"=>$added_product->getBook()->getId(),
-                    "book_title"=>$added_product->getBook()->getTitle(),
-                    "book_image_path"=>$added_product->getBook()->getImagePath(),
-                    "book_price"=>$added_product->getBook()->getPrice(),
-                    "book_quantity"=>$added_product->getQuantity()
+                    "book_id" => $added_product->getBook()->getId(),
+                    "book_title" => $added_product->getBook()->getTitle(),
+                    "book_image_path" => $added_product->getBook()->getImagePath(),
+                    "book_price" => $added_product->getBook()->getPrice(),
+                    "book_quantity" => $added_product->getQuantity(),
+                    "basket_total_HT" => $basket->getTotalHT(),
+                    "basket_total_TTC" => $basket->getTotalTTC()
                 );
-    
+
                 echo json_encode($added_product);
                 die();
-
             } else {
             }
         } else {
@@ -51,16 +52,20 @@ class BasketitemController
             $book_id = intval($_POST['book_id']);
 
             // GETTING BOOK ID TO PASS IT AS PARAMETER OF CONSTRUCTOR OF BOOKITEM CLASS
-    
+
             $basket = $basket->removeProduct($book_id);
 
             $basket->storeInSession();
 
             if (isset($_POST["remote"])) {
 
-                echo json_encode(array("book_id"=>$book_id, "message"=>"Panier mis à jour avec succès"));
+                echo json_encode(array(
+                    "book_id" => $book_id, 
+                    "message" => "Panier mis à jour avec succès", 
+                    "basket_total_HT" => $basket->getTotalHT(),
+                    "basket_total_TTC" => $basket->getTotalTTC()
+                ));
                 die();
-
             } else {
             }
         } else {
@@ -83,18 +88,19 @@ class BasketitemController
 
             $basket->storeInSession();
 
-                
+
             if (isset($_POST["remote"])) {
 
-                echo json_encode(array("book_id"=>$book_id, "quantity"=>$quantity, "message"=>"Panier mis à jour avec succès"));
+                echo json_encode(array(
+                    "book_id" => $book_id, "quantity" => $quantity,
+                    "message" => "Panier mis à jour avec succès",
+                    "basket_total_HT" => $basket->getTotalHT(),
+                    "basket_total_TTC" => $basket->getTotalTTC()
+                ));
                 die();
-               
-            }else{
-
+            } else {
             }
         } else {
-
-    
         }
     }
 }

@@ -15,6 +15,7 @@
     <script src="https://js.stripe.com/v3/"></script>
     <!-- NAVBAR JS STYLES -->
     <script src="<?php echo ABSOLUTE_ASSET_PATH . "/js/navbar.js" ?>"></script>
+    <script src="<?php echo ABSOLUTE_ASSET_PATH?>/js/classes/Basket.js"></script>
     <script src="<?php echo ABSOLUTE_ASSET_PATH ?>/js/classes/Product.js"></script>
     <script src="<?php echo ABSOLUTE_ASSET_PATH?>/js/classes/AppStripe.js"></script>
 </head>

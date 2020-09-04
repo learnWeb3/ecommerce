@@ -87,7 +87,8 @@ class Product {
                 dataType: "JSON",
                 success: function(result, status) {
                     $("#" + result.book_id).remove();
-                    Product.setBasketNumber()
+                    Product.setBasketNumber();
+                    Basket.updateTotals(result);
                 },
                 error: function(result, error, status) {
                     console.log(status);
@@ -114,7 +115,8 @@ class Product {
                     dataType: "JSON",
                     success: function(result, status) {
                         quantityInput.val(result.quantity);
-                        $('#shopping-cart-menu h2').text(result.message);
+                        $('#shopping-cart-menu h2.article-number').text(result.message);
+                        Basket.updateTotals(result);
                     },
                     error: function(result, error, status) {
                         console.log(status);
@@ -139,7 +141,7 @@ class Product {
                 success: function(result, status) {
                     const product = new Product(result.book_id, result.book_title, result.book_image_path, result.book_price, result.book_quantity);
                     product.appendTemplate();
-
+                    Basket.updateTotals(result);
                 },
                 error: function(result, error, status) {
                     console.log(error)
@@ -154,7 +156,7 @@ class Product {
 
     static setBasketNumber() {
         var numberOfItemInBasket = $("#shopping-cart-menu .card-product").length;
-        $("#shopping-cart-menu h2").text("Mon panier (" + numberOfItemInBasket + " article)");
+        $("#shopping-cart-menu h2.article-number").text("Mon panier (" + numberOfItemInBasket + " articles)");
         if (numberOfItemInBasket == 0) {
             $("#shopping-cart-menu .container").append(
                 "<img src='app/assets/icons/illustration/empty-basket.svg' alt='empty basket illustration' id='empty-basket'>" +
