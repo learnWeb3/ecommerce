@@ -663,5 +663,14 @@ class Book extends DbRecords
         return $this->stripe_product_id;
     }
 
+    public static function destroyStripeDetails()
+    {
+        $statement = "DELETE FROM stripe_details";
+        $connection = Db::connect();
+        $connection->query($statement);
+        $connection->query("ALTER TABLE stripe_details AUTO_INCREMENT=1");
+        return true;
+    }
+
 
 }

@@ -19,6 +19,9 @@ use Symfony\Component\DomCrawler\Crawler;
 
 set_time_limit(0);
 
+Book::destroyStripeDetails();
+
+
 // SCRAPPING BOOKS 
 
 // $scrapper = new BookScrapper("https://www.livrenpoche.com/genres");
