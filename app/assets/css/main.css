@@ -1078,7 +1078,7 @@ form.form-inline {
     width: 100%;
     margin-top: 2rem;
     margin-bottom: 2rem;
-    background-color: hsla(0, 0%, 100%, 0.66);
+    background-color: hsla(0, 0%, 100%, 0.75);
     display: flex;
 }
 

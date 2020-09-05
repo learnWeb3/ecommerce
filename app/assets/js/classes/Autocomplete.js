@@ -69,6 +69,15 @@
 
             });
 
+            $(window).on("mousemove", function(event) {
+
+                if (event.pageX > ($(window).width() * .75)) {
+
+                    Autocomplete.clean();
+
+                }
+            })
+
         }
 
         static clean() {
