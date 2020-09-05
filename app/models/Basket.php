@@ -188,10 +188,8 @@ class Basket extends DbRecords
 
         return array_map(function($el){
            return  array(
-                [
                     'price'=>$el->getBook()->getStripePriceId(),
                     'quantity'=>$el->getQuantity()
-                ]
                 );
         }, $products);
     }
