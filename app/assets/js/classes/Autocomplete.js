@@ -52,7 +52,7 @@
                     "<img src=\"" + result.book.image_path + "\" alt=\"poster\">" +
                     "</div>" +
                     "<div class=\"description-container\">" +
-                    "<h2>" + result.book.title + "</h2>" +
+                    "<h2>" + "<a href =\"" + "index.php?controller=book&method=show&id=" + result.book.id + "\">" + result.book.title + "</a>" + "</h2>" +
 
                     "<p class=\"description\">" + result.book.description + "</p>" +
 
