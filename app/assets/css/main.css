@@ -1064,10 +1064,11 @@ form.form-inline {
     left: 0rem;
     padding-left: 2rem;
     display: none;
+    background-color: rgba(255, 255, 255, 0.90);
 }
 
 .autocomplete-zone .block {
-    max-height: 50vh;
+    max-height: 75vh;
     width: 100%;
     display: block;
     overflow: hidden;
@@ -1078,7 +1079,7 @@ form.form-inline {
     width: 100%;
     margin-top: 2rem;
     margin-bottom: 2rem;
-    background-color: hsla(0, 0%, 100%, 0.75);
+    background-color: unset;
     display: flex;
 }
 
