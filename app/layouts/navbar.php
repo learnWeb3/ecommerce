@@ -14,12 +14,14 @@
 
         <ul id="search-form-container">
             <li>
-                <form action="<?php echo REDIRECT_BASE_URL."controller=search&method=new"?>" method="post" class="form-inline"  id="product-search">
+                <form action="<?php echo REDIRECT_BASE_URL . "controller=search&method=new" ?>" method="post" class="form-inline" id="product-search">
                     <input type="search" name="search_input" id="product-search-terms">
+
+
                     <select name="search_filter" id="" class="w-33 ml-1">
-                        <?php foreach($search_filters as $search_filter):?>
-                            <option value="<?php echo $search_filter['filter']?>"><?php echo $search_filter['filter_name']?></option>
-                        <?php endforeach;?>
+                        <?php foreach ($search_filters as $search_filter) : ?>
+                            <option value="<?php echo $search_filter['filter'] ?>"><?php echo $search_filter['filter_name'] ?></option>
+                        <?php endforeach; ?>
                     </select>
                     <button type="submit" class="btn btn-sm btn-success ml-1">valider</button>
                 </form>
@@ -47,8 +49,20 @@
 
 </header>
 
-<script>
 
+
+<section class="autocomplete-zone">
+    <div class="block">
+        <div class="card-autocomplete"></div>
+        <div class="card-autocomplete"></div>
+        <div class="card-autocomplete"></div>
+        <div class="card-autocomplete"></div>
+    </div>
+    <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_left.svg" ?>" alt="up arrow button" class="up">
+    <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_left.svg" ?>" alt="up arrow button" class="down">
+</section>
+
+<script>
     // $('nav #product-search-terms').keyup(function(el)
     // {
     //     var formSearch = $(this).parent("#product-search")
@@ -67,8 +81,20 @@
 
     //                 },
     //             })
-                
+
     //         }
     //     )
     // })
+
+    $(".autocomplete-zone .up").click(function(){
+        var autocompleteZone = $(this).siblings(".block");
+       var scrollPos = autocompleteZone.scrollTop();
+       autocompleteZone.scrollTop(scrollPos - 50);
+    });
+
+    $(".autocomplete-zone .down").click(function(){
+        var autocompleteZone = $(this).siblings(".block");
+       var scrollPos = autocompleteZone.scrollTop();
+       autocompleteZone.scrollTop(scrollPos + 50);
+    });
 </script>
