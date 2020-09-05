@@ -51,45 +51,14 @@
 
 <section class="autocomplete-zone">
     <div class="block">
-        <div class="card-autocomplete"></div>
-        <div class="card-autocomplete"></div>
-        <div class="card-autocomplete"></div>
-        <div class="card-autocomplete"></div>
+       
+
     </div>
     <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_left.svg" ?>" alt="up arrow button" class="up">
     <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_left.svg" ?>" alt="up arrow button" class="down">
 </section>
 
 <script>
-    $('nav #product-search-terms').keyup(function() {
-
-        if ($(this).val().length > 1) {
-            var formSearch = $(this).parent("#product-search");
-            event.preventDefault();
-            $.ajax({
-                url: '/ecommerce/index.php?controller=search&method=new',
-                method: "POST",
-                data: formSearch.serialize() + "&remote=true",
-                dataType: "JSON",
-                success: function(result, status) {
-                    console.log(result);
-                },
-                error: function(result, status, error) {
-                    console.log(error)
-                },
-            })
-        }
-    })
-
-    $(".autocomplete-zone .up").click(function() {
-        var autocompleteZone = $(this).siblings(".block");
-        var scrollPos = autocompleteZone.scrollTop();
-        autocompleteZone.scrollTop(scrollPos - 50);
-    });
-
-    $(".autocomplete-zone .down").click(function() {
-        var autocompleteZone = $(this).siblings(".block");
-        var scrollPos = autocompleteZone.scrollTop();
-        autocompleteZone.scrollTop(scrollPos + 50);
-    });
+    Autocomplete.search();
+    Autocomplete.activateNavigation();
 </script>

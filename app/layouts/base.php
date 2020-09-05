@@ -17,6 +17,7 @@
     <script src="<?php echo ABSOLUTE_ASSET_PATH . "/js/navbar.js" ?>"></script>
     <script src="<?php echo ABSOLUTE_ASSET_PATH?>/js/classes/Basket.js"></script>
     <script src="<?php echo ABSOLUTE_ASSET_PATH ?>/js/classes/Product.js"></script>
+    <script src="<?php echo ABSOLUTE_ASSET_PATH?>/js/classes/Autocomplete.js"></script>
     <script src="<?php echo ABSOLUTE_ASSET_PATH?>/js/classes/AppStripe.js"></script>
 </head>
 

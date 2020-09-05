@@ -1063,6 +1063,7 @@ form.form-inline {
     top: 5rem;
     left: 0rem;
     padding-left: 2rem;
+    display: none;
 }
 
 .autocomplete-zone .block {
@@ -1077,7 +1078,32 @@ form.form-inline {
     width: 100%;
     margin-top: 2rem;
     margin-bottom: 2rem;
-    background-color: #fefefe;
+    background-color: hsla(0, 0%, 100%, 0.66);
+    display: flex;
+}
+
+.card-autocomplete .description-container .description {
+    max-height: 6rem;
+    overflow: hidden;
+}
+
+.card-autocomplete .description-container {
+    width: 64%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-autocomplete .poster-container {
+    width: 33%;
+    padding: 2rem;
+}
+
+.card-autocomplete .other-details {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    list-style-type: none;
 }
 
 .autocomplete-zone .down,
