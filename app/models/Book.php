@@ -524,8 +524,6 @@ class Book extends DbRecords
         WHERE $column_name LIKE ?
         ORDER BY $order_column $order
         LIMIT $limit OFFSET $offset";
-
-        echo $statement;
         $prepared_statement = $connection->prepare($statement);
 
         $prepared_statement->execute(
@@ -683,5 +681,10 @@ class Book extends DbRecords
         return true;
     }
 
+
+    public static function searchLikeResultToJson($search_matches)
+    {
+        return  json_encode(array_map(function($el){return array("book"=>$el['book']->getObjectVars(), "category"=>$el['category']->getObjectVars());} , $search_matches));
+    }
 
 }

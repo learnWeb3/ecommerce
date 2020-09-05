@@ -16,8 +16,6 @@
             <li>
                 <form action="<?php echo REDIRECT_BASE_URL . "controller=search&method=new" ?>" method="post" class="form-inline" id="product-search">
                     <input type="search" name="search_input" id="product-search-terms">
-
-
                     <select name="search_filter" id="" class="w-33 ml-1">
                         <?php foreach ($search_filters as $search_filter) : ?>
                             <option value="<?php echo $search_filter['filter'] ?>"><?php echo $search_filter['filter_name'] ?></option>
@@ -63,38 +61,35 @@
 </section>
 
 <script>
-    // $('nav #product-search-terms').keyup(function(el)
-    // {
-    //     var formSearch = $(this).parent("#product-search")
-    //     formSearch.submit(
-    //         function(event){
-    //             event.preventDefault();
-    //             $.ajax({
-    //                 url:"/ecommerce/index.php&controller=search&method=new",
-    //                 method:"POST",
-    //                 data:$(this).serialize()+"&remote=true",
-    //                 dataType:"JSON",
-    //                 success:function(result, status){
+    $('nav #product-search-terms').keyup(function() {
 
-    //                 },
-    //                 error:function(result, status, error){
+        if ($(this).val().length > 1) {
+            var formSearch = $(this).parent("#product-search");
+            event.preventDefault();
+            $.ajax({
+                url: '/ecommerce/index.php?controller=search&method=new',
+                method: "POST",
+                data: formSearch.serialize() + "&remote=true",
+                dataType: "JSON",
+                success: function(result, status) {
+                    console.log(result);
+                },
+                error: function(result, status, error) {
+                    console.log(error)
+                },
+            })
+        }
+    })
 
-    //                 },
-    //             })
-
-    //         }
-    //     )
-    // })
-
-    $(".autocomplete-zone .up").click(function(){
+    $(".autocomplete-zone .up").click(function() {
         var autocompleteZone = $(this).siblings(".block");
-       var scrollPos = autocompleteZone.scrollTop();
-       autocompleteZone.scrollTop(scrollPos - 50);
+        var scrollPos = autocompleteZone.scrollTop();
+        autocompleteZone.scrollTop(scrollPos - 50);
     });
 
-    $(".autocomplete-zone .down").click(function(){
+    $(".autocomplete-zone .down").click(function() {
         var autocompleteZone = $(this).siblings(".block");
-       var scrollPos = autocompleteZone.scrollTop();
-       autocompleteZone.scrollTop(scrollPos + 50);
+        var scrollPos = autocompleteZone.scrollTop();
+        autocompleteZone.scrollTop(scrollPos + 50);
     });
 </script>
