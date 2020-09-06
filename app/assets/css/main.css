@@ -1146,3 +1146,7 @@ form.form-inline {
     align-items: center;
     transition: 2;
 }
+
+#basket-price-zone {
+    display: none;
+}

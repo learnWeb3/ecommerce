@@ -194,4 +194,15 @@ class Basket extends DbRecords
         }, $products);
     }
 
+
+    public function getPriceZoneDisplay()
+    {
+        if ($this->notEmpty())
+        {
+            return "block";
+        }else{
+            return "none";
+        }
+    }
+
 }

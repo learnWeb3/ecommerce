@@ -59,6 +59,7 @@ class Product {
 
 
     appendTemplate() {
+
         if (this.basketItemExists()) {
             $('#shopping-cart-menu .card-product#' + this.book_id).remove();
         }
@@ -94,7 +95,7 @@ class Product {
                 data: "controller=basketitem&method=destroy&" + $(this).serialize() + "&remote=true",
                 dataType: "JSON",
                 success: function(result, status) {
-                    $("#" + result.book_id).remove();
+                    $('#shopping-cart-menu').find("#" + result.book_id).remove();
                     Product.setBasketNumber();
                     Basket.updateTotals(result);
                 },
@@ -165,11 +166,20 @@ class Product {
     static setBasketNumber() {
         var numberOfItemInBasket = $("#shopping-cart-menu .card-product").length;
         $("#shopping-cart-menu h2.article-number").text("Mon panier (" + numberOfItemInBasket + " articles)");
-        if (numberOfItemInBasket == 0) {
+        if (numberOfItemInBasket == 0 && $('img#empty-basket').length == 0) {
             $("#shopping-cart-menu .container").append(
                 "<img src='app/assets/icons/illustration/empty-basket.svg' alt='empty basket illustration' id='empty-basket'>" +
                 "<a href='' class='btn btn-lg btn-success my-2' id='see-product'>Les produits</a>");
         };
+        if ($("#basket-price-zone").css('display') == "none" && numberOfItemInBasket > 0) {
+            $("#basket-price-zone").css({
+                'display': 'block'
+            })
+        } else if ($("#basket-price-zone").css('display') == "block" && numberOfItemInBasket == 0) {
+            $("#basket-price-zone").css({
+                'display': 'none'
+            });
+        }
     }
 }
 
