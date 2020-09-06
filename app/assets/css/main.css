@@ -82,7 +82,7 @@
     /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, rgba(78, 84, 200, 0.50), rgba(143, 148, 251, 0.50));
     /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, rgba(78, 84, 200, 0.50), rgba(143, 148, 251, 0.50));
+    background: linear-gradient(to right, rgba(78, 84, 200, 0.40), rgba(143, 148, 251, 0.33));
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
@@ -249,9 +249,22 @@ label {
 
 input,
 select {
-    height: 2.5rem;
+    height: 3rem;
     width: 100%;
     padding-left: 1rem;
+    border-radius: 1rem;
+    border: 1px solid var(--var-light);
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+    text-align: center;
+    padding-left: 0;
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }
 
 input[type="search"] {
