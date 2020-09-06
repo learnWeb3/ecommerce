@@ -14,13 +14,24 @@ class BasketitemController
             $book_id = intval($_POST['book_id']);
 
 
-            // LINKING BASKET TO BASKETITEM AND RETURNING UDPATED BASKET
-            $basket = $basket->addProduct($book_id);
+            $requested_book = Book::find($book_id)[0];
 
-            $basket->storeInSession();
+            // fetching book quantity available to display it to user
+            $book_available_quantity = $requested_book->getStock();
+            // getting current quantity of product in basket
+            $quantity = $basket->getProduct($book_id)->getQuantity() +1;
+            // CHECKING IF BOOK IS AVAILABLE FOR THE REQUESTED QUANTITY
+            $book_available = $requested_book->checkAvailable($quantity );
 
+            if ($book_available) {
+                // LINKING BASKET TO BASKETITEM AND RETURNING UDPATED BASKET
+                $basket = $basket->addProduct($book_id);
+                $basket->storeInSession();
+            } else {
+                // message alerte utilisateur no ajax
+            }
 
-            if (isset($_POST["remote"])) {
+            if (isset($_POST["remote"]) && $book_available) {
 
                 $basket = Basket::getBasket();
                 $added_product = $basket->getProduct($book_id);
@@ -36,7 +47,11 @@ class BasketitemController
 
                 echo json_encode($added_product);
                 die();
-            } else {
+            } else if (isset($_POST["remote"]) && !$book_available) {
+                $message = $book_available_quantity > 0 ? "Plus que $book_available_quantity exemplaire(s) disponible(s)" : "Le livre souhaité n'est plus disponible";
+                $book_not_available = array("book_not_available" => $message);
+                echo json_encode($book_not_available);
+                die();
             }
         } else {
         }
@@ -60,8 +75,8 @@ class BasketitemController
             if (isset($_POST["remote"])) {
 
                 echo json_encode(array(
-                    "book_id" => $book_id, 
-                    "message" => "Panier mis à jour avec succès", 
+                    "book_id" => $book_id,
+                    "message" => "Panier mis à jour avec succès",
                     "basket_total_HT" => $basket->getTotalHT(),
                     "basket_total_TTC" => $basket->getTotalTTC()
                 ));
@@ -83,13 +98,22 @@ class BasketitemController
             $book_id = intval($_POST['book_id']);
             $quantity = intval($_POST['book_quantity']);
 
+            $requested_book = Book::find($book_id)[0];
 
-            $basket = $basket->updateItem($book_id, $quantity);
+            // fetching book quantity available to display it to user
+            $book_available_quantity = $requested_book->getStock();
 
-            $basket->storeInSession();
+            // CHECKING IF BOOK IS AVAILABLE FOR THE REQUESTED QUANTITY
+            $book_available = $requested_book->checkAvailable($quantity);
+
+            if ($book_available) {
+                $basket = $basket->updateItem($book_id, $quantity);
+
+                $basket->storeInSession();
+            }
 
 
-            if (isset($_POST["remote"])) {
+            if (isset($_POST["remote"]) && $book_available) {
 
                 echo json_encode(array(
                     "book_id" => $book_id, "quantity" => $quantity,
@@ -98,7 +122,11 @@ class BasketitemController
                     "basket_total_TTC" => $basket->getTotalTTC()
                 ));
                 die();
-            } else {
+            }  else if (isset($_POST["remote"]) && !$book_available) {
+                $message = $book_available_quantity > 0 ? "Plus que $book_available_quantity exemplaire(s) disponible(s)" : "Le livre souhaité n'est plus disponible";
+                $book_not_available = array("book_not_available" => $message);
+                echo json_encode($book_not_available);
+                die();
             }
         } else {
         }

@@ -123,9 +123,14 @@ class Product {
                     data: "controller=basketitem&method=update&" + form.serialize() + "&remote=true",
                     dataType: "JSON",
                     success: function(result, status) {
-                        quantityInput.val(result.quantity);
-                        $('#shopping-cart-menu h2.article-number').text(result.message);
-                        Basket.updateTotals(result);
+                        if ("book_not_available" in result) {
+                            alert(result.book_not_available);
+                        } else {
+                            quantityInput.val(result.quantity);
+                            $('#shopping-cart-menu h2.article-number').text(result.message);
+                            Basket.updateTotals(result);
+                        }
+
                     },
                     error: function(result, error, status) {
                         console.log(status);
@@ -148,9 +153,13 @@ class Product {
                 data: "controller=basketitem&method=create&" + $(this).serialize() + "&remote=true",
                 dataType: "JSON",
                 success: function(result, status) {
-                    const product = new Product(result.book_id, result.book_title, result.book_image_path, result.book_price, result.book_quantity);
-                    product.appendTemplate();
-                    Basket.updateTotals(result);
+                    if ("book_not_available" in result) {
+                        alert(result.book_not_available);
+                    } else {
+                        const product = new Product(result.book_id, result.book_title, result.book_image_path, result.book_price, result.book_quantity);
+                        product.appendTemplate();
+                        Basket.updateTotals(result);
+                    }
                 },
                 error: function(result, error, status) {
                     console.log(error)

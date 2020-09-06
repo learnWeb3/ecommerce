@@ -141,7 +141,7 @@ class Book extends DbRecords
 
     public function getHtPrice()
     {
-        $this->ht_price = number_format($this->price * (1-$this->getTva()),2);
+        $this->ht_price = number_format($this->price * (1 - $this->getTva()), 2);
         return $this->ht_price;
     }
 
@@ -408,13 +408,13 @@ class Book extends DbRecords
     {
         $authorized_values = array(
             "authorized_columns" => array(
-                "book_title"=>"books.title",
-                "book_author"=>"books.description",
-                "book_collection"=>"books.collection",
-                "book_category"=>"categories.name",
-                "book_description"=>"books.description",
-                "book_created_at"=>"books.created_at",
-                "book_updated_at"=>"books.updated_at"
+                "book_title" => "books.title",
+                "book_author" => "books.description",
+                "book_collection" => "books.collection",
+                "book_category" => "categories.name",
+                "book_description" => "books.description",
+                "book_created_at" => "books.created_at",
+                "book_updated_at" => "books.updated_at"
             ),
             "authorized_order" => array("DESC", "ASC")
         );
@@ -487,18 +487,18 @@ class Book extends DbRecords
     {
         $authorized_values = array(
             "authorized_columns" => array(
-                "book_title"=>"books.title",
-                "book_author"=>"books.description",
-                "book_collection"=>"books.collection",
-                "book_category"=>"categories.name",
-                "book_description"=>"books.description",
-                "book_created_at"=>"books.created_at",
-                "book_updated_at"=>"books.updated_at"
+                "book_title" => "books.title",
+                "book_author" => "books.description",
+                "book_collection" => "books.collection",
+                "book_category" => "categories.name",
+                "book_description" => "books.description",
+                "book_created_at" => "books.created_at",
+                "book_updated_at" => "books.updated_at"
             ),
             "authorized_order" => array("DESC", "ASC")
         );
 
-    
+
         if (!self::checkLimitAndOffset($limit, $offset)) {
             return false;
         }
@@ -537,7 +537,7 @@ class Book extends DbRecords
         $prepared_statement = $connection->prepare($statement);
 
         $prepared_statement->execute(
-            array("%" . $value. "%")
+            array("%" . $value . "%")
         );
 
         $results = [];
@@ -630,11 +630,11 @@ class Book extends DbRecords
 
 
     public function createStripeDetails()
-    {   
+    {
         $connection = Db::connect();
         $statement = "INSERT INTO stripe_details (book_id,stripe_product_id,stripe_price_id) VALUES (?,?,?)";
         $prepared_statement = $connection->prepare($statement);
-        return $prepared_statement->execute(array($this->getId(), $this->stripe_product_id,$this->stripe_price_id));
+        return $prepared_statement->execute(array($this->getId(), $this->stripe_product_id, $this->stripe_price_id));
     }
 
 
@@ -649,16 +649,14 @@ class Book extends DbRecords
         $stripe_price_id = $prepared_statement->fetchAll(PDO::FETCH_ASSOC)[0]['stripe_price_id'];
         $this->stripe_price_id = $stripe_price_id;
         return $this->stripe_price_id;
-
     }
 
     public function setStripePriceId($quantity, $currency_symbol = 'eur')
     {
         $stripe = new AppStripe(STRIPE_SECRET_KEY);
-        $stripe_obj= $stripe->createPrice($this->stripe_product_id, $quantity, $currency_symbol);
+        $stripe_obj = $stripe->createPrice($this->stripe_product_id, $quantity, $currency_symbol);
         $this->stripe_price_id = $stripe_obj->id;
         return $this->stripe_price_id;
-
     }
 
     public function getStripeProductId()
@@ -695,7 +693,9 @@ class Book extends DbRecords
 
     public static function searchLikeResultToJson($search_matches)
     {
-        return  json_encode(array_map(function($el){return array("book"=>$el['book']->getObjectVars(), "category"=>$el['category']->getObjectVars());} , $search_matches));
+        return  json_encode(array_map(function ($el) {
+            return array("book" => $el['book']->getObjectVars(), "category" => $el['category']->getObjectVars());
+        }, $search_matches));
     }
 
     // creating stock entry for a specific product
@@ -713,12 +713,18 @@ class Book extends DbRecords
     {
         $connection = Db::connect();
         $id = $this->getId();
-        $statement= "SELECT * FROM stocks WHERE book_id=?";
+        $statement = "SELECT * FROM stocks WHERE book_id=?";
         $prepared_statement = $connection->prepare($statement);
         $prepared_statement->execute(array(
             $this->getId()
         ));
-        return $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $results = $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            return intval($results[0]["quantity"]);
+        } else {
+            return false;
+        };
     }
 
     // updating stock entry for a specific product
@@ -726,7 +732,7 @@ class Book extends DbRecords
     {
         $connection = Db::connect();
         $id = $this->getId();
-        $statement= "UPDATE stocks SET quantity=? WHERE book_id=?";
+        $statement = "UPDATE stocks SET quantity=? WHERE book_id=?";
         $prepared_statement = $connection->prepare($statement);
         $prepared_statement->execute(array(
             $quantity,
@@ -735,4 +741,13 @@ class Book extends DbRecords
         return $this->getStock();
     }
 
+
+    public function checkAvailable(int $requested_quantity): bool
+    {
+        if ($this->getStock() >= $requested_quantity) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
