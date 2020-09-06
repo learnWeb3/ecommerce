@@ -30,6 +30,10 @@
     justify-content: space-evenly;
 }
 
+.justify-content-between {
+    justify-content: space-between;
+}
+
 .justify-content-center {
     justify-content: center;
 }
@@ -181,6 +185,18 @@ label {
     }
 }
 
+@media screen and (min-width: 900px) {
+    .col.justify-center-lower-justify-end {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .col.justify-center-lower-justify-end {
+        justify-content: end;
+    }
+}
+
 
 /* LG BREAKPOINT */
 
@@ -215,11 +231,20 @@ label {
     flex-direction: column;
 }
 
-.form-group {
+.form-group,
+.form-group-inline {
     display: flex;
-    flex-direction: column;
     margin-top: 1rem;
     margin-bottom: 1rem;
+}
+
+.form-group-inline {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.form-group {
+    flex-direction: column;
 }
 
 input,
@@ -1034,7 +1059,7 @@ form.form-inline {
 
 .card-product .price {
     position: absolute;
-    bottom: 3rem;
+    bottom: 5rem;
     width: 100%;
 }
 
@@ -1042,6 +1067,20 @@ form.form-inline {
     position: absolute;
     bottom: 0rem;
     width: 100%;
+}
+
+.card-product .form-buy button[type="submit"] {
+    height: 4rem;
+    width: 4rem;
+    cursor: pointer;
+    border-radius: 50%;
+    border: var(--var-primary) 2px solid;
+    background-color: var(--var-white);
+}
+
+.card-product .form-buy button[type="submit"]:hover {
+    transition: border .25s ease-in-out;
+    border: var(--var-secondary) 2px solid;
 }
 
 .card-product .product-presentation {
@@ -1100,7 +1139,8 @@ form.form-inline {
     padding: 2rem;
 }
 
-.card-autocomplete .other-details {
+.card-autocomplete .other-details,
+.show-details {
     display: flex;
     justify-content: space-between;
     width: 100%;
