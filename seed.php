@@ -19,7 +19,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 set_time_limit(0);
 
-Book::destroyStripeDetails();
+// Book::destroyStripeDetails();
 
 
 // SCRAPPING BOOKS 
@@ -28,19 +28,22 @@ Book::destroyStripeDetails();
 // $scrapper->registerDatas(50);
 
 
-// SEEDING PRODUCTS FROM SHOP ON STRIPE AND LINKING STRIPE IDS TO BOOK ON SPECIFIC TABLE
-
-
 $books = Book::findAll("created_at");
-$book = $books[0];
-foreach($books as $book)
-{
-    $book_stripe_product_id = $book->setStripeProductId();
-    $price_value = ceil($book->getPrice()) * 100;
-    $book->setStripePriceId($price_value);
-    $book->createStripeDetails();
-    sleep(.5);
-}
+
+// SEEDING PRODUCTS FROM SHOP ON STRIPE AND LINKING STRIPE IDS TO BOOK ON SPECIFIC TABLE
+// foreach($books as $book)
+// {
+//     $book_stripe_product_id = $book->setStripeProductId();
+//     $price_value = ceil($book->getPrice()) * 100;
+//     $book->setStripePriceId($price_value);
+//     $book->createStripeDetails();
+//     sleep(.5);
+// }
 
 
+// Seeding stock for each and every product
+// foreach($books as $book)
+// {
+//     var_dump($book->setStock(rand(1,10)));
+// }
 

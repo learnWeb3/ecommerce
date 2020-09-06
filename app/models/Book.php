@@ -181,6 +181,8 @@ class Book extends DbRecords
         categories.updated_at as category_updated_at
         FROM books 
         JOIN categories ON books.category_id = categories.id
+        JOIN stocks ON books.id = stocks.book_id
+        WHERE stocks.quantity >= 1
         ORDER BY books.created_at DESC
         LIMIT $limit OFFSET $offset";
         $prepared_statement = $connection->prepare($statement);
@@ -239,6 +241,8 @@ class Book extends DbRecords
         FROM books 
         JOIN categories ON books.category_id = categories.id
         JOIN recommended_books ON recommended_books.book_id = books.id
+        JOIN stocks ON books.id = stocks.book_id
+        WHERE stocks.quantity >= 1
         ORDER BY books.created_at DESC
         LIMIT $limit OFFSET $offset";
         $prepared_statement = $connection->prepare($statement);
@@ -304,6 +308,8 @@ class Book extends DbRecords
         JOIN categories ON books.category_id = categories.id
         JOIN coup_de_coeur_books ON recommended_books.book_id = books.id
         JOIN users ON coups_de_coeur_books.user_id = users.id
+        JOIN stocks ON books.id = stocks.book_id
+        WHERE stocks.quantity >= 1
         ORDER BY books.created_at DESC
         LIMIT $limit OFFSET $offset";
         $prepared_statement = $connection->prepare($statement);
@@ -365,6 +371,8 @@ class Book extends DbRecords
         JOIN basket_items ON basket_items.book_id = books.id
         JOIN baskets ON basket_items.basket_id = baskets.id
         JOIN orders ON orders.basket_id = baskets.id
+        JOIN stocks ON books.id = stocks.book_id
+        WHERE stocks.quantity >= 1
         GROUP BY books.id
         LIMIT $limit OFFSET $offset
         ORDER BY book_sales_count DESC";
@@ -440,7 +448,8 @@ class Book extends DbRecords
         categories.updated_at as category_updated_at
         FROM books 
         JOIN categories ON books.category_id = categories.id
-        WHERE $column_name = ?
+        JOIN stocks ON books.id = stocks.book_id
+        WHERE $column_name = ? AND stocks.quantity >= 1
         ORDER BY $order_column $order
         LIMIT $limit OFFSET $offset";
         $prepared_statement = $connection->prepare($statement);
@@ -521,7 +530,8 @@ class Book extends DbRecords
         categories.updated_at as category_updated_at
         FROM books 
         JOIN categories ON books.category_id = categories.id
-        WHERE $column_name LIKE ?
+        JOIN stocks ON books.id = stocks.book_id
+        WHERE $column_name LIKE ? AND stocks.quantity >= 1
         ORDER BY $order_column $order
         LIMIT $limit OFFSET $offset";
         $prepared_statement = $connection->prepare($statement);
@@ -586,7 +596,8 @@ class Book extends DbRecords
         categories.updated_at as category_updated_at
         FROM books 
         JOIN categories ON books.category_id = categories.id
-        WHERE books.price BETWEEN ? AND ?
+        JOIN stocks ON books.id = stocks.book_id
+        WHERE books.price BETWEEN ? AND ? AND stocks.quantity >= 1
         ORDER BY books.price $order
         LIMIT $limit OFFSET $offset";
         $prepared_statement = $connection->prepare($statement);
@@ -685,6 +696,43 @@ class Book extends DbRecords
     public static function searchLikeResultToJson($search_matches)
     {
         return  json_encode(array_map(function($el){return array("book"=>$el['book']->getObjectVars(), "category"=>$el['category']->getObjectVars());} , $search_matches));
+    }
+
+    // creating stock entry for a specific product
+    public function setStock(int $quantity)
+    {
+        $connection = Db::connect();
+        $statement = "INSERT INTO stocks (book_id,quantity) VALUES (?,?)";
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute(array($this->getId(), $quantity));
+        return $this->getStock();
+    }
+
+    // fetching stock entry for a specific product
+    public function getStock()
+    {
+        $connection = Db::connect();
+        $id = $this->getId();
+        $statement= "SELECT * FROM stocks WHERE book_id=?";
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute(array(
+            $this->getId()
+        ));
+        return $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // updating stock entry for a specific product
+    public function updateStock(int $quantity)
+    {
+        $connection = Db::connect();
+        $id = $this->getId();
+        $statement= "UPDATE stocks SET quantity=? WHERE book_id=?";
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute(array(
+            $quantity,
+            $this->getId()
+        ));
+        return $this->getStock();
     }
 
 }
