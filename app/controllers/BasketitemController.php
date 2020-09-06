@@ -18,10 +18,10 @@ class BasketitemController
 
             // fetching book quantity available to display it to user
             $book_available_quantity = $requested_book->getStock();
-            // getting current quantity of product in basket
-            $quantity = $basket->getProduct($book_id)->getQuantity() +1;
+           
+            $quantity = $basket->getWantedQuantity($book_id);
             // CHECKING IF BOOK IS AVAILABLE FOR THE REQUESTED QUANTITY
-            $book_available = $requested_book->checkAvailable($quantity );
+            $book_available = $requested_book->checkAvailable($quantity);
 
             if ($book_available) {
                 // LINKING BASKET TO BASKETITEM AND RETURNING UDPATED BASKET
@@ -122,7 +122,7 @@ class BasketitemController
                     "basket_total_TTC" => $basket->getTotalTTC()
                 ));
                 die();
-            }  else if (isset($_POST["remote"]) && !$book_available) {
+            } else if (isset($_POST["remote"]) && !$book_available) {
                 $message = $book_available_quantity > 0 ? "Plus que $book_available_quantity exemplaire(s) disponible(s)" : "Le livre souhaité n'est plus disponible";
                 $book_not_available = array("book_not_available" => $message);
                 echo json_encode($book_not_available);

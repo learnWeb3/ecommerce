@@ -168,12 +168,15 @@ class Basket extends DbRecords
     
     public function getTotalTTC()
     {
-        return array_sum(array_map(function($el){return $el->getBook()->getPrice() * $el->getQuantity();}, $this->basket_items));
+        $total_ttc = array_sum(array_map(function($el){return $el->getBook()->getPrice() * $el->getQuantity();}, $this->basket_items));
+        return number_format($total_ttc, 2);
     }
 
     public function getTotalHT()
     {
-        return array_sum(array_map(function($el){return $el->getBook()->getHtPrice() * $el->getQuantity();}, $this->basket_items));
+        $total_ht = array_sum(array_map(function($el){return $el->getBook()->getHtPrice() * $el->getQuantity();}, $this->basket_items));
+    
+        return number_format($total_ht, 2);
     }
 
     //  $products =[
@@ -203,6 +206,12 @@ class Basket extends DbRecords
         }else{
             return "none";
         }
+    }
+
+    public function getWantedQuantity(int $book_id)
+    {
+        $basket_item = $this->getProduct($book_id);
+        return  $basket_item != false ?  $basket_item->getQuantity() + 1 : 1;
     }
 
 }
