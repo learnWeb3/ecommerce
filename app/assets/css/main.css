@@ -261,6 +261,29 @@ input[type="number"] {
     appearance: textfield;
     text-align: center;
     padding-left: 0;
+    height: 3.5rem;
+}
+
+.number {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: inherit;
+}
+
+.form-group .number .arrow {
+    position: absolute;
+    height: 1.5rem;
+    width: 1.5rem;
+    cursor: pointer;
+}
+
+.form-group .number .arrow.add {
+    right: .5rem;
+}
+
+.form-group .number .arrow.minus {
+    left: .5rem;
 }
 
 input[type="number"]::-webkit-inner-spin-button {
@@ -412,6 +435,10 @@ nav ul#search-form-container li {
     height: 2.5rem;
     width: 2.5rem;
     position: relative;
+}
+
+#shopping-cart img:hover+.badge-shopping-cart {
+    background-color: var(--var-secondary);
 }
 
 #search-menu .flex-no-wrap label {
@@ -869,6 +896,7 @@ form.form-inline {
     top: 0.5rem;
     right: 0.5rem;
     border-radius: 50%;
+    transition: background-color .25s ease-in-out;
 }
 
 
@@ -1112,10 +1140,6 @@ form.form-inline {
 .card-product .product-presentation {
     padding-left: 2rem;
     padding-right: 2rem;
-}
-
-.card-product form input {
-    max-width: 50%;
 }
 
 

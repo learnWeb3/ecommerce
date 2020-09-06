@@ -19,8 +19,9 @@
             <div class="form-group">
 
                 <label for="<?php echo "book_quantity_" . $basket_product->getId() ?>">Quantitée :</label>
-
-                <input type="number" class="book_quantity" name="book_quantity" id="<?php echo "book_quantity_" . $basket_product->getId() ?>" value="<?php echo $basket_product->getQuantity() ?>" min="1" required>
+                <div class="number">
+                    <input type="number" class="book_quantity" name="book_quantity" id="<?php echo "book_quantity_" . $basket_product->getId() ?>" value="<?php echo $basket_product->getQuantity() ?>" min="1" required>
+                </div>
             </div>
 
         </form>

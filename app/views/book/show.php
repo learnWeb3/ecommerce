@@ -30,8 +30,9 @@
                 <div class="form-group">
 
                     <label for="<?php echo "book_quantity_" . $book->getId() ?>">Quantitée :</label>
-
-                    <input type="number" class="book_quantity" name="book_quantity" id="<?php echo "book_quantity_" . $book->getId() ?>" value="1" min="1" required>
+                    <div class="number">
+                        <input type="number" class="book_quantity" name="book_quantity" id="<?php echo "book_quantity_" . $book->getId() ?>" value="1" min="1" required>
+                    </div>
                 </div>
 
                 <div class="form-group-inline">
