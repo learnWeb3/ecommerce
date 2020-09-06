@@ -32,6 +32,13 @@
 
     <?php require_once LAYOUT_PATH . "/footer.php" ?>
 
+
+<script>
+
+    $(document).ready(function(){
+        appendArrowInputNumber();
+    })
+</script>
 </body>
 
 </html>

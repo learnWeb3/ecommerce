@@ -1,11 +1,12 @@
 class Product {
 
 
-    constructor(book_id, book_title, book_image_path, book_price, book_quantity) {
+    constructor(book_id, book_title, book_image_path, book_price_ht, book_price_ttc, book_quantity) {
         this.book_id = book_id
         this.book_title = book_title;
         this.book_image_path = book_image_path;
-        this.book_price = book_price;
+        this.book_price_ht = book_price_ht;
+        this.book_price_ttc = book_price_ttc;
         this.book_quantity = book_quantity;
         this.card = this.setTemplate()
     }
@@ -19,7 +20,8 @@ class Product {
             "<div class='col'>" +
 
             "<h4 class='product-title'> <a href='" + "index.php?controller=book&method=show&id=" + this.book_id + "'>" + this.book_title + "</a> </h4>" +
-            "<h5 class='product-price'>" + this.book_price + "</h5>" +
+            "<h5>" + this.book_price_ht + " &euro; HT</h5>" +
+            "<h5 class=\"product-price\">" + this.book_price_ttc + " &euro; TTC</h5>" +
 
             "<hr class='light my-2'>" +
 
@@ -30,9 +32,10 @@ class Product {
             "<div class='form-group'>" +
 
             "<label for='book_quantity_" + this.book_id + "'>Quantitée :</label>" +
-
+            "<div class=\"number\">" +
             "<input type='number' class='book_quantity' name='book_quantity' id='book_quantity_'" + this.book_id + "' value='" + this.book_quantity + "' min='1' required>" +
-            " </div>" +
+            "</div>" +
+            "</div>" +
 
             "</form>" +
             "</div>" +
@@ -73,10 +76,11 @@ class Product {
             };
 
             basketProductContainer.append(this.getTemplate());
-
+            appendArrowInputNumber();
             Product.delete();
             Product.update();
             Product.setBasketNumber()
+
 
         }, 750);
 
@@ -157,7 +161,7 @@ class Product {
                         if ("book_not_available" in result) {
                             alert(result.book_not_available);
                         } else {
-                            const product = new Product(result.book_id, result.book_title, result.book_image_path, result.book_price, result.book_quantity);
+                            const product = new Product(result.book_id, result.book_title, result.book_image_path, result.book_price_ht, result.book_price_ttc, result.book_quantity);
                             product.appendTemplate();
                             Basket.updateTotals(result);
                         }

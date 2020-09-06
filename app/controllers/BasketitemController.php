@@ -39,7 +39,8 @@ class BasketitemController
                     "book_id" => $added_product->getBook()->getId(),
                     "book_title" => $added_product->getBook()->getTitle(),
                     "book_image_path" => $added_product->getBook()->getImagePath(),
-                    "book_price" => $added_product->getBook()->getPrice(),
+                    "book_price_ht" => $added_product->getBook()->getHtPrice(),
+                    "book_price_ttc" => $added_product->getBook()->getPrice(),
                     "book_quantity" => $added_product->getQuantity(),
                     "basket_total_HT" => $basket->getTotalHT(),
                     "basket_total_TTC" => $basket->getTotalTTC()
