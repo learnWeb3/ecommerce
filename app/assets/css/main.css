@@ -1069,7 +1069,19 @@ form.form-inline {
     width: 100%;
 }
 
-.card-product .form-buy button[type="submit"] {
+#form-buy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#form-buy .form-group-inline {
+    width: 100%;
+}
+
+.card-product .form-buy button[type="submit"],
+#form-buy button[type="submit"] {
     height: 4rem;
     width: 4rem;
     cursor: pointer;
@@ -1078,7 +1090,8 @@ form.form-inline {
     background-color: var(--var-white);
 }
 
-.card-product .form-buy button[type="submit"]:hover {
+.card-product .form-buy button[type="submit"]:hover,
+#form-buy button[type="submit"]:hover {
     transition: border .25s ease-in-out;
     border: var(--var-secondary) 2px solid;
 }

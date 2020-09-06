@@ -143,31 +143,32 @@ class Product {
     }
 
 
-    static create() {
+    static create(targeted_forms) {
+        targeted_forms.forEach(targeted_form => {
 
-        $('.card-product .form-buy').submit(function(event) {
-            event.preventDefault();
-            $.ajax({
-                url: "/ecommerce/index.php",
-                method: "POST",
-                data: "controller=basketitem&method=create&" + $(this).serialize() + "&remote=true",
-                dataType: "JSON",
-                success: function(result, status) {
-                    if ("book_not_available" in result) {
-                        alert(result.book_not_available);
-                    } else {
-                        const product = new Product(result.book_id, result.book_title, result.book_image_path, result.book_price, result.book_quantity);
-                        product.appendTemplate();
-                        Basket.updateTotals(result);
-                    }
-                },
-                error: function(result, error, status) {
-                    console.log(error)
-                },
-            })
+            $(targeted_form).submit(function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: "/ecommerce/index.php",
+                    method: "POST",
+                    data: "controller=basketitem&method=create&" + $(this).serialize() + "&remote=true",
+                    dataType: "JSON",
+                    success: function(result, status) {
+                        if ("book_not_available" in result) {
+                            alert(result.book_not_available);
+                        } else {
+                            const product = new Product(result.book_id, result.book_title, result.book_image_path, result.book_price, result.book_quantity);
+                            product.appendTemplate();
+                            Basket.updateTotals(result);
+                        }
+                    },
+                    error: function(result, error, status) {
+                        console.log(error)
+                    },
+                })
+            });
+
         });
-
-
 
     }
 
@@ -194,7 +195,7 @@ class Product {
 
 
 $(document).ready(function() {
-    Product.create();
+    Product.create(['.card-product .form-buy', '#show-product-container #form-buy']);
     Product.delete();
     Product.update();
 });

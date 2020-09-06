@@ -1,4 +1,4 @@
-<section>
+<section id="show-product-container">
     <div class="row divide-xl-2 divide-lg-2 divide-md-1 divide-sm-1 divide-xs-1" style="min-height:100vh;">
         <div class="col p-4 justify-center-lower-justify-end">
             <div class="flex justify-content-between">
@@ -41,7 +41,7 @@
 
                 </div>
 
-                <button type="submit" class="btn btn-lg btn-success">valider</button>
+                <button type="submit" class="mx-auto"><img src="<?php echo ABSOLUTE_ASSET_PATH . "/\icons\action\shopping_cart.svg" ?>" alt="basket icon"></button>
 
             </form>
 
@@ -57,16 +57,8 @@
     <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/navigation/close.svg" ?>" alt="close modal image presentation" class="close">
 </div>
 
+<script src="<?php echo ABSOLUTE_ASSET_PATH?>/js/show-product.js"></script>
 <script>
-    $(".book-presentation-show").mouseenter(function() {
-        $("#modal-image-zoom-open").animate({
-            "left": 0
-        }), 500
-    });
 
-    $("#modal-image-zoom-open").click(function() {
-        $(this).animate({
-            "left": '-100%'
-        }), 500
-    });
+
 </script>
