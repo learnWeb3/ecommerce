@@ -17,26 +17,10 @@
         <div class="row-autoflow">
 
 
-            <?php foreach ($new_books as $new_book) : ?>
+            <?php foreach ($new_books as $book) : ?>
                 <div class="col">
-                    <div class="card-product" id="<?php echo $new_book['book']->getId() ?>">
 
-                        <img src="<?php echo $new_book['book']->getImagePath() ?>" alt="" class="poster">
-
-                        <h3 class="book-title my-2"><a href="<?php echo REDIRECT_BASE_URL . "controller=book&method=show&id=" . $new_book['book']->getId() ?>"><?php echo $new_book['book']->getTitle() ?></a></h3>
-                     
-                            <p class="price"><?php echo $new_book['book']->getPrice() ?> &euro;</p>
-
-                            <form action="<?php echo REDIRECT_BASE_URL."controller=basketitem&method=create"?>" method="post" class="form-buy">
-
-                                <input type="hidden" name="book_id" value="<?php echo $new_book['book']->getId() ?>">
-
-                                <button type="submit"><img src="<?php echo ABSOLUTE_ASSET_PATH . "/\icons\action\shopping_cart.svg" ?>" alt="basket icon"></button>
-
-                            </form>
-                      
-
-                    </div>
+                    <?php require LAYOUT_PATH . '/partials/product_card/product_card.php' ?>
 
                 </div>
 

@@ -52,6 +52,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    position: relative;
 }
 
 
@@ -602,6 +603,10 @@ form.form-inline {
     background-color: var(--var-success);
 }
 
+.btn-primary {
+    background-color: var(--var-primary);
+}
+
 .btn.btn-sm {
     min-width: 6rem;
     font-size: 1rem;
@@ -611,6 +616,7 @@ form.form-inline {
     min-height: 3.5rem;
     font-size: 1.5rem;
     width: 100%;
+    padding: 1rem;
 }
 
 
@@ -1269,4 +1275,34 @@ form.form-inline {
 
 .toogle li a {
     font-size: 1.5rem;
+}
+
+
+/* BOOK INDEX */
+
+#index-product-container .card-product {
+    margin: 2rem;
+}
+
+#pagination {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style-type: none;
+    padding: 2rem;
+}
+
+#previous img,
+#next img {
+    height: 2rem;
+    width: 2rem;
+}
+
+#previous,
+#next {
+    border-radius: 50%;
 }
