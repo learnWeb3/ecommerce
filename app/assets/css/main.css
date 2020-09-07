@@ -86,6 +86,10 @@
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+.bg-primary-circle {
+    background: radial-gradient(#4e54c800, #4e54c81e);
+}
+
 body {
     overflow-x: hidden;
 }
@@ -430,7 +434,8 @@ nav ul#search-form-container li {
 #menu-open img,
 .menu-close img,
 #shopping-cart img,
-#search-open img {
+#search-open img,
+#user_sign_action {
     cursor: pointer;
     height: 2.5rem;
     width: 2.5rem;
@@ -1239,4 +1244,29 @@ form.form-inline {
 
 #basket-price-zone {
     display: none;
+}
+
+.toogle {
+    flex-direction: column;
+    position: absolute;
+    top: 4rem;
+    right: 0;
+    background-color: var(--var-white);
+    padding: 1rem;
+}
+
+.relative {
+    position: relative;
+}
+
+.d-none {
+    display: none;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.toogle li a {
+    font-size: 1.5rem;
 }
