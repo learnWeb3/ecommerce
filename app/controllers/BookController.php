@@ -8,17 +8,21 @@ class BookController extends ApplicationController
     {
         if (isset($_POST['user_filter'], $_POST["user_input"], $_POST["order_by"], $_POST['order'])) {
             $search_engine = new SearchEngine($_POST['user_filter'], $_POST["user_input"], $_POST["order_by"], $_POST['order']);
-            if (isset($_POST['next_page'])) {
-                $search_engine->getNextPage();
-            }
-            if (isset($_POST['previous_page'])) {
-                $search_engine->getPreviousPage();
-            }
         }else{
-            $search_engine = new SearchEngine("book_title", " ");
+            $search_engine = new SearchEngine("book_title", "");
+        }
+        $start = isset($_POST['start'])? $_POST['start']:0;
+
+        if (isset($_POST['next_page'])) {
+            $search_engine->getNextPage($start);
+            $start += 20;
+        }
+        if (isset($_POST['previous_page'])) {
+            $search_engine->getPreviousPage($start);
+            $start -= 20;
         }
         $books = $search_engine->getSearchresult();
-        $this->render("index", "La Nuit des temps: les produits", "Livres neufs et d'occasion pour tous les âges, tous les goûts, et toutes les bourses", ["books" => $books]);
+        $this->render("index", "La Nuit des temps: les produits", "Livres neufs et d'occasion pour tous les âges, tous les goûts, et toutes les bourses", ["books" => $books, "start"=>$start]);
     }
 
     public function show()

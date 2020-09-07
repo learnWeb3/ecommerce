@@ -25,16 +25,16 @@ class SearchEngine
         return Book::searchLike($this->column_name, $this->value, $this->limit, $this->offset, $this->order_column, $this->order);
     }
 
-    public function getNextPage()
+    public function getNextPage(int $start)
     {
-        $this->offset = $this->offset + 10;
+        $this->offset = $start + 20;
         return $this;
     }
 
-    public function getPreviousPage()
+    public function getPreviousPage(int $start)
     {
         if ($this->offset >= 10) {
-            $this->offset = $this->offset - 10;
+            $this->offset = $start - 20;
         }
         return $this;
     }
