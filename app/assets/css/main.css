@@ -411,14 +411,10 @@ nav ul:last-child {
         justify-content: center;
         display: flex;
     }
-    nav ul li#search-open {
-        display: block
-    }
 }
 
 @media screen and (min-width: 900px) {
-    nav ul li#menu-open,
-    nav ul li#search-open {
+    nav ul li#menu-open {
         display: none;
     }
 }
@@ -477,6 +473,8 @@ nav ul#search-form-container li {
 #search-menu ul {
     list-style-type: none;
     margin: 1rem;
+    position: absolute;
+    top: 0;
 }
 
 #menu ul:nth-child(2),

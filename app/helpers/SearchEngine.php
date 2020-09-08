@@ -8,9 +8,12 @@ class SearchEngine
     public $offset;
     public $order_column;
     public $order;
+    public $category_id;
+    public $price_min;
+    public $price_max;
 
 
-    public function __construct($column_name, $value, $order_column = "book_created_at", $order = "DESC", $limit = 20, $offset = 0)
+    public function __construct($column_name, $value, $order_column = "book_created_at", $order = "DESC", $limit = 20, $offset = 0, $price_min=null,$price_max=null,$category_id=null)
     {
         $this->column_name = $column_name;
         $this->value = $value;
@@ -18,11 +21,20 @@ class SearchEngine
         $this->offset = $offset;
         $this->order_column = $order_column;
         $this->order = $order;
+        if ($price_min != null && $price_max != null && $category_id != null) {
+            $this->price_min = $price_min;
+            $this->price_max = $price_max;
+            $this->category_id = $category_id;
+        }
     }
 
     public function getSearchResult()
     {
-        return Book::searchLike($this->column_name, $this->value, $this->limit, $this->offset, $this->order_column, $this->order);
+        if (empty($this->price_min) || empty($this->price_max) || empty($this->category_id)) {
+            return Book::searchLike($this->column_name, $this->value, $this->limit, $this->offset, $this->order_column, $this->order);
+        } else {
+            return Book::filterSearchMenu($this->category_id, $this->price_min, $this->price_max, $this->order_column, $this->order, $this->limit, $this->offset);
+        }
     }
 
     public function getNextPage(int $start)

@@ -1,24 +1,25 @@
-<div id="search-menu" class="closed">
+<div id="search-menu" class="closed justify-content-center">
 
     <ul>
         <li class="menu-close"><img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/navigation/close.svg" ?>" alt="logo icon"></li>
     </ul>
 
-    <div class="container p-4">
+    <div class="container p-4" style="height:unset">
 
-        <h2>Votre recherche</h2>
+        <h2>Critère de recherche</h2>
 
-    
+
         <form action="" method="post" class="w-100">
 
             <div class="form-group">
-                <label for="" >Type de livre :</label>
-                <select name="" id="">
-                    <option value=""></option>
-                    <option value=""></option>
-                    <option value=""></option>
-                    <option value=""></option>
+
+                <label for="category_name">Categorie de livre:</label>
+                <select name="category_id" id="category_name">
+                    <?php foreach ($categories as $category) : ?>
+                        <option value="<?php echo $category->getId() ?>"><?php echo $category->getName() ?></option>
+                    <?php endforeach; ?>
                 </select>
+
             </div>
 
 
@@ -29,16 +30,21 @@
 
                 <div class="flex-no-wrap">
                     <div class="form-group w-100">
-                        <label for="">0-9 &euro;</label>
-                        <input type="radio" name="price-filter">
+                        <label for="price_max">Prix minimum:</label>
+                        <select name="price_min" id="price_min">
+                            <?php for ($i = 0; $i < 100; $i++) : ?>
+                                <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                            <?php endfor; ?>
+                        </select>
                     </div>
+
                     <div class="form-group w-100">
-                        <label for="">10-50 &euro;</label>
-                        <input type="radio" name="price-filter">
-                    </div>
-                    <div class="form-group w-100">
-                        <label for="">+50 &euro;</label>
-                        <input type="radio" name="price-filter">
+                        <label for="price_max">Prix maximum:</label>
+                        <select name="price_max" id="price_min">
+                            <?php for ($i = 0; $i < 100; $i++) : ?>
+                                <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                            <?php endfor; ?>
+                        </select>
                     </div>
                 </div>
 
@@ -55,15 +61,15 @@
                 <div class="flex-no-wrap">
                     <div class="form-group w-100">
                         <label for="">A-Z :</label>
-                        <input type="radio" name="sort-by">
+                        <input type="radio" name="sort_by">
                     </div>
                     <div class="form-group w-100">
                         <label for="">Prix:</label>
-                        <input type="radio" name="sort-by">
+                        <input type="radio" name="sort_by">
                     </div>
                     <div class="form-group w-100">
                         <label for="">Date:</label>
-                        <input type="radio" name="sort-by">
+                        <input type="radio" name="sort_by">
                     </div>
                 </div>
 
@@ -81,6 +87,7 @@
 
 
     </div>
+
 
 
 </div>

@@ -20,6 +20,7 @@ class ApplicationController
         // GETTING BASKET ACCESSIBLE IN ALL VIEWS
         $basket = Basket::getBasket();
 
+        $categories = Category::findAll("categories.created_at");
 
         $basket_products = $basket->notEmpty() ? $basket->getAllProducts() : array();
 
