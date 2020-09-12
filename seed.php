@@ -44,6 +44,6 @@ $books = Book::findAll("created_at");
 // Seeding stock for each and every product
 // foreach($books as $book)
 // {
-//     var_dump($book->setStock(rand(1,10)));
+//     var_dump($book->setStock(rand(1,50)));
 // }
 

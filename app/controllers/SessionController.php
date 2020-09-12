@@ -10,5 +10,10 @@ class SessionController extends ApplicationController
 
     public function create()
     {
+
+        if (isset($_POST['user_email'],$_POST['user_password']))
+        {  
+            User::signIn();
+        }
     }
 }

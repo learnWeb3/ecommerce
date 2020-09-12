@@ -101,4 +101,66 @@ class User extends DbRecords
         
     }
 
+
+    public static function signIn(string $email, string $password)
+    {
+
+        $potential_user = User::where("email", $email, "created_at");
+        if (!empty($potential_user)) {
+            $potential_user = $potential_user[0];
+            if (password_verify($password, $potential_user->password)) {
+                $_SESSION['current_user'] = $potential_user;
+                return json_encode(array("message"=>"user successfully connected","type"=>"success"));
+            } else {
+                return json_encode(array("message"=>"user password is not correct","type"=>"danger"));
+            }
+        } else {
+            return json_encode(array("message"=>"user does not exists", "type"=>"info"));
+        }
+    }
+
+
+    public function signUp(string $password_confirmation)
+    {
+        $errors =  array_merge(Validator::validatePassword($this->password,$password_confirmation), Validator::validateEmail($this->email));
+        if (empty($errors)) {
+            if( $this->create())
+            {
+                return json_encode(array("message"=>"user account successfully created", "type"=>"success"));
+            }
+        } else {
+            return json_encode(array("message"=>$errors, "type"=>"danger"));
+        }
+    }
+
+
+    public static function doesUserExists(string $email)
+    {
+        if (!empty(self::where("email", $email,"created_at")))
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    public static function isUserSignedIn()
+    {
+        return isset($_SESSION['current_user']);
+    }
+
+
+    public static function getCurrentUser()
+    {
+        return  $_SESSION['current_user'];
+    }
+
+    public static function signOut()
+    {
+        unset($_SESSION["current_user"]);
+
+        return json_encode(array("message"=>"user signed out successfully", "type"=>"success"));
+    }
+
 }

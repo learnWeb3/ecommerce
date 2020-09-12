@@ -27,7 +27,6 @@ class HomeController extends ApplicationController
 
         $best_sales_books = Book::getPopular($book_best_sales_limit, $book_best_sales_offset);
 
-
         $this->render(
             "index",
             "La Nuit des temps ",

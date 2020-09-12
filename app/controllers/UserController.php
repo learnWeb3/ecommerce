@@ -11,6 +11,10 @@ class UserController extends ApplicationController
 
     public function create()
     {
-
+        if (isset($_POST['user_email'],,$_POST['user_password'],$_POST["user_password_confirmation"]))
+        {
+            $user = new User($_POST['user_email'],$_POST['user_password']);
+            $user->signUp($_POST["user_password_confirmation"]);
+        }
     }
 }

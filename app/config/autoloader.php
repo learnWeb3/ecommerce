@@ -1,7 +1,7 @@
 <?php
 
 
-define("HELPERS_CLASSES", ["Autoloader", "Router", "Db", "DbRecords", "Session", "SearchEngine"]);
+define("HELPERS_CLASSES", ["Autoloader", "Router", "Db", "DbRecords", "Session", "SearchEngine","Validator"]);
 define("SERVICES_CLASSES", ["BookScrapper", "AppStripe"]);
 define("CONTROLLERS_CLASSES", ["ApplicationController", "HomeController", "UserController", "SessionController", "BookController", "BasketitemController", "CheckoutController", "SearchController"]);
 define("MODELS_CLASSES", ["Category", "Book", "Basket", "BasketItem"]);
