@@ -148,7 +148,7 @@ class User extends DbRecords
 
         $prepared_statement  = $connection->prepare($statement);
 
-        $prepared_statement->execute(array($this->getEmail(), password_hash( $this->getPassword(), PASSWORD_BCRYPT)));
+        $prepared_statement->execute(array($this->getEmail(), password_hash($this->getPassword(), PASSWORD_BCRYPT)));
 
         return $this->lastCreated();
     }
@@ -188,5 +188,36 @@ class User extends DbRecords
         $basket = Basket::findCurrentOwnerBasket($this->getId(), "current");
         // storing basket with all products in session
         $basket->storeInSession();
+    }
+
+
+    public function makeRecommendation(int $book_id, string $comment)
+    {
+        $connection = Db::connect();
+        $statement = "INSERT INTO recommended_books (book_id,user_id,comment) VALUES (?,?,?)";
+        $prepared_statement = $connection->prepare($statement);
+        if ($prepared_statement->execute(array($book_id, $this->getId(), $comment))) {
+            $select_statement = "SELECT * FROM recommended_books WHERE user_id=? AND book_id=? LIMIT 1 ORDER BY created_at DESC";
+            $prepared_statement = $connection->prepare($select_statement);
+            $prepared_statement->execute(array($this->getId(), $book_id));
+            return $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            return array();
+        }
+    }
+
+    public function makeCoupDeCoeur(int $book_id, string $comment)
+    {
+        $connection = Db::connect();
+        $statement = "INSERT INTO coup_de_coeur_books (book_id,user_id,comment) VALUES (?,?,?)";
+        $prepared_statement = $connection->prepare($statement);
+        if ($prepared_statement->execute(array($book_id, $this->getId(), $comment))) {
+            $select_statement = "SELECT * FROM coup_de_coeur_books WHERE user_id=? AND book_id=? LIMIT 1 ORDER BY created_at DESC";
+            $prepared_statement = $connection->prepare($select_statement);
+            $prepared_statement->execute(array($this->getId(), $book_id));
+            return $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            return array();
+        }
     }
 }
