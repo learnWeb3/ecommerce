@@ -10,16 +10,16 @@
             <small class="my-4 text-center">champs obligatoires *</small>
 
 
-            <form action="" method="post" id="sign-in">
+            <form action="<?php echo REDIRECT_BASE_URL."controller=session&method=create"?>" method="post" id="sign-in">
 
                 <div class="form-group">
                     <label for="">Adresse email *</label>
-                    <input type="email" name="" id="" required>
+                    <input type="email" name="user_email" id="user_email" required>
                 </div>
 
                 <div class="form-group">
                     <label for="">Mot de passe *</label>
-                    <input type="password" name="" id="" required>
+                    <input type="password" name="user_password" id="user_password" required>
                 </div>
 
 
@@ -28,3 +28,9 @@
         </div>
     </div>
 </section>
+
+<script>
+
+Session.create("#sign-in button");
+    
+</script>

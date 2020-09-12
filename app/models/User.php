@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class User extends DbRecords
 {
@@ -12,24 +12,22 @@ class User extends DbRecords
     protected $age;
 
     // CONSTRUCTOR
-    public function __construct( $email=null, $password=null,$first_name=null,$last_name=null, $date_of_birth = null, $id = null, $created_at = null, $updated_at = null)
+    public function __construct($email = null, $password = null, $first_name = null, $last_name = null, $date_of_birth = null, $id = null, $created_at = null, $updated_at = null)
     {
 
-        if ($email != null)
-        {
-            $this->email= $email;
+        if ($email != null) {
+            $this->email = $email;
         }
-        if ($password = null)
-        {
-            $this->password=$password;
+        if ($password != null) {
+            $this->password = $password;
         }
-        if ($first_name!=null) {
+        if ($first_name != null) {
             $this->first_name = $first_name;
         }
-        if ($last_name!=null) {
+        if ($last_name != null) {
             $this->last_name = $last_name;
         }
-        if ($date_of_birth!=null) {
+        if ($date_of_birth != null) {
             $this->date_of_birth = $date_of_birth;
         }
 
@@ -41,9 +39,9 @@ class User extends DbRecords
     public function getBasketContent()
     {
         $connection = Db::connect();
-        $statement = 
-        
-        "SELECT 
+        $statement =
+
+            "SELECT 
             -- CATEGORIES
             categories.id as category_id,
             categories.name as category_name,
@@ -75,9 +73,8 @@ class User extends DbRecords
         $prepared_statement->execute(array($this->getId()));
 
         $results = [];
-        while($row = $prepared_statement->fetch())
-        {
-            $results[]= array(
+        while ($row = $prepared_statement->fetch()) {
+            $results[] = array(
                 "book" => new Book(
                     $row["book_title"],
                     $row["book_author"],
@@ -92,13 +89,11 @@ class User extends DbRecords
                     $row["book_created_at"],
                     $row["book_updated_at"]
                 ),
-                "category"=>new Category($row['category_name'], $row['category_id'],$row['category_created_at'],$row['category_updated_at'])
+                "category" => new Category($row['category_name'], $row['category_id'], $row['category_created_at'], $row['category_updated_at'])
             );
-
         }
 
         return $results;
-        
     }
 
 
@@ -110,36 +105,34 @@ class User extends DbRecords
             $potential_user = $potential_user[0];
             if (password_verify($password, $potential_user->password)) {
                 $_SESSION['current_user'] = $potential_user;
-                return json_encode(array("message"=>"user successfully connected","type"=>"success"));
+                return array("message" => "user successfully connected", "type" => "success");
             } else {
-                return json_encode(array("message"=>"user password is not correct","type"=>"danger"));
+                return array("message" => "user password is not correct", "type" => "danger");
             }
         } else {
-            return json_encode(array("message"=>"user does not exists", "type"=>"info"));
+            return array("message" => "user does not exists", "type" => "info");
         }
     }
 
 
     public function signUp(string $password_confirmation)
     {
-        $errors =  array_merge(Validator::validatePassword($this->password,$password_confirmation), Validator::validateEmail($this->email));
+        $errors =  array_merge(Validator::validatePassword($this->password, $password_confirmation), Validator::validateEmail($this->email));
         if (empty($errors)) {
-            if( $this->create())
-            {
-                return json_encode(array("message"=>"user account successfully created", "type"=>"success"));
+            if ($this->create()) {
+                return array("message" => "user account successfully created", "type" => "success");
             }
         } else {
-            return json_encode(array("message"=>$errors, "type"=>"danger"));
+            return array("message" => $errors, "type" => "danger");
         }
     }
 
 
     public static function doesUserExists(string $email)
     {
-        if (!empty(self::where("email", $email,"created_at")))
-        {
+        if (!empty(self::where("email", $email, "created_at"))) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -153,14 +146,21 @@ class User extends DbRecords
 
     public static function getCurrentUser()
     {
-        return  $_SESSION['current_user'];
+        return $_SESSION['current_user'];
     }
 
     public static function signOut()
     {
         unset($_SESSION["current_user"]);
 
-        return json_encode(array("message"=>"user signed out successfully", "type"=>"success"));
+        return array("message" => "user signed out successfully", "type" => "success");
     }
 
+
+    public function loadSavedBasket()
+    {
+        $basket = Basket::findCurrentOwnerBasket($this->getId(), "current");
+        // storing basket with all products in session
+        $basket->storeInSession();
+    }
 }

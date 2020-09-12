@@ -14,26 +14,36 @@ class SessionController extends ApplicationController
         if (isset($_POST['user_email'], $_POST['user_password'])) {
 
 
-           $sign_in_attempt =  User::signIn($_POST['user_email'],$_POST['user_password']);
+            $sign_in_attempt =  User::signIn($_POST['user_email'], $_POST['user_password']);
 
-            if (isset($_POST['remote']))
-            {
-                
+            if (isset($_SESSION['current_user'])) {
+                $flash = new Flash($sign_in_attempt, "success");
+                $controller = "home";
+                $method = "index";
+                User::getCurrentUser()->loadSavedBasket();
+            } else {
+                $flash = new Flash($sign_in_attempt, "danger");
+                $controller = "user";
+                $method = "new";
+            }
+
+            if (isset($_POST['remote'])) {
+                echo json_encode($sign_in_attempt);
+                die();
+            } else {
+                $flash->storeInSession();
+                header("Location:" . REDIRECT_BASE_URL . "controller=$controller&method=$method");
             }
         }
     }
 
     public function destroy()
     {
-        if (isset($_SESSION['current_user'],$_POST['user_id']))
-        {
-            if (User::getCurrentUser()->getId() == intval($_POST['user_id']))
-            {
+        if (isset($_SESSION['current_user'], $_POST['user_id'])) {
+            if (User::getCurrentUser()->getId() == intval($_POST['user_id'])) {
                 $user_session_destroy = User::signOut();
 
-                if (isset($_POST['remote']))
-                {
-                   
+                if (isset($_POST['remote'])) {
                 }
             }
         }

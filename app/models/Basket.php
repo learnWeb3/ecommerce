@@ -214,4 +214,30 @@ class Basket extends DbRecords
         return  $basket_item != false ?  $basket_item->getQuantity() + 1 : 1;
     }
 
+
+    public static function findCurrentOwnerBasket(int $owner_id, string $basket_state_name)
+    {
+        // database query 
+        $connection = Db::connect();
+        $statement = "SELECT basket_items.*
+        FROM baskets 
+        JOIN basket_items ON basket.id=basket_items.basket_id 
+        JOIN states ON states.id=baskets.state_id WHERE user_id=? AND states.name=?";
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute(array($owner_id, $basket_state_name));
+
+        // initlaizing empty aray to store basketItems fetched
+        $basketItems = [];
+
+        // fetching all basketItems registered for a specific basket
+        while($row=$prepared_statement->fetch())
+        {
+            $book = Book::find(intval($row["book_id"]))[0];
+            $basketItems[] = new BasketItem($row["book_id"],$row["basket_id"],$book, $row["quantity"], $row['id'], $row['created_at'], $row['updated_at']);
+        }
+
+        // constructing instance of basket
+        return  new Basket($owner_id, $basket_state_name, $basketItems, $basketItems[0]->getBasketId());
+    }
+
 }

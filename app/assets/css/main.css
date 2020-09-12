@@ -437,6 +437,7 @@ nav ul#search-form-container li {
     height: 2.5rem;
     width: 2.5rem;
     position: relative;
+    z-index: 500;
 }
 
 #shopping-cart img:hover+.badge-shopping-cart {

@@ -1,12 +1,7 @@
-class User
-{
-    constructor(email,password)
-    {
-        this.email = email;
-        this.password=password;
-    }
+class Session {
 
-    static create(targetedSelector){
+    static create(targetedSelector) {
+
         $(targetedSelector).click(function () {
 
             $(targetedSelector).parent("form").submit(function (event) {
@@ -16,7 +11,7 @@ class User
                 $.ajax({
                     url: "/ecommerce/index.php",
                     method: "POST",
-                    data: "controller=user&method=create&" + $(this).serialize() + "&remote=true",
+                    data: "controller=session&method=create&" + $(this).serialize() + "&remote=true",
                     dataType: "JSON",
                     success: function (results, status) {
                         console.log(results);
@@ -32,17 +27,17 @@ class User
 
     }
 
-    static destroy(){
+    static destroy() {
         $.ajax({
-            url:"/ecommerce/index.php",
-            method:"POST",
-            data:"controller=user&method=destroy&" + $(this).serialize() + "&remote=true",
-            dataType:"JSON",
-            success:function(results,status){
+            url: "/ecommerce/index.php",
+            method: "POST",
+            data: "controller=session&method=destroy&" + $(this).serialize() + "&remote=true",
+            dataType: "JSON",
+            success: function (results, status) {
                 console.log(results);
             },
-            error:function(XhrObject,error,status)
-            {
+            error: function (XhrObject, error, status) {
+
                 console.log(error);
             }
         });

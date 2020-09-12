@@ -12,8 +12,11 @@ class DbRecords
 
     public function __construct($id = null, $created_at = null, $updated_at = null)
     {
-        if ($id != null && $created_at != null) {
+        if ($id != null) {
             $this->id = $id;
+        }
+
+        if ($created_at != null) {
             $this->created_at = $created_at;
         }
 
