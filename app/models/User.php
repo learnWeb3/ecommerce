@@ -119,12 +119,38 @@ class User extends DbRecords
     {
         $errors =  array_merge(Validator::validatePassword($this->password, $password_confirmation), Validator::validateEmail($this->email));
         if (empty($errors)) {
-            if ($this->create()) {
-                return array("message" => "user account successfully created", "type" => "success");
+            if ($this->createUser()) {
+                return array("message" => array("user account successfully created"), "type" => "success");
             }
         } else {
             return array("message" => $errors, "type" => "danger");
         }
+    }
+
+
+    public function getEmail()
+    {
+        return htmlspecialchars($this->email);
+    }
+
+    public function getPassword()
+    {
+        return htmlspecialchars($this->password);
+    }
+
+
+
+    private function createUser()
+    {
+        $connection = Db::connect();
+
+        $statement = "INSERT INTO users (email,password) VALUES (?,?)";
+
+        $prepared_statement  = $connection->prepare($statement);
+
+        $prepared_statement->execute(array($this->getEmail(), $this->getPassword()));
+
+        return $this->lastCreated();
     }
 
 

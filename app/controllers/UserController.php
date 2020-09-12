@@ -15,7 +15,6 @@ class UserController extends ApplicationController
         {
             $user = new User($_POST['user_email'],$_POST['user_password']);
             $sign_up_attempt =  $user->signUp($_POST["user_password_confirmation"]);
-
             if (isset($_SESSION['current_user'])) {
                 $flash = new Flash($sign_up_attempt, "success");
                 $controller = "home";
@@ -32,7 +31,7 @@ class UserController extends ApplicationController
                 die();
             } else {
                 $flash->storeInSession();
-                //header("Location:" . REDIRECT_BASE_URL . "controller=$controller&method=$method");
+                header("Location:" . REDIRECT_BASE_URL . "controller=$controller&method=$method");
             }
         }
     }

@@ -1315,6 +1315,7 @@ form.form-inline {
     min-height: 2rem;
     padding:1rem;
     position: relative;
+    margin-top: 2rem;
 }
 
 #alert img#close{

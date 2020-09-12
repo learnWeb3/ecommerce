@@ -65,7 +65,7 @@ trait Db
     }
 
 
-    private function lastCreated()
+    public function lastCreated()
     {
         $table_name = DB_NAMING_CONVENTIONS[get_class($this)];
         // STATEMENT
