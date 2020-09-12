@@ -35,6 +35,7 @@ class Session {
 
         });
 
+
     }
 
     static destroy() {

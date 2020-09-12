@@ -33,6 +33,9 @@ class UserController extends ApplicationController
                 $flash->storeInSession();
                 header("Location:" . REDIRECT_BASE_URL . "controller=$controller&method=$method");
             }
+        }elseif(isset($_POST["user_password_check"], $_POST["user_password_confirmation"], $_POST['remote']))
+        {   
+            echo json_encode(array("message" => Validator::validatePassword($_POST["user_password_check"], $_POST["user_password_confirmation"]), "type" => "danger"));
         }
     }
 

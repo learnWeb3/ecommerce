@@ -4,7 +4,7 @@ class User {
         this.password = password;
     }
 
-    static create(targetedSelector) {
+    static create(targetedSelector, formInputs) {
         $(targetedSelector).click(function () {
 
             $(targetedSelector).parent("form").submit(function (event) {
@@ -37,6 +37,32 @@ class User {
                 });
             })
 
+        });
+
+
+        $("#user_password").blur(function (){
+            
+            $.ajax({
+                url: "/ecommerce/index.php",
+                method: "POST",
+                data: "controller=user&method=create" + "&user_password_check="+$(this).val()+"&user_password_confirmation=" + $("#user_password_confirmation").val()+"&remote=true",
+                dataType: "JSON",
+                success: function (results, status) {
+                    if (results.hasOwnProperty("type")) {
+                        if (results.type == "danger") {
+                            if ($('#alert').length > 0) { $("#alert").remove(); }
+                            Alert.getAlerts(results);
+                        }
+                        Alert.dismissAlerts();
+
+                        console.log(results);
+                    }
+                },
+                error: function (XhrObject, error, status) {
+
+                    console.log(error);
+                }
+            });
         });
 
     }
