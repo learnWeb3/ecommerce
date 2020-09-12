@@ -35,7 +35,7 @@ class UserController extends ApplicationController
             }
         }elseif(isset($_POST["user_password_check"], $_POST["user_password_confirmation"], $_POST['remote']))
         {   
-            echo json_encode(array("message" => Validator::validatePassword($_POST["user_password_check"], $_POST["user_password_confirmation"]), "type" => "danger"));
+                echo json_encode(array("message" => Validator::validatePassword($_POST["user_password_check"], $_POST["user_password_confirmation"]), "type" => "danger"));
         }
     }
 

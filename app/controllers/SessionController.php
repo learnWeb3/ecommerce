@@ -39,12 +39,12 @@ class SessionController extends ApplicationController
 
     public function destroy()
     {
-        if (isset($_SESSION['current_user'], $_POST['user_id'])) {
-            if (User::getCurrentUser()->getId() == intval($_POST['user_id'])) {
-                $user_session_destroy = User::signOut();
-
-                if (isset($_POST['remote'])) {
-                }
+        if (isset($_SESSION['current_user'])) {
+            $user_session_destroy = User::signOut();
+            if (isset($_POST['remote'])) {
+                echo json_encode($user_session_destroy);
+            }else{
+                header("Location:".REDIRECT_BASE_URL."controller=home&method=index");
             }
         }
     }

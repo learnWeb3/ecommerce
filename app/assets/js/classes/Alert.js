@@ -12,4 +12,9 @@ class Alert
     static dismissAlerts() {
         if ($("#alert").length > 0) { $("#alert #close").click(function () { $("#alert").remove() }); }
     }
+
+    static removeAlerts()
+    {
+        if ($("#alert").length > 0) {$("#alert").remove()}
+    }
 }

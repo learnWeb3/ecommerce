@@ -31,6 +31,6 @@
 
 <script>
 
-Session.create("#sign-in button");
+Session.create("#sign-in");
     
 </script>

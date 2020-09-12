@@ -29,8 +29,12 @@
         <ul>
             <li class="mr-4 relative"><img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/user.svg" ?>" id="user_sign_action" alt="user icon">
                 <ul class="toogle d-none">
+                <?php if (!isset($current_user)):?>
                     <li><a href="<?php echo REDIRECT_BASE_URL."controller=session&method=new"?>">Connexion</a></li>
                     <li><a href="<?php echo REDIRECT_BASE_URL."controller=user&method=new"?>">Inscription</a></li>
+                <?php else:?>
+                    <li><a href="<?php echo REDIRECT_BASE_URL."controller=session&method=destroy"?>" id="sign-out">Deconnexion</a></li>
+                <?php endif;?>
                 </ul>
             </li>
             <li id="search-open" class="mr-4"><img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/search.svg" ?>" alt="search icon" title="rechercher un produit"></li>
@@ -76,4 +80,7 @@
             toogle.removeClass("d-flex").addClass("d-none");
         }
     });
+
+
+    Session.destroy();
 </script>

@@ -179,7 +179,7 @@ class User extends DbRecords
     {
         unset($_SESSION["current_user"]);
 
-        return array("message" => "user signed out successfully", "type" => "success");
+        return array("message" => array("user signed out successfully"), "type" => "success");
     }
 
 
