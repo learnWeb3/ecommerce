@@ -133,10 +133,10 @@ trait Db
         $table_name = DB_NAMING_CONVENTIONS[get_called_class()];
         // STATEMENT
         $order = ($inversed) ? "DESC" : "ASC";
-        $statement = "SELECT * FROM $table_name WHERE $searched_column=$searched_value ORDER BY $order_column $order";
+        $statement = "SELECT * FROM $table_name WHERE $searched_column=? ORDER BY $order_column $order";
         // READING AND FETCHING FROM DATABASE
         $prepared_statement = Db::connect()->prepare($statement);
-        $prepared_statement->execute();
+        $prepared_statement->execute(array($searched_value));
         return $prepared_statement->fetchAll(PDO::FETCH_CLASS, get_called_class());
     }
 

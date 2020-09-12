@@ -14,7 +14,17 @@ class Session {
                     data: "controller=session&method=create&" + $(this).serialize() + "&remote=true",
                     dataType: "JSON",
                     success: function (results, status) {
-                        console.log(results);
+                        if (results.hasOwnProperty("type")) {
+                            if (results.type == "danger") {
+                                if ($('#alert').length > 0) { $("#alert").remove(); }
+                                Alert.getAlerts(results);
+                            } else {
+                                $("#sign-in").remove();
+                                $("#sign-container").append("<h2 class='my-4'>Bon retour parmis nous !</h2><a href='http://localhost/ecommerce/index.php?controller=home&method=index' class='btn btn-success btn-lg'>La Boutique</a>");
+                            }
+
+                            Alert.dismissAlerts();
+                        }
                     },
                     error: function (XhrObject, error, status) {
 

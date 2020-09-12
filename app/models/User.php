@@ -103,14 +103,14 @@ class User extends DbRecords
         $potential_user = User::where("email", $email, "created_at");
         if (!empty($potential_user)) {
             $potential_user = $potential_user[0];
-            if (password_verify($password, $potential_user->password)) {
+            if (password_verify($password, $potential_user->getpassword())) {
                 $_SESSION['current_user'] = $potential_user;
-                return array("message" => "user successfully connected", "type" => "success");
+                return array("message" => array("user successfully connected"), "type" => "success");
             } else {
-                return array("message" => "user password is not correct", "type" => "danger");
+                return array("message" => array("user password is not correct"), "type" => "danger");
             }
         } else {
-            return array("message" => "user does not exists", "type" => "info");
+            return array("message" => array("user does not exists"), "type" => "danger");
         }
     }
 
@@ -148,7 +148,7 @@ class User extends DbRecords
 
         $prepared_statement  = $connection->prepare($statement);
 
-        $prepared_statement->execute(array($this->getEmail(), $this->getPassword()));
+        $prepared_statement->execute(array($this->getEmail(), password_hash( $this->getPassword(), PASSWORD_BCRYPT)));
 
         return $this->lastCreated();
     }

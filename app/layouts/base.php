@@ -16,6 +16,7 @@
     <!-- NAVBAR JS STYLES -->
     <script src="<?php echo ABSOLUTE_ASSET_PATH . "/js/navbar.js" ?>"></script>
     <script src="<?php echo ABSOLUTE_ASSET_PATH."/js/input-number.js"?>"></script>
+    <script src="<?php echo ABSOLUTE_ASSET_PATH?>/js/classes/Alert.js"></script>
     <script src="<?php echo ABSOLUTE_ASSET_PATH?>/js/classes/Session.js"></script>
     <script src="<?php echo ABSOLUTE_ASSET_PATH?>/js/classes/User.js"></script>
     <script src="<?php echo ABSOLUTE_ASSET_PATH?>/js/classes/Basket.js"></script>

@@ -144,7 +144,7 @@ class Basket extends DbRecords
 
     public function getLastProduct()
     {
-        return $this->basket_items[count($this->basket_items) -1];
+        return $this->basket_items[count($this->basket_items) - 1];
     }
 
 
@@ -165,17 +165,21 @@ class Basket extends DbRecords
         return (empty($this->basket_items) == false);
     }
 
-    
+
     public function getTotalTTC()
     {
-        $total_ttc = array_sum(array_map(function($el){return $el->getBook()->getPrice() * $el->getQuantity();}, $this->basket_items));
+        $total_ttc = array_sum(array_map(function ($el) {
+            return $el->getBook()->getPrice() * $el->getQuantity();
+        }, $this->basket_items));
         return number_format($total_ttc, 2);
     }
 
     public function getTotalHT()
     {
-        $total_ht = array_sum(array_map(function($el){return $el->getBook()->getHtPrice() * $el->getQuantity();}, $this->basket_items));
-    
+        $total_ht = array_sum(array_map(function ($el) {
+            return $el->getBook()->getHtPrice() * $el->getQuantity();
+        }, $this->basket_items));
+
         return number_format($total_ht, 2);
     }
 
@@ -189,21 +193,20 @@ class Basket extends DbRecords
     {
         $products = $this->getBasketItems();
 
-        return array_map(function($el){
-           return  array(
-                    'price'=>$el->getBook()->getStripePriceId(),
-                    'quantity'=>$el->getQuantity()
-                );
+        return array_map(function ($el) {
+            return  array(
+                'price' => $el->getBook()->getStripePriceId(),
+                'quantity' => $el->getQuantity()
+            );
         }, $products);
     }
 
 
     public function getPriceZoneDisplay()
     {
-        if ($this->notEmpty())
-        {
+        if ($this->notEmpty()) {
             return "block";
-        }else{
+        } else {
             return "none";
         }
     }
@@ -230,14 +233,18 @@ class Basket extends DbRecords
         $basketItems = [];
 
         // fetching all basketItems registered for a specific basket
-        while($row=$prepared_statement->fetch())
-        {
-            $book = Book::find(intval($row["book_id"]))[0];
-            $basketItems[] = new BasketItem($row["book_id"],$row["basket_id"],$book, $row["quantity"], $row['id'], $row['created_at'], $row['updated_at']);
+        while ($row = $prepared_statement->fetch()) {
+            if (!empty($row["book_id"])) {
+                $book = Book::find(intval($row["book_id"]))[0];
+                $basketItems[] = new BasketItem($row["book_id"], $row["basket_id"], $book, $row["quantity"], $row['id'], $row['created_at'], $row['updated_at']);
+            }
         }
 
         // constructing instance of basket
-        return  new Basket($owner_id, $basket_state_name, $basketItems, $basketItems[0]->getBasketId());
+        if (!empty($basketItems)) {
+            return  new Basket($owner_id, $basket_state_name, $basketItems, $basketItems[0]->getBasketId());
+        } else {
+            return new Basket();
+        }
     }
-
 }
