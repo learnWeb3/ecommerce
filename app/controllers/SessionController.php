@@ -11,9 +11,31 @@ class SessionController extends ApplicationController
     public function create()
     {
 
-        if (isset($_POST['user_email'],$_POST['user_password']))
-        {  
-            User::signIn();
+        if (isset($_POST['user_email'], $_POST['user_password'])) {
+
+
+           $sign_in_attempt =  User::signIn($_POST['user_email'],$_POST['user_password']);
+
+            if (isset($_POST['remote']))
+            {
+                
+            }
+        }
+    }
+
+    public function destroy()
+    {
+        if (isset($_SESSION['current_user'],$_POST['user_id']))
+        {
+            if (User::getCurrentUser()->getId() == intval($_POST['user_id']))
+            {
+                $user_session_destroy = User::destroy($_POST['user_id']);
+
+                if (isset($_POST['remote']))
+                {
+                   
+                }
+            }
         }
     }
 }
