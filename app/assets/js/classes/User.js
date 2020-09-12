@@ -19,14 +19,24 @@ class User
                     data: "controller=user&method=create&" + $(this).serialize() + "&remote=true",
                     dataType: "JSON",
                     success: function (results, status) {
-                        console.log(results);
+                        if (results.hasOwnProperty("type") && results.type == "danger")
+                        {
+                            $("#sign-container").append("<div id='alert' class='"+results.type+"'><img src='app/assets/icons/navigation/close.svg' alt='' id='close'></div>");
+                            
+                            results.message.foreach(function(e){
+                                $("#alert").append("<p>"+e+"</p>")
+                            });
+
+                           
+                
+                        }
                     },
                     error: function (XhrObject, error, status) {
 
                         console.log(error);
                     }
                 });
-            }).submit()
+            })
 
         });
 

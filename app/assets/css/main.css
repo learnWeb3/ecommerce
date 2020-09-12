@@ -1305,3 +1305,43 @@ form.form-inline {
 #next {
     border-radius: 50%;
 }
+
+#alert{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 2rem;
+    padding:1rem;
+    position: relative;
+}
+
+#alert img#close{
+    height: 1.5rem;
+    width:1.5rem;
+    position: absolute;
+    right:.5rem;
+    top:.5rem;
+    cursor: pointer;
+}
+
+
+
+#alert.danger{
+    background-color: #F8D7DA;
+}
+#alert.danger *{
+    color:var(--var-danger)
+}
+#alert.success{
+    background-color:#D4EDDA;
+}
+#alert.success *{
+    color:var(--var-success)
+}
+#alert.info{
+    background-color: #CCE5FF;
+}
+#alert.info *{
+    color:var(--var-primary)
+}
