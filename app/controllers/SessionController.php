@@ -29,7 +29,7 @@ class SessionController extends ApplicationController
         {
             if (User::getCurrentUser()->getId() == intval($_POST['user_id']))
             {
-                $user_session_destroy = User::destroy($_POST['user_id']);
+                $user_session_destroy = User::signOut();
 
                 if (isset($_POST['remote']))
                 {
