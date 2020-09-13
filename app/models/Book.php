@@ -302,12 +302,12 @@ class Book extends DbRecords
         users.lastname as user_lastname,
         users.email as user_email,
         users.id as user_id,
-        users.created_at as user_created_at
-        users.udpated_at as user_updated_at
+        users.created_at as user_created_at,
+        users.updated_at as user_updated_at
         FROM books 
         JOIN categories ON books.category_id = categories.id
-        JOIN coup_de_coeur_books ON recommended_books.book_id = books.id
-        JOIN users ON coups_de_coeur_books.user_id = users.id
+        JOIN coup_de_coeur_books ON coup_de_coeur_books.book_id = books.id
+        JOIN users ON coup_de_coeur_books.user_id = users.id
         JOIN stocks ON books.id = stocks.book_id
         WHERE stocks.quantity >= 1
         ORDER BY books.created_at DESC

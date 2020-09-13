@@ -27,7 +27,7 @@ set_time_limit(0);
 // $scrapper = new BookScrapper("https://www.livrenpoche.com/genres");
 // $scrapper->registerDatas(50);
 
-
+// GETTING BOOKS
 $books = Book::findAll("created_at");
 
 // SEEDING PRODUCTS FROM SHOP ON STRIPE AND LINKING STRIPE IDS TO BOOK ON SPECIFIC TABLE
@@ -47,3 +47,36 @@ $books = Book::findAll("created_at");
 //     var_dump($book->setStock(rand(1,50)));
 // }
 
+
+// GETTING USERS 
+
+$users = User::findAll("created_at");
+
+
+// SEEDING RECOMMENDATIONS 
+
+$comments = array(
+    "J'ai passé un super moment avec ce livre. Merci.",
+    "Une très belle decouverte, je recommande.", 
+    "Merveilleux rine à dire.", 
+    "A faire passer entre toutes les mains.", 
+    "Pour vos parents, amis et même vos ennemis", 
+    "J'en suis sortis grandis"
+);
+
+// for($i=0;$i<10;$i++)
+// {
+//     $book_id = $books[array_rand($books)]->getid();
+//     $comment = $comments[array_rand($comments)];
+//     $users[0]->makeRecommendation($book_id,$comment);
+// }
+
+
+// SEEDING COUPD DE COEURS
+
+for($i=0;$i<10;$i++)
+{
+    $book_id = $books[array_rand($books)]->getid();
+    $comment = $comments[array_rand($comments)];
+    $users[0]->makeCoupDeCoeur($book_id,$comment);
+}
