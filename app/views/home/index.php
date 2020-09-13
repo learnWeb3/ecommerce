@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div class="col justify-content-evenly">
-                    <h2> <?php echo $recommended_book["book"]->getTitle() ?></h2>
+                <h2> <a href="<?php echo REDIRECT_BASE_URL."controller=book&method=show&id=".$recommended_book['book']->getId()?>"><?php echo $recommended_book["book"]->getTitle() ?></a></h2>
 
                     <h3>Auteur:<?php echo $recommended_book["book"]->getAuthor() ?></h3>
                     <h3>Collection:<?php echo $recommended_book["book"]->getCollection() ?></h3>
@@ -108,7 +108,7 @@
                     </div>
                 </div>
                 <div class="col justify-content-evenly">
-                    <h2> <?php echo $coup_de_coeur_book["book"]->getTitle() ?></h2>
+                    <h2> <a href="<?php echo REDIRECT_BASE_URL."controller=book&method=show&id=".$coup_de_coeur_book['book']->getId()?>"><?php echo $coup_de_coeur_book["book"]->getTitle() ?></a></h2>
 
                     <h3>Auteur:<?php echo $coup_de_coeur_book["book"]->getAuthor() ?></h3>
                     <h3>Collection:<?php echo $coup_de_coeur_book["book"]->getCollection() ?></h3>
