@@ -778,12 +778,13 @@ class Book extends DbRecords
         WHERE category_id = ? 
         AND stocks.quantity >= 1
         AND books.price BETWEEN ? AND ?
-        ORDER BY $order_column $order
+        ORDER BY books.$order_column $order
         LIMIT $limit OFFSET $offset";
+
         $prepared_statement = $connection->prepare($statement);
 
         $prepared_statement->execute(
-            array($category_id, $price_min, $price_max)
+            array(intval($category_id), intval($price_min), intval($price_max))
         );
 
         $results = [];

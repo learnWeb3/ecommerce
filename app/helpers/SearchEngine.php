@@ -30,7 +30,8 @@ class SearchEngine
 
     public function getSearchResult()
     {
-        if (empty($this->price_min) || empty($this->price_max) || empty($this->category_id)) {
+
+        if ( is_null($this->price_min)  || is_null($this->price_max) || is_null($this->category_id)) {
             return Book::searchLike($this->column_name, $this->value, $this->limit, $this->offset, $this->order_column, $this->order);
         } else {
             return Book::filterSearchMenu($this->category_id, $this->price_min, $this->price_max, $this->order_column, $this->order, $this->limit, $this->offset);

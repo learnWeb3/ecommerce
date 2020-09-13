@@ -9,8 +9,8 @@ class BookController extends ApplicationController
 
         if (isset($_POST['user_filter'], $_POST["user_input"], $_POST["order_by"], $_POST['order'])) {
             $search_engine = new SearchEngine($_POST['user_filter'], $_POST["user_input"], $_POST["order_by"], $_POST['order']);
-        } elseif (isset($_POST["category_id"], $_POST['price_min'], $_POST['price_max'], $_POST["order_by"], $_POST['order'])) {
-            $search_engine = new SearchEngine("", "", $_POST["order_by"], $_POST['order'], 20, 0, $_POST['price_min'], $_POST['price_max'], $_POST["category_id"]);
+        } elseif (isset($_POST["category_id"], $_POST['price_min'], $_POST['price_max'], $_POST["order_by"])) {
+            $search_engine = new SearchEngine("", "", $_POST["order_by"], "DESC", 20, 0, $_POST['price_min'], $_POST['price_max'], $_POST["category_id"]);
         } else {
             $search_engine = new SearchEngine("book_title", "");
         }
