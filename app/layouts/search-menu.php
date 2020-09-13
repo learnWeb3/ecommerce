@@ -9,7 +9,7 @@
         <h2>Critère de recherche</h2>
 
 
-        <form action="" method="post" class="w-100">
+        <form action="" method="GET" class="w-100">
 
             <div class="form-group">
 
@@ -78,10 +78,12 @@
                 </div>
 
 
+
             </div>
 
 
-
+            <input type="hidden" name="controller" value="book">
+            <input type="hidden" name="method" value="index">
 
             <button type="submit" class="btn btn-lg btn-success">rechercher</button>
 

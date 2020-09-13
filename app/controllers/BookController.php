@@ -7,12 +7,15 @@ class BookController extends ApplicationController
     public function index()
     {
 
-        if (isset($_POST['user_filter'], $_POST["user_input"], $_POST["order_by"], $_POST['order'])) {
-            $search_engine = new SearchEngine($_POST['user_filter'], $_POST["user_input"], $_POST["order_by"], $_POST['order']);
-        } elseif (isset($_POST["category_id"], $_POST['price_min'], $_POST['price_max'], $_POST["order_by"])) {
-            $search_engine = new SearchEngine("", "", $_POST["order_by"], "DESC", 20, 0, $_POST['price_min'], $_POST['price_max'], $_POST["category_id"]);
+        if (isset($_GET['user_filter'], $_GET["user_input"], $_GET["order_by"], $_GET['order'])) {
+            $search_filters = "&user_filter=".$_GET['user_filter']."&user_input=".$_GET['user_input']."&order_by=".$_GET['order_by']."&order=".$_GET['order'];
+            $search_engine = new SearchEngine($_GET['user_filter'], $_GET["user_input"], $_GET["order_by"], $_GET['order']);
+        } elseif (isset($_GET["category_id"], $_GET['price_min'], $_GET['price_max'], $_GET["order_by"])) {
+            $search_engine = new SearchEngine("", "", $_GET["order_by"], "DESC", 20, 0, $_GET['price_min'], $_GET['price_max'], $_GET["category_id"]);
+            $search_filters = "&price_min=".$_GET['price_min']."&price_max=".$_GET['price_max']."&order_by=".$_GET['order_by']."&category_id=".$_GET["category_id"];
         } else {
             $search_engine = new SearchEngine("book_title", "");
+            $search_filters = "";
         }
         $start = isset($_POST['start']) ? $_POST['start'] : 0;
 
@@ -24,9 +27,10 @@ class BookController extends ApplicationController
             $search_engine->getPreviousPage($start);
             $start -= 20;
         }
+
         $books = $search_engine->getSearchresult();
 
-        $this->render("index", "La Nuit des temps: les produits", "Livres neufs et d'occasion pour tous les âges, tous les goûts, et toutes les bourses", ["books" => $books, "start" => $start]);
+        $this->render("index", "La Nuit des temps: les produits", "Livres neufs et d'occasion pour tous les âges, tous les goûts, et toutes les bourses", ["books" => $books, "start" => $start, "search_filters"=>$search_filters]);
     }
 
     public function show()
