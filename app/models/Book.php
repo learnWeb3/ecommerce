@@ -251,6 +251,7 @@ class Book extends DbRecords
         JOIN categories ON books.category_id = categories.id
         JOIN recommended_books ON recommended_books.book_id = books.id
         JOIN stocks ON books.id = stocks.book_id
+        JOIN users ON users.id=recommended_books.user_id
         WHERE stocks.quantity >= 1
         ORDER BY books.created_at DESC
         LIMIT $limit OFFSET $offset";
