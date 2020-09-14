@@ -1,5 +1,5 @@
 <section class="container">
-    <div class="row divide-xl-2 divide-lg-2 divide-md-2 divide-sm-1 divide-xs-1 bg-primary" style="min-height:100vh;padding-top:8rem">
+    <div class="row divide-xl-2 divide-lg-2 divide-md-2 divide-sm-1 divide-xs-1 bg-primary-circle" style="min-height:100vh;padding-top:8rem">
 
         <div class="col justify-content-start">
 

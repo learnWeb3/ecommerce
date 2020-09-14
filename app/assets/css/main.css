@@ -83,7 +83,7 @@
     background-color: var(--var-white);
 }
 
-.bg-primary {
+.bg-primary-circle {
     background: rgba(78, 84, 200, 0.75);
     /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, rgba(78, 84, 200, 0.50), rgba(143, 148, 251, 0.50));
@@ -92,7 +92,7 @@
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-.bg-primary-circle {
+.bg-primary-circle-circle {
     background: radial-gradient(#4e54c800, #4e54c81e);
 }
 
@@ -1377,4 +1377,9 @@ blockquote::before
 blockquote::after
 {
     content: close-quote;
+}
+
+.warning{
+    height: 15rem;
+    width:15rem;
 }

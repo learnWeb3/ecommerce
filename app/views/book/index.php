@@ -1,4 +1,4 @@
-<section class="container bg-primary-circle" id="index-product-container">
+<section class="container bg-primary-circle-circle" id="index-product-container">
 
     <div class="flex justify-content-center" style="margin-top:5rem;padding:4rem">
         <?php foreach ($books as $book) : ?>

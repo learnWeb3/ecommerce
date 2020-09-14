@@ -4,7 +4,7 @@ class CheckoutController extends ApplicationController
 {
     public function create()
     {
-        // if (isset($_POST['remote'])) {
+        if (isset($_POST['remote'])) {
             $stripe = new AppStripe(STRIPE_SECRET_KEY);
             $products = Basket::getBasket()->checkout();
             // creating a checkout session
@@ -12,7 +12,7 @@ class CheckoutController extends ApplicationController
 
             // var_dump($session);
             echo json_encode($session);
-        // }
+        }
     }
 
     public function success()

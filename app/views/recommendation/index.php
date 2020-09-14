@@ -1,4 +1,4 @@
-<article style="padding-left:4rem;padding-right:4rem;padding-top:8rem" class="bg-primary-circle">
+<article style="padding-left:4rem;padding-right:4rem;padding-top:8rem" class="bg-primary-circle-circle">
 
 <?php if (isset($recommended_books)) : ?>
 

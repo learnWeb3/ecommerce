@@ -1,6 +1,6 @@
 <section class="container" style="background-image:url(<?php echo ABSOLUTE_ASSET_PATH . "/img/overlay-sign-in.jpg" ?>)">
 
-    <div class="row divide-xl-1 divide-lg-1 divide-md-1 divide-sm-1 divide-xs-1 bg-primary" style="min-height:100vh">
+    <div class="row divide-xl-1 divide-lg-1 divide-md-1 divide-sm-1 divide-xs-1" style="min-height:100vh">
 
         <div class="col" id="sign-container">
 
