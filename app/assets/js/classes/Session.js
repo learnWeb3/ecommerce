@@ -19,7 +19,7 @@ class Session {
                         } else {
                             Alert.removeAlerts();
                             $("#sign-in").remove();
-                            $("nav ul.toogle").html("<li><a href='http://localhost/ecommerce/index.php?controller=session&method=destroy' id='sign-out'>Deconnexion</a></li>");
+                            $("nav ul.toogle").html("<li><a href='http://localhost/ecommerce/index.php?controller=user&method=edit' id='edit'>Mon profil</a></li><li><a href='http://localhost/ecommerce/index.php?controller=session&method=destroy' id='sign-out'>Deconnexion</a></li>");
                             $("#sign-container").append("<h2 class='my-4'>Bon retour parmis nous !</h2><a href='http://localhost/ecommerce/index.php?controller=home&method=index' class='btn btn-success btn-lg'>La Boutique</a>");
                         }
 

@@ -33,6 +33,7 @@
                     <li><a href="<?php echo REDIRECT_BASE_URL."controller=session&method=new"?>">Connexion</a></li>
                     <li><a href="<?php echo REDIRECT_BASE_URL."controller=user&method=new"?>">Inscription</a></li>
                 <?php else:?>
+                    <li><a href="<?php echo REDIRECT_BASE_URL."controller=user&method=edit"?>" id="edit">Mon profil</a></li>
                     <li><a href="<?php echo REDIRECT_BASE_URL."controller=session&method=destroy"?>" id="sign-out">Deconnexion</a></li>
                 <?php endif;?>
                 </ul>
