@@ -14,7 +14,7 @@
 
                 <div class="form-group">
                     <label for="user_email">Adresse email *</label>
-                    <input type="email" name="user_email" id="user_email" required>
+                    <input type="email" name="user_email" id="user_email" value="<?php echo $current_user->getEmail()?>" required>
                 </div>
 
                 <div class="form-group">
@@ -36,17 +36,17 @@
 
             <div class="form-group">
                 <label for="user_firstname">Prénom </label>
-                <input type="text" name="user_firstname" id="user_firstname" required>
+                <input type="text" name="user_firstname" id="user_firstname" value="<?php echo $current_user->getFirstname()?>" required>
             </div>
 
             <div class="form-group">
                 <label for="user_lastname">Nom </label>
-                <input type="text" name="user_lastname" id="user_lastname" required>
+                <input type="text" name="user_lastname" id="user_lastname" value="<?php echo $current_user->getLastname()?>" required>
             </div>
 
             <div class="form-group">
                 <label for="user_dateofbirth">Date de naissance </label>
-                <input type="date" name="user_dateofbirth" id="user_dateofbirth" required>
+                <input type="date" name="user_dateofbirth" id="user_dateofbirth" value="<?php echo $current_user->getDateOfBirth()?>" required>
             </div>
 
 
