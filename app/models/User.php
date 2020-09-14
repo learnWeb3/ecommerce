@@ -5,6 +5,7 @@ class User extends DbRecords
     // ATTRIBUTES
     protected $email;
     protected $password;
+    protected $admin;
 
     protected $first_name;
     protected $last_name;
@@ -12,7 +13,7 @@ class User extends DbRecords
     protected $age;
 
     // CONSTRUCTOR
-    public function __construct($email = null, $password = null, $first_name = null, $last_name = null, $date_of_birth = null, $id = null, $created_at = null, $updated_at = null)
+    public function __construct($email = null, $password = null, $admin=null,$first_name = null, $last_name = null, $date_of_birth = null, $id = null, $created_at = null, $updated_at = null)
     {
 
         if ($email != null) {
@@ -29,6 +30,9 @@ class User extends DbRecords
         }
         if ($date_of_birth != null) {
             $this->date_of_birth = $date_of_birth;
+        }
+        if ($admin != null) {
+            $this->admin = $admin;
         }
 
         parent::__construct($id, $created_at, $updated_at);
