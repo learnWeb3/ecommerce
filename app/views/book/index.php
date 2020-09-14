@@ -1,6 +1,6 @@
 <section class="container bg-primary-circle" id="index-product-container">
 
-    <div class="flex justify-content-center" style="margin-top:5rem">
+    <div class="flex justify-content-center" style="margin-top:5rem;padding:4rem">
         <?php foreach ($books as $book) : ?>
             <?php require LAYOUT_PATH . '/partials/product_card/product_card.php' ?>
         <?php endforeach; ?>

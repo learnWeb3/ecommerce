@@ -258,7 +258,7 @@ select {
     height: 3rem;
     width: 100%;
     padding-left: 1rem;
-    border-radius: 1rem;
+    /*! border-radius: 1rem; */
     border: 1px solid var(--var-light);
 }
 
@@ -1235,7 +1235,7 @@ form.form-inline {
 }
 
 #modal-image-zoom-open {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: -100%;
     width: 100%;

@@ -1,5 +1,5 @@
 <section id="show-product-container" class="bg-primary-circle">
-    <div class="row divide-xl-2 divide-lg-2 divide-md-1 divide-sm-1 divide-xs-1" style="min-height:100vh;">
+    <div class="row divide-xl-2 divide-lg-2 divide-md-1 divide-sm-1 divide-xs-1" style="min-height:100vh;padding-top:4rem">
         <div class="col p-4 justify-center-lower-justify-end">
             <div class="flex justify-content-between">
                 <h1><?php echo $book->getTitle() ?></h1>
