@@ -23,7 +23,7 @@
                 </div>
 
 
-                <button class="btn btn-lg btn-success my-4">connexion</button>
+                <button class="btn btn-lg btn-success my-4" type="submit">connexion</button>
             </form>
         </div>
     </div>

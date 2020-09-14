@@ -1379,7 +1379,32 @@ blockquote::after
     content: close-quote;
 }
 
-.warning{
+.warning,.success{
     height: 15rem;
     width:15rem;
+}
+
+#checkout-process{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width:100%;
+    position: fixed;
+    z-index: 200;
+    top:0;
+    left:-100%;
+    background-color: rgba(254, 254, 254, 0.9);
+}
+
+#checkout-process #close{
+
+    height: 2rem;
+    width:2rem;
+    position: absolute;
+    right: 2rem;
+    top:2rem;
+    cursor: pointer;
+
 }

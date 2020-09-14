@@ -7,8 +7,8 @@
 
             <div class="w-25">
 
-                <a href="" class="btn btn-lg btn-success my-2">Accueil</a>
-                <a href="" class="btn btn-lg btn-primary my-2">La Boutique</a>
+                <a href="<?php echo REDIRECT_BASE_URL."controller=home&method=index"?>" class="btn btn-lg btn-success my-2">Accueil</a>
+                <a href="<?php echo REDIRECT_BASE_URL."controller=book&method=index"?>" class="btn btn-lg btn-primary my-2">La Boutique</a>
 
             </div>
         </div>

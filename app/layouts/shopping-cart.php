@@ -30,7 +30,12 @@
             <h2 id="basket-total-TTC">Total (TVA incluse): <?php echo $basket->getTotalTTC() ?> &euro;</h2>
 
 
-            <buttton class="btn btn-lg btn-success my-4" id="stripe-checkout">Payer</buttton>
+
+            <button class="btn btn-lg btn-success my-4" id="place-order">Commander</button>
+
+
+
+
         </div>
 
 
@@ -50,9 +55,45 @@
 </div>
 
 
+
+
+<?php require_once LAYOUT_PATH . '/partials/checkout_process/sign_actions.php' ?>
+
+<?php require_once LAYOUT_PATH . '/partials/checkout_process/delivery_details.php' ?>
+
+
+
 <script>
     // CALLING AJAX FUNTION TO FETCH RESULT OF STRIPE SCRIPT
     const stripeSecret = "<?php echo STRIPE_PUBLISHABLE_KEY ?>";
     const appStripe = new AppStripe();
     appStripe.checkout("#stripe-checkout");
+    // <buttton class=\"btn btn-lg btn-success my-4\" id=\"stripe-checkout\">Payer</buttton>
+
+    $("#place-order").click(function() {
+        $.ajax({
+            url: '/ecommerce/index.php',
+            method: "POST",
+            data: "controller=checkout&method=new&remote=true",
+            dataType: "JSON",
+            success: function(results, status) {
+
+                let modal_action_type = results.action_type;
+
+
+                $("#checkout-process." + modal_action_type).animate({
+                    left: 0
+                }, 800);
+
+                $("#checkout-process #close").click(function() {
+                    $("#checkout-process." + modal_action_type).animate({
+                        left: "-100%"
+                    }, 800);
+                });
+            },
+            error: function(XhrObject, status, error) {
+                console.log(error);
+            }
+        })
+    })
 </script>

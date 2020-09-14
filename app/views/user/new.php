@@ -9,7 +9,7 @@
             <small class="my-4 text-center">champs obligatoires *</small>
 
 
-            <form action="<?php echo REDIRECT_BASE_URL . "controller=user&method=create" ?>" method="post" id="sign-in">
+            <form action="<?php echo REDIRECT_BASE_URL . "controller=user&method=create" ?>" method="post" id="sign-up">
 
                 <div class="form-group">
                     <label for="user_email">Adresse email *</label>
@@ -26,7 +26,7 @@
                     <input type="password" name="user_password_confirmation" id="user_password_confirmation" required>
                 </div>
 
-                <button class="btn btn-lg btn-success my-4">incription</button>
+                <button class="btn btn-lg btn-success my-4" type="submit">incription</button>
                 
             
 
@@ -36,5 +36,5 @@
 </section>
 
 <script>
-    User.create("#sign-in button");
+    User.create("#sign-up", "#user_password", "#user_password_confirmation");
 </script>
