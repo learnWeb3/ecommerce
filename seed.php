@@ -31,17 +31,17 @@ set_time_limit(0);
 $books = Book::findAll("created_at");
 
 // SEEDING PRODUCTS FROM SHOP ON STRIPE AND LINKING STRIPE IDS TO BOOK ON SPECIFIC TABLE
-// foreach($books as $book)
-// {
-//     $book_stripe_product_id = $book->setStripeProductId();
-//     $price_value = ceil($book->getPrice()) * 100;
-//     $book->setStripePriceId($price_value);
-//     $book->createStripeDetails();
-//     sleep(.5);
-// }
+foreach($books as $book)
+{
+    $book_stripe_product_id = $book->setStripeProductId();
+    $price_value = ceil($book->getPrice()) * 100;
+    $book->setStripePriceId($price_value);
+    $book->createStripeDetails();
+    sleep(.5);
+}
 
 
-// Seeding stock for each and every product
+// // Seeding stock for each and every product
 // foreach($books as $book)
 // {
 //     var_dump($book->setStock(rand(1,50)));
@@ -50,19 +50,19 @@ $books = Book::findAll("created_at");
 
 // GETTING USERS 
 
-$users = User::findAll("created_at");
+// $users = User::findAll("created_at");
 
 
 // SEEDING RECOMMENDATIONS 
 
-$comments = array(
-    "J'ai passé un super moment avec ce livre. Merci.",
-    "Une très belle decouverte, je recommande.", 
-    "Merveilleux rine à dire.", 
-    "A faire passer entre toutes les mains.", 
-    "Pour vos parents, amis et même vos ennemis", 
-    "J'en suis sortis grandis"
-);
+// $comments = array(
+//     "J'ai passé un super moment avec ce livre. Merci.",
+//     "Une très belle decouverte, je recommande.", 
+//     "Merveilleux rine à dire.", 
+//     "A faire passer entre toutes les mains.", 
+//     "Pour vos parents, amis et même vos ennemis", 
+//     "J'en suis sortis grandis"
+// );
 
 // for($i=0;$i<10;$i++)
 // {
@@ -74,9 +74,9 @@ $comments = array(
 
 // SEEDING COUPD DE COEURS
 
-for($i=0;$i<10;$i++)
-{
-    $book_id = $books[array_rand($books)]->getid();
-    $comment = $comments[array_rand($comments)];
-    $users[0]->makeCoupDeCoeur($book_id,$comment);
-}
+// for($i=0;$i<10;$i++)
+// {
+//     $book_id = $books[array_rand($books)]->getid();
+//     $comment = $comments[array_rand($comments)];
+//     $users[0]->makeCoupDeCoeur($book_id,$comment);
+// }

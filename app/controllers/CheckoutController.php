@@ -9,6 +9,8 @@ class CheckoutController extends ApplicationController
             $products = Basket::getBasket()->checkout();
             // creating a checkout session
             $session = $stripe->createSession($products);
+
+            // var_dump($session);
             echo json_encode($session);
         // }
     }
