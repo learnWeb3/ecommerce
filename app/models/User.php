@@ -143,6 +143,32 @@ class User extends DbRecords
     }
 
 
+    public function getAdmin()
+    {
+        return intval($this->admin);
+    }
+
+    public function getFirstname()
+    {
+        return htmlspecialchars($this->first_name);
+    }
+
+    public function getLastname()
+    {
+        return htmlspecialchars($this->last_name);
+    }
+
+
+    public function getDateOfBirth()
+    {
+        return htmlspecialchars($this->date_of_birth);
+    }
+
+    public function getAge()
+    {
+        return intval($this->age);
+    }
+
 
     private function createUser()
     {
@@ -223,5 +249,11 @@ class User extends DbRecords
         } else {
             return array();
         }
+    }
+
+
+    public function isUserAdmin()
+    {
+       return $this->getAdmin();
     }
 }

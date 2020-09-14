@@ -54,4 +54,9 @@ class UserController extends ApplicationController
             }
         }
     }
+
+    public function edit()
+    {
+        $this->render("edit", "Metttre à jour mon profil", "Compte utilisateur, mise à jour", array());
+    }
 }
