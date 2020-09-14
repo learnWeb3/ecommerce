@@ -6,9 +6,9 @@
                 <div class="col align-items-center">
                     <div class="card-product flex justify-content-evenly">
 
-                        <div class="w-100 d-flex align-items-center">
+                        <div class="w-100 d-flex align-items-center flex-column">
                             <img src="<?php echo $recommended_book['book']->getImagePath() ?>" class="w-100" alt="cover">
-
+                            <blockquote class="my-2"><?php echo $recommended_book['recommended_books_comment_comment']?></blockquote>
                         </div>
 
                         <div class="w-100">

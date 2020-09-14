@@ -237,7 +237,8 @@ class Book extends DbRecords
         categories.name as category_name,
         categories.id as category_id,
         categories.created_at as category_created_at,
-        categories.updated_at as category_updated_at
+        categories.updated_at as category_updated_at,
+        recommended_books.comment as recommended_books_comment
         FROM books 
         JOIN categories ON books.category_id = categories.id
         JOIN recommended_books ON recommended_books.book_id = books.id
@@ -264,7 +265,8 @@ class Book extends DbRecords
                     $row["book_created_at"],
                     $row["book_updated_at"]
                 ),
-                "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"])
+                "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
+                "recommended_books_comment"=>$row['recommended_books_comment']
             );
         }
 
@@ -303,7 +305,8 @@ class Book extends DbRecords
         users.email as user_email,
         users.id as user_id,
         users.created_at as user_created_at,
-        users.updated_at as user_updated_at
+        users.updated_at as user_updated_at,
+        coup_de_coeur_books.comment as coup_de_coeur_books_comment
         FROM books 
         JOIN categories ON books.category_id = categories.id
         JOIN coup_de_coeur_books ON coup_de_coeur_books.book_id = books.id
@@ -332,7 +335,8 @@ class Book extends DbRecords
                     $row["book_updated_at"]
                 ),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
-                "user" => new User($row["user_email"], null, $row["user_firstname"], $row["user_lastname"], null, $row["user_id"], $row["user_created_at"], $row["user_updated_at"])
+                "user" => new User($row["user_email"], null, $row["user_firstname"], $row["user_lastname"], null, $row["user_id"], $row["user_created_at"], $row["user_updated_at"]),
+                "coup_de_coeur_books_comment"=>$row["coup_de_coeur_books_comment"]
             );
         }
 

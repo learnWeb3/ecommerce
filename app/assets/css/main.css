@@ -118,7 +118,7 @@ li,
 select,
 input,
 textarea,
-option {
+option,blockquote {
     font-family: "Roboto", sans-serif;
     line-height: 150%;
 }
@@ -1344,4 +1344,33 @@ form.form-inline {
 }
 #alert.info *{
     color:var(--var-primary)
+}
+
+.flex-column{
+    flex-direction: column;
+}
+
+blockquote{
+    font-size: 1.25rem;
+    quotes: "\201C" "\201D";
+    text-align: center;
+    background-color:#fefefe;
+    width:100%;
+    padding:1rem;
+}
+
+blockquote::after,blockquote::before
+{
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+blockquote::before
+{
+    content: open-quote;
+}
+
+blockquote::after
+{
+    content: close-quote;
 }
