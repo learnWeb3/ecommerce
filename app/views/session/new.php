@@ -31,6 +31,6 @@
 
 <script>
 
-Session.create("#sign-in");
+Session.create("#sign-in", "#sign-container");
     
 </script>

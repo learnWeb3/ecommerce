@@ -8,10 +8,13 @@ class CheckoutController extends ApplicationController
             $stripe = new AppStripe(STRIPE_SECRET_KEY);
             $products = Basket::getBasket()->checkout();
             // creating a checkout session
-            $session = $stripe->createSession($products);
+            $stripe_session = $stripe->createSession($products);
+            
+            // storing stripe session to check later payment status and instantialte order
+            $_SESSION['stripe_checkout'] = $stripe_session;
 
             // var_dump($session);
-            echo json_encode($session);
+            echo json_encode($stripe_session);
         }
     }
 

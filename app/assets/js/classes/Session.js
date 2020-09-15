@@ -1,6 +1,6 @@
 class Session {
 
-    static create(targetedSelector) {
+    static create(targetedSelector,resultContainer) {
 
         $(targetedSelector).submit(function (event) {
 
@@ -15,19 +15,18 @@ class Session {
                     if (results.hasOwnProperty("type")) {
                         if (results.type == "danger") {
                             if ($('#alert').length > 0) { $("#alert").remove(); }
-                            Alert.getAlerts(results);
+                            Alert.getAlerts(results,resultContainer);
                         } else {
                             Alert.removeAlerts();
-                            $("#sign-in").remove();
+                            $(targetedSelector).remove();
                             $("nav ul.toogle").html("<li><a href='http://localhost/ecommerce/index.php?controller=user&method=edit' id='edit'>Mon profil</a></li><li><a href='http://localhost/ecommerce/index.php?controller=session&method=destroy' id='sign-out'>Deconnexion</a></li>");
-                            $("#sign-container").append("<h2 class='my-4'>Bon retour parmis nous !</h2><a href='http://localhost/ecommerce/index.php?controller=home&method=index' class='btn btn-success btn-lg'>La Boutique</a>");
+                            $(resultContainer).append("<h2 class='my-4'>Bon retour parmis nous !</h2><a href='http://localhost/ecommerce/index.php?controller=home&method=index' class='btn btn-success btn-lg'>La Boutique</a>");
                         }
-
-                        Alert.dismissAlerts();
                     }
+
+                    Alert.dismissAlerts();
                 },
                 error: function (XhrObject, error, status) {
-
                     console.log(error);
                 }
             });

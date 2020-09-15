@@ -90,14 +90,27 @@ class AppStripe
     {
         $stripe = new \Stripe\StripeClient(
             $this->stripe_secret_key
-          );
-          return $stripe->prices->update(
+        );
+        return $stripe->prices->update(
             $stripe_price_id,
             array(
-                "product"=> $stripe_product_id,
-                "currency"=> $currency_symbol,
-                "unit_amount"=> ceil($price * 100),
+                "product" => $stripe_product_id,
+                "currency" => $currency_symbol,
+                "unit_amount" => ceil($price * 100),
             )
-          );
+        );
+    }
+
+
+
+
+    // RETRIEVE A CHECKOUT SESSION BY ID
+
+    public function retrieveCheckoutSession($stripe_checkout_session_id)
+    {
+        $stripe = new \Stripe\StripeClient(
+            $this->stripe_secret_key
+        );
+        return $stripe->checkout->sessions->retrieve($stripe_checkout_session_id);
     }
 }

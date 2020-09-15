@@ -36,5 +36,5 @@
 </section>
 
 <script>
-    User.create("#sign-up", "#user_password", "#user_password_confirmation");
+    User.create("#sign-up", "#user_password", "#user_password_confirmation","#sign-container");
 </script>

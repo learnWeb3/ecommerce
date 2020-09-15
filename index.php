@@ -12,5 +12,3 @@ Autoloader::register();
 Session::init();
 
 Router::route();
-
-
