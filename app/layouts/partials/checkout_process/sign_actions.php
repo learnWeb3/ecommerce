@@ -6,7 +6,7 @@
 
     <div class="row divide-xl-2 divide-lg-2 divide-md-1 divide-sm-1 divide-xs-1 w-75">
 
-        <div class="col">
+        <div class="col" id="signInContainer">
 
             <h3>Déjà client</h3>
 
@@ -33,7 +33,7 @@
 
         </div>
 
-        <div class="col">
+        <div class="col" id="signUpContainer">
 
             <h3>Nouveau client</h3>
 
@@ -70,7 +70,7 @@
 </div>
 
 <script>
-    User.create("#signUp", "#user_password_sign_up_checkout", "#user_password_sign_up_confirmation_checkout");
+    User.create("#signUp", "#user_password_sign_up_checkout", "#user_password_sign_up_confirmation_checkout", "#signUpContainer");
     
-    Session.create("#signIn");
+    Session.create("#signIn", "#signInContainer");
 </script>
