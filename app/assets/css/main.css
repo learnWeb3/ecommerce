@@ -72,7 +72,7 @@
     --var-warning: ;
     --var-info: ;
     --var-primary: #4F38B4;
-    --var-secondary: #E79345;
+    --var-secondary: #ff922c;
     --var-danger:#FF2F2F;
 }
 
@@ -609,6 +609,13 @@ form.form-inline {
 
 .btn-primary {
     background-color: var(--var-primary);
+}
+.btn-secondary {
+    background-color: var(--var-secondary);
+}
+
+.btn-danger {
+    background-color: var(--var-secondary);
 }
 
 .btn.btn-sm {

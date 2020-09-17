@@ -118,7 +118,7 @@ class Book extends DbRecords
 
     public function getCategoryId()
     {
-        return intval($this->category_Id);
+        return intval($this->category_id);
     }
 
 
@@ -428,6 +428,7 @@ class Book extends DbRecords
                 "book_author" => "books.description",
                 "book_collection" => "books.collection",
                 "book_category" => "categories.name",
+                "book_category_id" => "books.category_id",
                 "book_description" => "books.description",
                 "book_created_at" => "books.created_at",
                 "book_updated_at" => "books.updated_at"
@@ -437,7 +438,9 @@ class Book extends DbRecords
         if (!self::checkLimitAndOffset($limit, $offset)) {
             return false;
         }
-        if (!in_array($column_name, $authorized_values["authorized_columns"]) || !(in_array($order_column, $authorized_values["authorized_columns"])) || !in_array($order, $authorized_values["authorized_order"])) {
+
+
+        if (!in_array($column_name, array_keys($authorized_values["authorized_columns"])) || !(in_array($order_column, array_keys($authorized_values["authorized_columns"]))) || !in_array($order, array_keys($authorized_values["authorized_order"]))) {
             return false;
         }
 
