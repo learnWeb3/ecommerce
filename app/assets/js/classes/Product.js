@@ -113,38 +113,10 @@ class Product {
     }
 
 
+
     static update() {
-        $('.book_quantity').keyup(function () {
-
-            var form = $(this).closest('form');
-
-            var quantityInput = form.find('.book_quantity')
-
-            var quantityInputVal = quantityInput.val();
-
-            if (quantityInputVal != "" && typeof (quantityInputVal) == "string") {
-                $.ajax({
-                    url: "/ecommerce/index.php",
-                    method: "POST",
-                    data: "controller=basketitem&method=update&" + form.serialize() + "&remote=true",
-                    dataType: "JSON",
-                    success: function (result, status) {
-                        if ("book_not_available" in result) {
-                            alert(result.book_not_available);
-                        } else {
-                            quantityInput.val(result.quantity);
-                            $('#shopping-cart-menu h2.article-number').text(result.message);
-                            Basket.updateTotals(result);
-                        }
-
-                    },
-                    error: function (result, error, status) {
-                        console.log(status);
-                    }
-                });
-            }
-
-        });
+        $('.book_quantity').keyup(updateQuantity);
+        $('.book_quantity').change(updateQuantity);
 
     }
 
@@ -207,6 +179,39 @@ class Product {
             });
         }
     }
+}
+
+
+function updateQuantity() {
+
+    var form = $(this).closest('form');
+
+    var quantityInput = form.find('.book_quantity')
+
+    var quantityInputVal = quantityInput.val();
+
+    if (quantityInputVal != "" && typeof (quantityInputVal) == "string") {
+        $.ajax({
+            url: "/ecommerce/index.php",
+            method: "POST",
+            data: "controller=basketitem&method=update&" + form.serialize() + "&remote=true",
+            dataType: "JSON",
+            success: function (result, status) {
+                if ("book_not_available" in result) {
+                    alert(result.book_not_available);
+                } else {
+                    quantityInput.val(result.quantity);
+                    $('#shopping-cart-menu h2.article-number').text(result.message);
+                    Basket.updateTotals(result);
+                }
+
+            },
+            error: function (result, error, status) {
+                console.log(status);
+            }
+        });
+    }
+
 }
 
 

@@ -4,11 +4,11 @@ function appendArrowInputNumber() {
 
     $('.arrow.minus').click(function() {
         var inputTypeNumber = $(this).siblings(':input[type="number"]');
-        if (inputTypeNumber.val() > 1) { inputTypeNumber.val(parseInt(inputTypeNumber.val()) - 1); }
+        if (inputTypeNumber.val() > 1) { inputTypeNumber.val(parseInt(inputTypeNumber.val()) - 1).change(); }
     });
 
     $('.arrow.add').click(function() {
         var inputTypeNumber = $(this).siblings(':input[type="number"]');
-        inputTypeNumber.val(parseInt(inputTypeNumber.val()) + 1);
+        inputTypeNumber.val(parseInt(inputTypeNumber.val()) + 1).change();
     })
 }

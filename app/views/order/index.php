@@ -143,12 +143,12 @@
         <?php elseif ($_GET['step'] == "3") : ?>
 
 
-            <section class="container justify-content-center" style="min-height:100vh">
+            <section class="container justify-content-center">
 
-                <div class='row divide-xl-2 divide-lg-2 divide-md-1 divide-sm-1 divide-xs-1 my-8' style='min-height:unset'>
+                <div class='row divide-xl-2 divide-lg-2 divide-md-1 divide-sm-1 divide-xs-1 my-8 align-items-center' style="min-height:80vh">
 
-                    <div class="col">
-                        <div class="container-block" id="checkout-confirmation">
+                    <div class="col" style="height:75vh">
+                        <div class="container-block" id="checkout-confirmation" style="max-height:75%">
 
                             <?php if ($basket->notEmpty()) : ?>
 
@@ -163,7 +163,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col" style="height:75vh">
 
                     <h1 class='text-center'>Récapitulatif de votre commande:</h1>
 
