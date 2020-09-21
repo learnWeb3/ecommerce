@@ -1,10 +1,13 @@
+<article class="bg-primary-circle-circle py-6">
+
 <?php if (isset($_GET['step'])) : ?>
+
 
 
     <?php if ($_GET['step'] == "1") : ?>
 
 
-        <section class="container justify-content-center my-5" style="min-height:100vh">
+        <section class="container justify-content-center" style="min-height:100vh">
 
             <div class="row divide-xl-1 divide-lg-1 divide-md-1 divide-sm-1 divide-xs-1" style="min-height:unset">
 
@@ -51,7 +54,7 @@
 
 
     <?php elseif ($_GET['step'] == "2") : ?>
-        <section class="container justify-content-center my-5" style="min-height:100vh">
+        <section class="container justify-content-center" style="min-height:100vh">
 
             <div class='row divide-xl-1 divide-lg-1 divide-md-1 divide-sm-1 divide-xs-1 my-8' style='min-height:unset'>
 
@@ -59,7 +62,7 @@
 
                 <h2 class='text-center'><small class='my-4'>(champs obligatoires *)</small></h2>
 
-                <form action='index.php?controller=order&method=new&step=2&confirm=true' method='post' id='adress-confirmation'>
+                <form action='index.php?controller=order&method=new&step=2&confirm=true' method='post' id='adress-confirmation' class="p-8">
 
                     <div class='form-group'>
                         <label for='user_adress'>Adresse postale *</label>
@@ -100,7 +103,7 @@
                 <div id="adress-filling-mode" class="justify-self-center">
 
 
-                    <hr class='light'>
+                    <hr class='light my-4'>
 
                     <form action="<?php echo REDIRECT_BASE_URL . "controller=order&method=new&step=3" ?>" method="POST">
 
@@ -140,7 +143,7 @@
         <?php elseif ($_GET['step'] == "3") : ?>
 
 
-            <section class="container justify-content-center my-5" style="min-height:100vh">
+            <section class="container justify-content-center" style="min-height:100vh">
 
                 <div class='row divide-xl-2 divide-lg-2 divide-md-1 divide-sm-1 divide-xs-1 my-8' style='min-height:unset'>
 
@@ -193,6 +196,8 @@
 
 
     <?php endif; ?>
+
+    </article>
 
     <script>
         Checkout.signUpToggle();
