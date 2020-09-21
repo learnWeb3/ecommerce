@@ -385,6 +385,7 @@ nav {
     padding: 1rem;
     background-color: none;
     position: absolute;
+    top:0;
 }
 
 nav ul {
@@ -1078,7 +1079,7 @@ form.form-inline {
 
 /* FORMS */
 
-#sign-container {
+#sign-container,#sign-in-container,#sign-up-container {
     justify-content: center;
     margin: auto;
     background-color: var(--var-white);
@@ -1091,28 +1092,31 @@ form.form-inline {
 }
 
 @media screen and (min-width:1200px) {
-    #sign-container {
+    #sign-container,#sign-in-container,#sign-up-container {
         width: 33vw;
     }
 }
 
 @media screen and (min-width:900px) and (max-width:1200px) {
-    #sign-container {
+    #sign-container,#sign-in-container,#sign-up-container {
         width: 50vw;
     }
 }
 
 @media screen and (min-width:600px) and (max-width:900px) {
-    #sign-container {
+    #sign-container,#sign-in-container,#sign-up-container {
         width: 66vw;
     }
 }
 
 @media screen and (max-width:600px) {
-    #sign-container {
+    #sign-container,#sign-in-container,#sign-up-container {
         width: 100vw;
+    }
+    #sign-container{
         height: 100vh;
     }
+    
 }
 
 .card-product .book-title {
