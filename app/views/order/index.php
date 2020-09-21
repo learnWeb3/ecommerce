@@ -73,7 +73,7 @@
 
                     <div class='form-group'>
                         <label for='user_city'>Code postal *</label>
-                        <input type='number' name='user_postal_code' id='user_postal_code' required pattern='[0-9]{5}'>
+                        <input type='number' name='user_postal_code' id='user_postal_code' pattern="[0-9]{5}" required>
                     </div>
 
                     <div class='form-group'>
@@ -85,6 +85,9 @@
                         <label for='user_firstname'>Prénom *</label>
                         <input type='text' name='user_firstname' id='user_firstname' required>
                     </div>
+
+
+                    <input type="hidden" name="confirm" value="true">
 
                     <button class='btn btn-lg btn-primary my-4' type='submit'>valider</button>
 

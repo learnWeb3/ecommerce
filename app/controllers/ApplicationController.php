@@ -12,7 +12,7 @@ class ApplicationController
         // GETTING CURRENT USER IF EXISTS ACCESSIBLE IN ALL VIEWS
         if( isset($_SESSION['current_user']))
         {
-            $current_user = Session::getCurrenrUser();
+            $current_user = Session::getCurrentUser();
         }
 
         $search_filters = Db::getSearchFilters();

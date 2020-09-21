@@ -77,6 +77,9 @@ class Checkout {
         "<input type='text' name='user_firstname' id='user_firstname' required>" +
         "</div>" +
 
+        
+        "<input type='hidden' name='confirm' value='true'>"+
+
         "<button class='btn btn-lg btn-primary my-4' type='submit'>valider</button>" +
 
         "</form>"+
@@ -102,7 +105,7 @@ class Checkout {
         $.ajax({
             url:'index.php',
             method:"POST",
-            data:"controller=order&method=new&step=2&confirm=true",
+            data:"controller=order&method=new&step=2&confirm=true&remote=true",
             dataType:"JSON",
             success:function(results,status){
 

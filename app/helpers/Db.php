@@ -99,7 +99,11 @@ trait Db
         $statement = "UPDATE $table_name SET $datas WHERE id=?";
         // WRITING INTO DATABASE
         $prepared_statement =  Db::connect()->prepare($statement);
+
         $fields = array_merge($values, array($this->getId()));
+
+
+        var_dump($prepared_statement);
         return $prepared_statement->execute($fields);
     }
 

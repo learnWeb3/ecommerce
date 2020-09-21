@@ -17,9 +17,16 @@ class Session
        
     }
 
-    public static function getCurrenrUser()
+    public static function getCurrentUser()
     {
         return $_SESSION['current_user'];
+    }
+
+
+    public static function storeAddress($adress)
+    {
+      $_SESSION['address'] = $adress;
+      return $_SESSION['address'];
     }
 
 

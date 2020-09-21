@@ -7,13 +7,13 @@ class User extends DbRecords
     protected $password;
     protected $admin;
 
-    protected $first_name;
-    protected $last_name;
+    protected $firstname;
+    protected $lastname;
     protected $date_of_birth;
     protected $age;
 
     // CONSTRUCTOR
-    public function __construct($email = null, $password = null, $admin=null,$first_name = null, $last_name = null, $date_of_birth = null, $id = null, $created_at = null, $updated_at = null)
+    public function __construct($email = null, $password = null, $admin = null, $firstname = null, $lastname = null, $date_of_birth = null, $id = null, $created_at = null, $updated_at = null)
     {
 
         if ($email != null) {
@@ -22,11 +22,11 @@ class User extends DbRecords
         if ($password != null) {
             $this->password = $password;
         }
-        if ($first_name != null) {
-            $this->first_name = $first_name;
+        if ($firstname != null) {
+            $this->firstname = $firstname;
         }
-        if ($last_name != null) {
-            $this->last_name = $last_name;
+        if ($lastname != null) {
+            $this->lastname = $lastname;
         }
         if ($date_of_birth != null) {
             $this->date_of_birth = $date_of_birth;
@@ -150,12 +150,12 @@ class User extends DbRecords
 
     public function getFirstname()
     {
-        return htmlspecialchars($this->first_name);
+        return htmlspecialchars($this->firstname);
     }
 
     public function getLastname()
     {
-        return htmlspecialchars($this->last_name);
+        return htmlspecialchars($this->lastname);
     }
 
 
@@ -167,6 +167,27 @@ class User extends DbRecords
     public function getAge()
     {
         return intval($this->age);
+    }
+
+
+
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+        return $this;
+    }
+
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+        return $this;
+    }
+
+
+    public function setDateOfBirth($date_of_birth)
+    {
+        $this->date_of_birth = $date_of_birth;
+        return $this;
     }
 
 
@@ -254,6 +275,35 @@ class User extends DbRecords
 
     public function isUserAdmin()
     {
-       return $this->getAdmin();
+        return $this->getAdmin();
+    }
+
+
+    public function registerAdress(string $city, string $address, string $postal_code)
+    {
+        $connection = Db::connect();
+        $statement = "INSERT INTO adresses (city,adress,postal_code,user_id) VALUES (?,?,?,?)";
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute(array($city, $address, $postal_code, $this->getId()));
+        $select_statement = "SELECT * FROM addresses WHERE user_id=?";
+        $prepared_statement = $connection->prepare($select_statement);
+        $prepared_statement->execute(array($this->getId()));
+        return $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function updateDatas($firstname = null, $lastname = null, $date_of_birth = null)
+    {
+        if ($firstname != null) {
+            $this->setFirstname($firstname);
+        }
+        if ($lastname != null) {
+            $this->setLastname($lastname);
+        }
+        if ($date_of_birth != null) {
+            $this->setDateOfBirth($date_of_birth);
+        }
+        if (func_get_args() != null) {
+           var_dump($this->update());
+        }
     }
 }
