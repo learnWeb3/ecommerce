@@ -22,9 +22,7 @@ class User {
                         } else {
                             $("#sign-in").remove();
                             if (checkout) {
-                                $(resultContainer).parents(".container").children().remove();
-                                $(".container").append(Checkout.getFormConfirmAdress());
-
+                                window.location.assign("index.php?controller=order&method=new&step=2")
                             } else {
                                 $(resultContainer).append("<h2 class='my-4'>La Nuit des Temps vous souhaite la bienvenue !</h2><a href='http://localhost/ecommerce/index.php?controller=session&method=new' class='btn btn-success btn-lg'>Connexion</a>");
                             }

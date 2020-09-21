@@ -15,12 +15,15 @@ class OrderController extends ApplicationController
             if ($_GET['step'] == "1") {
                 $meta_title = "La Nuit des Temps: nouvelle commande - connexion";
                 $meta_description = "1/3 Nouvelle commande: identification";
+                $datas = array();
             } elseif ($_GET['step'] == "2") {
                 $meta_title = "La Nuit des Temps: nouvelle commande - votre addresse";
                 $meta_description = "2/3 Nouvelle commande: votre addresse";
+                $user = User::getCurrentUser();
+                $adresses = $user->getAdresses();
+                $datas = array("adresses"=>$adresses);
                 if (isset($_POST['confirm'], $_POST['user_address'], $_POST['user_city'], $_POST['user_postal_code'], $_POST['user_lastname'], $_POST['user_firstname'])) {
-                    $user = User::getCurrentUser();
-
+            
                     if (User::checkIfAdresseExists($_POST['user_address'], $user->getId())) {
                         $message = array("L'adresse spécifiée existe déjà");
                         $type = "info";
@@ -34,7 +37,7 @@ class OrderController extends ApplicationController
                     }
 
                     if (isset($_POST['remote'])) {
-                        echo json_encode(array("message" => $message));
+                        echo json_encode(array("message" => $message, "type"=>$type));
                         die();
                     }
 
@@ -42,13 +45,22 @@ class OrderController extends ApplicationController
                     $flash->storeInSession();
                     die(header("Location:" . REDIRECT_BASE_URL . "controller=order&method=new&step=" . $step));
 
+
+                }elseif (isset($_POST["select_adresses"]))
+                {
+                    $adresses = $user->getAdresses();
+                    if (isset($_POST['remote'])) {
+                        echo json_encode(array("adresses"=>$adresses));
+                        die();
+                    }
                 }
             } elseif ($_GET['step'] == "3") {
                 $meta_title = "La Nuit des Temps: nouvelle commande - paiement";
                 $meta_description = "3/3 Nouvelle commande: paiement";
+                $datas = array();
             }
         }
 
-        $this->render("index", $meta_title, $meta_description, array());
+        $this->render("index", $meta_title, $meta_description, $datas);
     }
 }

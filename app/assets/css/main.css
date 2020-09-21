@@ -42,6 +42,10 @@
     justify-content: start;
 }
 
+.justify-self-center{
+    justify-self: center;
+}
+
 .align-items-center {
     align-items: center;
 }
@@ -271,8 +275,9 @@ input[type="number"] {
     appearance: textfield;
     text-align: center;
     padding-left: 0;
-    height: 3.5rem;
 }
+
+
 
 .number {
     position: relative;
@@ -754,6 +759,18 @@ form.form-inline {
     margin-bottom: 2.5rem;
 }
 
+.my-6 {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+.my-7 {
+    margin-top: 3.5rem;
+    margin-bottom: 3.5rem;
+}
+.my-8 {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
 
 /* MARGIN LEFT + RIGHT */
 
@@ -1092,25 +1109,25 @@ form.form-inline {
 }
 
 @media screen and (min-width:1200px) {
-    #sign-container,#sign-in-container,#sign-up-container,#adress-confirmation {
+    #sign-container,#sign-in-container,#sign-up-container,#adress-confirmation,#adress-filling-mode {
         width: 33vw;
     }
 }
 
 @media screen and (min-width:900px) and (max-width:1200px) {
-    #sign-container,#sign-in-container,#sign-up-container,#adress-confirmation {
+    #sign-container,#sign-in-container,#sign-up-container,#adress-confirmation,#adress-filling-mode  {
         width: 50vw;
     }
 }
 
 @media screen and (min-width:600px) and (max-width:900px) {
-    #sign-container,#sign-in-container,#sign-up-container,#adress-confirmation {
+    #sign-container,#sign-in-container,#sign-up-container,#adress-confirmation,#adress-filling-mode  {
         width: 66vw;
     }
 }
 
 @media screen and (max-width:600px) {
-    #sign-container,#sign-in-container,#sign-up-container,#adress-confirmation {
+    #sign-container,#sign-in-container,#sign-up-container,#adress-confirmation,#adress-filling-mode  {
         width: 100vw;
     }
     #sign-container{
@@ -1419,3 +1436,19 @@ blockquote::after
     cursor: pointer;
 
 }
+
+
+@media screen and (max-width:900px)
+{
+    .form-responsive{
+          width:100%
+    }
+}
+
+@media screen and (min-width:900px)
+{
+    .form-responsive{
+        width:50%;
+    }
+}
+

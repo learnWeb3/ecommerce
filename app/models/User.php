@@ -282,6 +282,7 @@ class User extends DbRecords
     public static function checkIfAdresseExists($address, $user_id)
     {
         $connection = Db::connect();
+     
         $select_statement = "SELECT * FROM adresses WHERE adress=? AND user_id=?";
         $prepared_statement = $connection->prepare($select_statement);
         $prepared_statement->execute(array($address, $user_id));
@@ -315,5 +316,15 @@ class User extends DbRecords
         if (func_get_args() != null) {
             $this->update();
         }
+    }
+
+
+    public function getAdresses()
+    {
+        $connection = Db::connect();
+        $select_statement = "SELECT * FROM adresses WHERE user_id=? ORDER BY created_at DESC";
+        $prepared_statement = $connection->prepare($select_statement);
+        $prepared_statement->execute(array($this->getId()));
+        return $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
     }
 }

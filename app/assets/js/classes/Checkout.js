@@ -41,50 +41,6 @@ class Checkout {
             "</form>";
     }
 
-    static getFormConfirmAdress() {
-        return "<div class='row divide-xl-1 divide-lg-1 divide-md-1 divide-sm-1 divide-xs-1' style='min-height:unset'>" +
-
-
-            "<h1 class='text-center'>Adresse de livraison:</h1>" +
-
-            "<h2 class='text-center'><small class='my-4'>(champs obligatoires *)</small></h2>" +
-
-            "<form action='index.php?controller=order&method=new&step=3&confirm=true' method='post' id='adress-confirmation'>" +
-
-            "<div class='form-group'>" +
-            "<label for='user_adress'>Adresse postale *</label>" +
-            "<input type='text' name='user_address' id='user_adress' required>" +
-            "</div>" +
-
-            "<div class='form-group'>" +
-            "<label for='user_city'>Ville *</label>" +
-            "<input type='text' name='user_city' id='user_city' required>" +
-            "</div>" +
-
-            "<div class='form-group'>" +
-            "<label for='user_city'>Code postal *</label>" +
-            "<input type='number' name='user_postal_code' id='user_postal_code' required pattern='[0-9]{5}'>" +
-            "</div>" +
-
-            "<div class='form-group'>" +
-            "<label for='user_lastname'>Nom *</label>" +
-            "<input type='text' name='user_lastname' id='user_lastname' required>" +
-            "</div>" +
-
-            "<div class='form-group'>" +
-            "<label for='user_firstname'>Prénom *</label>" +
-            "<input type='text' name='user_firstname' id='user_firstname' required>" +
-            "</div>" +
-
-
-            "<input type='hidden' name='confirm' value='true'>" +
-
-            "<button class='btn btn-lg btn-primary my-4' type='submit'>valider</button>" +
-
-            "</form>" +
-
-            "</div>";
-    }
 
     static signUpToggle() {
         $("#checkout-signup").click(function () {
@@ -106,10 +62,16 @@ class Checkout {
             $.ajax({
                 url: 'index.php?controller=order&method=new&step=2',
                 method: "POST",
-                data: "confirm=true&remote=true&"+$(this).serialize(),
+                data: "confirm=true&remote=true&" + $(this).serialize(),
                 dataType: "JSON",
                 success: function (results, status) {
-                    console.log(results);
+                    if (results.hasOwnProperty("type")) {
+                        if (results.type == "success") {
+
+                        } else {
+
+                        }
+                    }
                 },
                 error: function (xhrObject, error, status) {
                     console.log(error);

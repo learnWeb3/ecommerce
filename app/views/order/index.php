@@ -53,7 +53,7 @@
     <?php elseif ($_GET['step'] == "2") : ?>
         <section class="container justify-content-center my-5" style="min-height:100vh">
 
-            <div class='row divide-xl-1 divide-lg-1 divide-md-1 divide-sm-1 divide-xs-1' style='min-height:unset'>
+            <div class='row divide-xl-1 divide-lg-1 divide-md-1 divide-sm-1 divide-xs-1 my-8' style='min-height:unset'>
 
                 <h1 class='text-center'>Adresse de livraison:</h1>
 
@@ -66,24 +66,28 @@
                         <input type='text' name='user_address' id='user_adress' required>
                     </div>
 
-                    <div class='form-group'>
-                        <label for='user_city'>Ville *</label>
-                        <input type='text' name='user_city' id='user_city' required>
-                    </div>
+                    <div class="flex">
+                        <div class='form-group form-responsive'>
+                            <label for='user_city'>Ville *</label>
+                            <input type='text' name='user_city' id='user_city' required>
+                        </div>
 
-                    <div class='form-group'>
-                        <label for='user_city'>Code postal *</label>
-                        <input type='number' name='user_postal_code' id='user_postal_code' pattern="[0-9]{5}" required>
-                    </div>
+                        <div class='form-group form-responsive'>
+                            <label for='user_city'>Code postal *</label>
+                            <input type='number' name='user_postal_code' id='user_postal_code' pattern="[0-9]{5}" required>
+                        </div>
 
-                    <div class='form-group'>
-                        <label for='user_lastname'>Nom *</label>
-                        <input type='text' name='user_lastname' id='user_lastname' required>
                     </div>
+                    <div class="flex">
+                        <div class='form-group form-responsive'>
+                            <label for='user_lastname'>Nom *</label>
+                            <input type='text' name='user_lastname' id='user_lastname' required>
+                        </div>
 
-                    <div class='form-group'>
-                        <label for='user_firstname'>Prénom *</label>
-                        <input type='text' name='user_firstname' id='user_firstname' required>
+                        <div class='form-group form-responsive'>
+                            <label for='user_firstname'>Prénom *</label>
+                            <input type='text' name='user_firstname' id='user_firstname' required>
+                        </div>
                     </div>
 
 
@@ -92,6 +96,40 @@
                     <button class='btn btn-lg btn-primary my-4' type='submit'>valider</button>
 
                 </form>
+
+                <div id="adress-filling-mode" class="justify-self-center">
+
+
+                    <hr class='light'>
+
+                    <form action="">
+
+                        <div class='form-group'>
+                            <label for='user_select_adress'>Adresse postale *</label>
+
+                            <?php if (!empty($adresses)) : ?>
+                                <select name="user_select_adress" id="user_select_adress">
+
+                                    <?php foreach ($adresses as $adress) : ?>
+
+                                        <option value="<?php echo $adress['id'] ?>"><?php echo $adress['adress'] . " " . $adress['postal_code'] . " " . $adress['city'] ?></option>
+
+                                    <?php endforeach; ?>
+
+                                </select>
+
+                                <button class='btn btn-lg btn-secondary my-4' id='checkout-select-adress'>Sélectionner une adresse existante</button>
+
+                            <?php else : ?>
+
+                                <h4>Vous n'avez pas encore d'addresses enregistrée</h4>
+
+                            <?php endif; ?>
+                        </div>
+                    </form>
+
+
+                </div>
 
             </div>
 

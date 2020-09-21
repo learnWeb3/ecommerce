@@ -22,9 +22,7 @@ class Session {
                             $(targetedSelector).remove();
                             $("nav ul.toogle").html("<li><a href='http://localhost/ecommerce/index.php?controller=user&method=edit' id='edit'>Mon profil</a></li><li><a href='http://localhost/ecommerce/index.php?controller=session&method=destroy' id='sign-out'>Deconnexion</a></li>");
                             if (checkout) {
-                                $(resultContainer).parents(".container").children().remove();
-                                $(".container").append(Checkout.getFormConfirmAdress());
-                                Checkout.confirmAdress("#adress-confirmation");
+                                window.location.assign("index.php?controller=order&method=new&step=2");
                             } else {
                                 var resultContainerContent = "<h2 class='my-4'>Bon retour parmis nous !</h2><a href='http://localhost/ecommerce/index.php?controller=home&method=index' class='btn btn-success btn-lg'>La Boutique</a>";
                                 $(resultContainer).append(resultContainerContent);
