@@ -142,12 +142,7 @@
 
             <section class="container justify-content-center my-5" style="min-height:100vh">
 
-
-                <h1 class='text-center'>Récapitulatif de votre commande:</h1>
-
-
-                <div class='row divide-xl-2 divide-lg-2 divide-md-2 divide-sm-1 divide-xs-1 my-8' style='min-height:unset'>
-
+                <div class='row divide-xl-2 divide-lg-2 divide-md-1 divide-sm-1 divide-xs-1 my-8' style='min-height:unset'>
 
                     <div class="col">
                         <div class="container-block" id="checkout-confirmation">
@@ -166,6 +161,8 @@
                     </div>
 
                     <div class="col">
+
+                    <h1 class='text-center'>Récapitulatif de votre commande:</h1>
 
                         <div class="w-100" id="basket-price-zone" style="display:<?php echo $basket->getPriceZoneDisplay() ?>">
                             <h2>Total:</h2>

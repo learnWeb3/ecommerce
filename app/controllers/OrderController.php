@@ -16,6 +16,10 @@ class OrderController extends ApplicationController
                 $meta_title = "La Nuit des Temps: nouvelle commande - connexion";
                 $meta_description = "1/3 Nouvelle commande: identification";
                 $datas = array();
+                if( User::isUserSignedIn())
+                {
+                    header("Location:".REDIRECT_BASE_URL."controller=order&method=new&step=2");
+                }
             } elseif ($_GET['step'] == "2") {
                 $meta_title = "La Nuit des Temps: nouvelle commande - votre addresse";
                 $meta_description = "2/3 Nouvelle commande: votre addresse";
