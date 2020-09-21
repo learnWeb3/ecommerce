@@ -49,6 +49,7 @@ class Checkout {
             $("#sign-up-container").append(self.getFormSignUp())
             $("#sign-in-container").append("<button class='btn btn-lg btn-success my-4' id='checkout-signin'>connexion</button>");
             self.signInToggle();
+            User.create("#sign-up", "#user_password", "#user_password_confirmation","#sign-up-container"); 
         });
 
     }
