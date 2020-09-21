@@ -89,7 +89,7 @@ class Product {
 
     static delete() {
 
-        $('.delete-product').click(function(event) {
+        $('.delete-product').click(function (event) {
 
             event.preventDefault();
 
@@ -98,12 +98,13 @@ class Product {
                 method: "POST",
                 data: "controller=basketitem&method=destroy&" + $(this).serialize() + "&remote=true",
                 dataType: "JSON",
-                success: function(result, status) {
+                success: function (result, status) {
                     $('#shopping-cart-menu').find("#" + result.book_id).remove();
+                    if ($("#checkout-confirmation").length > 0) { $('#checkout-confirmation').find("#" + result.book_id).remove(); }
                     Product.setBasketNumber();
                     Basket.updateTotals(result);
                 },
-                error: function(result, error, status) {
+                error: function (result, error, status) {
                     console.log(status);
                 }
             })
@@ -112,7 +113,7 @@ class Product {
 
 
     static update() {
-        $('.book_quantity').keyup(function() {
+        $('.book_quantity').keyup(function () {
 
             var form = $(this).closest('form');
 
@@ -120,13 +121,13 @@ class Product {
 
             var quantityInputVal = quantityInput.val();
 
-            if (quantityInputVal != "" && typeof(quantityInputVal) == "string") {
+            if (quantityInputVal != "" && typeof (quantityInputVal) == "string") {
                 $.ajax({
                     url: "/ecommerce/index.php",
                     method: "POST",
                     data: "controller=basketitem&method=update&" + form.serialize() + "&remote=true",
                     dataType: "JSON",
-                    success: function(result, status) {
+                    success: function (result, status) {
                         if ("book_not_available" in result) {
                             alert(result.book_not_available);
                         } else {
@@ -136,7 +137,7 @@ class Product {
                         }
 
                     },
-                    error: function(result, error, status) {
+                    error: function (result, error, status) {
                         console.log(status);
                     }
                 });
@@ -150,14 +151,14 @@ class Product {
     static create(targeted_forms) {
         targeted_forms.forEach(targeted_form => {
 
-            $(targeted_form).submit(function(event) {
+            $(targeted_form).submit(function (event) {
                 event.preventDefault();
                 $.ajax({
                     url: "index.php",
                     method: "POST",
                     data: "controller=basketitem&method=create&" + $(this).serialize() + "&remote=true",
                     dataType: "JSON",
-                    success: function(result, status) {
+                    success: function (result, status) {
                         if ("book_not_available" in result) {
                             alert(result.book_not_available);
                         } else {
@@ -166,7 +167,7 @@ class Product {
                             Basket.updateTotals(result);
                         }
                     },
-                    error: function(result, error, status) {
+                    error: function (result, error, status) {
                         console.log(error)
                     },
                 })
@@ -198,7 +199,7 @@ class Product {
 }
 
 
-$(document).ready(function() {
+$(document).ready(function () {
     Product.create(['.card-product .form-buy', '#show-product-container #form-buy']);
     Product.delete();
     Product.update();

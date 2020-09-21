@@ -170,10 +170,10 @@
                         <div class="w-100" id="basket-price-zone" style="display:<?php echo $basket->getPriceZoneDisplay() ?>">
                             <h2>Total:</h2>
                             <hr class="light my-2">
-                            <h3 id="basket-total-HT">Sous-total (HT): <?php echo $basket->getTotalHT() ?> &euro;</h3>
+                            <h3 id="basket-total-HT-checkout">Sous-total (HT): <?php echo $basket->getTotalHT() ?> &euro;</h3>
                             <h3>Livraison:</h3>
                             <hr class="light my-2">
-                            <h2 id="basket-total-TTC">Total (TVA incluse): <?php echo $basket->getTotalTTC() ?> &euro;</h2>
+                            <h2 id="basket-total-TTC-checkout">Total (TVA incluse): <?php echo $basket->getTotalTTC() ?> &euro;</h2>
                             <h3>Adresse:</h3>
                             <hr class="light my-2">
                             <h2 id="user_delivery_adress">Adresse: <?php echo $delivery_address ?></h2>
