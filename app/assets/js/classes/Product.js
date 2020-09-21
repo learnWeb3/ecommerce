@@ -103,6 +103,7 @@ class Product {
                     if ($("#checkout-confirmation").length > 0) { $('#checkout-confirmation').find("#" + result.book_id).remove(); }
                     Product.setBasketNumber();
                     Basket.updateTotals(result);
+                    Product.setCheckoutConfImage();
                 },
                 error: function (result, error, status) {
                     console.log(status);
@@ -177,6 +178,16 @@ class Product {
 
     }
 
+
+    static setCheckoutConfImage()
+    {
+        var numberOfItemInBasket = $("#checkout-confirmation .card-product").length;
+        if (numberOfItemInBasket == 0) {
+            $("#checkout-confirmation").append(
+                "<img src='app/assets/icons/illustration/empty-basket.svg' alt='empty basket illustration' id='empty-basket'>");
+                $("#checkout-confirmation").removeClass("container-block").addClass("flex justify-content-center align-items-center")
+        };
+    }
 
     static setBasketNumber() {
         var numberOfItemInBasket = $("#shopping-cart-menu .card-product").length;
