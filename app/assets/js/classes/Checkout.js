@@ -58,6 +58,7 @@ class Checkout {
     static confirmAdress(targeted_form) {
 
         $(targeted_form).submit(function (event) {
+            let self = Checkout;
             event.preventDefault();
             $.ajax({
                 url: 'index.php?controller=order&method=new&step=2',
@@ -65,12 +66,16 @@ class Checkout {
                 data: "confirm=true&remote=true&" + $(this).serialize(),
                 dataType: "JSON",
                 success: function (results, status) {
+
+                    console.log(results);
                     if (results.hasOwnProperty("type")) {
                         if (results.type == "success") {
-
+                            $("#user_select_adress").append(self.getAvailableAdresses())
                         } else {
-
                         }
+
+                        Alert.getAlerts(results,"#adress-confirmation");
+                        Alert.dismissAlerts();
                     }
                 },
                 error: function (xhrObject, error, status) {
@@ -79,6 +84,27 @@ class Checkout {
             })
         })
 
+    }
+
+
+    static getAvailableAdresses()
+    {
+        return $.ajax({
+            url:"index.php?controller=order&method=new&step=2",
+            method:"POST",
+            data:"select_adresses=true&remote=true",
+            dataType:"JSON",
+            success:function(results,status){
+                $("#user_select_adress").children().remove();
+               results.adresses.forEach(element => {
+                $("#user_select_adress").append("<option id='"+element.id+"'>"+element.adress+" "+element.postal_code+" "+element.city+"</option>")
+               });
+              
+            },
+            error:function(results,error,status){
+                console.error(error);
+            },
+        })
     }
 
 
