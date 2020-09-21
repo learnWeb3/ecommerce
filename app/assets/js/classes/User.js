@@ -4,7 +4,7 @@ class User {
         this.password = password;
     }
 
-    static create(targetedSelector, targeted_password_input, targeted_password_confirmation_input,resultContainer) {
+    static create(targetedSelector, targeted_password_input, targeted_password_confirmation_input,resultContainer, checkout = false) {
 
         $(targetedSelector).submit(function (event) {
 
@@ -13,7 +13,7 @@ class User {
             $.ajax({
                 url: "/ecommerce/index.php",
                 method: "POST",
-                data: "controller=user&method=create&" + $(this).serialize() + "&remote=true",
+                data: "controller=user&method=create&" + $(this).serialize() + "&remote=true&checkout="+checkout,
                 dataType: "JSON",
                 success: function (results, status) {
                     if (results.hasOwnProperty("type")) {
@@ -27,6 +27,7 @@ class User {
                         }
 
                         Alert.dismissAlerts();
+
                     }
                 },
                 error: function (XhrObject, error, status) {

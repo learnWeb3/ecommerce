@@ -14,15 +14,19 @@ class UserController extends ApplicationController
         if (isset($_POST['user_email'], $_POST['user_password'], $_POST["user_password_confirmation"])) {
             $user = new User($_POST['user_email'], $_POST['user_password']);
             $sign_up_attempt =  $user->signUp($_POST["user_password_confirmation"]);
-            if (isset($_SESSION['current_user'])) {
-                $flash = new Flash($sign_up_attempt, "success");
+            if ($sign_up_attempt["type"] == "success") {
+                $flash = new Flash($sign_up_attempt["message"], "success");
                 $controller = "home";
                 $method = "index";
-                User::getCurrentUser()->loadSavedBasket();
             } else {
-                $flash = new Flash($sign_up_attempt, "danger");
+                $flash = new Flash($sign_up_attempt["message"], "danger");
                 $controller = "user";
                 $method = "new";
+            }
+
+            if( isset($_POST['checkout']) && $_POST['checkout'] == true)
+            {
+                $_SESSION['current_user'] = User::where("email", $_POST['user_email'], "created_at")[0];
             }
 
             if (isset($_POST['remote'])) {
