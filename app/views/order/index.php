@@ -65,4 +65,6 @@
 
 <script>
     Checkout.signUpToggle();
+    User.create("#sign-up", "#user_password", "#user_password_confirmation","#sign-up-container"); 
+    Session.create("#sign-in", "#sign-in-container");
 </script>
