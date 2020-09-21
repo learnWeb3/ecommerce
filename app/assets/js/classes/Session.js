@@ -7,7 +7,7 @@ class Session {
             event.preventDefault();
 
             $.ajax({
-                url: "/ecommerce/index.php",
+                url: "index.php",
                 method: "POST",
                 data: "controller=session&method=create&" + $(this).serialize() + "&remote=true",
                 dataType: "JSON",
@@ -48,7 +48,7 @@ class Session {
             event.preventDefault();
 
             $.ajax({
-                url: "/ecommerce/index.php",
+                url: "index.php",
                 method: "POST",
                 data: "controller=session&method=destroy&remote=true",
                 dataType: "JSON",

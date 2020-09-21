@@ -11,7 +11,7 @@ class User {
             event.preventDefault();
 
             $.ajax({
-                url: "/ecommerce/index.php",
+                url: "index.php",
                 method: "POST",
                 data: "controller=user&method=create&" + $(this).serialize() + "&remote=true&checkout=" + checkout,
                 dataType: "JSON",
@@ -47,7 +47,7 @@ class User {
         $(targeted_password_input).blur(function () {
 
             $.ajax({
-                url: "/ecommerce/index.php",
+                url: "index.php",
                 method: "POST",
                 data: "controller=user&method=create" + "&user_password_check=" + $(this).val() + "&user_password_confirmation=" + $(targeted_password_confirmation_input).val() + "&remote=true",
                 dataType: "JSON",

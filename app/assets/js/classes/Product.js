@@ -94,7 +94,7 @@ class Product {
             event.preventDefault();
 
             $.ajax({
-                url: "/ecommerce/index.php",
+                url: "index.php",
                 method: "POST",
                 data: "controller=basketitem&method=destroy&" + $(this).serialize() + "&remote=true",
                 dataType: "JSON",
@@ -153,7 +153,7 @@ class Product {
             $(targeted_form).submit(function(event) {
                 event.preventDefault();
                 $.ajax({
-                    url: "/ecommerce/index.php",
+                    url: "index.php",
                     method: "POST",
                     data: "controller=basketitem&method=create&" + $(this).serialize() + "&remote=true",
                     dataType: "JSON",

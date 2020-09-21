@@ -18,9 +18,9 @@ class AppStripe {
         checkoutButton.click(function() {
 
             $.ajax({
-                url: "/ecommerce/index.php?controller=checkout&method=create",
+                url: "index.php",
                 type: "POST",
-                data: "remote=true",
+                data: "controller=checkout&method=create&remote=true",
                 dataType: "JSON",
                 success: function(result, status) {
                     if (result.error) {

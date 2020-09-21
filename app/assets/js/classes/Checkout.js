@@ -50,7 +50,7 @@ class Checkout {
 
         "<h2 class='text-center'><small class='my-4'>(champs obligatoires *)</small></h2>"+
 
-        "<form action='index.php?controller=order&method=new&step=3' method='post' id='adress-confirmation'>" +
+        "<form action='index.php?controller=order&method=new&step=3&confirm=true' method='post' id='adress-confirmation'>" +
 
         "<div class='form-group'>" +
         "<label for='user_adress'>Adresse postale *</label>" +
@@ -95,6 +95,22 @@ class Checkout {
             User.create("#sign-up", "#user_password", "#user_password_confirmation","#sign-up-container", true); 
         });
 
+    }
+
+    static confirmAdress()
+    {
+        $.ajax({
+            url:'index.php',
+            method:"POST",
+            data:"controller=order&method=new&step=2&confirm=true",
+            dataType:"JSON",
+            success:function(results,status){
+
+            },
+            error:function(xhrObject,error,status){
+
+            }
+        })
     }
 
 

@@ -8,9 +8,9 @@
                     var formSearch = $(this).parent("#product-search");
                     event.preventDefault();
                     $.ajax({
-                        url: '/ecommerce/index.php?controller=search&method=new',
+                        url: 'index.php',
                         method: "POST",
-                        data: formSearch.serialize() + "&remote=true",
+                        data: formSearch.serialize() + "&controller=search&method=new&remote=true",
                         dataType: "JSON",
                         success: function(results, status) {
                             Autocomplete.appendProductTemplate(results);
