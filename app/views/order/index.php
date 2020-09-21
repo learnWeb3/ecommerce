@@ -112,4 +112,5 @@
     <script>
         Checkout.signUpToggle();
         Session.create("#sign-in", "#sign-in-container", true);
+        Checkout.confirmAdress("#adress-confirmation");
     </script>

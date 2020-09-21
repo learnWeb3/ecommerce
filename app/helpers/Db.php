@@ -101,9 +101,6 @@ trait Db
         $prepared_statement =  Db::connect()->prepare($statement);
 
         $fields = array_merge($values, array($this->getId()));
-
-
-        var_dump($prepared_statement);
         return $prepared_statement->execute($fields);
     }
 

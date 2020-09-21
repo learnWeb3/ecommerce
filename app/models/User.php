@@ -279,13 +279,23 @@ class User extends DbRecords
     }
 
 
+    public static function checkIfAdresseExists($address, $user_id)
+    {
+        $connection = Db::connect();
+        $select_statement = "SELECT * FROM adresses WHERE adress=? AND user_id=?";
+        $prepared_statement = $connection->prepare($select_statement);
+        $prepared_statement->execute(array($address, $user_id));
+        $results = $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
+        return !empty($results);
+    }
+
     public function registerAdress(string $city, string $address, string $postal_code)
     {
         $connection = Db::connect();
         $statement = "INSERT INTO adresses (city,adress,postal_code,user_id) VALUES (?,?,?,?)";
         $prepared_statement = $connection->prepare($statement);
         $prepared_statement->execute(array($city, $address, $postal_code, $this->getId()));
-        $select_statement = "SELECT * FROM addresses WHERE user_id=?";
+        $select_statement = "SELECT * FROM adresses WHERE user_id=? ORDER BY created_at DESC LIMIT 1";
         $prepared_statement = $connection->prepare($select_statement);
         $prepared_statement->execute(array($this->getId()));
         return $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
@@ -303,7 +313,7 @@ class User extends DbRecords
             $this->setDateOfBirth($date_of_birth);
         }
         if (func_get_args() != null) {
-           var_dump($this->update());
+            $this->update();
         }
     }
 }

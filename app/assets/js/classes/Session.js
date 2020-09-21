@@ -24,6 +24,7 @@ class Session {
                             if (checkout) {
                                 $(resultContainer).parents(".container").children().remove();
                                 $(".container").append(Checkout.getFormConfirmAdress());
+                                Checkout.confirmAdress("#adress-confirmation");
                             } else {
                                 var resultContainerContent = "<h2 class='my-4'>Bon retour parmis nous !</h2><a href='http://localhost/ecommerce/index.php?controller=home&method=index' class='btn btn-success btn-lg'>La Boutique</a>";
                                 $(resultContainer).append(resultContainerContent);
