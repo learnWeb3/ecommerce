@@ -4,7 +4,7 @@ class User {
         this.password = password;
     }
 
-    static create(targetedSelector, targeted_password_input, targeted_password_confirmation_input,resultContainer, checkout = false) {
+    static create(targetedSelector, targeted_password_input, targeted_password_confirmation_input, resultContainer, checkout = false) {
 
         $(targetedSelector).submit(function (event) {
 
@@ -13,20 +13,26 @@ class User {
             $.ajax({
                 url: "/ecommerce/index.php",
                 method: "POST",
-                data: "controller=user&method=create&" + $(this).serialize() + "&remote=true&checkout="+checkout,
+                data: "controller=user&method=create&" + $(this).serialize() + "&remote=true&checkout=" + checkout,
                 dataType: "JSON",
                 success: function (results, status) {
                     if (results.hasOwnProperty("type")) {
                         if (results.type == "danger") {
                             if ($('#alert').length > 0) { $("#alert").remove(); }
-                            Alert.getAlerts(results,resultContainer);
                         } else {
                             $("#sign-in").remove();
-                            $(resultContainer).append("<h2 class='my-4'>La Nuit des Temps vous souhaite la bienvenue !</h2><a href='http://localhost/ecommerce/index.php?controller=session&method=new' class='btn btn-success btn-lg'>Connexion</a>");
-                            Alert.getAlerts(results,resultContainer);
-                        }
+                            if (checkout) {
+                                $(resultContainer).parents(".container").children().remove();
+                                $(".container").append(Checkout.getFormConfirmAdress());
 
+                            } else {
+                                $(resultContainer).append("<h2 class='my-4'>La Nuit des Temps vous souhaite la bienvenue !</h2><a href='http://localhost/ecommerce/index.php?controller=session&method=new' class='btn btn-success btn-lg'>Connexion</a>");
+                            }
+                        }
+                        Alert.getAlerts(results, resultContainer);
                         Alert.dismissAlerts();
+
+
 
                     }
                 },
@@ -49,7 +55,7 @@ class User {
                     if (results.hasOwnProperty("type")) {
                         if (results.type == "danger") {
                             if ($('#alert').length > 0) { $("#alert").remove(); }
-                            Alert.getAlerts(results,resultContainer);
+                            Alert.getAlerts(results, resultContainer);
                         }
                         Alert.dismissAlerts();
 

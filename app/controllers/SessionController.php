@@ -26,7 +26,6 @@ class SessionController extends ApplicationController
                 $controller = "user";
                 $method = "new";
             }
-
             if (isset($_POST['remote'])) {
                 echo json_encode($sign_in_attempt);
                 die();

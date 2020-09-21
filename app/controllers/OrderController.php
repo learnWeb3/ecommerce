@@ -23,7 +23,6 @@ class OrderController extends ApplicationController
                 $meta_description = "3/3 Nouvelle commande: paiement";
             }
         }
-
         $this->render("index", $meta_title, $meta_description, array());
     }
 }

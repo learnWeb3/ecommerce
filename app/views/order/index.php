@@ -65,5 +65,5 @@
 
 <script>
     Checkout.signUpToggle();
-    Session.create("#sign-in", "#sign-in-container");
+    Session.create("#sign-in", "#sign-in-container", true);
 </script>

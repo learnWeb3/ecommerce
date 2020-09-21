@@ -1079,7 +1079,7 @@ form.form-inline {
 
 /* FORMS */
 
-#sign-container,#sign-in-container,#sign-up-container {
+#sign-container,#sign-in-container,#sign-up-container,#adress-confirmation {
     justify-content: center;
     margin: auto;
     background-color: var(--var-white);
@@ -1092,25 +1092,25 @@ form.form-inline {
 }
 
 @media screen and (min-width:1200px) {
-    #sign-container,#sign-in-container,#sign-up-container {
+    #sign-container,#sign-in-container,#sign-up-container,#adress-confirmation {
         width: 33vw;
     }
 }
 
 @media screen and (min-width:900px) and (max-width:1200px) {
-    #sign-container,#sign-in-container,#sign-up-container {
+    #sign-container,#sign-in-container,#sign-up-container,#adress-confirmation {
         width: 50vw;
     }
 }
 
 @media screen and (min-width:600px) and (max-width:900px) {
-    #sign-container,#sign-in-container,#sign-up-container {
+    #sign-container,#sign-in-container,#sign-up-container,#adress-confirmation {
         width: 66vw;
     }
 }
 
 @media screen and (max-width:600px) {
-    #sign-container,#sign-in-container,#sign-up-container {
+    #sign-container,#sign-in-container,#sign-up-container,#adress-confirmation {
         width: 100vw;
     }
     #sign-container{
