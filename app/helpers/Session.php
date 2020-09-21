@@ -29,6 +29,17 @@ class Session
       return $_SESSION['address'];
     }
 
+    public static function storeStripeSession($stripe_session)
+    {
+        $_SESSION['stripe_session'] = $stripe_session;
+        return$_SESSION['stripe_session'];
+    }
+
+    public static function retrieveStripeSession()
+    {
+        return $_SESSION['stripe_session'];
+    }
+
 
 
 
