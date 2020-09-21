@@ -30,7 +30,6 @@ class OrderController extends ApplicationController
                     } else {
                         $user->updateDatas($_POST['user_firstname'], $_POST['user_lastname']);
                         $adress = $user->registerAdress($_POST['user_city'], $_POST['user_address'], $_POST['user_postal_code']);
-                        Session::storeAddress($adress);
                         $message = array("Votre adresse de livraison à bien été enregistrée");
                         $type = "success";
                         $step = "3";
@@ -54,10 +53,12 @@ class OrderController extends ApplicationController
                         die();
                     }
                 }
-            } elseif ($_GET['step'] == "3") {
+            } elseif ($_GET['step'] == "3" && isset($_POST['user_select_adress'])) {
+                $adress = User::findAdress($_POST['user_select_adress'])[0];
                 $meta_title = "La Nuit des Temps: nouvelle commande - paiement";
                 $meta_description = "3/3 Nouvelle commande: paiement";
-                $datas = array();
+                $delivery_address = $adress['adress']." ".$adress['postal_code']." ".$adress['city'];
+                $datas = array("delivery_address"=>$delivery_address);
             }
         }
 

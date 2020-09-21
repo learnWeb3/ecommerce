@@ -93,7 +93,7 @@
 
                     <input type="hidden" name="confirm" value="true">
 
-                    <button class='btn btn-lg btn-primary my-4' type='submit'>valider</button>
+                    <button class='btn btn-lg btn-primary my-4' type='submit'>Ajouter mon adresse</button>
 
                 </form>
 
@@ -102,7 +102,7 @@
 
                     <hr class='light'>
 
-                    <form action="">
+                    <form action="<?php echo REDIRECT_BASE_URL . "controller=order&method=new&step=3" ?>" method="POST">
 
                         <div class='form-group'>
                             <label for='user_select_adress'>Adresse postale *</label>
@@ -118,7 +118,7 @@
 
                                 </select>
 
-                                <button class='btn btn-lg btn-secondary my-4' id='checkout-select-adress'>Sélectionner une adresse existante</button>
+                                <button class='btn btn-lg btn-secondary my-4' type="submit" id='checkout-select-adress'>Sélectionner votre adresse</button>
 
                             <?php else : ?>
 
@@ -140,6 +140,56 @@
         <?php elseif ($_GET['step'] == "3") : ?>
 
 
+            <section class="container justify-content-center my-5" style="min-height:100vh">
+
+
+                <h1 class='text-center'>Récapitulatif de votre commande:</h1>
+
+
+                <div class='row divide-xl-2 divide-lg-2 divide-md-2 divide-sm-1 divide-xs-1 my-8' style='min-height:unset'>
+
+
+                    <div class="col">
+                        <div class="container-block" id="checkout-confirmation">
+
+                            <?php if ($basket->notEmpty()) : ?>
+
+                                <?php foreach ($basket_products as $basket_product) : ?>
+
+                                    <?php require LAYOUT_PATH . '/partials/basket_item/basket_item_product.php' ?>
+
+                                <?php endforeach; ?>
+
+                            <?php endif; ?>
+
+                        </div>
+                    </div>
+
+                    <div class="col">
+
+                        <div class="w-100" id="basket-price-zone" style="display:<?php echo $basket->getPriceZoneDisplay() ?>">
+                            <h2>Total:</h2>
+                            <hr class="light my-2">
+                            <h3 id="basket-total-HT">Sous-total (HT): <?php echo $basket->getTotalHT() ?> &euro;</h3>
+                            <h3>Livraison:</h3>
+                            <hr class="light my-2">
+                            <h2 id="basket-total-TTC">Total (TVA incluse): <?php echo $basket->getTotalTTC() ?> &euro;</h2>
+                            <h3>Adresse:</h3>
+                            <hr class="light my-2">
+                            <h2 id="user_delivery_adress">Adresse: <?php echo $delivery_address ?></h2>
+                            <buttton class="btn btn-lg btn-success my-4" id="stripe-checkout">Payer</buttton>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+            </section>
+
 
 
         <?php endif; ?>
@@ -151,4 +201,9 @@
         Checkout.signUpToggle();
         Session.create("#sign-in", "#sign-in-container", true);
         Checkout.confirmAdress("#adress-confirmation");
+        // CALLING AJAX FUNTION TO FETCH RESULT OF STRIPE SCRIPT
+        const stripeSecret = "<?php echo STRIPE_PUBLISHABLE_KEY ?>";
+        const appStripe = new AppStripe();
+        appStripe.checkout("#stripe-checkout");
+        // <buttton class=\"btn btn-lg btn-success my-4\" id=\"stripe-checkout\">Payer</buttton>
     </script>

@@ -327,4 +327,13 @@ class User extends DbRecords
         $prepared_statement->execute(array($this->getId()));
         return $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public static function findAdress($adress_id)
+    {
+        $connection = Db::connect();
+        $select_statement = "SELECT * FROM adresses WHERE id=?";
+        $prepared_statement = $connection->prepare($select_statement);
+        $prepared_statement->execute(array(intval($adress_id)));
+        return $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

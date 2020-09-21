@@ -27,9 +27,4 @@ class CheckoutController extends ApplicationController
     {
         $this->render("error", "Une erreur est survenue", "Une erreur est survenu, veuillez contacter votre banque pour plus d'informations");
     }
-
-    public function new()
-    {
-     
-    }
 }

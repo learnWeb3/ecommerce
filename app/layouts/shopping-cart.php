@@ -51,12 +51,3 @@
 </div>
 
 
-
-
-<script>
-    // CALLING AJAX FUNTION TO FETCH RESULT OF STRIPE SCRIPT
-    const stripeSecret = "<?php echo STRIPE_PUBLISHABLE_KEY ?>";
-    const appStripe = new AppStripe();
-    appStripe.checkout("#stripe-checkout");
-    // <buttton class=\"btn btn-lg btn-success my-4\" id=\"stripe-checkout\">Payer</buttton>
-</script>

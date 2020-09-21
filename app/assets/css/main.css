@@ -1046,7 +1046,7 @@ form.form-inline {
     width: 100%;
 }
 
-#shopping-cart-menu .card-product {
+#shopping-cart-menu .card-product,#checkout-confirmation .card-product {
     display: flex;
     position: relative;
     height: 20rem;
