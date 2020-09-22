@@ -4,7 +4,7 @@ class Session {
 
         $(targetedSelector).submit(function (event) {
 
-            event.preventDefault();
+            //event.preventDefault();
 
             $.ajax({
                 url: "index.php",
@@ -44,7 +44,7 @@ class Session {
 
         $("#sign-out").click(function (event) {
 
-            //event.preventDefault();
+            event.preventDefault();
 
             $.ajax({
                 url: "index.php",

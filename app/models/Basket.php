@@ -230,7 +230,7 @@ class Basket extends DbRecords
         baskets.created_at as basket_created_at, 
         baskets.updated_at as basket_updated_at
         FROM baskets 
-        JOIN basket_items ON basket.id=basket_items.basket_id 
+        JOIN basket_items ON baskets.id=basket_items.basket_id 
         JOIN states ON states.id=baskets.state_id WHERE user_id=? AND states.name=?";
         $prepared_statement = $connection->prepare($statement);
         $prepared_statement->execute(array($owner_id, $basket_state_name));
@@ -250,7 +250,7 @@ class Basket extends DbRecords
         }
         // constructing instance of basket
         if (!empty($basketItems)) {
-            return  new Basket($owner_id, $basket_state_name, $basketItems, $basket_datas["basket_id"], $basket_datas["basket_created_at"], $basket_datas["basket_udpated_at"]);
+            return  new Basket($owner_id, $basket_state_name, $basketItems, $basket_datas["basket_id"], $basket_datas["basket_created_at"], $basket_datas["basket_updated_at"]);
         } else {
             return new Basket();
         }
@@ -294,6 +294,15 @@ class Basket extends DbRecords
         $statement = "DELETE FROM basket_items WHERE basket_id=?";
         $prepared_statement = $connection->prepare($statement);
         return $prepared_statement->execute(array($basket_id));
+    }
+
+    public function updateBasketState()
+    {
+        $connection = Db::connect();
+        $state_id = Basket::getStateId("paid");
+        $statement = "UPDATE baskets SET state_id=? WHERE id=?";
+        $prepared_statement = $connection->prepare($statement);
+        return $prepared_statement->execute(array($state_id,$this->id));
     }
 
 
