@@ -43,7 +43,7 @@
 
             <h2>Informations personnelles:</h2>
 
-            <form action="<?php echo REDIRECT_BASE_URL . "controller=user&method=create" ?>" method="post" id="sign-in">
+            <form action="<?php echo REDIRECT_BASE_URL . "controller=user&method=update" ?>" method="post" id="sign-in">
 
                 <hr class="light my-2">
 
@@ -90,5 +90,5 @@
     $("#my-account").click(function() {
         $("#tab-my-order").css({'display':'none'});
         $("#tab-my-account").css({'display':'grid'});
-    })
+    });
 </script>

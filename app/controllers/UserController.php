@@ -62,4 +62,14 @@ class UserController extends ApplicationController
             renderErrror(403);
         }
     }
+
+
+    public function update()
+    {
+        if (isset($_SESSION['current_user'])) {
+        } else {
+            renderErrror(403);
+        }
+
+    }
 }
