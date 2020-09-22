@@ -39,6 +39,19 @@ class SessionController extends ApplicationController
     public function destroy()
     {
         if (isset($_SESSION['current_user'])) {
+
+            $user = User::getCurrentUser();
+
+            $basket = Basket::getBasket();
+
+            $basket_items = $basket->getAllProducts();
+
+            if ($user->createBasket())
+            {
+                $user->saveBasketItems($basket_items);
+            }else{
+                $user->updateBasketItems($basket_items);
+            }
             $user_session_destroy = User::signOut();
             if (isset($_POST['remote'])) {
                 echo json_encode($user_session_destroy);

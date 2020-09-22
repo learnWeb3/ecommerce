@@ -20,7 +20,7 @@ class OrderController extends ApplicationController
                 {
                     header("Location:".REDIRECT_BASE_URL."controller=order&method=new&step=2");
                 }
-            } elseif ($_GET['step'] == "2") {
+            } elseif ($_GET['step'] == "2" && User::isUserSignedIn()) {
                 $meta_title = "La Nuit des Temps: nouvelle commande - votre addresse";
                 $meta_description = "2/3 Nouvelle commande: votre addresse";
                 $user = User::getCurrentUser();
@@ -57,12 +57,14 @@ class OrderController extends ApplicationController
                         die();
                     }
                 }
-            } elseif ($_GET['step'] == "3" && isset($_POST['user_select_adress'])) {
+            } elseif ($_GET['step'] == "3" && isset($_POST['user_select_adress']) && User::isUserSignedIn()) {
                 $adress = User::findAdress($_POST['user_select_adress'])[0];
                 $meta_title = "La Nuit des Temps: nouvelle commande - paiement";
                 $meta_description = "3/3 Nouvelle commande: paiement";
                 $delivery_address = $adress['adress']." ".$adress['postal_code']." ".$adress['city'];
                 $datas = array("delivery_address"=>$delivery_address);
+            }else{
+                header("Location:".REDIRECT_BASE_URL."controller=order&method=new&step=1");
             }
         }
 

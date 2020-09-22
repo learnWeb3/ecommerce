@@ -68,5 +68,4 @@ class BasketItem extends DbRecords
     }
 
 
-
 }

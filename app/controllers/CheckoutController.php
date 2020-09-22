@@ -27,7 +27,9 @@ class CheckoutController extends ApplicationController
         if ($stripe_session->payment_status == "paid")
         {
             // instance of order;
+            $order = new Order();
             // instance of invoice// 
+            $invoice = new Invoice()
         }
         //$this->render("success", "Achat réussi", "La Nuit des Temps vous confirme le succès de votre commande, nous faisons le maximum pour vous livrer dans les meilleurs délais");
     }

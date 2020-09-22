@@ -150,8 +150,10 @@ class Basket extends DbRecords
 
     public function storeInSession()
     {
-        $_SESSION['basket'] = $this;
-        return $this;
+        if (!isset($_SESSION['basket'])) {
+            $_SESSION['basket'] = $this;
+            return $this;
+        }
     }
 
 
@@ -222,7 +224,11 @@ class Basket extends DbRecords
     {
         // database query 
         $connection = Db::connect();
-        $statement = "SELECT basket_items.*
+        $statement = "SELECT 
+        basket_items.*, 
+        baskets.id as basket_id, 
+        baskets.created_at as basket_created_at, 
+        baskets.updated_at as basket_updated_at
         FROM baskets 
         JOIN basket_items ON basket.id=basket_items.basket_id 
         JOIN states ON states.id=baskets.state_id WHERE user_id=? AND states.name=?";
@@ -237,14 +243,50 @@ class Basket extends DbRecords
             if (!empty($row["book_id"])) {
                 $book = Book::find(intval($row["book_id"]))[0];
                 $basketItems[] = new BasketItem($row["book_id"], $row["basket_id"], $book, $row["quantity"], $row['id'], $row['created_at'], $row['updated_at']);
+                $basket_datas["basket_id"] = $row["basket_id"];
+                $basket_datas["basket_created_at"] = $row["basket_created_at"];
+                $basket_datas["basket_updated_at"] = $row["basket_updated_at"];
             }
         }
-
         // constructing instance of basket
         if (!empty($basketItems)) {
-            return  new Basket($owner_id, $basket_state_name, $basketItems, $basketItems[0]->getBasketId());
+            return  new Basket($owner_id, $basket_state_name, $basketItems, $basket_datas["basket_id"], $basket_datas["basket_created_at"], $basket_datas["basket_udpated_at"]);
         } else {
             return new Basket();
         }
     }
+
+    public function findCurrentBasketId($current_basket_state="current")
+    {
+        $connection = Db::connect();
+        $state_select_statement = "SELECT id FROM states WHERE name=? AND user_id=?";
+        $prepared_statement = $connection->prepare($state_select_statement);
+        $prepared_statement->execute(array($current_basket_state, $this->getId()));
+        return $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    public static function getStateId($state_name="current")
+    {
+        $connection = Db::connect();
+        $statement = "SELECT id FROM states WHERE name=$state_name LIMIT 1";
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute(array($state_name));
+        return $prepared_statement->fetchAll(PDO::FETCH_ASSOC)[0]['id'];
+    }
+
+
+
+    public static function findBasketId(int $user_id, int $state_id)
+    {
+        $connection = Db::connect();
+        $state_id = Basket::getStateId();
+        $statement =  "SELECT id FROM baskets WHERE user_id=? AND state_id=? LIMIT 1";;
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute(array($user_id, $state_id));
+        $prepared_statement->fetchAll(PDO::FETCH_ASSOC)[0]["id"];
+    }
+
+
+    
 }

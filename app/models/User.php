@@ -282,7 +282,7 @@ class User extends DbRecords
     public static function checkIfAdresseExists($address, $user_id)
     {
         $connection = Db::connect();
-     
+
         $select_statement = "SELECT * FROM adresses WHERE adress=? AND user_id=?";
         $prepared_statement = $connection->prepare($select_statement);
         $prepared_statement->execute(array($address, $user_id));
@@ -335,5 +335,40 @@ class User extends DbRecords
         $prepared_statement = $connection->prepare($select_statement);
         $prepared_statement->execute(array(intval($adress_id)));
         return $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function saveBasketItems($basket_items)
+    {
+        $connection = Db::connect();
+        $basket_id = Basket::findBasketId($this->getId(), Basket::getStateId());
+        $statement = "INSERT INTO basket_items (book_id, basket_id, quantity) VALUES (?,?,?)";
+        $prepared_statement = $connection->prepare($statement);
+        foreach ($basket_items as $basket_item) {
+            $prepared_statement->execute(array($basket_item->getBookId(), $basket_id, $basket_item->getQuantity()));
+        }
+    }
+
+    public function createBasket()
+    {
+        if ($this->hasNoCurrentBasket()) {
+            $connection = Db::connect();
+            $state_id = Basket::getStateId();
+            $statement = "INSERT INTO baskets (user_id,state_id) VALUES (?,?)";
+            $prepared_statement = $connection->prepare($statement);
+            return $prepared_statement->execute(array($this->getId(), $state_id));
+        }else{
+            return false;
+        }
+    }
+
+
+    public function hasNoCurrentBasket()
+    {
+        $connection = Db::connect();
+        $state_id = Basket::getStateId();
+        $statement = "SELECT id FROM baskets WHERE state_id=? AND user_id=?";
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute(array($state_id, $this->getId()));
+        return empty($prepared_statement->fetchAll(PDO::FETCH_ASSOC));
     }
 }

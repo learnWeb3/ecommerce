@@ -8,7 +8,7 @@
 
         <h2 class="article-number">Mon panier (<?php echo $basket->getBasketItemNumber() ?> articles)</h2>
 
-        <div class="container-block" style="max-height:50%">
+        <div class="container-block">
 
             <?php if ($basket->notEmpty()) : ?>
 

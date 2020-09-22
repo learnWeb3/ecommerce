@@ -1058,6 +1058,12 @@ form.form-inline {
 
 /* CARD PRODUCT */
 
+
+@media screen and (orientation:landscape)
+{#shopping-cart-menu .container-block{
+    min-height: 60%;
+}}
+
 .container-block {
     display: block;
     position: relative;
@@ -1161,17 +1167,14 @@ form.form-inline {
     overflow: hidden;
 }
 
-.card-product .price {
-    position: absolute;
-    bottom: 5rem;
+.card-product .price,.card-product .form-buy  {
     width: 100%;
 }
 
-.card-product .form-buy {
-    position: absolute;
-    bottom: 0rem;
-    width: 100%;
+.card-product .form-buy{
+    margin-top:1rem;
 }
+
 
 #form-buy {
     display: flex;

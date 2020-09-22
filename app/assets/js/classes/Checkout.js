@@ -70,7 +70,7 @@ class Checkout {
                     console.log(results);
                     if (results.hasOwnProperty("type")) {
                         if (results.type == "success") {
-                            $("#user_select_adress").append(self.getAvailableAdresses())
+                           self.getAvailableAdresses()
                         } else {
                         }
 
@@ -89,7 +89,7 @@ class Checkout {
 
     static getAvailableAdresses()
     {
-        return $.ajax({
+         $.ajax({
             url:"index.php?controller=order&method=new&step=2",
             method:"POST",
             data:"select_adresses=true&remote=true",
