@@ -52,6 +52,7 @@ class SessionController extends ApplicationController
             }else{
                 $user->updateBasketItems($basket_items);
             }
+    
             $user_session_destroy = User::signOut();
             if (isset($_POST['remote'])) {
                 echo json_encode($user_session_destroy);

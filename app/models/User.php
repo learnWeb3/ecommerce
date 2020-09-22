@@ -348,6 +348,16 @@ class User extends DbRecords
         }
     }
 
+
+
+
+    public function updateBasketItems($basket_items)
+    {
+        $basket_id = Basket::findBasketId($this->getId(), Basket::getStateId());
+        Basket::destroyAllBasketItems($basket_id);
+        $this->saveBasketItems($basket_items);
+    }
+
     public function createBasket()
     {
         if ($this->hasNoCurrentBasket()) {

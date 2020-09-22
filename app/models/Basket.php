@@ -269,7 +269,7 @@ class Basket extends DbRecords
     public static function getStateId($state_name="current")
     {
         $connection = Db::connect();
-        $statement = "SELECT id FROM states WHERE name=$state_name LIMIT 1";
+        $statement = "SELECT id FROM states WHERE name=? LIMIT 1";
         $prepared_statement = $connection->prepare($statement);
         $prepared_statement->execute(array($state_name));
         return $prepared_statement->fetchAll(PDO::FETCH_ASSOC)[0]['id'];
@@ -284,7 +284,16 @@ class Basket extends DbRecords
         $statement =  "SELECT id FROM baskets WHERE user_id=? AND state_id=? LIMIT 1";;
         $prepared_statement = $connection->prepare($statement);
         $prepared_statement->execute(array($user_id, $state_id));
-        $prepared_statement->fetchAll(PDO::FETCH_ASSOC)[0]["id"];
+        return $prepared_statement->fetchAll(PDO::FETCH_ASSOC)[0]["id"];
+    }
+
+
+    public static function destroyAllBasketItems($basket_id)
+    {
+        $connection = Db::connect();
+        $statement = "DELETE FROM basket_items WHERE basket_id=?";
+        $prepared_statement = $connection->prepare($statement);
+        return $prepared_statement->execute(array($basket_id));
     }
 
 
