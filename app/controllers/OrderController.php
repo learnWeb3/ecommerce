@@ -58,6 +58,7 @@ class OrderController extends ApplicationController
                     }
                 }
             } elseif ($_GET['step'] == "3" && isset($_POST['user_select_adress']) && User::isUserSignedIn()) {
+                $_SESSION['selected_adress_id'] = $_POST["user_select_adress"];
                 $adress = User::findAdress($_POST['user_select_adress'])[0];
                 $meta_title = "La Nuit des Temps: nouvelle commande - paiement";
                 $meta_description = "3/3 Nouvelle commande: paiement";

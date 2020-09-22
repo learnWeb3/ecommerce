@@ -296,10 +296,10 @@ class Basket extends DbRecords
         return $prepared_statement->execute(array($basket_id));
     }
 
-    public function updateBasketState()
+    public function updateBasketState($state_name="paid")
     {
         $connection = Db::connect();
-        $state_id = Basket::getStateId("paid");
+        $state_id = Basket::getStateId($state_name);
         $statement = "UPDATE baskets SET state_id=? WHERE id=?";
         $prepared_statement = $connection->prepare($statement);
         return $prepared_statement->execute(array($state_id,$this->id));

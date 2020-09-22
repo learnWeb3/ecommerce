@@ -41,6 +41,9 @@ class Session
     }
 
 
-
+    public static function destroyBasket()
+    {
+        unset($_SESSION['basket']);
+    }
 
 }

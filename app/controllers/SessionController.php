@@ -13,7 +13,6 @@ class SessionController extends ApplicationController
 
         if (isset($_POST['user_email'], $_POST['user_password'])) {
 
-
             $sign_in_attempt =  User::signIn($_POST['user_email'], $_POST['user_password']);
 
             if (isset($_SESSION['current_user'])) {

@@ -23,15 +23,25 @@ class CheckoutController extends ApplicationController
         $stripe_session = Session::retrieveStripeSession();
         $app_stripe = new AppStripe(STRIPE_SECRET_KEY);
         $stripe_session = $app_stripe->retrieveCheckoutSession($stripe_session->id);
-
         if ($stripe_session->payment_status == "paid")
         {
-            // instance of order;
-            $order = new Order();
+            // retriving current user from session
+            $user = User::getCurrentUser();
+            // retireving basket from session
+            $basket = Basket::getBasket();
+            // updating basket content in database
+            $user->updateBasketItems($basket->getAllProducts());
+            // updating basket state
+            $adress_id = $_SESSION['selected_adress_id'];
             // instance of invoice// 
-            $invoice = new Invoice()
+            $invoice = new Invoice($basket->getId(), $basket->getTotalTTC(), $basket->getTotalHT(), $adress_id);
+            $invoice->create();
+            $basket->updateBasketState();
+            Session::destroyBasket();
+            $this->render("success", "Achat réussi", "La Nuit des Temps vous confirme le succès de votre commande, nous faisons le maximum pour vous livrer dans les meilleurs délais");
+        }else{
+            header("Location:".REDIRECT_BASE_URL."controller=checkout&method=error");
         }
-        //$this->render("success", "Achat réussi", "La Nuit des Temps vous confirme le succès de votre commande, nous faisons le maximum pour vous livrer dans les meilleurs délais");
     }
 
     public function error()

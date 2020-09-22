@@ -10,7 +10,6 @@ define(
         "BasketItem" => "basket_items",
         "Basket" => "baskets",
         "State" => "states",
-        "Order" => "orders",
         "Address" => "addresses",
         "Invoice" => "invoices",
         "Stock" => "stocks",
