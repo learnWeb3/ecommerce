@@ -381,4 +381,45 @@ class User extends DbRecords
         $prepared_statement->execute(array($state_id, $this->getId()));
         return empty($prepared_statement->fetchAll(PDO::FETCH_ASSOC));
     }
+
+
+    public function getInvoices()
+    {
+        $connection = Db::connect();
+        $statement = "SELECT 
+        invoices.id as invoice_id, 
+        invoices.basket_id as invoice_basket_id, 
+        invoices.total_amount_ttc as invoice_total_amount_ttc,
+        invoices.total_amount_ht as invoice_total_amount_ht,
+        invoices.adress_id as invoice_adress_id,
+        invoices.created_at as invoice_created_at,
+        invoices.updated_at as invoice_updated_at,
+        adresses.id as adress_id,
+        adresses.adress as adress_adress,
+        adresses.city as adress_city,
+        adresses.postal_code as adress_postal_code,
+        COUNT(basket_items.id) as product_count
+        FROM invoices 
+        JOIN baskets ON baskets.id=invoices.basket_id
+        JOIN basket_items ON baskets.id = basket_items.basket_id
+        JOIN users ON users.id=baskets.user_id
+        JOIN adresses ON adresses.id = invoices.adress_id
+        WHERE baskets.user_id=?
+        GROUP  BY invoices.basket_id";
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute(array($this->getId()));
+
+        $results = [];
+
+        while( $row = $prepared_statement->fetch())
+        {
+            $results [] = array(
+                "invoice"=>new Invoice($row['invoice_basket_id'], $row['invoice_total_amount_ttc'], $row['invoice_total_amount_ht'], $row['adress_id']),
+                "invoice_item_count"=>$row['product_count']
+            );
+        }
+
+
+        return $results;
+    }
 }

@@ -56,7 +56,8 @@ class UserController extends ApplicationController
     public function edit()
     {
         if (isset($_SESSION['current_user'])) {
-            $this->render("edit", "Metttre à jour mon profil", "Compte utilisateur, mise à jour");
+            $orders = User::getCurrentUser()->getInvoices();
+            $this->render("edit", "Metttre à jour mon profil", "Compte utilisateur, mise à jour", array("orders"=>$orders));
         } else {
             renderErrror(403);
         }

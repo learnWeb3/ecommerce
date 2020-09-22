@@ -1475,3 +1475,25 @@ blockquote::after
         width:50%;
     }
 }
+
+.tab-container{
+    width:100%;
+    height: 5rem;
+    display: flex;
+    list-style-type: none;
+    height: max-content;
+}
+
+.tab{
+    min-width:20rem;
+    min-height: 3rem;;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*! padding: 2rem; */
+    background-color: var(--var-primary);
+    color: #FFF;
+    /*! margin-left: 1rem; */
+    margin-right: 1rem;
+    padding: 1.5rem;
+}
