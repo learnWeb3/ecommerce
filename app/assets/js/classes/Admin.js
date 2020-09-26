@@ -24,6 +24,7 @@ class Admin {
                         $('#admin-table tbody tr:last-child').find('select.select_book_category').append(getBookCategoryOptions(categoryId, categories));
                         $('#admin-table tbody tr:last-child').find('select.select_book_tva').append(getBookTvaOptions(tvaOptionId, tvaOptions));
                         self.updateProduct();
+                        self.destroyProduct();
                     });
                 });
             }
