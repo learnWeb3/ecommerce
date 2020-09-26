@@ -41,7 +41,7 @@
             <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/illustration/empty-basket.svg"
                         ?>" alt="empty basket illustration" id="empty-basket">
 
-            <a href="" class="btn btn-lg btn-success my-2" id="see-product">Les produits </a>
+            <a href="<?php echo REDIRECT_BASE_URL."controller=book&method=index"?>" class="btn btn-lg btn-success my-2" id="see-product">Les produits </a>
         <?php endif; ?>
 
     </div>

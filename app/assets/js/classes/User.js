@@ -20,18 +20,16 @@ class User {
                         if (results.type == "danger") {
                             if ($('#alert').length > 0) { $("#alert").remove(); }
                         } else {
-                            $("#sign-in").remove();
+                            $("#sign-up").remove();
                             if (checkout) {
                                 window.location.assign("index.php?controller=order&method=new&step=2")
                             } else {
-                                $(resultContainer).append("<h2 class='my-4'>La Nuit des Temps vous souhaite la bienvenue !</h2><a href='http://localhost/ecommerce/index.php?controller=session&method=new' class='btn btn-success btn-lg'>Connexion</a>");
+                                const welcomeHeader = "<h2 class='my-4'>La Nuit des Temps vous souhaite la bienvenue !</h2><a href='http://localhost/ecommerce/index.php?controller=session&method=new' class='btn btn-success btn-lg'>Connexion</a>";
+                                $(resultContainer).append(welcomeHeader);
                             }
                         }
                         Alert.getAlerts(results, resultContainer);
                         Alert.dismissAlerts();
-
-
-
                     }
                 },
                 error: function (XhrObject, error, status) {

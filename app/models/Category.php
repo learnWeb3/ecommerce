@@ -1,18 +1,31 @@
 <?php
 
 
-class Category extends DbRecords
+class Category
 {
     // ATTIRBUTES
-    protected $name;
+    public $name;
+
+    // USING COMMON METHODS
+    use Db;
 
     // CONSTRUCTOR
-    public function __construct($name=null,$id = null, $created_at = null, $updated_at = null)
+    public function __construct($name = null, $id = null, $created_at = null, $updated_at = null)
     {
-        if (func_get_args() != null) {
+        if ($name != null) {
             $this->name = $name;
         }
-        parent::__construct($id, $created_at, $updated_at);
+        if ($id != null) {
+            $this->id = $id;
+        }
+
+        if ($created_at != null) {
+            $this->created_at = $created_at;
+        }
+
+        if ($updated_at != null) {
+            $this->updated_at = $updated_at;
+        }
     }
 
     // GET NAME OF CATEGORY
@@ -20,4 +33,5 @@ class Category extends DbRecords
     {
         return $this->name;
     }
+
 }

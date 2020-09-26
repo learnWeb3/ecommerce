@@ -42,4 +42,5 @@ $(document).ready(function() {
     $("#search-menu .menu-close img").click(function() {
         $("#search-menu").removeClass("opened").addClass("closed");
     });
+
 });

@@ -3,42 +3,40 @@ class Checkout {
 
 
     static getFormSignIn() {
-        return "<form action='index.php?controller=session&method=create' method='post' id='sign-in'>" +
+        return (`
+                <form action='index.php?controller=session&method=create' method='post' id='sign-in'>
+                    <div class='form-group'>
+                            <label for=''>Adresse email *</label>
+                            <input type='email' name='user_email' id='user_email' required>
+                    </div>
+                    <div class='form-group'>
+                            <label for=''>Mot de passe *</label>
+                            <input type='password' name='user_password' id='user_password' required>
+                    </div>
 
-            "<div class='form-group'>" +
-            "<label for=''>Adresse email *</label>" +
-            "<input type='email' name='user_email' id='user_email' required>" +
-            "</div>" +
+                 <button class='btn btn-lg btn-success my-4' type='submit'>connexion</button>
 
-            "<div class='form-group'>" +
-            "<label for=''>Mot de passe *</label>" +
-            "<input type='password' name='user_password' id='user_password' required>" +
-            "</div>" +
-
-            "<button class='btn btn-lg btn-success my-4' type='submit'>connexion</button>" +
-            "</form>"
+                </form>`).trim();
     }
 
     static getFormSignUp() {
-        return "<form action='index.php?controller=user&method=create' method='post' id='sign-up'>" +
-
-            "<div class='form-group'>" +
-            "<label for='user_email'>Adresse email *</label>" +
-            "<input type='email' name='user_email' id='user_email' required>" +
-            "</div>" +
-
-            "<div class='form-group'>" +
-            "<label for='user_password'>Mot de passe *</label>" +
-            "<input type='password' name='user_password' id='user_password' required>" +
-            "</div>" +
-
-            "<div class='form-group'>" +
-            "<label for='user_password_confirmation'>Confirmer le mot de passe *</label>" +
-            "<input type='password' name='user_password_confirmation' id='user_password_confirmation' required>" +
-            '</div>' +
-
-            "<button class='btn btn-lg btn-primary my-4' type='submit'>incription</button>" +
-            "</form>";
+        return (`
+                <form action='index.php?controller=user&method=create' method='post' id='sign-up'>
+                    <div class='form-group'>
+                        <label for='user_email'>Adresse email *</label>
+                        <input type='email' name='user_email' id='user_email' required>
+                    </div>
+                    <div class='form-group'>
+                        <label for='user_password'>Mot de passe *</label>
+                        <input type='password' name='user_password' id='user_password' required>
+                    </div>
+                    <div class='form-group'>
+                        <label for='user_password_confirmation'>Confirmer le mot de passe *</label>
+                        <input type='password' name='user_password_confirmation' id='user_password_confirmation' required>
+                    </div>
+                    
+                    <button class='btn btn-lg btn-primary my-4' type='submit'>incription</button>
+                </form>`).trim();
     }
 
 
@@ -95,9 +93,16 @@ class Checkout {
             data:"select_adresses=true&remote=true",
             dataType:"JSON",
             success:function(results,status){
-                $("#user_select_adress").children().remove();
+                if ($("#user_select_adress").length == 0)
+                {
+                    $("#adress-filling-mode form .form-group:nth-child(1) h4").remove();
+                    $("#adress-filling-mode form .form-group:nth-child(1)").append("<select name='user_select_adress' id='user_select_adress'></select><button class='btn btn-lg btn-secondary my-4' type='submit' id='checkout-select-adress'>Sélectionner votre adresse</button>");
+            
+                }else{
+                    $("#user_select_adress").children().remove();
+                }
                results.adresses.forEach(element => {
-                $("#user_select_adress").append("<option id='"+element.id+"'>"+element.adress+" "+element.postal_code+" "+element.city+"</option>")
+                $("#user_select_adress").append("<option value='"+element.id+"'>"+element.adress+" "+element.postal_code+" "+element.city+"</option>")
                });
               
             },

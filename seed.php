@@ -28,17 +28,17 @@ set_time_limit(0);
 // $scrapper->registerDatas(50);
 
 // GETTING BOOKS
-$books = Book::findAll("created_at");
+// $books = Book::findAll("created_at");
 
 // SEEDING PRODUCTS FROM SHOP ON STRIPE AND LINKING STRIPE IDS TO BOOK ON SPECIFIC TABLE
-foreach($books as $book)
-{
-    $book_stripe_product_id = $book->setStripeProductId();
-    $price_value = ceil($book->getPrice()) * 100;
-    $book->setStripePriceId($price_value);
-    $book->createStripeDetails();
-    sleep(.5);
-}
+// foreach($books as $book)
+// {
+//     $book_stripe_product_id = $book->setStripeProductId();
+//     $price_value = ceil($book->getPrice()) * 100;
+//     $book->setStripePriceId($price_value);
+//     $book->createStripeDetails();
+//     sleep(.5);
+// }
 
 
 // // Seeding stock for each and every product
@@ -58,10 +58,12 @@ foreach($books as $book)
 // $comments = array(
 //     "J'ai passé un super moment avec ce livre. Merci.",
 //     "Une très belle decouverte, je recommande.", 
-//     "Merveilleux rine à dire.", 
+//     "Merveilleux rien à dire.", 
 //     "A faire passer entre toutes les mains.", 
-//     "Pour vos parents, amis et même vos ennemis", 
-//     "J'en suis sortis grandis"
+//     "Pour vos parents, amis et même vos ennemis.", 
+//     "J'en suis sortis grandis.",
+//     "Un très beau voyage initiatique avec ce livre.",
+//     "Un livre que j'ai refermé avec regret."
 // );
 
 // for($i=0;$i<10;$i++)

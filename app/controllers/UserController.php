@@ -27,6 +27,8 @@ class UserController extends ApplicationController
             if( isset($_POST['checkout']) && $_POST['checkout'] == true)
             {
                 $_SESSION['current_user'] = User::where("email", $_POST['user_email'], "created_at")[0];
+                $user= User::getCurrentUser();
+                $user->loadSavedBasket();
             }
 
             if (isset($_POST['remote'])) {
@@ -57,10 +59,12 @@ class UserController extends ApplicationController
     {
         if (isset($_SESSION['current_user'])) {
             $orders = User::getCurrentUser()->getInvoices();
-            $this->render("edit", "Metttre à jour mon profil", "Compte utilisateur, mise à jour", array("orders"=>$orders));
+            $order_chunks = array_chunk($orders, 2);
+            $this->render("edit", "Metttre à jour mon profil", "Compte utilisateur, mise à jour", array("order_chunks"=>$order_chunks));
         } else {
             renderErrror(403);
         }
+
     }
 
 

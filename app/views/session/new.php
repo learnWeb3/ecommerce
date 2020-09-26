@@ -29,8 +29,6 @@
     </div>
 </section>
 
-<script>
 
-Session.create("#sign-in", "#sign-container");
-    
-</script>
+<!-- PAGE SPECIFIC SCRIPT -->
+<script src="<?php echo ABSOLUTE_ASSET_PATH."/js/page_specific/session/new.js"?>"></script>

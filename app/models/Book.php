@@ -1,6 +1,6 @@
 <?php
 
-class Book extends DbRecords
+class Book
 {
 
     // ATTRIBUTES
@@ -15,6 +15,8 @@ class Book extends DbRecords
     protected $tva_id;
     protected $ht_price;
 
+    // USING COMMON METHODS
+    use Db;
 
     // CONSTRUCTOR
     public function __construct($title = null, $author = null, $collection = null, $price = null, $publication_year = null, $image_path = null, $description = null, $category_id = null, $tva_id = null, $id = null, $created_at = null, $updated_at = null)
@@ -31,8 +33,21 @@ class Book extends DbRecords
             $this->tva_id = $tva_id;
         }
 
-        parent::__construct($id, $created_at, $updated_at);
+        if ($id != null) {
+            $this->id = $id;
+        }
+
+        if ($created_at != null) {
+            $this->created_at = $created_at;
+        }
+
+        if ($updated_at != null) {
+            $this->updated_at = $updated_at;
+        }
     }
+
+
+    // GETTERS ATTRIBUTES 
 
 
     public function getTitle()
@@ -40,33 +55,14 @@ class Book extends DbRecords
         return htmlspecialchars($this->title);
     }
 
-    public function setTitle(string $title)
-    {
-        $this->title = $title;
-        return $this;
-    }
-
     public function getAuthor()
     {
         return htmlspecialchars($this->author);
     }
 
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-        return $this;
-    }
-
-
     public function getCollection()
     {
         return htmlspecialchars($this->collection);
-    }
-
-    public function setCollection(string $collection)
-    {
-        $this->collection = $collection;
-        return $this;
     }
 
 
@@ -75,34 +71,14 @@ class Book extends DbRecords
         return floatval($this->price);
     }
 
-    public function setPrice(int $price)
-    {
-        $this->price = floatval($price);
-        return $this;
-    }
-
-
-
     public function getPublicationYear()
     {
         return strftime("%Y",  strtotime($this->publication_year));
     }
 
-    public function setPublicationYear(int $publication_year)
-    {
-        $this->publication_year = $publication_year;
-        return $this;
-    }
-
     public function getImagePath()
     {
         return htmlspecialchars($this->image_path);
-    }
-
-    public function setImagePath(string $image_path)
-    {
-        $this->image_path = $image_path;
-        return $this;
     }
 
     public function getDescription()
@@ -121,7 +97,6 @@ class Book extends DbRecords
         return intval($this->category_id);
     }
 
-
     private function getTvaId()
     {
         return intval($this->tva_id);
@@ -139,6 +114,9 @@ class Book extends DbRecords
     }
 
 
+
+    // SETTER ATTRIBUTES
+
     public function getHtPrice()
     {
         $this->ht_price = number_format($this->price * (1 - $this->getTva()), 2);
@@ -146,12 +124,51 @@ class Book extends DbRecords
     }
 
 
+    public function setTitle(string $title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+        return $this;
+    }
+
+
+    public function setCollection(string $collection)
+    {
+        $this->collection = $collection;
+        return $this;
+    }
+
+    public function setPrice(int $price)
+    {
+        $this->price = floatval($price);
+        return $this;
+    }
+
+    public function setPublicationYear(int $publication_year)
+    {
+        $this->publication_year = $publication_year;
+        return $this;
+    }
+
+    public function setImagePath(string $image_path)
+    {
+        $this->image_path = $image_path;
+        return $this;
+    }
+
     public function setCategoryId(int $category_Id)
     {
         $this->category_Id = $category_Id;
         return $this;
     }
 
+
+    // FETCHING MOST RECENT ENTIRES IN DATABASE
 
     public static function getMostRecentBoooks(int $limit, int $offset)
     {
@@ -212,6 +229,7 @@ class Book extends DbRecords
     }
 
 
+    // FETCHING RECOMMANDATIONS INTO DATABASES
     public static function getRecommendations(int $limit, int $offset)
     {
 
@@ -275,8 +293,8 @@ class Book extends DbRecords
                     $row["book_updated_at"]
                 ),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
-                "user" => new User($row["user_email"],$row["user_password"],$row["user_admin"], null, $row["user_firstname"], $row["user_lastname"], null, $row["user_id"], $row["user_created_at"], $row["user_updated_at"]),
-                "recommended_books_comment"=>$row['recommended_books_comment']
+                "user" => new User($row["user_email"], $row["user_password"], $row["user_admin"], null, $row["user_firstname"], $row["user_lastname"], null, $row["user_id"], $row["user_created_at"], $row["user_updated_at"]),
+                "recommended_books_comment" => $row['recommended_books_comment']
             );
         }
 
@@ -284,6 +302,7 @@ class Book extends DbRecords
     }
 
 
+    // FETCHING COUP DE COEUR INTO DATABASE
     public static function getCoupDeCoeur(int $limit, int $offset)
     {
 
@@ -347,14 +366,82 @@ class Book extends DbRecords
                     $row["book_updated_at"]
                 ),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
-                "user" => new User($row["user_email"],$row["user_password"],$row["user_admin"], null, $row["user_firstname"], $row["user_lastname"], null, $row["user_id"], $row["user_created_at"], $row["user_updated_at"]),
-                "coup_de_coeur_books_comment"=>$row["coup_de_coeur_books_comment"]
+                "user" => new User($row["user_email"], $row["user_password"], $row["user_admin"], null, $row["user_firstname"], $row["user_lastname"], null, $row["user_id"], $row["user_created_at"], $row["user_updated_at"]),
+                "coup_de_coeur_books_comment" => $row["coup_de_coeur_books_comment"]
             );
         }
 
         return $results;
     }
 
+
+
+        // FETCHING POPULAR RECORDS INTO DATABASE // MODT BOUGHT ARTICLE 
+
+        public static function getMostViewed(int $limit, int $offset)
+        {
+            if (!self::checkLimitAndOffset($limit, $offset)) {
+                return false;
+            }
+    
+            $connection = Db::connect();
+            $statement =
+                "SELECT 
+                   books.id as book_id,
+            books.created_at as book_created_at,
+            books.updated_at as book_updated_at,
+            books.title as book_title,
+            books.author  as book_author,
+            books.collection as book_collection,
+            books.price as book_price,
+            books.publication_year as book_year,
+            books.category_id as book_category_id,
+            books.image_path as book_image_path,
+            books.description as book_description,
+            books.tva_id as book_tva_id,  
+            categories.name as category_name,
+            categories.id as category_id,
+            categories.created_at as category_created_at,
+            categories.updated_at as category_updated_at,
+            SUM(views.view_count) as book_views_sum
+            FROM books 
+            JOIN categories ON books.category_id = categories.id
+            JOIN stocks ON books.id = stocks.book_id
+            JOIN views ON views.book_id = books.id
+            WHERE stocks.quantity >= 1
+            GROUP BY books.id
+            ORDER BY book_views_sum DESC
+            LIMIT $limit OFFSET $offset";
+            $prepared_statement = $connection->prepare($statement);
+            $prepared_statement->execute();
+            $results = [];
+            while ($row =  $prepared_statement->fetch()) {
+                $results[] = array(
+                    "book" => new Book(
+                        $row["book_title"],
+                        $row["book_author"],
+                        $row["book_collection"],
+                        $row["book_price"],
+                        $row["book_year"],
+                        $row["book_image_path"],
+                        $row["book_description"],
+                        $row["book_category_id"],
+                        $row["book_tva_id"],
+                        $row["book_id"],
+                        $row["book_created_at"],
+                        $row["book_updated_at"]
+                    ),
+                    "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
+                    "book_views_sum" => $row["book_views_sum"]
+                );
+            }
+    
+            return $results;
+        }
+
+
+
+    // FETCHING POPULAR RECORDS INTO DATABASE // MODT BOUGHT ARTICLE 
 
     public static function getPopular(int $limit, int $offset)
     {
@@ -386,12 +473,12 @@ class Book extends DbRecords
         JOIN categories ON books.category_id = categories.id
         JOIN basket_items ON basket_items.book_id = books.id
         JOIN baskets ON basket_items.basket_id = baskets.id
-        JOIN orders ON orders.basket_id = baskets.id
         JOIN stocks ON books.id = stocks.book_id
-        WHERE stocks.quantity >= 1
+        JOIN states ON states.id = baskets.state_id
+        WHERE stocks.quantity >= 1 AND states.name = 'paid'
         GROUP BY books.id
-        LIMIT $limit OFFSET $offset
-        ORDER BY book_sales_count DESC";
+        ORDER BY book_sales_count DESC
+        LIMIT $limit OFFSET $offset";
         $prepared_statement = $connection->prepare($statement);
         $prepared_statement->execute();
         $results = [];
@@ -420,6 +507,8 @@ class Book extends DbRecords
     }
 
 
+
+    // PERFORMING SELECT STATEMENT ACROSS JOINED TABLE ACCORDING PARAMETERS
     public static function searchBy(string $column_name, $value, int $limit, int $offset, string $order_column, string $order)
     {
         $authorized_values = array(
@@ -502,7 +591,7 @@ class Book extends DbRecords
     }
 
 
-    public static function searchLike(string $column_name, $value, int $limit, int $offset, string $order_column, string $order)
+    public static function searchLike(string $column_name, $value, int $limit, int $offset, string $order_column, string $order, int $stock_quantity=1)
     {
         $authorized_values = array(
             "authorized_columns" => array(
@@ -546,17 +635,19 @@ class Book extends DbRecords
         categories.name as category_name,
         categories.id as category_id,
         categories.created_at as category_created_at,
-        categories.updated_at as category_updated_at
+        categories.updated_at as category_updated_at,
+        stocks.quantity as book_stock
         FROM books 
         JOIN categories ON books.category_id = categories.id
         JOIN stocks ON books.id = stocks.book_id
-        WHERE $column_name LIKE ? AND stocks.quantity >= 1
+        JOIN tva ON tva.id = books.tva_id
+        WHERE $column_name LIKE ? AND stocks.quantity >= ?
         ORDER BY $order_column $order
         LIMIT $limit OFFSET $offset";
         $prepared_statement = $connection->prepare($statement);
 
         $prepared_statement->execute(
-            array("%" . $value . "%")
+            array("%" . $value . "%", $stock_quantity)
         );
 
         $results = [];
@@ -577,6 +668,7 @@ class Book extends DbRecords
                     $row["book_updated_at"]
                 ),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
+                "stock"=>$row["book_stock"]
             );
         }
 
@@ -640,12 +732,87 @@ class Book extends DbRecords
                     $row["book_created_at"],
                     $row["book_updated_at"]
                 ),
+                "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"])
+            
+            );
+        }
+
+        return $results;
+    }
+
+
+    public static function searchLikeResultToJson($search_matches)
+    {
+        $categories = Category::findAll("created_at");
+        $tvaOptions = Book::getAllTvaTypes();
+        $books = array_map(function ($el) {
+            return array("book" => $el['book']->getObjectVars(), "category" => $el['category']->getObjectVars(), "stock"=>$el['stock']);
+        }, $search_matches);
+        return  json_encode(array("books"=>$books, "categories"=>$categories, "tvaOptions"=>$tvaOptions));
+    }
+
+    public static function filterSearchMenu($category_id, $price_min, $price_max, $order_column, $order, $limit, $offset)
+    {
+        $connection = Db::connect();
+        $statement =
+            "SELECT 
+               books.id as book_id,
+        books.created_at as book_created_at,
+        books.updated_at as book_updated_at,
+        books.title as book_title,
+        books.author  as book_author,
+        books.collection as book_collection,
+        books.price as book_price,
+        books.publication_year as book_year,
+        books.category_id as book_category_id,
+        books.image_path as book_image_path,
+        books.description as book_description,
+        books.tva_id as book_tva_id,  
+        categories.name as category_name,
+        categories.id as category_id,
+        categories.created_at as category_created_at,
+        categories.updated_at as category_updated_at
+        FROM books 
+        JOIN categories ON books.category_id = categories.id
+        JOIN stocks ON books.id = stocks.book_id
+        WHERE category_id = ? 
+        AND stocks.quantity >= 1
+        AND books.price BETWEEN ? AND ?
+        ORDER BY books.$order_column $order
+        LIMIT $limit OFFSET $offset";
+
+        $prepared_statement = $connection->prepare($statement);
+
+        $prepared_statement->execute(
+            array(intval($category_id), intval($price_min), intval($price_max))
+        );
+
+        $results = [];
+        while ($row =  $prepared_statement->fetch()) {
+            $results[] = array(
+                "book" => new Book(
+                    $row["book_title"],
+                    $row["book_author"],
+                    $row["book_collection"],
+                    $row["book_price"],
+                    $row["book_year"],
+                    $row["book_image_path"],
+                    $row["book_description"],
+                    $row["book_category_id"],
+                    $row["book_tva_id"],
+                    $row["book_id"],
+                    $row["book_created_at"],
+                    $row["book_updated_at"]
+                ),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
             );
         }
 
         return $results;
     }
+
+
+    // STRIPE LOGIC 
 
 
     public function createStripeDetails()
@@ -710,12 +877,6 @@ class Book extends DbRecords
     }
 
 
-    public static function searchLikeResultToJson($search_matches)
-    {
-        return  json_encode(array_map(function ($el) {
-            return array("book" => $el['book']->getObjectVars(), "category" => $el['category']->getObjectVars());
-        }, $search_matches));
-    }
 
     // creating stock entry for a specific product
     public function setStock(int $quantity)
@@ -761,6 +922,7 @@ class Book extends DbRecords
     }
 
 
+    // CHECKING IF AN ARTICLE IS STILL AVAILABLE
     public function checkAvailable(int $requested_quantity): bool
     {
         if ($this->getStock() >= $requested_quantity) {
@@ -770,12 +932,35 @@ class Book extends DbRecords
         }
     }
 
-    public static function filterSearchMenu($category_id, $price_min,$price_max,$order_column,$order, $limit, $offset)
+
+    public function incrementViewCount()
     {
         $connection = Db::connect();
-        $statement =
-            "SELECT 
-               books.id as book_id,
+
+        $select_statement = "SELECT view_count FROM views JOIN books ON books.id = views.book_id WHERE books.id=?";
+        $prepared_statement = $connection->prepare($select_statement);
+        $prepared_statement->execute(array($this->getId()));
+
+        $view_count = $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!(empty($view_count))) {
+            $view_count = intval($view_count[0]['view_count']) + 1;
+            $statement = "UPDATE views SET view_count=? WHERE book_id=?";
+            $prepared_statement = $connection->prepare($statement);
+            $prepared_statement->execute(array($view_count,$this->getId()));
+        } else {
+            $statement = "INSERT INTO views (book_id, view_count) VALUES (?,?)";
+            $prepared_statement = $connection->prepare($statement);
+            $prepared_statement->execute(array($this->getId(), 1));
+        }
+    }
+
+
+    public static function getAllWithCategories()
+    {
+        $connection = Db::connect();
+        $statement = "SELECT 
+        books.id as book_id,
         books.created_at as book_created_at,
         books.updated_at as book_updated_at,
         books.title as book_title,
@@ -790,24 +975,19 @@ class Book extends DbRecords
         categories.name as category_name,
         categories.id as category_id,
         categories.created_at as category_created_at,
-        categories.updated_at as category_updated_at
+        categories.updated_at as category_updated_at,
+        tva.id as tva_id,
+        tva.code as tva_code,
+        tva.value as tva_value,
+        tva.created_at as tva_created_at,
+        tva.updated_at as tva_updated_at
         FROM books 
         JOIN categories ON books.category_id = categories.id
-        JOIN stocks ON books.id = stocks.book_id
-        WHERE category_id = ? 
-        AND stocks.quantity >= 1
-        AND books.price BETWEEN ? AND ?
-        ORDER BY books.$order_column $order
-        LIMIT $limit OFFSET $offset";
-
-        $prepared_statement = $connection->prepare($statement);
-
-        $prepared_statement->execute(
-            array(intval($category_id), intval($price_min), intval($price_max))
-        );
-
+        JOIN tva ON books.tva_id = tva.id
+        ORDER BY books.title ASC";
+        $query = $connection->query($statement);
         $results = [];
-        while ($row =  $prepared_statement->fetch()) {
+        while ($row =  $query->fetch()) {
             $results[] = array(
                 "book" => new Book(
                     $row["book_title"],
@@ -824,9 +1004,28 @@ class Book extends DbRecords
                     $row["book_updated_at"]
                 ),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
+                "tva"=>['id'=> $row['tva_id'], 'code'=> $row['tva_code'], 'value'=> $row['tva_value'], 'created_at'=> $row['tva_created_at'], 'updated_at'=> $row['tva_updated_at']]
             );
         }
 
         return $results;
+
     }
+
+
+    public static function getAllTvaTypes()
+    {
+        $connection = Db::connect();
+        $statement = "SELECT * FROM tva";
+        $query = $connection->query($statement);
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    public function registerUpdate($attribute, $new_value)
+    {
+        $this->$attribute = $new_value;
+        $this->update();
+    }
+
 }

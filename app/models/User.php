@@ -1,6 +1,6 @@
 <?php
 
-class User extends DbRecords
+class User
 {
     // ATTRIBUTES
     protected $email;
@@ -11,6 +11,10 @@ class User extends DbRecords
     protected $lastname;
     protected $date_of_birth;
     protected $age;
+
+
+    // USING COMMON METHODS
+    use Db;
 
     // CONSTRUCTOR
     public function __construct($email = null, $password = null, $admin = null, $firstname = null, $lastname = null, $date_of_birth = null, $id = null, $created_at = null, $updated_at = null)
@@ -35,9 +39,184 @@ class User extends DbRecords
             $this->admin = $admin;
         }
 
-        parent::__construct($id, $created_at, $updated_at);
+        if ($id != null) {
+            $this->id = $id;
+        }
+
+        if ($created_at != null) {
+            $this->created_at = $created_at;
+        }
+
+        if ($updated_at != null) {
+            $this->updated_at = $updated_at;
+        }
     }
 
+
+    // GETTERS ATTRIBUTES
+
+    public function getEmail()
+    {
+        return htmlspecialchars($this->email);
+    }
+
+    public function getPassword()
+    {
+        return htmlspecialchars($this->password);
+    }
+
+
+    public function getAdmin()
+    {
+        return intval($this->admin);
+    }
+
+    public function getFirstname()
+    {
+        return htmlspecialchars($this->firstname);
+    }
+
+    public function getLastname()
+    {
+        return htmlspecialchars($this->lastname);
+    }
+
+
+    public function getDateOfBirth()
+    {
+        return htmlspecialchars($this->date_of_birth);
+    }
+
+    public function getAge()
+    {
+        return intval($this->age);
+    }
+
+
+    // SETTER ATTRIBUTES
+
+
+
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+        return $this;
+    }
+
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+        return $this;
+    }
+
+
+    public function setDateOfBirth($date_of_birth)
+    {
+        $this->date_of_birth = $date_of_birth;
+        return $this;
+    }
+
+
+    // SIGN IN UP OUT LOGIC
+
+
+    public static function signIn(string $email, string $password)
+    {
+
+        $potential_user = User::where("email", $email, "created_at");
+
+        if (!empty($potential_user)) {
+            $potential_user = $potential_user[0];
+            if (password_verify($password, $potential_user->getpassword())) {
+                $_SESSION['current_user'] = $potential_user;
+                return array("message" => array("user successfully connected"), "type" => "success");
+            } else {
+                return array("message" => array("user password is not correct"), "type" => "danger");
+            }
+        } else {
+            return array("message" => array("user does not exists"), "type" => "danger");
+        }
+    }
+
+
+    public function signUp(string $password_confirmation)
+    {
+        $errors =  array_merge(Validator::validatePassword($this->password, $password_confirmation), Validator::validateEmail($this->email));
+        if (empty($errors)) {
+            if ($this->createUser()) {
+                return array("message" => array("user account successfully created"), "type" => "success");
+            }
+        } else {
+            return array("message" => $errors, "type" => "danger");
+        }
+    }
+
+
+
+    public static function signOut()
+    {
+        unset($_SESSION["current_user"]);
+
+        return array("message" => array("user signed out successfully"), "type" => "success");
+    }
+
+
+    // BASKET LOGIC
+
+
+    // CREATING BASKET IN DB
+    public function createBasket()
+    {
+        if ($this->hasNoCurrentBasket()) {
+            $connection = Db::connect();
+            $state_id = Basket::getStateId();
+            $statement = "INSERT INTO baskets (user_id,state_id) VALUES (?,?)";
+            $prepared_statement = $connection->prepare($statement);
+            return $prepared_statement->execute(array($this->getId(), $state_id));
+        } else {
+            return false;
+        }
+    }
+
+    // UPDATING DATABASE CURRENT BASKET CONTENT
+    public function updateBasketItems($basket_items)
+    {
+        $basket_id = Basket::findBasketId($this->getId(), Basket::getStateId());
+        Basket::destroyAllBasketItems($basket_id);
+        $this->saveBasketItems($basket_items);
+    }
+
+
+    // CHECKING WETHER A CURRENT BASKET EXISTS IN DB
+    public function hasNoCurrentBasket()
+    {
+        $connection = Db::connect();
+        $state_id = Basket::getStateId();
+        $statement = "SELECT id FROM baskets WHERE state_id=? AND user_id=?";
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute(array($state_id, $this->getId()));
+        return empty($prepared_statement->fetchAll(PDO::FETCH_ASSOC));
+    }
+
+
+    public function loadSavedBasket()
+    {
+        $basket = Basket::findCurrentOwnerBasket($this->getId(), "current");
+        // storing basket with all products in session
+        $basket->storeInSession();
+    }
+
+
+    public function saveBasketItems($basket_items)
+    {
+        $connection = Db::connect();
+        $basket_id = Basket::findBasketId($this->getId(), Basket::getStateId());
+        $statement = "INSERT INTO basket_items (book_id, basket_id, quantity) VALUES (?,?,?)";
+        $prepared_statement = $connection->prepare($statement);
+        foreach ($basket_items as $basket_item) {
+            $prepared_statement->execute(array($basket_item->getBookId(), $basket_id, $basket_item->getQuantity()));
+        }
+    }
 
     // GET BASKET CONTENT FOR A SPECIFC USER
     public function getBasketContent()
@@ -101,184 +280,7 @@ class User extends DbRecords
     }
 
 
-    public static function signIn(string $email, string $password)
-    {
-
-        $potential_user = User::where("email", $email, "created_at");
-        if (!empty($potential_user)) {
-            $potential_user = $potential_user[0];
-            if (password_verify($password, $potential_user->getpassword())) {
-                $_SESSION['current_user'] = $potential_user;
-                return array("message" => array("user successfully connected"), "type" => "success");
-            } else {
-                return array("message" => array("user password is not correct"), "type" => "danger");
-            }
-        } else {
-            return array("message" => array("user does not exists"), "type" => "danger");
-        }
-    }
-
-
-    public function signUp(string $password_confirmation)
-    {
-        $errors =  array_merge(Validator::validatePassword($this->password, $password_confirmation), Validator::validateEmail($this->email));
-        if (empty($errors)) {
-            if ($this->createUser()) {
-                return array("message" => array("user account successfully created"), "type" => "success");
-            }
-        } else {
-            return array("message" => $errors, "type" => "danger");
-        }
-    }
-
-
-    public function getEmail()
-    {
-        return htmlspecialchars($this->email);
-    }
-
-    public function getPassword()
-    {
-        return htmlspecialchars($this->password);
-    }
-
-
-    public function getAdmin()
-    {
-        return intval($this->admin);
-    }
-
-    public function getFirstname()
-    {
-        return htmlspecialchars($this->firstname);
-    }
-
-    public function getLastname()
-    {
-        return htmlspecialchars($this->lastname);
-    }
-
-
-    public function getDateOfBirth()
-    {
-        return htmlspecialchars($this->date_of_birth);
-    }
-
-    public function getAge()
-    {
-        return intval($this->age);
-    }
-
-
-
-    public function setFirstname($firstname)
-    {
-        $this->firstname = $firstname;
-        return $this;
-    }
-
-    public function setLastname($lastname)
-    {
-        $this->lastname = $lastname;
-        return $this;
-    }
-
-
-    public function setDateOfBirth($date_of_birth)
-    {
-        $this->date_of_birth = $date_of_birth;
-        return $this;
-    }
-
-
-    private function createUser()
-    {
-        $connection = Db::connect();
-
-        $statement = "INSERT INTO users (email,password) VALUES (?,?)";
-
-        $prepared_statement  = $connection->prepare($statement);
-
-        $prepared_statement->execute(array($this->getEmail(), password_hash($this->getPassword(), PASSWORD_BCRYPT)));
-
-        return $this->lastCreated();
-    }
-
-
-    public static function doesUserExists(string $email)
-    {
-        if (!empty(self::where("email", $email, "created_at"))) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
-    public static function isUserSignedIn()
-    {
-        return isset($_SESSION['current_user']);
-    }
-
-
-    public static function getCurrentUser()
-    {
-        return $_SESSION['current_user'];
-    }
-
-    public static function signOut()
-    {
-        unset($_SESSION["current_user"]);
-
-        return array("message" => array("user signed out successfully"), "type" => "success");
-    }
-
-
-    public function loadSavedBasket()
-    {
-        $basket = Basket::findCurrentOwnerBasket($this->getId(), "current");
-        // storing basket with all products in session
-        $basket->storeInSession();
-    }
-
-
-    public function makeRecommendation(int $book_id, string $comment)
-    {
-        $connection = Db::connect();
-        $statement = "INSERT INTO recommended_books (book_id,user_id,comment) VALUES (?,?,?)";
-        $prepared_statement = $connection->prepare($statement);
-        if ($prepared_statement->execute(array($book_id, $this->getId(), $comment))) {
-            $select_statement = "SELECT * FROM recommended_books WHERE user_id=? AND book_id=? LIMIT 1 ORDER BY created_at DESC";
-            $prepared_statement = $connection->prepare($select_statement);
-            $prepared_statement->execute(array($this->getId(), $book_id));
-            return $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
-        } else {
-            return array();
-        }
-    }
-
-    public function makeCoupDeCoeur(int $book_id, string $comment)
-    {
-        $connection = Db::connect();
-        $statement = "INSERT INTO coup_de_coeur_books (book_id,user_id,comment) VALUES (?,?,?)";
-        $prepared_statement = $connection->prepare($statement);
-        if ($prepared_statement->execute(array($book_id, $this->getId(), $comment))) {
-            $select_statement = "SELECT * FROM coup_de_coeur_books WHERE user_id=? AND book_id=? LIMIT 1 ORDER BY created_at DESC";
-            $prepared_statement = $connection->prepare($select_statement);
-            $prepared_statement->execute(array($this->getId(), $book_id));
-            return $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
-        } else {
-            return array();
-        }
-    }
-
-
-    public function isUserAdmin()
-    {
-        return $this->getAdmin();
-    }
-
-
+    // ADRESSES LOGIC
     public static function checkIfAdresseExists($address, $user_id)
     {
         $connection = Db::connect();
@@ -302,22 +304,6 @@ class User extends DbRecords
         return $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function updateDatas($firstname = null, $lastname = null, $date_of_birth = null)
-    {
-        if ($firstname != null) {
-            $this->setFirstname($firstname);
-        }
-        if ($lastname != null) {
-            $this->setLastname($lastname);
-        }
-        if ($date_of_birth != null) {
-            $this->setDateOfBirth($date_of_birth);
-        }
-        if (func_get_args() != null) {
-            $this->update();
-        }
-    }
-
 
     public function getAdresses()
     {
@@ -337,51 +323,108 @@ class User extends DbRecords
         return $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function saveBasketItems($basket_items)
+
+
+
+
+    // USER LOGIC CREATION / EXIST CHECK / UPDATE
+
+
+    private function createUser()
     {
         $connection = Db::connect();
-        $basket_id = Basket::findBasketId($this->getId(), Basket::getStateId());
-        $statement = "INSERT INTO basket_items (book_id, basket_id, quantity) VALUES (?,?,?)";
-        $prepared_statement = $connection->prepare($statement);
-        foreach ($basket_items as $basket_item) {
-            $prepared_statement->execute(array($basket_item->getBookId(), $basket_id, $basket_item->getQuantity()));
+
+        $statement = "INSERT INTO users (email,password) VALUES (?,?)";
+
+        $prepared_statement  = $connection->prepare($statement);
+
+        $prepared_statement->execute(array($this->getEmail(), password_hash($this->getPassword(), PASSWORD_BCRYPT)));
+
+        return $this->lastCreated();
+    }
+
+
+    public function updateDatas($firstname = null, $lastname = null, $date_of_birth = null)
+    {
+        if ($firstname != null) {
+            $this->setFirstname($firstname);
+        }
+        if ($lastname != null) {
+            $this->setLastname($lastname);
+        }
+        if ($date_of_birth != null) {
+            $this->setDateOfBirth($date_of_birth);
+        }
+        if (func_get_args() != null) {
+            $this->update();
         }
     }
 
 
-
-
-    public function updateBasketItems($basket_items)
+    public static function doesUserExists(string $email)
     {
-        $basket_id = Basket::findBasketId($this->getId(), Basket::getStateId());
-        Basket::destroyAllBasketItems($basket_id);
-        $this->saveBasketItems($basket_items);
-    }
-
-    public function createBasket()
-    {
-        if ($this->hasNoCurrentBasket()) {
-            $connection = Db::connect();
-            $state_id = Basket::getStateId();
-            $statement = "INSERT INTO baskets (user_id,state_id) VALUES (?,?)";
-            $prepared_statement = $connection->prepare($statement);
-            return $prepared_statement->execute(array($this->getId(), $state_id));
-        }else{
+        if (!empty(self::where("email", $email, "created_at"))) {
+            return true;
+        } else {
             return false;
         }
     }
 
-
-    public function hasNoCurrentBasket()
+    public static function isUserSignedIn()
     {
-        $connection = Db::connect();
-        $state_id = Basket::getStateId();
-        $statement = "SELECT id FROM baskets WHERE state_id=? AND user_id=?";
-        $prepared_statement = $connection->prepare($statement);
-        $prepared_statement->execute(array($state_id, $this->getId()));
-        return empty($prepared_statement->fetchAll(PDO::FETCH_ASSOC));
+        return isset($_SESSION['current_user']);
     }
 
+
+    public static function getCurrentUser()
+    {
+        return $_SESSION['current_user'];
+    }
+
+
+    public function isUserAdmin()
+    {
+        return $this->getAdmin();
+    }
+
+
+
+    // BOOK LOGIC 
+
+    // MAKING RECOMMENDATION
+    public function makeRecommendation(int $book_id, string $comment)
+    {
+        $connection = Db::connect();
+        $statement = "INSERT INTO recommended_books (book_id,user_id,comment) VALUES (?,?,?)";
+        $prepared_statement = $connection->prepare($statement);
+        if ($prepared_statement->execute(array($book_id, $this->getId(), $comment))) {
+            $select_statement = "SELECT * FROM recommended_books WHERE user_id=? AND book_id=? LIMIT 1 ORDER BY created_at DESC";
+            $prepared_statement = $connection->prepare($select_statement);
+            $prepared_statement->execute(array($this->getId(), $book_id));
+            return $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            return array();
+        }
+    }
+
+    // MAKING COUP DE COEUR
+    public function makeCoupDeCoeur(int $book_id, string $comment)
+    {
+        $connection = Db::connect();
+        $statement = "INSERT INTO coup_de_coeur_books (book_id,user_id,comment) VALUES (?,?,?)";
+        $prepared_statement = $connection->prepare($statement);
+        if ($prepared_statement->execute(array($book_id, $this->getId(), $comment))) {
+            $select_statement = "SELECT * FROM coup_de_coeur_books WHERE user_id=? AND book_id=? LIMIT 1 ORDER BY created_at DESC";
+            $prepared_statement = $connection->prepare($select_statement);
+            $prepared_statement->execute(array($this->getId(), $book_id));
+            return $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            return array();
+        }
+    }
+
+
+    // INVOICE LOGIC 
 
     public function getInvoices()
     {
@@ -392,6 +435,8 @@ class User extends DbRecords
         invoices.total_amount_ttc as invoice_total_amount_ttc,
         invoices.total_amount_ht as invoice_total_amount_ht,
         invoices.adress_id as invoice_adress_id,
+        invoices.payment_intent_id as invoice_payment_id,
+        invoices.id as invoice_id,
         invoices.created_at as invoice_created_at,
         invoices.updated_at as invoice_updated_at,
         adresses.id as adress_id,
@@ -411,11 +456,10 @@ class User extends DbRecords
 
         $results = [];
 
-        while( $row = $prepared_statement->fetch())
-        {
-            $results [] = array(
-                "invoice"=>new Invoice($row['invoice_basket_id'], $row['invoice_total_amount_ttc'], $row['invoice_total_amount_ht'], $row['adress_id']),
-                "invoice_item_count"=>$row['product_count']
+        while ($row = $prepared_statement->fetch()) {
+            $results[] = array(
+                "invoice" => new Invoice($row['invoice_basket_id'], $row['invoice_total_amount_ttc'], $row['invoice_total_amount_ht'], $row['adress_id'], $row['invoice_payment_id'], $row['invoice_id'], $row['invoice_created_at'], $row['invoice_updated_at']),
+                "invoice_item_count" => $row['product_count']
             );
         }
 

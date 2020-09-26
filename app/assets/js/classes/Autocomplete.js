@@ -13,7 +13,7 @@
                         data: formSearch.serialize() + "&controller=search&method=new&remote=true",
                         dataType: "JSON",
                         success: function(results, status) {
-                            Autocomplete.appendProductTemplate(results);
+                            Autocomplete.appendProductTemplate(results.books);
                         },
                         error: function(result, status, error) {
                             console.log(error)
@@ -47,25 +47,23 @@
                 $('.autocomplete-zone').css({
                     'display': 'block'
                 });
-                $('.autocomplete-zone .block').append("<div class=\"card-autocomplete\">" +
-                    "<div class=\"poster-container\">" +
-                    "<img src=\"" + result.book.image_path + "\" alt=\"poster\">" +
-                    "</div>" +
-                    "<div class=\"description-container\">" +
-                    "<h2>" + "<a href =\"" + "index.php?controller=book&method=show&id=" + result.book.id + "\">" + result.book.title + "</a>" + "</h2>" +
+                const productTemplate = (
+                    `<div class="card-autocomplete">
+                                    <div class="poster-container">
+                                        <img src="${result.book.image_path}" alt="poster">
+                                    </div>
+                        <div class="description-container">
+                            <h2><a href ="index.php?controller=book&method=show&id=${result.book.id}">${result.book.title}</a></h2>
+                            <p class="description">${result.book.description}</p>
+                            <hr class="light my-2">
+                            <ul class="other-details my-2">
+                                <li>${result.category.name}</li>
+                                <li>${result.book.price} &euro; </li>
+                            </ul>
+                        </div>
+                    </div>`).trim();
 
-                    "<p class=\"description\">" + result.book.description + "</p>" +
-
-                    "<hr class=\"light my-2\">" +
-
-                    "<ul class=\"other-details my-2\">" +
-                    "<li>" + result.category.name + "</li>" +
-                    "<li>" + result.book.price + " &euro; </li>" +
-                    "</ul>" +
-
-                    "</div>" +
-                    "</div>")
-
+                $('.autocomplete-zone .block').append(productTemplate)
 
             });
 

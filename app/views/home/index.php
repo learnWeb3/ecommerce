@@ -38,28 +38,26 @@
 <?php endif; ?>
 
 
-
-
 <?php require_once LAYOUT_PATH . "/partials/coup_de_coeur_book/coup_de_coeur_books.php" ?>
 
 <?php require_once LAYOUT_PATH . "/partials/recommended_book/recommended_books.php" ?>
 
-<?php if (!empty($best_sales_books)) : ?>
+<?php if (!empty($popular_books)) : ?>
     <section class="py-4 teaser-container">
 
         <h2 class="ml-4">Les + populaires </h2>
 
         <div class="row-autoflow">
 
-            <?php foreach ($best_sales_books as $best_sales_book) : ?>
+            <?php foreach ($popular_books as $popular_book) : ?>
                 <div class="col">
                     <div class="card-product">
 
-                        <img src="<?php echo $best_sales_book['book']->getImagePath() ?>" alt="" class="poster">
+                        <img src="<?php echo $popular_book['book']->getImagePath() ?>" alt="" class="poster">
 
-                        <h3 class="my-2"><a href=""><?php echo $best_sales_book['book']->getTitle() ?></a></h3>
+                        <h3 class="my-2"><a href=""><?php echo $popular_book['book']->getTitle() ?></a></h3>
 
-                        <a href=""><?php echo $best_sales_book['book']->getPrice() ?> &euro;</a>
+                        <a href=""><?php echo $popular_book['book']->getPrice() ?> &euro;</a>
 
                     </div>
 
@@ -79,6 +77,9 @@
 <?php endif; ?>
 
 
+
+
+<!-- PAGE SPECIFIC SCRIPT -->
 
 
 <script src="<?php echo ABSOLUTE_ASSET_PATH ?>/js/jumbotron.js"></script>

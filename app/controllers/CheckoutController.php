@@ -28,13 +28,14 @@ class CheckoutController extends ApplicationController
             // retriving current user from session
             $user = User::getCurrentUser();
             // retireving basket from session
-            $basket = Basket::getBasket();
+            $basket = Basket::getCurrentBasket($user->getId())[0];
+            $basket->setBasketItems(Basket::getBasket()->getBasketItems());
             // updating basket content in database
             $user->updateBasketItems($basket->getAllProducts());
             // updating basket state
             $adress_id = $_SESSION['selected_adress_id'];
             // instance of invoice// 
-            $invoice = new Invoice($basket->getId(), $basket->getTotalTTC(), $basket->getTotalHT(), $adress_id);
+            $invoice = new Invoice($basket->getId(), $basket->getTotalTTC(), $basket->getTotalHT(), $adress_id, $stripe_session->payment_intent);
             $invoice->create();
             $basket->updateBasketState();
             Session::destroyBasket();

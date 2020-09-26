@@ -12,7 +12,11 @@ class HomeController extends ApplicationController
 
         $coup_de_coeur_books = Book::getCoupDeCoeur(2,0);
 
-        $best_sales_books = Book::getPopular(2, 0);
+        $best_sales_books = Book::getPopular(20, 0);
+
+        $most_viewed = Book::getMostViewed(20,0);
+
+        $popular_books = array_merge($most_viewed,$best_sales_books);
 
         $this->render(
             "index",
@@ -22,7 +26,7 @@ class HomeController extends ApplicationController
                 "new_books" => $new_books,
                 "recommended_books" => $recommended_books,
                 "coup_de_coeur_books" => $coup_de_coeur_books,
-                "best_sales_books" => $best_sales_books,
+                "popular_books" => $popular_books
             )
         );
     }

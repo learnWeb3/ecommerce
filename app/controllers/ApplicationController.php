@@ -6,12 +6,11 @@ class ApplicationController
     {
     }
 
-    public function render($view_name, $title, $description, $vars = [])
-    {   
+    public function render($view_name, $title, $description, $vars = [], $admin_template = false)
+    {
 
         // GETTING CURRENT USER IF EXISTS ACCESSIBLE IN ALL VIEWS
-        if( isset($_SESSION['current_user']))
-        {
+        if (isset($_SESSION['current_user'])) {
             $current_user = Session::getCurrentUser();
         }
 
@@ -34,7 +33,13 @@ class ApplicationController
         require_once VIEW_PATH . "/" . $folder_name . "/" . $view_name . ".php";
         // ATTRIBUTING CACHE TO CONTENT TO VARIABLE AND CLOSING BUFFER
         $yield  = ob_get_clean();
+
+        if (!$admin_template)
         // REQUIRING BASE LAYOUT IN LAST STEP TO ACCESS CONTENT VARIABLE PREVIOUSLY INITIALIZED
-        require_once LAYOUT_PATH . "/base.php";
+        {
+            require_once LAYOUT_PATH . "/base.php";
+        } else {
+            require_once LAYOUT_PATH . "/admin_template.php";
+        }
     }
 }

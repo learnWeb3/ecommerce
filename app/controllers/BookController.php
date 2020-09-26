@@ -37,6 +37,7 @@ class BookController extends ApplicationController
     {
         if (isset($_GET['id'])) {
             $book = Book::find($_GET['id']);
+            $book[0]->incrementViewCount();
             if (empty($book)) {
                 renderErrror(404);
             } else {

@@ -113,4 +113,20 @@ class AppStripe
         );
         return $stripe->checkout->sessions->retrieve($stripe_checkout_session_id);
     }
+
+
+    // RETRIEVE PAYMENT INTENT 
+
+    public function retrievePaymentIntent($payment_intent_id)
+    {
+        $stripe = new \Stripe\StripeClient(
+            $this->stripe_secret_key
+        );
+        return $stripe->paymentIntents->retrieve(
+            $payment_intent_id
+          );
+    }
+
+
+
 }

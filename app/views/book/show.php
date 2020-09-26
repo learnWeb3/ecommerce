@@ -1,5 +1,5 @@
 <section id="show-product-container" class="bg-primary-circle-circle">
-    <div class="row divide-xl-2 divide-lg-2 divide-md-1 divide-sm-1 divide-xs-1 py-8" style="min-height:100vh;">
+    <div class="row divide-xl-2 divide-lg-2 divide-md-1 divide-sm-1 divide-xs-1 py-8">
         <div class="col p-4 justify-center-lower-justify-end">
             <div class="flex justify-content-between">
                 <h1><?php echo $page_book->getTitle() ?></h1>
@@ -22,7 +22,7 @@
         <div class="col justify-center-lower-justify-end p-4 align-items-center">
 
             <img src="<?php echo $page_book->getImagePath() ?>" alt="<?php echo $page_book->getTitle() ?> cover image" class="book-presentation-show">
-            <form action="<?php echo REDIRECT_BASE_URL . "controller=basketitem&method=create" ?>" method="post" id="form-buy">
+            <form action="<?php echo REDIRECT_BASE_URL . "controller=basketitem&method=create" ?>" method="post" id="form-buy" class="my-2">
 
                 <input type="hidden" name="book_id" value="<?php echo $page_book->getId() ?>">
 
@@ -59,6 +59,10 @@
     <img src="<?php echo $page_book->getImagePath() ?>" alt="<?php echo $page_book->getTitle() ?> cover image" style="transform:scale(2)">
     <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/navigation/close.svg" ?>" alt="close modal image presentation" class="close">
 </div>
+
+
+
+<!-- PAGE SPECIFIC SCRIPT -->
 
 <script src="<?php echo ABSOLUTE_ASSET_PATH?>/js/show-product.js"></script>
 

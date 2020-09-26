@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 22 sep. 2020 à 17:22
+-- Généré le : sam. 26 sep. 2020 à 10:19
 -- Version du serveur :  10.4.14-MariaDB
 -- Version de PHP : 7.2.33
 
@@ -47,7 +47,8 @@ INSERT INTO `adresses` (`id`, `user_id`, `city`, `adress`, `postal_code`, `creat
 (1, 14, 'Aix en provence', '7 traverse Malakoff', '13100', '2020-09-21 15:47:31', NULL),
 (2, 14, 'MARSEILLE', 'COURS JULIEN', '13001', '2020-09-21 15:48:19', NULL),
 (3, 14, 'NANCY', '9 place de la carrière', '54000', '2020-09-21 15:49:30', NULL),
-(4, 14, 'Stasbourg', '6 rue de la poisse', '89000', '2020-09-22 12:31:10', NULL);
+(4, 14, 'Stasbourg', '6 rue de la poisse', '89000', '2020-09-22 12:31:10', NULL),
+(5, 14, 'Venelles', '18 parc saint mitre', '13086', '2020-09-26 09:30:53', NULL);
 
 -- --------------------------------------------------------
 
@@ -1641,14 +1642,14 @@ CREATE TABLE `tva` (
   `code` varchar(255) NOT NULL,
   `value` float NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `udated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `tva`
 --
 
-INSERT INTO `tva` (`id`, `code`, `value`, `created_at`, `udated_at`) VALUES
+INSERT INTO `tva` (`id`, `code`, `value`, `created_at`, `updated_at`) VALUES
 (1, '445720', 0.055, '2020-09-03 17:56:01', NULL);
 
 -- --------------------------------------------------------
@@ -1676,7 +1677,29 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `email`, `password`, `admin`, `lastname`, `firstname`, `date_of_birth`, `age`, `created_at`, `updated_at`) VALUES
 (6, 'toto@yopmail.com', '$2y$10$OIfdN5UHcAzHzKQSaBx7QOZNc./2L3ekh3Re3jvg3awcT/VxMiC1C', 0, NULL, NULL, NULL, NULL, '2020-09-12 13:13:59', NULL),
-(14, 'antoine13@yopmail.com', '$2y$10$.CH7BaxYrrt71TWmQq8cw.sm8VK8wqKhc1fuWtHhzNXmPAY.gi3Nq', 0, 'LE GUILLOU', 'ANTOINE', NULL, NULL, '2020-09-21 13:15:57', '2020-09-21 15:47:31');
+(14, 'antoine13@yopmail.com', '$2y$10$.CH7BaxYrrt71TWmQq8cw.sm8VK8wqKhc1fuWtHhzNXmPAY.gi3Nq', 0, 'Antoine', 'LE GUILLOU', NULL, NULL, '2020-09-21 13:15:57', '2020-09-26 09:30:53');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `views`
+--
+
+CREATE TABLE `views` (
+  `id` int(11) NOT NULL,
+  `view_count` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `views`
+--
+
+INSERT INTO `views` (`id`, `view_count`, `book_id`, `created_at`, `updated_at`) VALUES
+(2, 2, 366, '2020-09-26 09:28:44', '2020-09-26 09:28:46'),
+(3, 1, 391, '2020-09-26 09:29:16', NULL);
 
 --
 -- Index pour les tables déchargées
@@ -1781,6 +1804,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `views`
+--
+ALTER TABLE `views`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
@@ -1788,7 +1817,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `adresses`
 --
 ALTER TABLE `adresses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `baskets`
@@ -1873,6 +1902,12 @@ ALTER TABLE `tva`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT pour la table `views`
+--
+ALTER TABLE `views`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Contraintes pour les tables déchargées

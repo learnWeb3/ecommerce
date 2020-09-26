@@ -62,26 +62,10 @@
 
 <section class="autocomplete-zone">
     <div class="block">
-
-
     </div>
     <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_left.svg" ?>" alt="up arrow button" class="up">
     <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_left.svg" ?>" alt="up arrow button" class="down">
 </section>
 
-<script>
-    Autocomplete.search();
-    Autocomplete.activateNavigation();
 
-    $("#user_sign_action").click(function() {
-        var toogle = $(this).parents('li').find("ul.toogle");
-        if (toogle.attr('class') == "toogle d-none") {
-            toogle.removeClass("d-none").addClass("d-flex");
-        } else {
-            toogle.removeClass("d-flex").addClass("d-none");
-        }
-    });
-
-
-    Session.destroy();
-</script>
+<script src="<?php echo ABSOLUTE_ASSET_PATH."/js/nav_actions.js"?>"></script>

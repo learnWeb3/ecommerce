@@ -6,7 +6,6 @@
         <?php endforeach; ?>
     </div>
 
-
     <ul id="pagination">
         <li>
             <form action="<?php echo REDIRECT_BASE_URL."controller=book&method=index".$search_filters?>" method="POST">
@@ -22,8 +21,6 @@
                 <button type="submit" class="btn btn-lg btn-primary" id="next"><img src="<?php echo ABSOLUTE_ASSET_PATH."/icons/action/chevron_right_white.svg"?>" alt="icon left page"></button>
             </form>
         </li>
-
     </ul>
-
-
+    
 </section>

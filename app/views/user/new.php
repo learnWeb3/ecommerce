@@ -26,15 +26,18 @@
                     <input type="password" name="user_password_confirmation" id="user_password_confirmation" required>
                 </div>
 
+
+                <input type="hidden" name="remote" value="true">
+
                 <button class="btn btn-lg btn-success my-4" type="submit">incription</button>
-                
-            
+
+
 
             </form>
         </div>
     </div>
 </section>
 
-<script>
-    User.create("#sign-up", "#user_password", "#user_password_confirmation","#sign-container");
-</script>
+
+<!-- PAGE SPECIFIC SCRIPT -->
+<script src="<?php echo ABSOLUTE_ASSET_PATH . "/js/page_specific/user/create.js" ?>"></script>

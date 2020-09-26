@@ -24,6 +24,7 @@
     <script src="<?php echo ABSOLUTE_ASSET_PATH ?>/js/classes/Checkout.js"></script>
     <script src="<?php echo ABSOLUTE_ASSET_PATH?>/js/classes/Autocomplete.js"></script>
     <script src="<?php echo ABSOLUTE_ASSET_PATH?>/js/classes/AppStripe.js"></script>
+    <script src="<?php echo ABSOLUTE_ASSET_PATH?>/js/classes/Admin.js"></script>
 </head>
 
 <body>

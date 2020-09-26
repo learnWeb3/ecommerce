@@ -71,24 +71,45 @@
 
     </div>
 
-    <div class="row divide-xl-2 divide-lg-2 divide-md-2 divide-sm-1 divide-xs-1 hidden" style="min-height:100vh;" id="tab-my-order">
+    <div class="row divide-xl-2 divide-lg-2 divide-md-2 divide-sm-1 divide-xs-1 hidden" style="min-height:100vh;display:none" id="tab-my-order">
 
-        <?php foreach($orders as $order):?>
+        <?php foreach ($order_chunks as $order_chunk) : ?>
 
-            <?php var_dump($order)?>
+            <div class="col">
 
-        <?php endforeach;?>
+                <?php foreach ($order_chunk as $order) : ?>
+
+                    <div class="card-invoice">
+
+                        <div class="col">
+
+                            <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/logo/logo.svg" ?>" alt="logo">
+
+                        </div>
+
+                        <div class="col">
+
+                            <h2>Facture N°<?php echo $order['invoice']->getId() ?></h2>
+
+                            <h2>Nombre d'articles: <?php echo $order['invoice_item_count']?></h2>
+
+                            <h3>Montant TTC: <?php echo $order['invoice']->getTotalAmountTTC() ?> &euro;</h3>
+
+                            <h3>Montant HT: <?php echo $order['invoice']->getTotalAmountHT() ?> &euro;</h3>
+
+                            <a href="<?php echo REDIRECT_BASE_URL."controller=invoice&method=show&id=".$order['invoice']->getId() ?>" class="btn btn-secondary btn-lg my-2">Voir plus</a>
+
+                        </div>
+
+                    </div>
+
+                <?php endforeach ?>
+            </div>
+
+        <?php endforeach; ?>
     </div>
 </section>
 
-<script>
-    $("#my-order").click(function() {
-        $("#tab-my-order").css({'display':'grid'});
-        $("#tab-my-account").css({'display':'none'});
-    });
 
-    $("#my-account").click(function() {
-        $("#tab-my-order").css({'display':'none'});
-        $("#tab-my-account").css({'display':'grid'});
-    });
-</script>
+<!-- PAGE SPECIFIC SCRIPT -->
+<script src="<?php echo ABSOLUTE_ASSET_PATH."/js/page_specific/user/edit.js"?>"></script>

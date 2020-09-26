@@ -19,7 +19,8 @@ class SessionController extends ApplicationController
                 $flash = new Flash($sign_in_attempt, "success");
                 $controller = "home";
                 $method = "index";
-                User::getCurrentUser()->loadSavedBasket();
+                $user= User::getCurrentUser();
+                $user->loadSavedBasket();
             } else {
                 $flash = new Flash($sign_in_attempt, "danger");
                 $controller = "user";
@@ -45,18 +46,17 @@ class SessionController extends ApplicationController
 
             $basket_items = $basket->getAllProducts();
 
-            if ($user->createBasket())
-            {
+            if ($user->createBasket()) {
                 $user->saveBasketItems($basket_items);
-            }else{
+            } else {
                 $user->updateBasketItems($basket_items);
             }
-    
+
             $user_session_destroy = User::signOut();
             if (isset($_POST['remote'])) {
                 echo json_encode($user_session_destroy);
-            }else{
-                header("Location:".REDIRECT_BASE_URL."controller=home&method=index");
+            } else {
+                header("Location:" . REDIRECT_BASE_URL . "controller=home&method=index");
             }
         }
     }

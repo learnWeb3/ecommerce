@@ -1,22 +1,23 @@
 <?php
 
-class BasketItem extends DbRecords
+class BasketItem
 {
     // ATTRIBUTES
     protected $book_id;
     protected $basket_id;
     protected $quantity;
 
+    // USING COMMON METHODS
+    use Db;
 
     // CONSTRUCTOR
-    public function __construct($book_id = null, $basket_id = null, $book=null, $quantity = 1, $id = null, $created_at = null, $updated_at = null)
+    public function __construct($book_id = null, $basket_id = null, $book = null, $quantity = 1, $id = null, $created_at = null, $updated_at = null)
     {
         if ($book_id != null) {
             $this->book_id = $book_id;
         }
 
-        if ($book != null)
-        {
+        if ($book != null) {
             $this->book = $book;
         }
 
@@ -25,8 +26,18 @@ class BasketItem extends DbRecords
         }
 
         $this->quantity = $quantity;
-        
-        parent::__construct($id, $created_at, $updated_at);
+
+        if ($id != null) {
+            $this->id = $id;
+        }
+
+        if ($created_at != null) {
+            $this->created_at = $created_at;
+        }
+
+        if ($updated_at != null) {
+            $this->updated_at = $updated_at;
+        }
     }
 
     // GET USER ID
@@ -44,7 +55,7 @@ class BasketItem extends DbRecords
 
     public function setBook(object $book)
     {
-        $this->book=$book;
+        $this->book = $book;
         return $this;
     }
     // GET BOOK ID 
@@ -66,6 +77,4 @@ class BasketItem extends DbRecords
         $this->quantity = $quantity;
         return $this;
     }
-
-
 }
