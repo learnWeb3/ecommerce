@@ -18,11 +18,11 @@ class Admin {
                     books.map(function (product) {
                         let template = self.getTemplate(product, categories);
                         $('#admin-table').append(template);
-                        let categoryId = books[0].book.category_id;
-                        let tvaOptionId = books[0].book.tva_id;
+                        let categoryId = product.book.category_id;
+                        let tvaOptionId = product.book.tva_id;
 
                         $('#admin-table tbody tr:last-child').find('select.select_book_category').append(getBookCategoryOptions(categoryId, categories));
-                        $('#admin-table tbody tr:last-child').find('select.select_book_tva').append(getBookTvaOptions(tvaId, tvaOptions));
+                        $('#admin-table tbody tr:last-child').find('select.select_book_tva').append(getBookTvaOptions(tvaOptionId, tvaOptions));
                         self.updateProduct();
                     });
                 });
