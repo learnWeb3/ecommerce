@@ -56,7 +56,7 @@
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             </select>
-                            <button type="submit">valider</button>
+                           
                         </form>
                     </td>
                     <td>
@@ -67,56 +67,56 @@
                                     <option value="<?php echo $tva['id'] ?>"><?php echo $tva['code'] ?></option>
                                 <?php endforeach; ?>
                             </select>
-                            <button type="submit">valider</button>
+                           
                         </form>
                     </td>
                     <td>
                         <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=update" ?>" method="POST">
                             <input type="hidden" name="book_id" value="<?php echo $book['book']->getId() ?>">
                             <input type="text" name="book_image_path" value="<?php echo $book['book']->getImagePath() ?>"  class="form-control">
-                            <button type="submit">valider</button>
+                           
                         </form>
                     </td>
                     <td>
                         <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=update" ?>" method="POST">
                             <input type="hidden" name="book_id" value="<?php echo $book['book']->getId() ?>">
                             <input type="text" name="book_title" value="<?php echo $book['book']->getTitle() ?>"  class="form-control">
-                            <button type="submit">valider</button>
+                           
                         </form>
                     </td>
                     <td>
                         <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=update" ?>" method="POST">
                             <input type="hidden" name="book_id" value="<?php echo $book['book']->getId() ?>">
                             <input type="text" name="book_author" value="<?php echo $book['book']->getAuthor() ?>"  class="form-control">
-                            <button type="submit">valider</button>
+                           
                         </form>
                     </td>
                     <td>
                         <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=update" ?>" method="POST">
                             <input type="hidden" name="book_id" value="<?php echo $book['book']->getId() ?>">
                             <input type="text" name="book_collection" value="<?php echo $book['book']->getCollection() ?>"  class="form-control">
-                            <button type="submit">valider</button>
+                           
                         </form>
                     </td>
                     <td>
                         <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=update" ?>" method="POST">
                             <input type="hidden" name="book_id" value="<?php echo $book['book']->getId() ?>">
                             <input type="text" name="book_description" value="<?php echo $book['book']->getDescription() ?>" class="form-control">
-                            <button type="submit">valider</button>
+                           
                         </form>
                     </td>
                     <td>
                         <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=update" ?>" method="POST">
                             <input type="hidden" name="book_id" value="<?php echo $book['book']->getId() ?>">
                             <input type="text" name="book_price"  value="<?php echo $book['book']->getPrice() ?>" class="form-control">
-                            <button type="submit">valider</button>
+                           
                         </form>
                     </td>
                     <td>
                         <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=update" ?>" method="POST">
                             <input type="hidden" name="book_id" value="<?php echo $book['book']->getId() ?>">
                             <input type="text" name="book_stock" value="<?php echo $book['book']->getStock() ?>" class="form-control">
-                            <button type="submit">valider</button>
+                           
                         </form>
                     </td>
                     <td>
@@ -126,7 +126,6 @@
                         <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=destroy" ?>" method="POST">
                             <input type="hidden" name="book_id" value="<?php echo $book['book']->getId() ?>">
                             <button type="submit"><img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/Bucket_24px.svg" ?>" alt="delete product icon"></button>
-                            <button type="submit">valider</button>
                         </form>
                     </td>
                     <td>
