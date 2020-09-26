@@ -16,7 +16,7 @@ class SearchController
             
             if (isset($_POST['remote'])) {
 
-                echo Book::searchLikeResultToJson($search_matches);
+                echo Book::resultToJson($search_matches);
 
             }
         }

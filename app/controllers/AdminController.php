@@ -32,21 +32,32 @@ class AdminController extends ApplicationController
                 } elseif (isset($_POST['book_tva_id'])) {
                     $book->registerUpdate("tva_id", intval($_POST['book_tva_id']));
                 } elseif (isset($_POST['book_image_path'])) {
-                    $book->registerUpdate("image_path", intval($_POST['book_image_path']));
+                    $book->registerUpdate("image_path", $_POST['book_image_path']);
                 } elseif (isset($_POST['book_title'])) {
-                    $book->registerUpdate("title", intval($_POST['book_title']));
+                    $book->registerUpdate("title", $_POST['book_title']);
                 } elseif (isset($_POST['book_author'])) {
-                    $book->registerUpdate("author", intval($_POST['book_author']));
+                    $book->registerUpdate("author", $_POST['book_author']);
                 } elseif (isset($_POST['book_collection'])) {
-                    $book->registerUpdate("collection", intval($_POST['book_collection']));
+                    $book->registerUpdate("collection", $_POST['book_collection']);
                 } elseif (isset($_POST['book_description'])) {
-                    $book->registerUpdate("description", intval($_POST['book_description']));
+                    $book->registerUpdate("description", $_POST['book_description']);
+                } elseif (isset($_POST['book_stock'])) {
+                    $book->updateStock(intval($_POST['book_stock']));
                 } elseif (isset($_POST['book_price'])) {
-                    $price = intval($_POST['book_price']);
+                    $price = doubleval($_POST['book_price']);
                     $book->registerUpdate("price", $price);
                     $stripe_product_id = $book->getStripeProductId();
                     $stripe_price_id = $book->getStripePriceId();
                     $app_stripe->updatePrice($stripe_price_id, $stripe_product_id, 'eur', $price);
+                }
+
+                if (isset($_POST['remote']))
+                {
+                    $book = $book->getBookAndRelatedDatas();
+                    echo Book::resultToJson($book);
+                }else{
+                    $path = REDIRECT_BASE_URL."controller=admin&method=index";
+                    header("Location:".$path);
                 }
             } else {
                 renderErrror(404);

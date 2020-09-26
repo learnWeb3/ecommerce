@@ -591,6 +591,67 @@ class Book
     }
 
 
+    public function getBookAndRelatedDatas()
+    {
+        $connection = Db::connect();
+        $statement =
+        "SELECT 
+        books.id as book_id,
+        books.created_at as book_created_at,
+        books.updated_at as book_updated_at,
+        books.title as book_title,
+        books.author  as book_author,
+        books.collection as book_collection,
+        books.price as book_price,
+        books.publication_year as book_year,
+        books.category_id as book_category_id,
+        books.image_path as book_image_path,
+        books.description as book_description,
+        books.tva_id as book_tva_id,  
+        categories.name as category_name,
+        categories.id as category_id,
+        categories.created_at as category_created_at,
+        categories.updated_at as category_updated_at,
+        stocks.quantity as book_stock
+        FROM books 
+        JOIN categories ON books.category_id = categories.id
+        JOIN stocks ON books.id = stocks.book_id
+        JOIN tva ON tva.id = books.tva_id
+        WHERE books.id=?
+        ORDER BY books.created_at DESC
+        LIMIT 1";
+        $prepared_statement = $connection->prepare($statement);
+
+        $prepared_statement->execute(
+            array($this->getId())
+        );
+
+        $results = [];
+        while ($row =  $prepared_statement->fetch()) {
+            $results[] = array(
+                "book" => new Book(
+                    $row["book_title"],
+                    $row["book_author"],
+                    $row["book_collection"],
+                    $row["book_price"],
+                    $row["book_year"],
+                    $row["book_image_path"],
+                    $row["book_description"],
+                    $row["book_category_id"],
+                    $row["book_tva_id"],
+                    $row["book_id"],
+                    $row["book_created_at"],
+                    $row["book_updated_at"]
+                ),
+                "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
+                "stock"=>$row["book_stock"]
+            );
+        }
+
+        return $results;
+    }
+
+
     public static function searchLike(string $column_name, $value, int $limit, int $offset, string $order_column, string $order, int $stock_quantity=1)
     {
         $authorized_values = array(
@@ -741,7 +802,7 @@ class Book
     }
 
 
-    public static function searchLikeResultToJson($search_matches)
+    public static function resultToJson($search_matches)
     {
         $categories = Category::findAll("created_at");
         $tvaOptions = Book::getAllTvaTypes();
@@ -887,6 +948,7 @@ class Book
         $prepared_statement->execute(array($this->getId(), $quantity));
         return $this->getStock();
     }
+
 
     // fetching stock entry for a specific product
     public function getStock()

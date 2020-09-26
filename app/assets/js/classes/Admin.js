@@ -1,16 +1,15 @@
 class Admin {
     static getProductDetails() {
         $('#search_input').keyup(function () {
+            let self = Admin;
             let inputValue = $(this).val();
             let form = $(this).parents('form');
             if (inputValue.length >= 2) {
                 $.post('index.php?controller=search&method=new', form.serialize() + '&remote=true', function (results) {
-                    const dbCall = JSON.parse(results);
-                    const categories = dbCall.categories;
-                    const books = dbCall.books;
-                    const tvaOptions = dbCall.tvaOptions;
-
-                    console.log(tvaOptions);
+                    let dbCall = JSON.parse(results);
+                    let categories = dbCall.categories;
+                    let books = dbCall.books;
+                    let tvaOptions = dbCall.tvaOptions;
 
                     $('#admin-table tbody').children().remove();
 
@@ -21,6 +20,7 @@ class Admin {
 
                         $('#admin-table tbody tr:last-child').find('select.select_book_category').append(getBookCategoryOptions(id, categories));
                         $('#admin-table tbody tr:last-child').find('select.select_book_tva').append(getBookTvaOptions(id, tvaOptions));
+                        self.updateProduct();
                     });
                 });
             }
@@ -28,8 +28,63 @@ class Admin {
     }
 
 
+    static updateProduct()
+    {
+
+        var self = Admin;
+
+        $("#admin-table td input").keyup(function(){
+
+            let tr = $(this).parents('tr');
+            let form = $(this).closest('form');
+
+
+            update(form).then(function(product){
+
+                let categories = product.categories;
+                let books = product.books;
+                let tvaOptions = product.tvaOptions;
+                let template = self.getTemplate(books[0]);
+                let id = books[0].book.id;
+                tr.replaceWith(template);
+                tr.find('select.select_book_category').append(getBookCategoryOptions(id, categories));
+                tr.find('select.select_book_tva').append(getBookTvaOptions(id, tvaOptions));
+
+                self.updateProduct()
+              
+            }).catch(function(error){console.error(error)});
+           
+            
+        });
+
+        $("#admin-table td select").blur(function(){
+
+            
+            let tr = $(this).parents('tr');
+            let form = $(this).closest('form');
+
+            update(form).then(function(product){
+
+                let categories = product.categories;
+                let books = product.books;
+                let tvaOptions = product.tvaOptions;
+                let template = self.getTemplate(books[0]);
+                let id = books[0].book.id;
+                tr.replaceWith(template);
+                tr.find('select.select_book_category').append(getBookCategoryOptions(id, categories));
+                tr.find('select.select_book_tva').append(getBookTvaOptions(id, tvaOptions));
+                self.updateProduct()
+              
+            }).catch(function(error){console.error(error)});
+            
+        });
+    }
+
+
+
+
     static getTemplate(product) {
-        return (`<tr>
+        return (`<tr id='book-${product.book.id}'>
         <td>
             <img src='${product.book.image_path}' alt='${product.book.title} poster' style='height:8rem;width:5rem;'>
         </td>
@@ -52,42 +107,42 @@ class Admin {
         <td>
             <form action='index.php?controller=admin&method=update' method='POST'>
                 <input type='hidden' name='book_id' value='${product.book.id}'>
-                <input type='text' name='book_image_path' id='book_image_path' value='${product.book.image_path}' class='form-control'>
+                <input type='text' name='book_image_path' value='${product.book.image_path}' class='form-control'>
                 <button type='submit'>valider</button>
             </form>
         </td>
         <td>
             <form action='index.php?controller=admin&method=update' method='POST'>
                 <input type='hidden' name='book_id' value='${product.book.id}'>
-                <input type='text' name='book_title' id='book_title' value='${product.book.title}' class='form-control'>
+                <input type='text' name='book_title' value='${product.book.title}' class='form-control'>
                 <button type='submit'>valider</button>
             </form>
         </td>
         <td>
             <form action='index.php?controller=admin&method=update' method='POST'>
                 <input type='hidden' name='book_id' value='${product.book.id}'>
-                <input type='text' name='book_author' id='book_author' value='${product.book.author}' class='form-control'>
+                <input type='text' name='book_author' value='${product.book.author}' class='form-control'>
                 <button type='submit'>valider</button>
             </form>
         </td>
         <td>
             <form action='index.php?controller=admin&method=update' method='POST'>
                 <input type='hidden' name='book_id' value='${product.book.id}'>
-                <input type='text' name='book_collection' id='book_collection' value='${product.book.collection}' class='form-control'>
+                <input type='text' name='book_collection' value='${product.book.collection}' class='form-control'>
                 <button type='submit'>valider</button>
             </form>
         </td>
         <td>
             <form action='index.php?controller=admin&method=update' method='POST'>
                 <input type='hidden' name='book_id' value='${product.book.id}'>
-                <input type='text' name='book_description' id='book_description' value='${product.book.description}' class='form-control'>
+                <input type='text' name='book_description' value='${product.book.description}' class='form-control'>
                 <button type='submit'>valider</button>
             </form>
         </td>
         <td>
             <form action='index.php?controller=admin&method=update' method='POST'>
                 <input type='hidden' name='book_id' value='${product.book.id}'>
-                <input type='text' name='book_price' id='book_price' value='${product.book.price}' class='form-control'>
+                <input type='text' name='book_price' value='${product.book.price}' class='form-control'>
                 <button type='submit'>valider</button>
             </form>
         </td>
@@ -95,7 +150,7 @@ class Admin {
         <td>
             <form action='index.php?controller=admin&method=update' method='POST'>
                 <input type='hidden' name='book_id' value='${product.book.id}'>
-                <input type='text' name='book_stock' id='book_stock' value='${product.stock}' class='form-control'>
+                <input type='text' name='book_stock' value='${product.stock}' class='form-control'>
                 <button type='submit'>valider</button>
             </form>
         </td>
@@ -142,4 +197,13 @@ function getBookCategoryOptions(id, categories) {
         }
     });
     return optionGroup
+}
+
+
+async function update(form)
+{
+    let response = await $.post('index.php?controller=admin&method=update', form.serialize() + '&remote=true', function (results) {
+    });
+
+    return JSON.parse(response);
 }

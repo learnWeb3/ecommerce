@@ -40,14 +40,14 @@
         <tbody>
 
             <?php foreach ($books as $book) : ?>
-                <tr>
+                <tr id="book-<?php echo $book['book']->getId() ?>">
                     <td>
                         <img src="<?php echo $book['book']->getImagePath() ?>" alt="<?php echo $book['book']->getTitle() . " " . "poster" ?>" style="height:8rem;width:5rem;">
                     </td>
                     <td>
                         <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=update" ?>" method="POST">
                             <input type="hidden" name="book_id" value="<?php echo $book['book']->getId() ?>">
-                            <select name="book_category_id" id="book_catgeory_id" class="form-control">
+                            <select name="book_category_id" class="form-control">
                                 <?php foreach ($categories as $category) : ?>
                                     <?php if ($category->getId() == $book['book']->getCategoryId()) : ?>
                                         <option value="<?php echo $category->getId() ?>" selected><?php echo $category->getName() ?></option>
@@ -62,7 +62,7 @@
                     <td>
                         <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=update" ?>" method="POST">
                             <input type="hidden" name="book_id" value="<?php echo $book['book']->getId() ?>">
-                            <select name="book_tva_id" id="book_tva_id" class="form-control">
+                            <select name="book_tva_id" class="form-control">
                                 <?php foreach ($tva_types as $tva) : ?>
                                     <option value="<?php echo $tva['id'] ?>"><?php echo $tva['code'] ?></option>
                                 <?php endforeach; ?>
@@ -73,49 +73,49 @@
                     <td>
                         <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=update" ?>" method="POST">
                             <input type="hidden" name="book_id" value="<?php echo $book['book']->getId() ?>">
-                            <input type="text" name="book_image_path" id="book_image_path" value="<?php echo $book['book']->getImagePath() ?>"  class="form-control">
+                            <input type="text" name="book_image_path" value="<?php echo $book['book']->getImagePath() ?>"  class="form-control">
                             <button type="submit">valider</button>
                         </form>
                     </td>
                     <td>
                         <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=update" ?>" method="POST">
                             <input type="hidden" name="book_id" value="<?php echo $book['book']->getId() ?>">
-                            <input type="text" name="book_title" id="book_title" value="<?php echo $book['book']->getTitle() ?>"  class="form-control">
+                            <input type="text" name="book_title" value="<?php echo $book['book']->getTitle() ?>"  class="form-control">
                             <button type="submit">valider</button>
                         </form>
                     </td>
                     <td>
                         <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=update" ?>" method="POST">
                             <input type="hidden" name="book_id" value="<?php echo $book['book']->getId() ?>">
-                            <input type="text" name="book_author" id="book_author" value="<?php echo $book['book']->getAuthor() ?>"  class="form-control">
+                            <input type="text" name="book_author" value="<?php echo $book['book']->getAuthor() ?>"  class="form-control">
                             <button type="submit">valider</button>
                         </form>
                     </td>
                     <td>
                         <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=update" ?>" method="POST">
                             <input type="hidden" name="book_id" value="<?php echo $book['book']->getId() ?>">
-                            <input type="text" name="book_collection" id="book_collection" value="<?php echo $book['book']->getCollection() ?>"  class="form-control">
+                            <input type="text" name="book_collection" value="<?php echo $book['book']->getCollection() ?>"  class="form-control">
                             <button type="submit">valider</button>
                         </form>
                     </td>
                     <td>
                         <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=update" ?>" method="POST">
                             <input type="hidden" name="book_id" value="<?php echo $book['book']->getId() ?>">
-                            <input type="text" name="book_description" id="book_description" value="<?php echo $book['book']->getDescription() ?>" class="form-control">
+                            <input type="text" name="book_description" value="<?php echo $book['book']->getDescription() ?>" class="form-control">
                             <button type="submit">valider</button>
                         </form>
                     </td>
                     <td>
                         <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=update" ?>" method="POST">
                             <input type="hidden" name="book_id" value="<?php echo $book['book']->getId() ?>">
-                            <input type="text" name="book_price" id="book_price" value="<?php echo $book['book']->getPrice() ?>" class="form-control">
+                            <input type="text" name="book_price"  value="<?php echo $book['book']->getPrice() ?>" class="form-control">
                             <button type="submit">valider</button>
                         </form>
                     </td>
                     <td>
                         <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=update" ?>" method="POST">
                             <input type="hidden" name="book_id" value="<?php echo $book['book']->getId() ?>">
-                            <input type="text" name="book_stock" id="book_stock" value="<?php echo $book['book']->getStock() ?>" class="form-control">
+                            <input type="text" name="book_stock" value="<?php echo $book['book']->getStock() ?>" class="form-control">
                             <button type="submit">valider</button>
                         </form>
                     </td>

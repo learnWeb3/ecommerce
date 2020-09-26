@@ -34,5 +34,6 @@
 <script>
     $(document).ready(function() {
         Admin.getProductDetails();
+        Admin.updateProduct();
     });
 </script>
