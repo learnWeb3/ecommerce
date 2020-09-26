@@ -191,17 +191,6 @@ trait Db
         return $prepared_statement->fetchAll(PDO::FETCH_CLASS, get_called_class());
     }
 
-
-    // public function destroy()
-    // {
-    //     $table_name = DB_NAMING_CONVENTIONS[get_class($this)];
-    //     // STATEMENT
-    //     $statement = "DELETE FROM $table_name WHERE id=?";
-    //     // READING AND FETCHING FROM DATABASE
-    //     $prepared_statement = $this->connect()->prepare($statement);
-    //     return $prepared_statement->execute(array($this->getId()));
-    // }
-
     // GETTING SEARCH FILTERS
     public static function getSearchFilters()
     {
@@ -234,8 +223,7 @@ trait Db
     // DESTROYING SPECIFIC RECORD BY ITS PRIMARY KEY
     public static function destroy($id)
     {
-        $class_name = get_called_class();
-        $table_name = strtolower($class_name);
+        $table_name = DB_NAMING_CONVENTIONS[get_called_class()];
         $statement = "DELETE FROM $table_name WHERE id= ?";
         $connection = Db::connect();
         $prepared_statement = $connection->prepare($statement);

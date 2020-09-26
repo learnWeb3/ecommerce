@@ -51,13 +51,12 @@ class AdminController extends ApplicationController
                     $app_stripe->updatePrice($stripe_price_id, $stripe_product_id, 'eur', $price);
                 }
 
-                if (isset($_POST['remote']))
-                {
+                if (isset($_POST['remote'])) {
                     $book = $book->getBookAndRelatedDatas();
                     echo Book::resultToJson($book);
-                }else{
-                    $path = REDIRECT_BASE_URL."controller=admin&method=index";
-                    header("Location:".$path);
+                } else {
+                    $path = REDIRECT_BASE_URL . "controller=admin&method=index";
+                    header("Location:" . $path);
                 }
             } else {
                 renderErrror(404);
@@ -67,7 +66,14 @@ class AdminController extends ApplicationController
 
     public function destroy()
     {
-        if (isset($_POST['id'])) {
+        if (isset($_POST['book_id'])) {
+            Book::destroy(intval($_POST['book_id']));
+            if (isset($_POST['remote'])) {
+                echo json_encode(array("book_id" => $_POST['book_id']));
+            } else {
+                $path = REDIRECT_BASE_URL . "controller=admin&method=index";
+                header("Location:" . $path);
+            }
         }
     }
 }

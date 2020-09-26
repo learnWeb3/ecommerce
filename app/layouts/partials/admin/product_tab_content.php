@@ -1,17 +1,17 @@
 <form action="" method="post" class="my-4">
     <div class="form-row">
         <div class="col">
-            <input type="search" name="search_input" id="search_input" class="form-control">
+            <input type="search" name="search_input" id="search_input" class="form-control-lg col-12" placeholder="Rechercher par titre,auteur,collection,catégorie,description...">
         </div>
         <div class="col">
-            <select name="search_filter" class="form-control">
+            <select name="search_filter" class="form-control-lg col-12">
                 <?php foreach ($search_filters as $search_filter) : ?>
                     <option value="<?php echo $search_filter['filter'] ?>"><?php echo $search_filter['filter_name'] ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
         <div class="col">
-        <button type="submit" class="btn btn-md btn-success">valider</button>
+        <button type="submit" class="btn btn-lg btn-success">valider</button>
         </div>
     </div>
 </form>
@@ -123,9 +123,9 @@
                         <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/attach_file_24px_rounded.svg" ?>" alt="atach file icon" class="attach-file">
                     </td>
                     <td>
-                        <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=destroy" ?>" method="POST">
+                        <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=destroy" ?>" method="POST" class="delete">
                             <input type="hidden" name="book_id" value="<?php echo $book['book']->getId() ?>">
-                            <button type="submit"><img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/Bucket_24px.svg" ?>" alt="delete product icon"></button>
+                            <button type="submit" style="background-color:unset;border:none;"><img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/Bucket_24px.svg" ?>" alt="delete product icon"></button>
                         </form>
                     </td>
                     <td>

@@ -1,6 +1,6 @@
 class Admin {
     static getProductDetails() {
-        
+
         var self = Admin;
 
         $('#search_input').keyup(function () {
@@ -31,18 +31,17 @@ class Admin {
     }
 
 
-    static updateProduct()
-    {
+    static updateProduct() {
 
         var self = Admin;
 
-        $("#admin-table td input").blur(function(){
+        $("#admin-table td input").blur(function () {
 
             let tr = $(this).parents('tr');
             let form = $(this).closest('form');
 
 
-            update(form).then(function(product){
+            update(form).then(function (product) {
 
                 let categories = product.categories;
                 let books = product.books;
@@ -57,19 +56,23 @@ class Admin {
                 $(`tr#book-${bookId} select.select_book_category`).append(getBookCategoryOptions(categoryId, categories));
                 $(`tr#book-${bookId} select.select_book_tva`).append(getBookTvaOptions(tvaOptionId, tvaOptions));
                 self.updateProduct();
-              
-            }).catch(function(error){console.error(error)});
-           
-            
+                self.destroyProduct();
+
+            }).catch(function (error) { console.error(error) });
+
+
         });
 
-        $("#admin-table td select").blur(function(){
 
-            
+
+
+        $("#admin-table td select").blur(function () {
+
+
             let tr = $(this).parents('tr');
             let form = $(this).closest('form');
 
-            update(form).then(function(product){
+            update(form).then(function (product) {
 
                 let categories = product.categories;
                 let books = product.books;
@@ -83,12 +86,36 @@ class Admin {
                 $(`tr#book-${bookId} select.select_book_category`).append(getBookCategoryOptions(categoryId, categories));
                 $(`tr#book-${bookId} select.select_book_tva`).append(getBookTvaOptions(tvaOptionId, tvaOptions));
                 self.updateProduct();
-              
-            }).catch(function(error){console.error(error)});
-            
+                self.destroyProduct();
+
+            }).catch(function (error) { console.error(error) });
+
         });
     }
 
+
+    static destroyProduct() {
+        $('.delete').submit(function (event) {
+
+            event.stopPropagation();
+            event.preventDefault();
+            
+            let userConfirm = confirm("Voulez vous réellement supprimé ce produit ?");
+
+            if (userConfirm) {
+                let form = $(this);
+                destroy(form).then(function (results) {
+
+                    console.log(results);
+                    $(`#book-${results.book_id}`).remove();
+
+                }).catch(function (error) {
+                    console.error(error);
+                });
+            }
+        })
+
+    }
 
 
     // button debug  <button type='submit'>valider</button>
@@ -167,9 +194,9 @@ class Admin {
             <img src='http://localhost/ecommerce/app/assets/icons/action/attach_file_24px_rounded.svg'  alt='atach file icon' class='attach-file'>
         </td>
         <td>
-            <form action='index.php?controller=admin&method=destroy' method='POST'>
+            <form action='index.php?controller=admin&method=destroy' method='POST' class='delete'>
                 <input type='hidden' name='book_id' value='${product.book.id}'>
-                <button type='submit'><img src='http://localhost/ecommerce/app/assets/icons/action/Bucket_24px.svg' alt='delete product icon'></button>
+                <button type='submit'style='background-color:unset;border:none;'><img src='http://localhost/ecommerce/app/assets/icons/action/Bucket_24px.svg' alt='delete product icon'></button>
                 
             </form>
         </td>
@@ -209,9 +236,15 @@ function getBookCategoryOptions(categoryId, categories) {
 }
 
 
-async function update(form)
-{
+async function update(form) {
     let response = await $.post('index.php?controller=admin&method=update', form.serialize() + '&remote=true', function (results) {
+    });
+
+    return JSON.parse(response);
+}
+
+async function destroy(form) {
+    let response = await $.post('index.php?controller=admin&method=destroy', form.serialize() + '&remote=true', function (results) {
     });
 
     return JSON.parse(response);

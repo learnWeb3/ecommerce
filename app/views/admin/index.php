@@ -12,17 +12,17 @@
 
 
 <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="product" role="tabpanel" aria-labelledby="product-tab">
+    <div class="tab-pane fade show active p-4" id="product" role="tabpanel" aria-labelledby="product-tab">
 
         <?php require_once LAYOUT_PATH . '/partials/admin/product_tab_content.php' ?>
 
     </div>
-    <div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="user-tab">
+    <div class="tab-pane fade p-4" id="user" role="tabpanel" aria-labelledby="user-tab">
 
         <?php require_once LAYOUT_PATH . '/partials/admin/user_tab_content.php' ?>
 
     </div>
-    <div class="tab-pane fade" id="order" role="tabpanel" aria-labelledby="order-tab">
+    <div class="tab-pane fade p-4" id="order" role="tabpanel" aria-labelledby="order-tab">
 
         <?php require_once LAYOUT_PATH . '/partials/admin/order_tab_content.php' ?>
 
@@ -35,5 +35,6 @@
     $(document).ready(function() {
         Admin.getProductDetails();
         Admin.updateProduct();
+        Admin.destroyProduct();
     });
 </script>
