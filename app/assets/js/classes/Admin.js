@@ -1,20 +1,22 @@
 class Admin {
     static getProductDetails() {
+        
+        var self = Admin;
+
         $('#search_input').keyup(function () {
-            let self = Admin;
             let inputValue = $(this).val();
             let form = $(this).parents('form');
             if (inputValue.length >= 2) {
                 $.post('index.php?controller=search&method=new', form.serialize() + '&remote=true', function (results) {
-                    let dbCall = JSON.parse(results);
-                    let categories = dbCall.categories;
-                    let books = dbCall.books;
-                    let tvaOptions = dbCall.tvaOptions;
+                    let products = JSON.parse(results);
+                    let categories = products.categories;
+                    let books = products.books;
+                    let tvaOptions = products.tvaOptions;
 
                     $('#admin-table tbody').children().remove();
 
                     books.map(function (product) {
-                        let template = Admin.getTemplate(product, categories);
+                        let template = self.getTemplate(product, categories);
                         $('#admin-table').append(template);
                         let id = product.book.id;
 
@@ -33,7 +35,7 @@ class Admin {
 
         var self = Admin;
 
-        $("#admin-table td input").keyup(function(){
+        $("#admin-table td input").blur(function(){
 
             let tr = $(this).parents('tr');
             let form = $(this).closest('form');
@@ -49,8 +51,7 @@ class Admin {
                 tr.replaceWith(template);
                 tr.find('select.select_book_category').append(getBookCategoryOptions(id, categories));
                 tr.find('select.select_book_tva').append(getBookTvaOptions(id, tvaOptions));
-
-                self.updateProduct()
+                self.updateProduct();
               
             }).catch(function(error){console.error(error)});
            
@@ -70,10 +71,11 @@ class Admin {
                 let tvaOptions = product.tvaOptions;
                 let template = self.getTemplate(books[0]);
                 let id = books[0].book.id;
+
                 tr.replaceWith(template);
                 tr.find('select.select_book_category').append(getBookCategoryOptions(id, categories));
                 tr.find('select.select_book_tva').append(getBookTvaOptions(id, tvaOptions));
-                self.updateProduct()
+                self.updateProduct();
               
             }).catch(function(error){console.error(error)});
             
