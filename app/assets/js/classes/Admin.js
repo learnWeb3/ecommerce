@@ -47,12 +47,14 @@ class Admin {
                 let books = product.books;
                 let tvaOptions = product.tvaOptions;
                 let template = self.getTemplate(books[0]);
-                let id = books[0].book.id;
+                let bookId = books[0].book.id;
+                let categoryId = books[0].book.category_id;
+                let tvaOptionId = books[0].book.tva_id;
 
                 tr.replaceWith(template);
 
-                $(`tr#book-${id} select.select_book_category`).append(getBookCategoryOptions(id, categories));
-                $(`tr#book-${id} select.select_book_tva`).append(getBookTvaOptions(id, tvaOptions));
+                $(`tr#book-${bookId} select.select_book_category`).append(getBookCategoryOptions(categoryId, categories));
+                $(`tr#book-${bookId} select.select_book_tva`).append(getBookTvaOptions(tvaOptionId, tvaOptions));
                 self.updateProduct();
               
             }).catch(function(error){console.error(error)});
@@ -72,11 +74,13 @@ class Admin {
                 let books = product.books;
                 let tvaOptions = product.tvaOptions;
                 let template = self.getTemplate(books[0]);
-                let id = books[0].book.id;
+                let bookId = books[0].book.id;
+                let categoryId = books[0].book.category_id;
+                let tvaOptionId = books[0].book.tva_id;
 
                 tr.replaceWith(template);
-                $(`tr#book-${id} select.select_book_category`).append(getBookCategoryOptions(id, categories));
-                $(`tr#book-${id} select.select_book_tva`).append(getBookTvaOptions(id, tvaOptions));
+                $(`tr#book-${bookId} select.select_book_category`).append(getBookCategoryOptions(categoryId, categories));
+                $(`tr#book-${bookId} select.select_book_tva`).append(getBookTvaOptions(tvaOptionId, tvaOptions));
                 self.updateProduct();
               
             }).catch(function(error){console.error(error)});
@@ -95,7 +99,7 @@ class Admin {
         <td>
             <form action='index.php?controller=admin&method=update' method='POST'>
                 <input type='hidden' name='book_id' value='${product.book.id}'>
-                <select name='book_category_id' class='select_book_category' class='form-control'>
+                <select name='book_category_id' class='select_book_category form-control'>
                 </select>
                 
             </form>
@@ -103,7 +107,7 @@ class Admin {
         <td>
             <form action='index.php?controller=admin&method=update' method='POST' >
                 <input type='hidden' name='book_id' value='${product.book.id}'>
-                <select name='book_tva_id' class='select_book_tva' class='form-control'>
+                <select name='book_tva_id' class='select_book_tva form-control'>
                 </select>
                 
             </form>
@@ -179,10 +183,10 @@ class Admin {
 }
 
 
-function getBookTvaOptions(id, tvaOptions) {
+function getBookTvaOptions(tvaId, tvaOptions) {
     let optionGroup = '';
     tvaOptions.forEach(element => {
-        if (parseInt(element.id) == parseInt(id)) {
+        if (parseInt(element.id) == parseInt(tvaId)) {
             optionGroup = optionGroup + `<option value='${element.id}' selected>${element.code}</option>`;
         } else {
             optionGroup = optionGroup + `<option value='${element.id}'>${element.code}</option>`;
@@ -191,10 +195,10 @@ function getBookTvaOptions(id, tvaOptions) {
     return optionGroup;
 }
 
-function getBookCategoryOptions(id, categories) {
+function getBookCategoryOptions(categoryId, categories) {
     let optionGroup = '';
     categories.forEach(element => {
-        if (parseInt(element.id) == parseInt(id)) {
+        if (parseInt(element.id) == parseInt(categoryId)) {
             optionGroup = optionGroup + `<option value='${element.id}' selected>${element.name}</option>`;
         } else {
             optionGroup = optionGroup + `<option value='${element.id}'>${element.name}</option>`;
