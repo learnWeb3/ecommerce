@@ -182,7 +182,7 @@ class Admin {
 function getBookTvaOptions(id, tvaOptions) {
     let optionGroup = '';
     tvaOptions.forEach(element => {
-        if (element.id == id) {
+        if (parseInt(element.id) == parseInt(id)) {
             optionGroup = optionGroup + `<option value='${element.id}' selected>${element.code}</option>`;
         } else {
             optionGroup = optionGroup + `<option value='${element.id}'>${element.code}</option>`;
@@ -194,7 +194,7 @@ function getBookTvaOptions(id, tvaOptions) {
 function getBookCategoryOptions(id, categories) {
     let optionGroup = '';
     categories.forEach(element => {
-        if (element.id == id) {
+        if (parseInt(element.id) == parseInt(id)) {
             optionGroup = optionGroup + `<option value='${element.id}' selected>${element.name}</option>`;
         } else {
             optionGroup = optionGroup + `<option value='${element.id}'>${element.name}</option>`;
