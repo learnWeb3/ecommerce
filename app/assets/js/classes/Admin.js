@@ -107,7 +107,7 @@ class Admin {
             let form = $('#search_input').parents("form");
             let sort_by = $(this).parents('th').attr('id');
             let order = $(this).attr("data");
-
+            resetSort(".sort-arrow");
             getOppositeSort($(this));
 
 
@@ -311,4 +311,14 @@ function getOppositeSort(element)
     element.attr('src', imageSrc);
     element.attr('data', dataAttr)
       
+}
+
+function resetSort(element)
+{
+    $(element).each(function(index){
+        let dataAttr = "desc";
+        let imageSrc = "http://localhost/ecommerce/app/assets/icons/action/sort_down.svg";
+        $(this).attr('src', imageSrc );
+        $(this).attr('data', dataAttr);
+    })
 }

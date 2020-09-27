@@ -33,8 +33,8 @@
                 <th id="book_stock" scope="col">Stock<img src="<?php echo ABSOLUTE_ASSET_PATH?>/icons/action/sort_down.svg" alt="sort down" class="sort-arrow ml-2" data="desc"></th>
                 <th id="upload" scope="col">Upload</th>
                 <th id="delete" scope="col">Supprimer</th>
-                <th id="book_created_at" scope="col">Crée à<img src="<?php echo ABSOLUTE_ASSET_PATH?>/icons/action/sort_down.svg" alt="sort down" class="sort-down-arrow ml-2"></th>
-                <th id="book_updated_at" scope="col">Mis à jour à<img src="<?php echo ABSOLUTE_ASSET_PATH?>/icons/action/sort_down.svg" alt="sort down" class="sort-down-arrow ml-2"></th>
+                <th id="book_created_at" scope="col">Crée à<img src="<?php echo ABSOLUTE_ASSET_PATH?>/icons/action/sort_down.svg" alt="sort down" class="sort-arrow ml-2" data="desc"></th>
+                <th id="book_updated_at" scope="col">Mis à jour à<img src="<?php echo ABSOLUTE_ASSET_PATH?>/icons/action/sort_down.svg" alt="sort down" class="sort-arrow ml-2" data="desc"></th>
             </tr>
         </thead>
         <tbody>
@@ -139,6 +139,7 @@
         </tbody>
 
     </table>
+
 
 
 </div>
