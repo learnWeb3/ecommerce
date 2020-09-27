@@ -807,14 +807,14 @@ class Book
     }
 
 
-    public static function resultToJson($search_matches)
+    public static function resultToJson($search_matches,$parameters=array())
     {
         $categories = Category::findAll("created_at");
         $tvaOptions = Book::getAllTvaTypes();
         $books = array_map(function ($el) {
             return array("book" => $el['book']->getObjectVars(), "category" => $el['category']->getObjectVars(), "stock"=>$el['stock']);
         }, $search_matches);
-        return  json_encode(array("books"=>$books, "categories"=>$categories, "tvaOptions"=>$tvaOptions));
+        return  json_encode(array("books"=>$books, "categories"=>$categories, "tvaOptions"=>$tvaOptions, "parameters"=> $parameters));
     }
 
     public static function filterSearchMenu($category_id, $price_min, $price_max, $order_column, $order, $limit, $offset)
@@ -1023,7 +1023,7 @@ class Book
     }
 
 
-    public static function getAllWithCategories()
+    public static function getAllWithCategories(int $limit=25, int $start=0)
     {
         $connection = Db::connect();
         $statement = "SELECT 
@@ -1051,7 +1051,8 @@ class Book
         FROM books 
         JOIN categories ON books.category_id = categories.id
         JOIN tva ON books.tva_id = tva.id
-        ORDER BY books.title ASC";
+        ORDER BY books.title ASC
+        LIMIT $limit OFFSET $start";
         $query = $connection->query($statement);
         $results = [];
         while ($row =  $query->fetch()) {

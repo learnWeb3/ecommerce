@@ -7,11 +7,40 @@ class AdminController extends ApplicationController
         $view_name = "index";
         $title = "Administration";
         $description = "Gérer, créer, mettre à jour vos données";
-        $books = Book::getAllWithCategories();
+
+        $start = isset($_GET['start']) ? $_GET['start'] : 0;
+        $limit = isset($_GET['limit']) ? $_GET['limit'] : 25;
+        $next = $start+$limit;
+        $previous = $start - $limit > 0 ? $start-$limit : 0;
+
+
+        if (isset($_GET['search_input'], $_GET['search_filter'])) {
+            $column_name = $_GET['search_filter'];
+            $value = $_GET['search_input'];
+            $order_column = isset($_GET['sort_by']) ? $_GET["sort_by"] : "book_updated_at";
+            $order = isset($_GET["order"]) ? $_GET["order"] : "DESC";
+
+            $search_matches = Book::searchLike($column_name, $value, $limit, $start, $order_column, $order);
+
+            if (isset($_GET['remote'])) {
+
+                echo Book::resultToJson($search_matches,$_GET);
+
+                die();
+            }else{
+                $books = $search_matches;
+            }
+        }else{
+
+            $books = Book::getAllWithCategories($limit, $start);
+            
+        }
+
         $categories = Category::findAll("created_at");
         $tva_types =  Book::getAllTvaTypes();
-        $vars = array("books" => $books, "categories" => $categories, "tva_types" => $tva_types);
+        $vars = array("books" => $books, "categories" => $categories, "tva_types" => $tva_types, "next"=>$next, "previous"=>$previous,"limit"=>$limit);
         $this->render($view_name, $title, $description, $vars, true);
+
     }
 
 
@@ -76,4 +105,6 @@ class AdminController extends ApplicationController
             }
         }
     }
+
+
 }

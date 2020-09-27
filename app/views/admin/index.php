@@ -16,6 +16,34 @@
 
         <?php require_once LAYOUT_PATH . '/partials/admin/product_tab_content.php' ?>
 
+        <ul class="pagination my-4 d-flex justify-content-end">
+            <li>
+                <a href="<?php echo REDIRECT_BASE_URL . "controller=admin&method=index" ?>" class="btn btn-lg btn-warning">reinitialiser la recherche</a>
+            </li>
+            <li class="ml-2">
+                <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=index" ?>" method="GET" id="form-page-previous">
+                    <?php foreach ($_GET as $key => $value) : ?>
+                        <?php if ($key != 'start') : ?>
+                            <input type="hidden" name="<?php echo $key ?>" value="<?php echo $value ?>">
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    <input type="hidden" name="start" value="<?php echo $previous ?>">
+                    <button type="submit" class="btn btn-lg btn-primary" id="previous"><img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_left_white.svg" ?>" alt="icon right page"></button>
+                </form>
+            </li>
+            <li class="ml-2">
+                <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=index" ?>" method="GET" id="form-page-next">
+                    <?php foreach ($_GET as $key => $value) : ?>
+                        <?php if ($key != 'start') : ?>
+                            <input type="hidden" name="<?php echo $key ?>" value="<?php echo $value ?>">
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    <input type="hidden" name="start" value="<?php echo $next ?>">
+                    <button type="submit" class="btn btn-lg btn-primary" id="next"><img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/chevron_right_white.svg" ?>" alt="icon left page"></button>
+                </form>
+            </li>
+        </ul>
+
     </div>
     <div class="tab-pane fade p-4" id="user" role="tabpanel" aria-labelledby="user-tab">
 

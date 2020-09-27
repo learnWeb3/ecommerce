@@ -1,17 +1,24 @@
 class Admin {
-    static getProductDetails(sort_by="book_updated_at", order="DESC") {
+    static getProductDetails(sort_by = "book_updated_at", order = "DESC") {
 
         var self = Admin;
 
         $('#search_input').keyup(function () {
-            let inputValue = $(this).val();
+           
             let form = $(this).parents('form');
-            if (inputValue.length >= 2) {
-                $.post('index.php?controller=search&method=new', form.serialize() + "&sort_by="+sort_by+"&order="+order+ '&remote=true', function (results) {
+           
+                $.get('index.php?controller=admin&method=index', form.serialize() + "&sort_by=" + sort_by + "&order=" + order + '&remote=true', function (results) {
                     let products = JSON.parse(results);
+
+                    let parameters = products.parameters;
                     let categories = products.categories;
                     let books = products.books;
                     let tvaOptions = products.tvaOptions;
+
+                    $('.pagination').find('form#form-page-next').html(getPaginationTemplate(parameters, "next", "chevron_right_white"))
+
+                    $('.pagination').find('form#form-page-previous').html(getPaginationTemplate(parameters, "previous", "chevron_left_white"))
+
 
                     $('#admin-table tbody').children().remove();
 
@@ -27,7 +34,7 @@ class Admin {
                         self.destroyProduct();
                     });
                 });
-            }
+        
         });
     }
 
@@ -96,13 +103,12 @@ class Admin {
     }
 
 
-    static sortResults()
-    {
+    static sortResults() {
 
         var self = Admin;
 
-        
-        $(".sort-arrow").click(function(){
+
+        $(".sort-arrow").click(function () {
 
             let form = $('#search_input').parents("form");
             let sort_by = $(this).parents('th').attr('id');
@@ -111,21 +117,21 @@ class Admin {
             getOppositeSort($(this));
 
 
-            $.post('index.php?controller=search&method=new', form.serialize() + "&sort_by="+sort_by+"&order="+order+ '&remote=true', function (results) {
+            $.get('index.php?controller=admin&method=index', form.serialize() + "&sort_by=" + sort_by + "&order=" + order + '&remote=true', function (results) {
 
                 let products = JSON.parse(results);
                 let categories = products.categories;
                 let books = products.books;
                 let tvaOptions = products.tvaOptions;
-    
+
                 $('#admin-table tbody').children().remove();
-    
+
                 books.map(function (product) {
                     let template = self.getTemplate(product, categories);
                     $('#admin-table').append(template);
                     let categoryId = product.book.category_id;
                     let tvaOptionId = product.book.tva_id;
-    
+
                     $('#admin-table tbody tr:last-child').find('select.select_book_category').append(getBookCategoryOptions(categoryId, categories));
                     $('#admin-table tbody tr:last-child').find('select.select_book_tva').append(getBookTvaOptions(tvaOptionId, tvaOptions));
                     self.updateProduct();
@@ -134,18 +140,18 @@ class Admin {
             });
 
         })
-       
+
     }
 
 
-   
+
 
     static destroyProduct() {
         $('.delete').submit(function (event) {
 
             event.stopPropagation();
             event.preventDefault();
-            
+
             let userConfirm = confirm("Voulez vous réellement supprimé ce produit ?");
 
             if (userConfirm) {
@@ -254,6 +260,7 @@ class Admin {
         </td>
     </tr>`).trim()
     }
+
 }
 
 
@@ -296,13 +303,11 @@ async function destroy(form) {
     return JSON.parse(response);
 }
 
-function getOppositeSort(element)
-{
-    if ( element.attr('data') == "desc" )
-    {
+function getOppositeSort(element) {
+    if (element.attr('data') == "desc") {
         var dataAttr = "asc";
         var imageSrc = "http://localhost/ecommerce/app/assets/icons/action/sort_up.svg";
-    }else{
+    } else {
 
         var dataAttr = "desc";
         var imageSrc = "http://localhost/ecommerce/app/assets/icons/action/sort_down.svg";
@@ -310,15 +315,32 @@ function getOppositeSort(element)
 
     element.attr('src', imageSrc);
     element.attr('data', dataAttr)
-      
+
 }
 
-function resetSort(element)
-{
-    $(element).each(function(index){
+function resetSort(element) {
+    $(element).each(function (index) {
         let dataAttr = "desc";
         let imageSrc = "http://localhost/ecommerce/app/assets/icons/action/sort_down.svg";
-        $(this).attr('src', imageSrc );
+        $(this).attr('src', imageSrc);
         $(this).attr('data', dataAttr);
     })
+}
+
+function getPaginationTemplate(parameters, type, imageName) {
+    let inputs = '';
+
+    for (const key in parameters) {
+        if (key != 'remote') { inputs += `<input type="hidden" name='${key}' value='${parameters[key]}'></input>`; }
+    }
+
+    if (type == 'next') {
+        inputs += `<input type="hidden" name='start' value='25'></input>`;
+    } else {
+        inputs += `<input type="hidden" name='start' value='0'></input>`;
+    }
+
+    inputs += `<button type='submit' class='btn btn-lg btn-primary' id='${type}'><img src='http://localhost/ecommerce/app/assets/icons/action/${imageName}.svg' alt='icon right page'></button>`;
+
+    return inputs;
 }
