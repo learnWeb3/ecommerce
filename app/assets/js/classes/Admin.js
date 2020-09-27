@@ -108,6 +108,7 @@ class Admin {
             let sort_by = $(this).parents('th').attr('id');
             let order = $(this).attr("data");
 
+            getOppositeSort($(this));
 
 
             $.post('index.php?controller=search&method=new', form.serialize() + "&sort_by="+sort_by+"&order="+order+ '&remote=true', function (results) {
@@ -136,6 +137,8 @@ class Admin {
        
     }
 
+
+   
 
     static destroyProduct() {
         $('.delete').submit(function (event) {
@@ -291,4 +294,21 @@ async function destroy(form) {
     });
 
     return JSON.parse(response);
+}
+
+function getOppositeSort(element)
+{
+    if ( element.attr('data') == "desc" )
+    {
+        var dataAttr = "asc";
+        var imageSrc = "http://localhost/ecommerce/app/assets/icons/action/sort_up.svg";
+    }else{
+
+        var dataAttr = "desc";
+        var imageSrc = "http://localhost/ecommerce/app/assets/icons/action/sort_down.svg";
+    }
+
+    element.attr('src', imageSrc);
+    element.attr('data', dataAttr)
+      
 }
