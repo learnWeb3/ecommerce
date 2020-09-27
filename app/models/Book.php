@@ -662,9 +662,13 @@ class Book
                 "book_category" => "categories.name",
                 "book_description" => "books.description",
                 "book_created_at" => "books.created_at",
-                "book_updated_at" => "books.updated_at"
+                "book_updated_at" => "books.updated_at",
+                "book_image_url"=>"books.image_path",
+                "book_price"=>"books.price",
+                "book_tva"=>"tva.id",
+                "book_stock"=>"stocks.quantity"
             ),
-            "authorized_order" => array("DESC", "ASC")
+            "authorized_order" => array("DESC", "ASC","desc", "asc")
         );
 
 
@@ -705,6 +709,7 @@ class Book
         WHERE $column_name LIKE ? AND stocks.quantity >= ?
         ORDER BY $order_column $order
         LIMIT $limit OFFSET $offset";
+
         $prepared_statement = $connection->prepare($statement);
 
         $prepared_statement->execute(

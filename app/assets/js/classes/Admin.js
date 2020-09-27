@@ -1,5 +1,5 @@
 class Admin {
-    static getProductDetails() {
+    static getProductDetails(sort_by="book_updated_at", order="DESC") {
 
         var self = Admin;
 
@@ -7,7 +7,7 @@ class Admin {
             let inputValue = $(this).val();
             let form = $(this).parents('form');
             if (inputValue.length >= 2) {
-                $.post('index.php?controller=search&method=new', form.serialize() + '&remote=true', function (results) {
+                $.post('index.php?controller=search&method=new', form.serialize() + "&sort_by="+sort_by+"&order="+order+ '&remote=true', function (results) {
                     let products = JSON.parse(results);
                     let categories = products.categories;
                     let books = products.books;
@@ -67,6 +67,7 @@ class Admin {
 
 
 
+
         $("#admin-table td select").blur(function () {
 
 
@@ -92,6 +93,47 @@ class Admin {
             }).catch(function (error) { console.error(error) });
 
         });
+    }
+
+
+    static sortResults()
+    {
+
+        var self = Admin;
+
+        
+        $(".sort-arrow").click(function(){
+
+            let form = $('#search_input').parents("form");
+            let sort_by = $(this).parents('th').attr('id');
+            let order = $(this).attr("data");
+
+
+
+            $.post('index.php?controller=search&method=new', form.serialize() + "&sort_by="+sort_by+"&order="+order+ '&remote=true', function (results) {
+
+                let products = JSON.parse(results);
+                let categories = products.categories;
+                let books = products.books;
+                let tvaOptions = products.tvaOptions;
+    
+                $('#admin-table tbody').children().remove();
+    
+                books.map(function (product) {
+                    let template = self.getTemplate(product, categories);
+                    $('#admin-table').append(template);
+                    let categoryId = product.book.category_id;
+                    let tvaOptionId = product.book.tva_id;
+    
+                    $('#admin-table tbody tr:last-child').find('select.select_book_category').append(getBookCategoryOptions(categoryId, categories));
+                    $('#admin-table tbody tr:last-child').find('select.select_book_tva').append(getBookTvaOptions(tvaOptionId, tvaOptions));
+                    self.updateProduct();
+                    self.destroyProduct();
+                });
+            });
+
+        })
+       
     }
 
 

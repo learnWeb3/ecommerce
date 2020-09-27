@@ -22,19 +22,19 @@
         <thead>
             <tr>
                 <th id="image" scope="col">Image</th>
-                <th id="category" scope="col">Catégorie</th>
-                <th id="tva" scope="col">Tva</th>
-                <th id="image_url" scope="col">Image url</th>
-                <th id="title" scope="col">Titre</th>
-                <th id="author" scope="col">Auteur</th>
-                <th id="collection" scope="col">Collection</th>
-                <th id="description" scope="col">Description</th>
-                <th id="price" scope="col">Prix</th>
-                <th id="stock" scope="col">Stock</th>
+                <th id="book_category" scope="col">Catégorie<img src="<?php echo ABSOLUTE_ASSET_PATH?>/icons/action/sort_down.svg" alt="sort down" class="sort-arrow ml-2" data="desc"></th>
+                <th id="book_tva" scope="col">Tva<img src="<?php echo ABSOLUTE_ASSET_PATH?>/icons/action/sort_down.svg" alt="sort down" class="sort-arrow ml-2" data="desc"></th>
+                <th id="book_image_url" scope="col">Image url<img src="<?php echo ABSOLUTE_ASSET_PATH?>/icons/action/sort_down.svg" alt="sort down" class="sort-arrow ml-2" data="desc"></th>
+                <th id="book_title" scope="col">Titre<img src="<?php echo ABSOLUTE_ASSET_PATH?>/icons/action/sort_down.svg" alt="sort down" class="sort-arrow ml-2" data="desc"></th>
+                <th id="book_author" scope="col">Auteur<img src="<?php echo ABSOLUTE_ASSET_PATH?>/icons/action/sort_down.svg" alt="sort down" class="sort-arrow ml-2" data="desc"></th>
+                <th id="book_collection" scope="col">Collection<img src="<?php echo ABSOLUTE_ASSET_PATH?>/icons/action/sort_down.svg" alt="sort down" class="sort-arrow ml-2" data="desc"></th>
+                <th id="book_description" scope="col">Description<img src="<?php echo ABSOLUTE_ASSET_PATH?>/icons/action/sort_down.svg" alt="sort down" class="sort-arrow ml-2" data="desc"></th>
+                <th id="book_price" scope="col">Prix<img src="<?php echo ABSOLUTE_ASSET_PATH?>/icons/action/sort_down.svg" alt="sort down" class="sort-arrow ml-2" data="desc"></th>
+                <th id="book_stock" scope="col">Stock<img src="<?php echo ABSOLUTE_ASSET_PATH?>/icons/action/sort_down.svg" alt="sort down" class="sort-arrow ml-2" data="desc"></th>
                 <th id="upload" scope="col">Upload</th>
                 <th id="delete" scope="col">Supprimer</th>
-                <th id="created_at" scope="col">Crée à</th>
-                <th id="updated_at" scope="col">Mis à jour à</th>
+                <th id="book_created_at" scope="col">Crée à<img src="<?php echo ABSOLUTE_ASSET_PATH?>/icons/action/sort_down.svg" alt="sort down" class="sort-down-arrow ml-2"></th>
+                <th id="book_updated_at" scope="col">Mis à jour à<img src="<?php echo ABSOLUTE_ASSET_PATH?>/icons/action/sort_down.svg" alt="sort down" class="sort-down-arrow ml-2"></th>
             </tr>
         </thead>
         <tbody>

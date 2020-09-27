@@ -1,0 +1,6 @@
+.table tr th{
+    min-width:10rem;
+}
+.table tr th .sort-arrow{
+    cursor: pointer;
+}

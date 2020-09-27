@@ -36,5 +36,6 @@
         Admin.getProductDetails();
         Admin.updateProduct();
         Admin.destroyProduct();
+        Admin.sortResults();
     });
 </script>
