@@ -113,16 +113,23 @@ class Admin {
             let form = $('#search_input').parents("form");
             let sort_by = $(this).parents('th').attr('id');
             let order = $(this).attr("data");
+          
             resetSort(".sort-arrow");
             getOppositeSort($(this));
-
-
+            
+    
             $.get('index.php?controller=admin&method=index', form.serialize() + "&sort_by=" + sort_by + "&order=" + order + '&remote=true', function (results) {
 
                 let products = JSON.parse(results);
                 let categories = products.categories;
                 let books = products.books;
                 let tvaOptions = products.tvaOptions;
+                let parameters = products.parameters;
+
+                $('.pagination').find('form#form-page-next').html(getPaginationTemplate(parameters, "next", "chevron_right_white"))
+
+                $('.pagination').find('form#form-page-previous').html(getPaginationTemplate(parameters, "previous", "chevron_left_white"))
+    
 
                 $('#admin-table tbody').children().remove();
 
