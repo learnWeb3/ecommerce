@@ -154,10 +154,10 @@ class BookScrapper
     public function registerDatas(int $entry_number_per_category)
     {
         // DESTROYING PREVIOUS ENTRIES TO AVOID DUPLICATE
-        DbRecords::destroyAll(array("categories", "books"));
+        Db::destroyAll(array("categories", "books"));
         // RESETTING AUTOINCREMENT OF TABLES
-        DbRecords::resetAutoIncrement("categories");
-        DbRecords::resetAutoIncrement("books");
+        Db::resetAutoIncrement("categories");
+        Db::resetAutoIncrement("books");
 
         // GETTING DATAS 
         $datas =  $this->getDatas($entry_number_per_category);

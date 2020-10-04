@@ -376,17 +376,17 @@ class Book
 
 
 
-        // FETCHING POPULAR RECORDS INTO DATABASE // MODT BOUGHT ARTICLE 
+    // FETCHING POPULAR RECORDS INTO DATABASE // MODT BOUGHT ARTICLE 
 
-        public static function getMostViewed(int $limit, int $offset)
-        {
-            if (!self::checkLimitAndOffset($limit, $offset)) {
-                return false;
-            }
-    
-            $connection = Db::connect();
-            $statement =
-                "SELECT 
+    public static function getMostViewed(int $limit, int $offset)
+    {
+        if (!self::checkLimitAndOffset($limit, $offset)) {
+            return false;
+        }
+
+        $connection = Db::connect();
+        $statement =
+            "SELECT 
                    books.id as book_id,
             books.created_at as book_created_at,
             books.updated_at as book_updated_at,
@@ -412,32 +412,32 @@ class Book
             GROUP BY books.id
             ORDER BY book_views_sum DESC
             LIMIT $limit OFFSET $offset";
-            $prepared_statement = $connection->prepare($statement);
-            $prepared_statement->execute();
-            $results = [];
-            while ($row =  $prepared_statement->fetch()) {
-                $results[] = array(
-                    "book" => new Book(
-                        $row["book_title"],
-                        $row["book_author"],
-                        $row["book_collection"],
-                        $row["book_price"],
-                        $row["book_year"],
-                        $row["book_image_path"],
-                        $row["book_description"],
-                        $row["book_category_id"],
-                        $row["book_tva_id"],
-                        $row["book_id"],
-                        $row["book_created_at"],
-                        $row["book_updated_at"]
-                    ),
-                    "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
-                    "book_views_sum" => $row["book_views_sum"]
-                );
-            }
-    
-            return $results;
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute();
+        $results = [];
+        while ($row =  $prepared_statement->fetch()) {
+            $results[] = array(
+                "book" => new Book(
+                    $row["book_title"],
+                    $row["book_author"],
+                    $row["book_collection"],
+                    $row["book_price"],
+                    $row["book_year"],
+                    $row["book_image_path"],
+                    $row["book_description"],
+                    $row["book_category_id"],
+                    $row["book_tva_id"],
+                    $row["book_id"],
+                    $row["book_created_at"],
+                    $row["book_updated_at"]
+                ),
+                "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
+                "book_views_sum" => $row["book_views_sum"]
+            );
         }
+
+        return $results;
+    }
 
 
 
@@ -595,7 +595,7 @@ class Book
     {
         $connection = Db::connect();
         $statement =
-        "SELECT 
+            "SELECT 
         books.id as book_id,
         books.created_at as book_created_at,
         books.updated_at as book_updated_at,
@@ -644,7 +644,7 @@ class Book
                     $row["book_updated_at"]
                 ),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
-                "stock"=>$row["book_stock"]
+                "stock" => $row["book_stock"]
             );
         }
 
@@ -652,7 +652,7 @@ class Book
     }
 
 
-    public static function searchLike(string $column_name, $value, int $limit, int $offset, string $order_column, string $order, int $stock_quantity=1)
+    public static function searchLike(string $column_name, $value, int $limit, int $offset, string $order_column, string $order, int $stock_quantity = 1)
     {
         $authorized_values = array(
             "authorized_columns" => array(
@@ -663,12 +663,12 @@ class Book
                 "book_description" => "books.description",
                 "book_created_at" => "books.created_at",
                 "book_updated_at" => "books.updated_at",
-                "book_image_url"=>"books.image_path",
-                "book_price"=>"books.price",
-                "book_tva"=>"tva.id",
-                "book_stock"=>"stocks.quantity"
+                "book_image_url" => "books.image_path",
+                "book_price" => "books.price",
+                "book_tva" => "tva.id",
+                "book_stock" => "stocks.quantity"
             ),
-            "authorized_order" => array("DESC", "ASC","desc", "asc")
+            "authorized_order" => array("DESC", "ASC", "desc", "asc")
         );
 
 
@@ -734,7 +734,7 @@ class Book
                     $row["book_updated_at"]
                 ),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
-                "stock"=>$row["book_stock"]
+                "stock" => $row["book_stock"]
             );
         }
 
@@ -799,7 +799,7 @@ class Book
                     $row["book_updated_at"]
                 ),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"])
-            
+
             );
         }
 
@@ -807,14 +807,14 @@ class Book
     }
 
 
-    public static function resultToJson($search_matches,$parameters=array())
+    public static function resultToJson($search_matches, $parameters = array())
     {
         $categories = Category::findAll("created_at");
         $tvaOptions = Book::getAllTvaTypes();
         $books = array_map(function ($el) {
-            return array("book" => $el['book']->getObjectVars(), "category" => $el['category']->getObjectVars(), "stock"=>$el['stock']);
+            return array("book" => $el['book']->getObjectVars(), "category" => $el['category']->getObjectVars(), "stock" => $el['stock']);
         }, $search_matches);
-        return  json_encode(array("books"=>$books, "categories"=>$categories, "tvaOptions"=>$tvaOptions, "parameters"=> $parameters));
+        return  json_encode(array("books" => $books, "categories" => $categories, "tvaOptions" => $tvaOptions, "parameters" => $parameters));
     }
 
     public static function filterSearchMenu($category_id, $price_min, $price_max, $order_column, $order, $limit, $offset)
@@ -1014,7 +1014,7 @@ class Book
             $view_count = intval($view_count[0]['view_count']) + 1;
             $statement = "UPDATE views SET view_count=? WHERE book_id=?";
             $prepared_statement = $connection->prepare($statement);
-            $prepared_statement->execute(array($view_count,$this->getId()));
+            $prepared_statement->execute(array($view_count, $this->getId()));
         } else {
             $statement = "INSERT INTO views (book_id, view_count) VALUES (?,?)";
             $prepared_statement = $connection->prepare($statement);
@@ -1023,7 +1023,7 @@ class Book
     }
 
 
-    public static function getAllWithCategories(int $limit=25, int $start=0)
+    public static function getAllWithCategories(int $limit = 25, int $start = 0)
     {
         $connection = Db::connect();
         $statement = "SELECT 
@@ -1072,12 +1072,11 @@ class Book
                     $row["book_updated_at"]
                 ),
                 "category" => new Category($row["category_name"], $row["category_id"], $row["category_created_at"], $row["category_updated_at"]),
-                "tva"=>['id'=> $row['tva_id'], 'code'=> $row['tva_code'], 'value'=> $row['tva_value'], 'created_at'=> $row['tva_created_at'], 'updated_at'=> $row['tva_updated_at']]
+                "tva" => ['id' => $row['tva_id'], 'code' => $row['tva_code'], 'value' => $row['tva_value'], 'created_at' => $row['tva_created_at'], 'updated_at' => $row['tva_updated_at']]
             );
         }
 
         return $results;
-
     }
 
 
@@ -1096,4 +1095,32 @@ class Book
         $this->update();
     }
 
+    public static function uploadImage($file_input_name)
+    {
+        if (isset($_FILES[$file_input_name])) {
+
+            if (!empty(($_FILES[$file_input_name]))) {
+                $authorized_file_type = array("image/jpeg", "image/png", "image/jpg");
+                $file_type = $_FILES[$file_input_name]['type'];
+                $file_size = $_FILES[$file_input_name]['size'];
+
+                if (in_array($file_type, $authorized_file_type) && $file_size <= 1000000) {
+
+                    $file_name = $_FILES[$file_input_name]['name'];
+                    $file_tmp_name = $_FILES[$file_input_name]['tmp_name'];
+                    $random_suffix = rand(0, 1000000);
+                    $file_destination =  UPLOAD_PATH . "/" . $file_name . "-" . $random_suffix;
+                    if (move_uploaded_file($file_tmp_name, $file_destination)) {
+                        return $file_destination;
+                    }
+                } else {
+                    throw new Exception("The file has not the supported format");
+                }
+            } else {
+                throw new Exception("An error as been found during upload");
+            }
+        } else {
+            throw new Exception("An error as been found during upload");
+        }
+    }
 }
