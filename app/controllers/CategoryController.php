@@ -12,4 +12,14 @@ class CategoryController
             echo json_encode(array_map(function($el){return $el->getObjectVars();}, $categories));
         }
     }
+
+
+    public function create()
+    {
+        if (isset($_POST['category_name']))
+       
+        }else{
+            renderErrror(403);
+        }
+    }
 }

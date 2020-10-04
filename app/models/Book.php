@@ -1123,4 +1123,64 @@ class Book
             throw new Exception("An error as been found during upload");
         }
     }
+
+    public static function getBookCountPerCategory()
+    {
+        
+        $connection = Db::connect();
+
+        $total_book_count = "SELECT COUNT(id) as total_book_count FROM books";
+
+        $book_count_per_category = "SELECT 
+        COUNT(books.id) as book_category_count,
+        categories.name as category_name
+        FROM categories 
+        JOIN books ON books.category_id = categories.id
+        GROUP BY categories.id";
+
+        // BOOK COUNT PER CATEGORY
+        $query_book_count_per_category =  $connection->query($book_count_per_category);
+        $book_count_per_category = $query_book_count_per_category->fetchAll(PDO::FETCH_ASSOC);
+
+        // TOTAL BOOK COUNT
+        $query_total_book_count = $connection->query($total_book_count);
+        $total_book_count = $query_total_book_count->fetchAll(PDO::FETCH_ASSOC)[0]["total_book_count"];
+
+
+
+
+        // NEEDED JSON FORMAT IN OUTPUT
+
+            //     {
+            //     name: "Chrome",
+            //     y: 62.74,
+            //     drilldown: "Chrome"
+            // }
+
+        $categoriesPieDatas = array_map(function($e) use ($total_book_count){
+
+            return array(
+                "name"=>$e["category_name"],
+                "y"=> number_format($e["book_category_count"] * 100 / intval($total_book_count), 2),
+                "drilldown"=>$e["category_name"]
+            );
+
+        }, $book_count_per_category);
+
+
+        return json_encode($categoriesPieDatas);
+
+    }
+
+
+    public static function getTotalStock()
+    {
+        $connection = Db::connect();
+
+        $statement = "SELECT SUM(quantity)  as total_stock, COUNT(DISTINCT book_id) as total_product_number FROM stocks";
+
+        $query = $connection->query($statement);
+
+        return $query->fetchAll(PDO::FETCH_ASSOC)[0];
+    }
 }

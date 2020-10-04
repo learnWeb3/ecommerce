@@ -1,6 +1,10 @@
 <ul class="nav nav-tabs" id="myTab" role="tablist">
+
     <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="product-tab" data-toggle="tab" href="#product" role="tab" aria-controls="product" aria-selected="true">Les produits</a>
+        <a class="nav-link active" id="activity-tab" data-toggle="tab" href="#activity" role="tab" aria-controls="activity" aria-selected="true">Mon activité</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="product-tab" data-toggle="tab" href="#product" role="tab" aria-controls="product" aria-selected="true">Les produits</a>
     </li>
     <li class="nav-item" role="presentation">
         <a class="nav-link" id="product-create-tab" data-toggle="tab" href="#product-create" role="tab" aria-controls="product-create" aria-selected="false">Ajouter un produit</a>
@@ -16,8 +20,14 @@
 
 <div class="tab-content" id="myTabContent">
 
-  
-    <div class="tab-pane fade show active p-4" id="product" role="tabpanel" aria-labelledby="product-tab">
+
+    <div class="tab-pane fade show active p-4" id="activity" role="tabpanel" aria-labelledby="activity-tab">
+
+        <?php require_once  LAYOUT_PATH . "/partials/admin/activity_tab_content.php" ?>
+
+    </div>
+
+    <div class="tab-pane fade p-4" id="product" role="tabpanel" aria-labelledby="product-tab">
 
         <?php require_once LAYOUT_PATH . '/partials/admin/product_tab_content.php' ?>
 
@@ -52,9 +62,10 @@
 
     </div>
 
-    <div class="tab-pane fade p-4" id="product-create" role="tabpanel" aria-labelledby="product-cretate-tab">
 
-            <?php require_once  LAYOUT_PATH."/partials/admin/product_create_tab_content.php"?>
+    <div class="tab-pane fade p-4" id="product-create" role="tabpanel" aria-labelledby="product-create-tab">
+
+        <?php require_once  LAYOUT_PATH . "/partials/admin/product_create_tab_content.php" ?>
 
     </div>
 

@@ -4,6 +4,14 @@ class AdminController extends ApplicationController
 {
     public function index()
     {
+
+        // ajax call to fetch datas for pie chart
+        if (isset($_GET['remote']))
+        {
+            echo Book::getBookCountPerCategory();
+            die();
+        }
+
         $view_name = "index";
         $title = "Administration";
         $description = "Gérer, créer, mettre à jour vos données";
@@ -36,9 +44,10 @@ class AdminController extends ApplicationController
             
         }
 
+        $total_stock = Book::getTotalStock();
         $categories = Category::findAll("created_at");
         $tva_types =  Book::getAllTvaTypes();
-        $vars = array("books" => $books, "categories" => $categories, "tva_types" => $tva_types, "next"=>$next, "previous"=>$previous,"limit"=>$limit);
+        $vars = array("books" => $books, "categories" => $categories, "tva_types" => $tva_types, "next"=>$next, "previous"=>$previous,"limit"=>$limit, "total_stock"=>$total_stock);
         $this->render($view_name, $title, $description, $vars, true);
 
     }
@@ -105,6 +114,8 @@ class AdminController extends ApplicationController
             }
         }
     }
+
+
 
 
 }

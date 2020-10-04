@@ -88,8 +88,7 @@ class BookController extends ApplicationController
                 $type = "info";
             }
         } else {
-            $message = ["Veuillez remplir l'ensemble des champs demandés"];
-            $type = "danger";
+           renderErrror(403);
         }
 
         $alert = new Flash($message, $type);
