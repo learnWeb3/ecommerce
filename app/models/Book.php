@@ -1109,9 +1109,9 @@ class Book
                     $file_name = $_FILES[$file_input_name]['name'];
                     $file_tmp_name = $_FILES[$file_input_name]['tmp_name'];
                     $random_suffix = rand(0, 1000000);
-                    $file_destination =  UPLOAD_PATH . "/" . $file_name . "-" . $random_suffix;
+                    $file_destination =  UPLOAD_PATH . "/" . $random_suffix."-". $file_name;
                     if (move_uploaded_file($file_tmp_name, $file_destination)) {
-                        return $file_destination;
+                        return ABSOLUTE_UPLOAD_PATH."/".$random_suffix."-". $file_name;
                     }
                 } else {
                     throw new Exception("The file has not the supported format");

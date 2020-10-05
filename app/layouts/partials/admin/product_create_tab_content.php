@@ -1,14 +1,14 @@
-<form action="<?php echo REDIRECT_BASE_URL . "controller=books&method=create" ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo REDIRECT_BASE_URL . "controller=book&method=create" ?>" method="post" enctype="multipart/form-data">
 
-    <h2>Ajouter un produit: 
-    <small class="my-4">(* champs obligatoires)</small></h2>
+    <h2>Ajouter un produit:
+        <small class="my-4">(* champs obligatoires)</small></h2>
 
     <div class="row">
 
 
         <div class="form-group  col-12 col-md-6">
 
-            <label for="">Titre * </label>
+            <label for="product_title">Titre * </label>
             <input type="text" class="form-control" name="product_title" required>
 
         </div>
@@ -16,7 +16,7 @@
 
         <div class="form-group col-12 col-md-6">
 
-            <label for="">Catégorie * </label>
+            <label for="product_category_id">Catégorie * </label>
 
             <select name="product_category_id" id="product_category_id" class="form-control" required>
 
@@ -36,15 +36,15 @@
 
         <div class="form-group col-12 col-md-6">
 
-            <label for="">Auteur *</label>
-            <input type="text" class="form-control" name="product_author" required>
+            <label for="product_author">Auteur *</label>
+            <input type="text" class="form-control" name="product_author" id="product_author" required>
 
         </div>
 
         <div class="form-group col-12 col-md-6">
 
-            <label for="">Collection * </label>
-            <input type="text" class="form-control" name="product_collection" required>
+            <label for="product_collection">Collection * </label>
+            <input type="text" class="form-control" name="product_collection" id="product_collection" required>
 
         </div>
 
@@ -52,17 +52,30 @@
 
     <div class="row">
 
-        <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-4">
 
-            <label for="">Prix * </label>
-            <input type="number" class="form-control" name="product_price" required>
+            <label for="product_price">Prix * </label>
+            <input type="number" class="form-control" name="product_price" id="product_price" required>
 
         </div>
 
-        <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-4">
 
-            <label for="">Année de publication * </label>
-            <input type="text" class="form-control" name="product_year" pattern="\d{4}" required>
+            <label for="product_year">Année de publication * </label>
+            <input type="text" class="form-control" name="product_year" id="product_year" pattern="\d{4}" required>
+
+        </div>
+
+
+        <div class="form-group col-12 col-md-4">
+
+            <label for="tva_code">Code TVA * </label>
+            <select name="book_tva_id" class="form-control" required>
+                <?php foreach ($tva_types as $tva) : ?>
+                    <option value="<?php echo $tva['id'] ?>"><?php echo $tva['code'] ?></option>
+                <?php endforeach; ?>
+            </select>
+
 
         </div>
 
@@ -88,7 +101,7 @@
 
     <div class="form-group">
         <label for="">Description: * </label>
-        <textarea name="" id="" cols="30" rows="10" class="form-control" name="product_description"></textarea>
+        <textarea name="product_description" id="product_description" cols="30" rows="10" class="form-control" name="product_description"></textarea>
 
     </div>
 
