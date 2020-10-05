@@ -25,6 +25,8 @@ class CheckoutController extends ApplicationController
         $stripe_session = $app_stripe->retrieveCheckoutSession($stripe_session->id);
         if ($stripe_session->payment_status == "paid")
         {
+
+            $payment_intent_id = $stripe_session->payment_intent;
             // retriving current user from session
             $user = User::getCurrentUser();
             // retireving basket from session
@@ -35,11 +37,11 @@ class CheckoutController extends ApplicationController
             // updating basket state
             $adress_id = $_SESSION['selected_adress_id'];
             // instance of invoice// 
-            $invoice = new Invoice($basket->getId(), $basket->getTotalTTC(), $basket->getTotalHT(), $adress_id, $stripe_session->payment_intent);
+            $invoice = new Invoice($basket->getId(), $basket->getTotalTTC(), $basket->getTotalHT(), $adress_id, $payment_intent_id);
             $invoice->create();
             $basket->updateBasketState();
             Session::destroyBasket();
-            $this->render("success", "Achat réussi", "La Nuit des Temps vous confirme le succès de votre commande, nous faisons le maximum pour vous livrer dans les meilleurs délais");
+            //$this->render("success", "Achat réussi", "La Nuit des Temps vous confirme le succès de votre commande, nous faisons le maximum pour vous livrer dans les meilleurs délais");
         }else{
             header("Location:".REDIRECT_BASE_URL."controller=checkout&method=error");
         }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 05 oct. 2020 à 12:51
+-- Généré le : lun. 05 oct. 2020 à 13:00
 -- Version du serveur :  10.4.14-MariaDB
 -- Version de PHP : 7.2.33
 
@@ -616,7 +616,7 @@ CREATE TABLE `invoices` (
   `total_amount_ttc` double NOT NULL,
   `total_amount_ht` double NOT NULL,
   `adress_id` int(11) NOT NULL,
-  `payment_intent_id` int(11) NOT NULL,
+  `payment_intent_id` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
