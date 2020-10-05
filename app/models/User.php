@@ -89,7 +89,7 @@ class User
 
     public function getAge()
     {
-        return intval($this->age);
+        return intval(strftime("%Y", time())) - intval(strftime("%Y", $this->date_of_birth));
     }
 
 
@@ -463,6 +463,40 @@ class User
             );
         }
 
+
+        return $results;
+    }
+
+
+    public static function getAllAndAddreses()
+    {
+        $connection = Db::connect();
+        $statement = "SELECT * FROM users";
+
+        $query = $connection->query($statement);
+
+        $query->execute();
+
+        $results = [];
+        while ($row = $query->fetch()) {
+            $user = new User(
+                $row["email"],
+                $row["password"],
+                $row["admin"],
+                $row["firstname"],
+                $row["lastname"],
+                $row["date_of_birth"],
+                $row["id"],
+                $row["created_at"],
+                $row["updated_at"]
+            );
+
+
+            $results[] = array(
+                "user" => $user,
+                "adresses" => $user->getAdresses()
+            );
+        }
 
         return $results;
     }

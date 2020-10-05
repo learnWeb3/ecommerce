@@ -44,6 +44,7 @@ class AdminController extends ApplicationController
             
         }
 
+        $users = User::getAllAndAddreses();
         $day_revenue = Invoice::getRevenue(1)[0];
         $month_revenue=Invoice::getRevenue(30)[0];
         $year_to_date_revenue=Invoice::getRevenue(365)[0];
@@ -59,7 +60,10 @@ class AdminController extends ApplicationController
                       "total_stock"=>$total_stock,
                       "day_revenue"=>$day_revenue,
                       "month_revenue"=>$month_revenue,
-                      "year_to_date_revenue"=>$year_to_date_revenue);
+                      "year_to_date_revenue"=>$year_to_date_revenue,
+                      "users"=>$users
+                    );
+
         $this->render($view_name, $title, $description, $vars, true);
     }
 

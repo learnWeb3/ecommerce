@@ -116,12 +116,13 @@ class BasketitemController
 
             if (isset($_POST["remote"]) && $book_available) {
 
-                echo json_encode(array(
-                    "book_id" => $book_id, "quantity" => $quantity,
-                    "message" => "Panier mis à jour avec succès",
-                    "basket_total_HT" => $basket->getTotalHT(),
-                    "basket_total_TTC" => $basket->getTotalTTC()
-                ));
+                echo json_encode(
+                    array(
+                        "book_id" => $book_id, "quantity" => $quantity,
+                        "message" => "Panier mis à jour avec succès",
+                        "basket_total_HT" => $basket->getTotalHT(),
+                        "basket_total_TTC" => $basket->getTotalTTC()
+                    ));
                 die();
             } else if (isset($_POST["remote"]) && !$book_available) {
                 $message = $book_available_quantity > 0 ? "Plus que $book_available_quantity exemplaire(s) disponible(s)" : "Le livre souhaité n'est plus disponible";
