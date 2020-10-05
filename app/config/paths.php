@@ -1,6 +1,6 @@
 <?php
 
-if (ROOT_PATH == '/var/www/ecommerce') {
+if ($_SERVER['DOCUMENT_ROOT'] == '/var/www/ecommerce') {
     define("ROOT_PATH", $_SERVER['DOCUMENT_ROOT']);
     define("ABSOLUTE_ASSET_PATH", "http://" . $_SERVER["SERVER_NAME"] . "/app/assets");
     define("REDIRECT_BASE_URL", "http://" . $_SERVER["SERVER_NAME"] . "/index.php?");
