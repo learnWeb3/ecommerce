@@ -61,8 +61,8 @@
 
         <div class="form-group col-12 col-md-4">
 
-            <label for="product_year">Année de publication * </label>
-            <input type="text" class="form-control" name="product_year" id="product_year" pattern="\d{4}" required>
+            <label for="product_publication_date">Date de publication * </label>
+            <input type="date" class="form-control" name="product_publication_date" id="product_publication_date" required>
 
         </div>
 

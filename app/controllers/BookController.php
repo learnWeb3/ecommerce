@@ -53,9 +53,9 @@ class BookController extends ApplicationController
     public function create()
     {
 
-        if (isset($_POST["product_title"], $_POST['product_category_id'], $_POST["product_author"],  $_POST["product_collection"],  $_POST["product_price"],  $_POST["product_year"],  $_POST["product_description"], $_POST['book_tva_id'])) {
+        if (isset($_POST["product_title"], $_POST['product_category_id'], $_POST["product_author"],  $_POST["product_collection"],  $_POST["product_price"],  $_POST["product_publication_date"],  $_POST["product_description"], $_POST['book_tva_id'])) {
 
-            if (!empty($_POST["product_title"]) && !empty($_POST['product_author']) && !empty($_POST["product_collection"]) && !empty($_POST["product_price"]) && !empty($_POST["product_year"]) && !empty($_POST["product_description"]) && !empty( $_POST['book_tva_id'])) {
+            if (!empty($_POST["product_title"]) && !empty($_POST['product_author']) && !empty($_POST["product_collection"]) && !empty($_POST["product_price"]) && !empty($_POST["product_publication_date"]) && !empty($_POST["product_description"]) && !empty( $_POST['book_tva_id'])) {
 
                 if (isset($_FILES["product_image_upload"])) {
                     try {
@@ -72,15 +72,15 @@ class BookController extends ApplicationController
                 if (!isset($message)) {
 
                     // DATABASE CREATION
-                    $book = new Book($_POST["product_title"],  $_POST["product_author"],  $_POST["product_collection"],  $_POST["product_price"],  $_POST["product_year"], $image_path,  $_POST["product_description"], intval($_POST['product_category_id']), intval( $_POST['book_tva_id']));
+                    $book = new Book($_POST["product_title"],  $_POST["product_author"],  $_POST["product_collection"],  $_POST["product_price"],  $_POST["product_publication_date"], $image_path,  $_POST["product_description"], intval($_POST['product_category_id']), intval( $_POST['book_tva_id']));
 
-                    var_dump($book->create());
+                    $book = $book->create();
 
                     // // STRIPE CREATION
-                    // $book->setStripeProductId();
-                    // $price_value = ceil($book->getPrice()) * 100;
-                    // $book->setStripePriceId($price_value);
-                    // $book->createStripeDetails();
+                    $book->setStripeProductId();
+                    $price_value = ceil($book->getPrice()) * 100;
+                    $book->setStripePriceId($price_value);
+                    $book->createStripeDetails();
 
                     // USER ALERT
                     $message = ["Produit ajouté avec succès"];
