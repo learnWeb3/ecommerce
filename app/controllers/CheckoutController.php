@@ -41,7 +41,8 @@ class CheckoutController extends ApplicationController
             $invoice->create();
             $basket->updateBasketState();
             Session::destroyBasket();
-            //$this->render("success", "Achat réussi", "La Nuit des Temps vous confirme le succès de votre commande, nous faisons le maximum pour vous livrer dans les meilleurs délais");
+            
+            $this->render("success", "Achat réussi", "La Nuit des Temps vous confirme le succès de votre commande, nous faisons le maximum pour vous livrer dans les meilleurs délais");
         }else{
             header("Location:".REDIRECT_BASE_URL."controller=checkout&method=error");
         }
