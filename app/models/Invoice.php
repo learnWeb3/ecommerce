@@ -165,15 +165,16 @@ class Invoice
     public static function getRevenue($periodicity)
     {   
         $connection = Db::connect();
-        $to = time(); // current time in epoch
-        $from = time() - $periodicity * (24 * 60 * 60); // to seconds 
+        $to =  strftime("%Y-%m-%d %H:%M:%S",time()); // current time in epoch
+        $from = strftime("%Y-%m-%d %H:%M:%S",time() - $periodicity * (24 * 60 * 60)); // to seconds 
         $statement = "SELECT 
         SUM(total_amount_ttc) as total_amount_ttc,
         SUM(total_amount_ht) as total_amount_ht
-        FROM invoices WHERE created_at BETWEEN ? AND ?";
-
+        FROM invoices WHERE created_at >= ? AND created_at <= ?";
         $prepared_statement = $connection->prepare($statement);
         $prepared_statement->execute(array($from, $to));
+
+        return $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
     }
     
 }

@@ -15,24 +15,48 @@
 
                 <h2>Chiffres clés</h2>
 
-                
+
                 <table class="table">
 
                     <thead>
 
                         <tr>
-                            <th>CA Jour</th>
-                            <th>CA Mensuel</th>
-                            <th>CA YTD</th>
+                            <th>CA Jour (TTC)</th>
+                            <th>CA Mensuel (TTC)</th>
+                            <th>CA YTD (TTC)</th>
                         </tr>
                     </thead>
 
                     <tbody>
 
                         <tr>
-                            <td><?php ?></td>
-                            <td><?php ?></td>
-                            <td><?php ?></td>
+                            <td><?php echo number_format($day_revenue["total_amount_ttc"],2) ?> &euro;</td>
+                            <td><?php echo number_format($month_revenue["total_amount_ttc"],2) ?> &euro;</td>
+                            <td><?php echo number_format($year_to_date_revenue["total_amount_ttc"],2) ?> &euro;</td>
+                        </tr>
+
+                    </tbody>
+
+
+                </table>
+
+                <table class="table">
+
+                    <thead>
+
+                        <tr>
+                            <th>CA Jour (HT)</th>
+                            <th>CA Mensuel (HT)</th>
+                            <th>CA YTD (HT)</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td><?php echo number_format($day_revenue["total_amount_ht"], 2)?> &euro;</td>
+                            <td><?php echo number_format($month_revenue["total_amount_ht"],2) ?> &euro;</td>
+                            <td><?php echo number_format($year_to_date_revenue["total_amount_ht"],2)?> &euro;</td>
                         </tr>
 
                     </tbody>
@@ -44,7 +68,7 @@
                 <hr class="my-4">
 
 
-                <h2>Nombre d'articles en stock</h2>
+            
 
 
                 <h3><?php echo $total_stock['total_stock'] ?> articles en stocks pour <?php echo $total_stock['total_product_number'] ?> items </h3>
@@ -110,5 +134,5 @@
         $("#product-create-tab").click();
     });
 
-    Admin. getCategoriesRepartition();
+    Admin.getCategoriesRepartition();
 </script>
