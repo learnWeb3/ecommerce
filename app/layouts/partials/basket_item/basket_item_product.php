@@ -30,7 +30,7 @@
     <form action="<?php echo REDIRECT_BASE_URL . "controller=basketitem&method=destroy" ?>" method="POST" class="delete-product">
 
         <input type="hidden" name="book_id" value="<?php echo $basket_product->getBook()->getid() ?>">
-        <button type="submit"> <img src="http://localhost/ecommerce/app/assets/icons/navigation/close.svg" alt="remove product icon"></button>
+        <button type="submit"> <img src="/app/assets/icons/navigation/close.svg" alt="remove product icon"></button>
 
     </form>
 

@@ -3,7 +3,7 @@ class Alert
     static getAlerts(results,resultContainer) {
         const alertTemplate = (
             `<div id='alert' class='${results.type}'>
-                <img src='app/assets/icons/navigation/close.svg' alt='' id='close'>
+                <img src='/app/assets/icons/navigation/close.svg' alt='' id='close'>
              </div>`).trim();
 
         $(resultContainer).append(alertTemplate);

@@ -250,12 +250,12 @@ class Admin {
             </form>
         </td>
         <td>
-            <img src='http://localhost/ecommerce/app/assets/icons/action/attach_file_24px_rounded.svg'  alt='atach file icon' class='attach-file'>
+            <img src='/app/assets/icons/action/attach_file_24px_rounded.svg'  alt='atach file icon' class='attach-file'>
         </td>
         <td>
             <form action='index.php?controller=admin&method=destroy' method='POST' class='delete'>
                 <input type='hidden' name='book_id' value='${product.book.id}'>
-                <button type='submit'style='background-color:unset;border:none;'><img src='http://localhost/ecommerce/app/assets/icons/action/Bucket_24px.svg' alt='delete product icon'></button>
+                <button type='submit'style='background-color:unset;border:none;'><img src='/app/assets/icons/action/Bucket_24px.svg' alt='delete product icon'></button>
                 
             </form>
         </td>
@@ -313,11 +313,11 @@ async function destroy(form) {
 function getOppositeSort(element) {
     if (element.attr('data') == "desc") {
         var dataAttr = "asc";
-        var imageSrc = "http://localhost/ecommerce/app/assets/icons/action/sort_up.svg";
+        var imageSrc = "/app/assets/icons/action/sort_up.svg";
     } else {
 
         var dataAttr = "desc";
-        var imageSrc = "http://localhost/ecommerce/app/assets/icons/action/sort_down.svg";
+        var imageSrc = "/app/assets/icons/action/sort_down.svg";
     }
 
     element.attr('src', imageSrc);
@@ -328,7 +328,7 @@ function getOppositeSort(element) {
 function resetSort(element) {
     $(element).each(function (index) {
         let dataAttr = "desc";
-        let imageSrc = "http://localhost/ecommerce/app/assets/icons/action/sort_down.svg";
+        let imageSrc = "/app/assets/icons/action/sort_down.svg";
         $(this).attr('src', imageSrc);
         $(this).attr('data', dataAttr);
     })
@@ -347,7 +347,7 @@ function getPaginationTemplate(parameters, type, imageName) {
         inputs += `<input type="hidden" name='start' value='0'></input>`;
     }
 
-    inputs += `<button type='submit' class='btn btn-lg btn-primary' id='${type}'><img src='http://localhost/ecommerce/app/assets/icons/action/${imageName}.svg' alt='icon right page'></button>`;
+    inputs += `<button type='submit' class='btn btn-lg btn-primary' id='${type}'><img src='/app/assets/icons/action/${imageName}.svg' alt='icon right page'></button>`;
 
     return inputs;
 }

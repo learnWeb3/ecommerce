@@ -32,7 +32,7 @@ class Product {
                             <div class="number">
                                 <input type='number' class='book_quantity' name='book_quantity' id='book_quantity_'${this.book_id}' value='${this.book_quantity}' min='1' required></div></div></form></div><form action='index.php?controller=basketitem&method=destroy' method='POST' class='delete-product'><input type='hidden' name='book_id' value='${this.book_id}'>
                         <button type='submit'>
-                            <img src='http://localhost/ecommerce/app/assets/icons/navigation/close.svg' alt='remove product icon'>
+                            <img src='app/assets/icons/navigation/close.svg' alt='remove product icon'>
                         </button>
                     </form>
                 </div>`).trim();
