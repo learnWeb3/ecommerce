@@ -7,7 +7,7 @@ class Admin {
            
             let form = $(this).parents('form');
            
-                $.get('index.php?controller=admin&method=index', form.serialize() + "&sort_by=" + sort_by + "&order=" + order + '&remote=true', function (results) {
+                $.get('index.php?index.php?controller=admin&method=index', form.serialize() + "&sort_by=" + sort_by + "&order=" + order + '&remote=true', function (results) {
                     let products = JSON.parse(results);
 
                     let parameters = products.parameters;
@@ -250,12 +250,12 @@ class Admin {
             </form>
         </td>
         <td>
-            <img src='/app/assets/icons/action/attach_file_24px_rounded.svg'  alt='atach file icon' class='attach-file'>
+            <img src='/ecommerce/app/assets/icons/action/attach_file_24px_rounded.svg'  alt='atach file icon' class='attach-file'>
         </td>
         <td>
             <form action='index.php?controller=admin&method=destroy' method='POST' class='delete'>
                 <input type='hidden' name='book_id' value='${product.book.id}'>
-                <button type='submit'style='background-color:unset;border:none;'><img src='/app/assets/icons/action/Bucket_24px.svg' alt='delete product icon'></button>
+                <button type='submit'style='background-color:unset;border:none;'><img src='/ecommerce/app/assets/icons/action/Bucket_24px.svg' alt='delete product icon'></button>
                 
             </form>
         </td>
@@ -347,7 +347,7 @@ function getPaginationTemplate(parameters, type, imageName) {
         inputs += `<input type="hidden" name='start' value='0'></input>`;
     }
 
-    inputs += `<button type='submit' class='btn btn-lg btn-primary' id='${type}'><img src='/app/assets/icons/action/${imageName}.svg' alt='icon right page'></button>`;
+    inputs += `<button type='submit' class='btn btn-lg btn-primary' id='${type}'><img src='/ecommerce/app/assets/icons/action/${imageName}.svg' alt='icon right page'></button>`;
 
     return inputs;
 }
