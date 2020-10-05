@@ -23,8 +23,13 @@ class CategoryController
             $category->create();
 
             $controller = "admin";
-
             $method = "index";
+
+            $message = ["Categorie crée avec succès"];
+            $type = "success";
+
+            $alert = new Flash($message,$type);
+            $alert->storeInSession();
 
             header("Location:" . REDIRECT_BASE_URL . "controller=$controller&method=$method");
         } else {
