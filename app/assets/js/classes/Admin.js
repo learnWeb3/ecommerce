@@ -4,37 +4,36 @@ class Admin {
         var self = Admin;
 
         $('#search_input').keyup(function () {
-           
+
             let form = $(this).parents('form');
-           
-                $.get('index.php?index.php?controller=admin&method=index', form.serialize() + "&sort_by=" + sort_by + "&order=" + order + '&remote=true', function (results) {
-                    let products = JSON.parse(results);
 
-                    let parameters = products.parameters;
-                    let categories = products.categories;
-                    let books = products.books;
-                    let tvaOptions = products.tvaOptions;
+            $.get('/ecommerce/index.php?controller=admin&method=index', form.serialize() + "&sort_by=" + sort_by + "&order=" + order + '&remote=true', function (results) {
+                let products = JSON.parse(results);
+                let parameters = products.parameters;
+                let categories = products.categories;
+                let books = products.books;
+                let tvaOptions = products.tvaOptions;
 
-                    $('.pagination').find('form#form-page-next').html(getPaginationTemplate(parameters, "next", "chevron_right_white"))
+                $('.pagination').find('form#form-page-next').html(getPaginationTemplate(parameters, "next", "chevron_right_white"))
 
-                    $('.pagination').find('form#form-page-previous').html(getPaginationTemplate(parameters, "previous", "chevron_left_white"))
+                $('.pagination').find('form#form-page-previous').html(getPaginationTemplate(parameters, "previous", "chevron_left_white"))
 
 
-                    $('#admin-table tbody').children().remove();
+                $('#admin-table tbody').children().remove();
 
-                    books.map(function (product) {
-                        let template = self.getTemplate(product, categories);
-                        $('#admin-table').append(template);
-                        let categoryId = product.book.category_id;
-                        let tvaOptionId = product.book.tva_id;
+                books.map(function (product) {
+                    let template = self.getTemplate(product, categories);
+                    $('#admin-table').append(template);
+                    let categoryId = product.book.category_id;
+                    let tvaOptionId = product.book.tva_id;
 
-                        $('#admin-table tbody tr:last-child').find('select.select_book_category').append(getBookCategoryOptions(categoryId, categories));
-                        $('#admin-table tbody tr:last-child').find('select.select_book_tva').append(getBookTvaOptions(tvaOptionId, tvaOptions));
-                        self.updateProduct();
-                        self.destroyProduct();
-                    });
+                    $('#admin-table tbody tr:last-child').find('select.select_book_category').append(getBookCategoryOptions(categoryId, categories));
+                    $('#admin-table tbody tr:last-child').find('select.select_book_tva').append(getBookTvaOptions(tvaOptionId, tvaOptions));
+                    self.updateProduct();
+                    self.destroyProduct();
                 });
-        
+            });
+
         });
     }
 
@@ -113,12 +112,12 @@ class Admin {
             let form = $('#search_input').parents("form");
             let sort_by = $(this).parents('th').attr('id');
             let order = $(this).attr("data");
-          
+
             resetSort(".sort-arrow");
             getOppositeSort($(this));
-            
-    
-            $.get('index.php?controller=admin&method=index', form.serialize() + "&sort_by=" + sort_by + "&order=" + order + '&remote=true', function (results) {
+
+
+            $.get('/ecommerce/index.php?controller=admin&method=index', form.serialize() + "&sort_by=" + sort_by + "&order=" + order + '&remote=true', function (results) {
 
                 let products = JSON.parse(results);
                 let categories = products.categories;
@@ -129,7 +128,7 @@ class Admin {
                 $('.pagination').find('form#form-page-next').html(getPaginationTemplate(parameters, "next", "chevron_right_white"))
 
                 $('.pagination').find('form#form-page-previous').html(getPaginationTemplate(parameters, "previous", "chevron_left_white"))
-    
+
 
                 $('#admin-table tbody').children().remove();
 
@@ -266,6 +265,69 @@ class Admin {
             <p>${product.book.updated_at}</p>
         </td>
     </tr>`).trim()
+    }
+
+
+   static  getCategoriesRepartition() {
+
+        // Create the chart
+
+
+        const options = {
+            chart: {
+                type: 'pie',
+                renderTo: 'highchart-container'
+            },
+            title: {
+                text: 'Repartitions des produits par catégorie'
+            },
+            accessibility: {
+                announceNewData: {
+                    enabled: true
+                },
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+
+            plotOptions: {
+                series: {
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}: {point.y:.1f}%'
+                    }
+                }
+            },
+
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+            },
+
+            series: [{
+                name: "Categories",
+                colorByPoint: true,
+                data: []
+            }]
+        }
+
+
+
+        $.get("index.php?controller=admin&method=index&remote=true&highchart=true", function (datas) {
+            JSON.parse(datas).map((e) => {
+                let {
+                    name,
+                    y,
+                    drilldown
+                } = e
+                options.series[0].data.push({
+                    name: name,
+                    y: parseInt(y),
+                    drilldown: drilldown
+                });
+            });
+            var chart = new Highcharts.Chart(options);
+        });
     }
 
 }

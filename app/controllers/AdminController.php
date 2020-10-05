@@ -6,7 +6,7 @@ class AdminController extends ApplicationController
     {
 
         // ajax call to fetch datas for pie chart
-        if (isset($_GET['remote']))
+        if (isset($_GET['remote'], $_GET['highchart']))
         {
             echo Book::getBookCountPerCategory();
             die();
