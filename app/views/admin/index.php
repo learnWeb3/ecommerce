@@ -83,6 +83,9 @@
 </div>
 
 
+<?php require_once LAYOUT_PATH."/flash/flash.php"?>
+
+
 
 <script>
     $(document).ready(function() {

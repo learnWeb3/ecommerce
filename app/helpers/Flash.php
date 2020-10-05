@@ -49,4 +49,18 @@ class Flash
 
         return $this;
     }
+
+    public static function getFlash()
+    {
+        if (isset($_SESSION["flash"])) {
+            return $_SESSION["flash"];
+        } else {
+            return array();
+        }
+    }
+
+    public static function removeFlash()
+    {
+        unset($_SESSION["flash"]);
+    }
 }

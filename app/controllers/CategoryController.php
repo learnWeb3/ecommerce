@@ -36,4 +36,26 @@ class CategoryController
             renderErrror(403);
         }
     }
+
+
+    public function delete()
+    {
+        if (isset($_POST['product_category_id'])) {
+            
+            Category::destroy(intval($_POST['product_category_id']));
+            
+            $controller = "admin";
+            $method = "index";
+
+            $message = ["Categorie supprimée avec succès"];
+            $type = "success";
+
+            $alert = new Flash($message,$type);
+            $alert->storeInSession();
+
+            header("Location:" . REDIRECT_BASE_URL . "controller=$controller&method=$method");
+        } else {
+            renderErrror(403);
+        }
+    }
 }
