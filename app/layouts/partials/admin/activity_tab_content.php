@@ -87,7 +87,7 @@
 
 
 
-                <form action="<?php REDIRECT_BASE_URL . "controller=category&method=create" ?>" method="post">
+                <form action="<?php echo REDIRECT_BASE_URL . "controller=category&method=create" ?>" method="post">
 
                     <h2>Créer une catégorie</h2>
 
@@ -114,8 +114,6 @@
 
         </div>
         <div class="col-12 col-md-6" id="highchart-container">
-
-
 
 
 
