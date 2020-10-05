@@ -33,7 +33,7 @@ class CategoryController
 
             header("Location:" . REDIRECT_BASE_URL . "controller=$controller&method=$method");
         } else {
-            renderErrror(403);
+            renderError(403);
         }
     }
 
@@ -55,7 +55,7 @@ class CategoryController
 
             header("Location:" . REDIRECT_BASE_URL . "controller=$controller&method=$method");
         } else {
-            renderErrror(403);
+            renderError(403);
         }
     }
 }

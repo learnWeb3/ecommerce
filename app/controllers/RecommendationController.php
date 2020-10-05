@@ -24,7 +24,7 @@ class RecommendationController extends ApplicationController
                 );
             }
         } else {
-            renderErrror(404);
+            renderError(404);
         }
 
         $this->render(

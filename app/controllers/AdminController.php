@@ -112,7 +112,7 @@ class AdminController extends ApplicationController
                     header("Location:" . $path);
                 }
             } else {
-                renderErrror(404);
+                renderError(404);
             }
         }
     }

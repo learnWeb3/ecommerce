@@ -29,6 +29,6 @@ class Router
             }
         }
 
-        die(renderErrror(404));
+        die(renderError(403));
     }
 }
