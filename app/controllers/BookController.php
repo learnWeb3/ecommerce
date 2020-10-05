@@ -37,10 +37,10 @@ class BookController extends ApplicationController
     {
         if (isset($_GET['id'])) {
             $book = Book::find($_GET['id']);
-            $book[0]->incrementViewCount();
             if (empty($book)) {
                 renderErrror(404);
             } else {
+                $book[0]->incrementViewCount();
                 $page_book = $book[0];
                 $similar_products = Book::searchBy("book_category_id", $page_book->getCategoryId(), 20, 0, "book_created_at", "DESC");
                 $this->render("show", $page_book->getTitle(), "La nuit des temps, librairie engagée de proximitée: voir le détails du produit", array("page_book" => $page_book, "similar_products" => $similar_products));

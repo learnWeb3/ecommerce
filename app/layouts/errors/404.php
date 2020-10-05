@@ -1,1 +1,1 @@
-404
+<img src="<?php echo ABSOLUTE_ASSET_PATH."/icons/error/404.svg" ?>" alt="404 illustration" style="height:100%; width:100%">
