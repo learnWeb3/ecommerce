@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 05 oct. 2020 à 13:00
+-- Généré le : lun. 05 oct. 2020 à 14:24
 -- Version du serveur :  10.4.14-MariaDB
 -- Version de PHP : 7.2.33
 
@@ -65,6 +65,13 @@ CREATE TABLE `baskets` (
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Déchargement des données de la table `baskets`
+--
+
+INSERT INTO `baskets` (`id`, `user_id`, `state_id`, `created_at`, `updated_at`) VALUES
+(1, 14, 2, '2020-10-05 13:03:39', '2020-10-05 13:04:12');
+
 -- --------------------------------------------------------
 
 --
@@ -79,6 +86,13 @@ CREATE TABLE `basket_items` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `basket_items`
+--
+
+INSERT INTO `basket_items` (`id`, `book_id`, `basket_id`, `quantity`, `created_at`, `updated_at`) VALUES
+(1, 397, 1, 1, '2020-10-05 13:04:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -617,9 +631,16 @@ CREATE TABLE `invoices` (
   `total_amount_ht` double NOT NULL,
   `adress_id` int(11) NOT NULL,
   `payment_intent_id` varchar(255) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `invoices`
+--
+
+INSERT INTO `invoices` (`id`, `basket_id`, `total_amount_ttc`, `total_amount_ht`, `adress_id`, `payment_intent_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 4, 3.78, 6, 'pi_1HYrTyBCSIgE2GxuqSxGt4wa', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1767,13 +1788,13 @@ ALTER TABLE `adresses`
 -- AUTO_INCREMENT pour la table `baskets`
 --
 ALTER TABLE `baskets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `basket_items`
 --
 ALTER TABLE `basket_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `books`
@@ -1803,7 +1824,7 @@ ALTER TABLE `delivery_fees`
 -- AUTO_INCREMENT pour la table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `recommended_books`

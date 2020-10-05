@@ -157,4 +157,23 @@ class Invoice
         $results = $prepared_statement->fetchAll(PDO::FETCH_ASSOC)[0];
         return $results["adress"] . " " . $results["city"] . " " . $results["postal_code"];
     }
+
+
+
+    // DISPLAY OF ANALYTICS 
+
+    public static function getRevenue($periodicity)
+    {   
+        $connection = Db::connect();
+        $to = time(); // current time in epoch
+        $from = time() - $periodicity * (24 * 60 * 60); // to seconds 
+        $statement = "SELECT 
+        SUM(total_amount_ttc) as total_amount_ttc,
+        SUM(total_amount_ht) as total_amount_ht
+        FROM invoices WHERE created_at BETWEEN ? AND ?";
+
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute(array($from, $to));
+    }
+    
 }

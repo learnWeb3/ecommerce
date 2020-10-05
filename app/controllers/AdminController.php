@@ -44,10 +44,22 @@ class AdminController extends ApplicationController
             
         }
 
+        $day_revenue = Invoice::getRevenue(1);
+        $month_revenue=Invoice::getRevenue(30);
+        $year_to_date_revenue=Invoice::getRevenue(365);
         $total_stock = Book::getTotalStock();
         $categories = Category::findAll("created_at");
         $tva_types =  Book::getAllTvaTypes();
-        $vars = array("books" => $books, "categories" => $categories, "tva_types" => $tva_types, "next"=>$next, "previous"=>$previous,"limit"=>$limit, "total_stock"=>$total_stock);
+        $vars = array("books" => $books, 
+                      "categories" => $categories, 
+                      "tva_types" => $tva_types, 
+                      "next"=>$next, 
+                      "previous"=>$previous,
+                      "limit"=>$limit, 
+                      "total_stock"=>$total_stock,
+                      "day_revenue"=>$day_revenue,
+                      "month_revenue"=>$month_revenue,
+                      "year_to_date_revenue"=>$year_to_date_revenue);
         $this->render($view_name, $title, $description, $vars, true);
 
     }
