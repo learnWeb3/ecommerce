@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 05 oct. 2020 à 11:34
+-- Généré le : lun. 05 oct. 2020 à 12:51
 -- Version du serveur :  10.4.14-MariaDB
 -- Version de PHP : 7.2.33
 
@@ -65,14 +65,6 @@ CREATE TABLE `baskets` (
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Déchargement des données de la table `baskets`
---
-
-INSERT INTO `baskets` (`id`, `user_id`, `state_id`, `created_at`, `updated_at`) VALUES
-(1, 14, 2, '2020-09-22 12:35:46', '2020-09-22 16:17:39'),
-(2, 14, 1, '2020-09-22 16:18:50', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -87,17 +79,6 @@ CREATE TABLE `basket_items` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `basket_items`
---
-
-INSERT INTO `basket_items` (`id`, `book_id`, `basket_id`, `quantity`, `created_at`, `updated_at`) VALUES
-(22, 394, 1, 1, '2020-09-22 16:17:39', NULL),
-(23, 395, 1, 1, '2020-09-22 16:17:39', NULL),
-(24, 384, 1, 1, '2020-09-22 16:17:39', NULL),
-(31, 400, 2, 1, '2020-10-04 16:02:51', NULL),
-(32, 396, 2, 1, '2020-10-04 16:02:51', NULL);
 
 -- --------------------------------------------------------
 
@@ -478,7 +459,7 @@ INSERT INTO `books` (`id`, `title`, `author`, `collection`, `description`, `pric
 (356, 'La méthode simple pour les femmes qui veulent a...', 'Allen Carr', 'Pocket n°12202', 'Résumé\nLA solution révolutionnaire qu?attendaient toutes CELLES qui veulent cesser de fumer :\nrapide et sans douleur,\nsans médicaments ni substituts,\naussi efficace pour les adolescentes que pour les fumeuses de longue date,\nelle respecte les différents moments de la vie d?une femme,\nelle renforce la confiance en soi et élimine toute sensation de stress ou de manque,\nelle préserve la féminité de chacune en évitant les kilos superflus,\nelle agit une fois pour toutes.\n\nSource : Pocket', 4, '2020-08-30', 'https://media.livrenpoche.com/catalog/product/cache/1/small_image/150x211/d1a40a141ba111febd0d0a8c5aa039b2/0/2/0224251_3.jpg', 15, 1, '2020-08-30 19:33:07', '2020-09-04 10:36:04'),
 (357, 'Guide des urgences familiales', 'René Gentils', 'Pocket n°12311', 'Résumé\nComment apprendre les gestes qui sauvent ? Quand est-il nécessaire d\'appeler un médecin ou les secours ? Que pouvons-nous faire d\'efficace en attendant leur arrivée ? Ce guide répond à ces questions en incluant une présentation des notions de base essentielles du secourisme et de la prévention qu\'il est important de connaître ; un dictionnaire des urgences familiales, permettant à chacun d\'accéder rapidement à des informations spécifiques et précises (degré d\'urgence réel, causes possibles, symptômes, conduite à tenir, gestes à éviter) sur plus de 300 situations. Adopter le Guide des urgences familiales, c\'est l\'assurance de pouvoir prendre la meilleure décision et d\'agir intelligemment e...\nLire la suite', 8, '2020-08-30', 'https://media.livrenpoche.com/catalog/product/cache/1/small_image/150x211/d1a40a141ba111febd0d0a8c5aa039b2/0/2/0244671_1.jpg', 15, 1, '2020-08-30 19:33:07', '2020-09-04 10:36:05'),
 (358, 'La remise en forme', 'Guy Deluchey', 'Service (2ème série) n°729', 'Résumé\nQui n\'a rêvé d\'aller se faire dorloter pendant huit jours (ou même un week-end) à Quiberon ou à Vittel ?\nPour la première fois, un guide pratique fait le tour des capitales du bien-être où l\'on marie les soins corporels, les activités sportives et les loisirs.\nDes adresses, des conseils pour choisir, en France et dans toute l\'Europe, le décor et le traitement qui vous conviennent le mieux pour :\n- retrouver le tonus\n- perdre quelques kilos\n- se détendre dans un bain bouillonnant\n- redécouvrir les vertus des eaux thermales et de l\'eau de mer\ns\'initier à la diététique\n- faire une cure d\'oligo-éléments\net, bien sûr, profiter de ce séjour comme de vraies vacances.\n\n\n\n\n\n\n\n\n\n\n\n\nLire la suite', 4, '1986-08-30', 'https://media.livrenpoche.com/catalog/product/cache/1/small_image/150x211/d1a40a141ba111febd0d0a8c5aa039b2/0/2/0244742.jpg', 15, 1, '2020-08-30 19:33:07', '2020-09-04 10:36:05'),
-(359, '101 réponses sur les maux de tête et les migraines', 'Max Schwob', 'Le Livre de Poche n°7901', 'Résumé\nPlus de trois millions de personnes souffrent en France de maux de tête et de migraines, dont deux millions de femmes. Pour tous, cette maladie entraîne des répercussions familiales et professionnelles qui peuvent devenir une véritable infirmité.\n· Les maux de tête sont-ils héréditaires ?\nLa « pilule » peut-elle provoquer des migraines ?\n· Comment savoir si le mal de tête révèle une tumeur cérébrale ?\n· Quel traitement employer : antalgiques, homéopathie, acupuncture ?...\nDestiné à aider ceux et celles qui souffrent, ce livre, écrit par un spécialiste de la migraine, fondateur de l\'Institut français de la douleur, permettra de trouver soulagement et espoir.\nOui, la migra...\n\n\n\n\n\n\n\n\nLire la suite', 2, '1984-08-30', 'https://media.livrenpoche.com/catalog/product/cache/1/small_image/150x211/d1a40a141ba111febd0d0a8c5aa039b2/0/2/0244346.jpg', 13, 1, '2020-08-30 19:33:07', '2020-09-26 11:15:50'),
+(359, '101 réponses sur les maux de tête et les migraines', 'Max Schwob', 'Le Livre de Poche n°7901', 'Résumé\nPlus de trois millions de personnes souffrent en France de maux de tête et de migraines, dont deux millions de femmes. Pour tous, cette maladie entraîne des répercussions familiales et professionnelles qui peuvent devenir une véritable infirmité.\n· Les maux de tête sont-ils héréditaires ?\nLa « pilule » peut-elle provoquer des migraines ?\n· Comment savoir si le mal de tête révèle une tumeur cérébrale ?\n· Quel traitement employer : antalgiques, homéopathie, acupuncture ?...\nDestiné à aider ceux et celles qui souffrent, ce livre, écrit par un spécialiste de la migraine, fondateur de l\'Institut français de la douleur, permettra de trouver soulagement et espoir.\nOui, la migra...\n\n\n\n\n\n\n\n\nLire la suite', 20, '1984-08-30', 'https://media.livrenpoche.com/catalog/product/cache/1/small_image/150x211/d1a40a141ba111febd0d0a8c5aa039b2/0/2/0244346.jpg', 13, 1, '2020-08-30 19:33:07', '2020-10-05 12:32:08'),
 (360, 'Tout ce que vous ne devriez jamais savoir de la...', 'Marcel Rufo', 'Le Livre de Poche n°30383', 'Résumé\nNous mettons au monde des petites filles et des petits garçons, mais nous sommes bien les seuls à le savoir. Car les bébés, eux, ignorent qu?ils ont un sexe. Ils vont le découvrir et se l?approprier peu à peu, à travers des expériences fondamentales qui les amèneront d?une sexualité infantile, faite essentiellement de sensorialité, à la sexualité agie de l?adolescence.\nPremier sourire, allaitement, apprentissage de la propreté, traversée de la période de l??dipe, phase de latence, puberté, premières relations sexuelles... Marcel Rufo retrace les moments forts de ce passionnant parcours et les conquêtes qui s?y rattachent, sans oublier tout ce qui peut entraîner des troubles dans le dév...\n\n\n\n\nLire la suite', 4, '2020-08-30', 'https://media.livrenpoche.com/catalog/product/cache/1/small_image/150x211/d1a40a141ba111febd0d0a8c5aa039b2/0/2/0241324.jpg', 15, 1, '2020-08-30 19:33:07', '2020-09-04 10:36:06'),
 (362, 'Les médicaments sans tabou', 'Claude Béraud', 'Librio n°724', 'Résumé\nFait le point sur l\'efficacité des médicaments, leur remboursement, les génériques, les nouveaux traitements, les accidents possibles et la façon de les éviter. Indique comment choisir son médecin, bien observer une ordonnance. Aborde aussi le problème de la sécurité des médicaments et le monde de l\'industrie pharmaceutique : prix, dépenses, génériques, etc.\n\nSource : Librio', 2, '2020-08-30', 'https://media.livrenpoche.com/catalog/product/cache/1/small_image/150x211/d1a40a141ba111febd0d0a8c5aa039b2/0/2/0241633_4.jpg', 15, 1, '2020-08-30 19:33:07', '2020-09-04 10:36:07'),
 (363, 'Plus jamais mal au dos', 'Pierre Pallardy', 'Guides pratiques', 'Résumé\nAcupuncteur, chiropracteur, kinésithérapeute, rhumatologue, guérisseur, rebouteux...Qui aller voir pour guérir cette maladie du siècle ?Pour bien choisir, sachez qu?on ne soigne pas un dos uniquement avec des manipulations, des massages, des infiltrations, des anti-inflammatoires. Il faut aussi - et c?est le thème de ce livre - traiter l?individu dans son ensemble (le coeur, les muscles, le ventre). Lui redonner une nouvelle force physique et mentale, une nouvelle énergie, lui réapprendre à déplacer son corps dans l?espace.Pour vous aider à guérir par vous-même, Pierre Pallardy vous propose une méthode simple et efficace, illustrée de nombreux croquis, que vous pouvez pratiquer dans toute...\nLire la suite', 2, '1989-08-30', 'https://media.livrenpoche.com/catalog/product/cache/1/small_image/150x211/d1a40a141ba111febd0d0a8c5aa039b2/0/2/0240551_1.jpg', 15, 1, '2020-08-30 19:33:07', '2020-09-04 10:36:08'),
@@ -635,17 +616,10 @@ CREATE TABLE `invoices` (
   `total_amount_ttc` double NOT NULL,
   `total_amount_ht` double NOT NULL,
   `adress_id` int(11) NOT NULL,
+  `payment_intent_id` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `invoices`
---
-
-INSERT INTO `invoices` (`id`, `basket_id`, `total_amount_ttc`, `total_amount_ht`, `adress_id`, `created_at`, `updated_at`) VALUES
-(2, 1, 16, 15.12, 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(3, 1, 6, 5.67, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -795,7 +769,7 @@ INSERT INTO `stocks` (`id`, `book_id`, `quantity`, `created_at`, `updated_at`) V
 (52, 356, 49, '2020-09-12 09:07:53', NULL),
 (53, 357, 39, '2020-09-12 09:07:53', NULL),
 (54, 358, 50, '2020-09-12 09:07:53', NULL),
-(55, 359, 20, '2020-09-12 09:07:53', NULL),
+(55, 359, 30, '2020-09-12 09:07:53', '2020-10-05 12:31:53'),
 (56, 360, 1, '2020-09-12 09:07:53', NULL),
 (58, 362, 40, '2020-09-12 09:07:53', NULL),
 (59, 363, 50, '2020-09-12 09:07:53', NULL),
@@ -1150,7 +1124,7 @@ INSERT INTO `stocks` (`id`, `book_id`, `quantity`, `created_at`, `updated_at`) V
 (419, 3, 16, '2020-09-12 09:08:04', NULL),
 (420, 4, 41, '2020-09-12 09:08:04', NULL),
 (421, 5, 7, '2020-09-12 09:08:04', NULL),
-(422, 6, 10, '2020-09-12 09:08:04', '2020-09-30 21:43:22'),
+(422, 6, 15, '2020-09-12 09:08:04', '2020-10-05 12:33:10'),
 (423, 7, 49, '2020-09-12 09:08:04', NULL),
 (425, 9, 45, '2020-09-12 09:08:04', NULL);
 
@@ -1667,7 +1641,7 @@ CREATE TABLE `views` (
 --
 
 INSERT INTO `views` (`id`, `view_count`, `book_id`, `created_at`, `updated_at`) VALUES
-(2, 2, 366, '2020-09-26 09:28:44', '2020-09-26 09:28:46'),
+(2, 3, 366, '2020-09-26 09:28:44', '2020-10-05 11:46:30'),
 (3, 2, 391, '2020-09-26 09:29:16', '2020-10-04 15:32:47'),
 (4, 1, 35, '2020-10-04 16:03:45', NULL);
 
@@ -1793,13 +1767,13 @@ ALTER TABLE `adresses`
 -- AUTO_INCREMENT pour la table `baskets`
 --
 ALTER TABLE `baskets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `basket_items`
 --
 ALTER TABLE `basket_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `books`
@@ -1829,7 +1803,7 @@ ALTER TABLE `delivery_fees`
 -- AUTO_INCREMENT pour la table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `recommended_books`
