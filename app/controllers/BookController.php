@@ -100,6 +100,6 @@ class BookController extends ApplicationController
 
         $path = "controller=admin&method=index";
 
-        //header("Location:" . REDIRECT_BASE_URL . $path);
+        header("Location:" . REDIRECT_BASE_URL . $path);
     }
 }
