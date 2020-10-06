@@ -76,15 +76,15 @@ class UserController extends ApplicationController
                 if (!empty($user)) {
                     $user = $user[0];
                     if (isset($_POST['user_email'])) {
-                        $user->updateDatas(null, null, null, $_POST['user_email']);
+                        $user->updateDatas(null, null, null, $_POST['user_email'], null);
                     } elseif (isset($_POST['user_firstname'])) {
-                        $user->updateDatas($_POST['user_firstname'], null, null, null);
+                        $user->updateDatas($_POST['user_firstname'], null, null, null,null);
                     } elseif (isset($_POST['user_lastname'])) {
-                        $user->updateDatas(null, $_POST['user_lastname'], null, null);
+                        $user->updateDatas(null, $_POST['user_lastname'], null, null,null);
                     } elseif (isset($_POST['user_date_of_birth'])) {
-                        $user->updateDatas(null, null, $_POST['user_date_of_birth'], null);
+                        $user->updateDatas(null, null, $_POST['user_date_of_birth'], null,null);
                     } elseif (isset($_POST['user_admin'])) {
-                        $user->updateDatas(null, null, null, null, $_POST['user_admin']);
+                        $user->updateDatas(null, null, null, null, $_POST['user_admin'],null);
                     }
                     if (isset($_POST['remote'])) {
                         $user = User::find($user->getId())[0];

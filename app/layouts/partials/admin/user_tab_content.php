@@ -170,26 +170,5 @@
 <script>
     Admin.getUserAcquisitionGraph();
    
-    $("#admin-table-user form").submit(function(e){
-            e.preventDefault();
-            let url = "index.php";
-            let datas = $(this).serialize()+"&controller=user&method=update&remote=true";
-
-            $.post(url, datas, function(results){
-
-                console.log(results);
-                // let userDatas = JSON.parse(results);
-                // console.log(userDatas);
-            });
-        })
-        $('#admin-table-user form input').blur(function(e){
-            let form  = $(this).parent('form')
-
-            form.submit();
-        });
-
-        $('#admin-table-user .custom-radio').click(function(e){
-            let form  = $(this).parent('form')
-            form.submit();
-        })
+    User.update();
 </script>

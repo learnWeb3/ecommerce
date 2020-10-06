@@ -71,7 +71,56 @@ class User {
     static update()
     {
 
+        $("#admin-table-user form").submit(function(e){
+            e.preventDefault();
+            let url = "index.php";
+            let datas = $(this).serialize()+"&controller=user&method=update&remote=true";
+
+            $.post(url, datas, function(results){
+
+                // results of ajax request to JSON format 
+                let userDatas = JSON.parse(results);
+
+                // object destructuring for better accessibility and redability 
+                let {id,email,firstname,lastname, date_of_birth} = userDatas;
+
+                // targeing correct row
+                let targetedRow = $(`tr#user-${userDatas.id}`);
+
+                // targeting userss input fields
+                let emailInput = targetedRow.find("input[name=user_email]");
+                let firstnameInput =  targetedRow.find("input[name=user_firstname]");
+                let lastnameInput = targetedRow.find("input[name=user_lastname]");
+                let dateOfbirthInput = targetedRow.find("input[name=user_date_of_birth]");
+
+                // Setting values
+                emailInput.val(email);
+                firstnameInput.val(firstname);
+                lastnameInput.val(lastname);
+                dateOfbirthInput.val(date_of_birth);
+               
+
+            });
+        });
+
+        // event blur for input 
+        $('#admin-table-user form input').blur(function(e){
+            let form  = $(this).parent('form')
+
+            form.submit();
+        });
         
+        //event click for radio // TO BE REVIEWED
+        $('#admin-table-user .custom-radio').click(function(e){
+            let form  = $(this).parent('form')
+            form.submit();
+        });
+        
+    }
+
+    static getAdminTemplate()
+    {
+
     }
 
 
