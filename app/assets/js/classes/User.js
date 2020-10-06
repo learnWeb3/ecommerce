@@ -109,18 +109,13 @@ class User {
 
             form.submit();
         });
-        
+
         //event click for radio // TO BE REVIEWED
         $('#admin-table-user .custom-radio').click(function(e){
             let form  = $(this).parent('form')
             form.submit();
         });
         
-    }
-
-    static getAdminTemplate()
-    {
-
     }
 
 
