@@ -1,6 +1,9 @@
-class Alert
-{
-    static getAlerts(results,resultContainer) {
+class Alert {
+    static getAlerts(results, resultContainer) {
+
+        if ($("#alert").length > 0) {
+            $("#alert").remove();
+        }
         const alertTemplate = (
             `<div id='alert' class='${results.type}'>
                 <img src='app/assets/icons/navigation/close.svg' alt='' id='close'>
@@ -13,13 +16,12 @@ class Alert
         });
     }
 
-    
+
     static dismissAlerts() {
         if ($("#alert").length > 0) { $("#alert #close").click(function () { $("#alert").remove() }); }
     }
 
-    static removeAlerts()
-    {
-        if ($("#alert").length > 0) {$("#alert").remove()}
+    static removeAlerts() {
+        if ($("#alert").length > 0) { $("#alert").remove() }
     }
 }
