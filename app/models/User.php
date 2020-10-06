@@ -116,6 +116,20 @@ class User
         return $this;
     }
 
+    
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    public function setAdmin($admin)
+    {
+        $this->admin = intval($admin);
+        return $this;
+    }
+
+
 
     // SIGN IN UP OUT LOGIC
 
@@ -344,7 +358,7 @@ class User
     }
 
 
-    public function updateDatas($firstname = null, $lastname = null, $date_of_birth = null)
+    public function updateDatas($firstname = null, $lastname = null, $date_of_birth = null, $email= null,$admin)
     {
         if ($firstname != null) {
             $this->setFirstname($firstname);
@@ -355,10 +369,18 @@ class User
         if ($date_of_birth != null) {
             $this->setDateOfBirth($date_of_birth);
         }
+        if ($email != null) {
+            $this->setEmail($email);
+        }
+        if ($admin != null) {
+            $this->setAdmin($admin);
+        }
+        
         if (func_get_args() != null) {
             $this->update();
         }
     }
+
 
 
     public static function doesUserExists(string $email)
@@ -530,5 +552,10 @@ class User
         $prepared_statement->execute(array($from, $to));
 
         return json_encode($prepared_statement->fetchAll(PDO::FETCH_ASSOC));
+    }
+
+    public static function resultToJson($user)
+    {
+        return json_encode($user->getObjectVars());
     }
 }

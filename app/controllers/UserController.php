@@ -24,10 +24,9 @@ class UserController extends ApplicationController
                 $method = "new";
             }
 
-            if( isset($_POST['checkout']) && $_POST['checkout'] == true)
-            {
+            if (isset($_POST['checkout']) && $_POST['checkout'] == true) {
                 $_SESSION['current_user'] = User::where("email", $_POST['user_email'], "created_at")[0];
-                $user= User::getCurrentUser();
+                $user = User::getCurrentUser();
                 $user->loadSavedBasket();
             }
 
@@ -60,20 +59,46 @@ class UserController extends ApplicationController
         if (isset($_SESSION['current_user'])) {
             $orders = User::getCurrentUser()->getInvoices();
             $order_chunks = array_chunk($orders, 2);
-            $this->render("edit", "Metttre à jour mon profil", "Compte utilisateur, mise à jour", array("order_chunks"=>$order_chunks));
+            $this->render("edit", "Metttre à jour mon profil", "Compte utilisateur, mise à jour", array("order_chunks" => $order_chunks));
         } else {
             renderError(403);
         }
-
     }
 
 
     public function update()
     {
         if (isset($_SESSION['current_user'])) {
+
+            if (isset($_POST['user_id'])) {
+                $user = User::find(intval($_POST['user_id']));
+
+                if (!empty($user)) {
+                    $user = $user[0];
+                    if (isset($_POST['user_email'])) {
+                        $user->updateDatas(null, null, null, $_POST['user_email']);
+                    } elseif (isset($_POST['user_firstname'])) {
+                        $user->updateDatas($_POST['user_firstname'], null, null, null);
+                    } elseif (isset($_POST['user_lastname'])) {
+                        $user->updateDatas(null, $_POST['user_lastname'], null, null);
+                    } elseif (isset($_POST['user_date_of_birth'])) {
+                        $user->updateDatas(null, null, $_POST['user_date_of_birth'], null);
+                    } elseif (isset($_POST['user_admin'])) {
+                        $user->updateDatas(null, null, null, null, $_POST['user_admin']);
+                    }
+                    if (isset($_POST['remote'])) {
+                        $user = User::find($user->getId())[0];
+                        echo User::resultToJson($user);
+                    } else {
+                        $path = REDIRECT_BASE_URL . "controller=admin&method=index";
+                        header("Location:" . $path);
+                    }
+                } else {
+                    renderError(404);
+                }
+            }
         } else {
             renderError(403);
         }
-
     }
 }

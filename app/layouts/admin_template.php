@@ -38,6 +38,7 @@
 
 <body>
 
+
     <?php require_once LAYOUT_PATH . "/navbar_admin.php" ?>
 
     <main>

@@ -68,5 +68,12 @@ class User {
     }
 
 
+    static update()
+    {
+
+        
+    }
+
+
 
 }

@@ -120,9 +120,6 @@
                         </form>
                     </td>
                     <td>
-                        <img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/attach_file_24px_rounded.svg" ?>" alt="atach file icon" class="attach-file">
-                    </td>
-                    <td>
                         <form action="<?php echo REDIRECT_BASE_URL . "controller=admin&method=destroy" ?>" method="POST" class="delete">
                             <input type="hidden" name="book_id" value="<?php echo $book['book']->getId() ?>">
                             <button type="submit" style="background-color:unset;border:none;"><img src="<?php echo ABSOLUTE_ASSET_PATH . "/icons/action/Bucket_24px.svg" ?>" alt="delete product icon"></button>
