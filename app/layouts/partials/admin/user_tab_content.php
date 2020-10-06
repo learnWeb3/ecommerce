@@ -48,7 +48,7 @@
                             <input type="hidden" name="user_id" value="<?php echo $user['user']->getId() ?>">
                             <select name="" class="form-control">
                                 <?php foreach ($user['adresses'] as $adress) : ?>
-                                        <option value="<?php echo $adress['id'] ?>"><?php echo $adress['adress'] ?></option>
+                                    <option value="<?php echo $adress['id'] ?>"><?php echo $adress['adress'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </form>
@@ -62,6 +62,57 @@
 
     </table>
 
+</div>
+
+
+
+<div class="container-fluid">
+
+
+    <div class="row">
+
+        <div class="col-md-6 col-12" id="highchart-container-user">
+
+
+        </div>
+
+    </div>
+
+    <div class="row">
+    <div class="col-md-6 col-12">
+
+        <table class="table">
+
+            <thead>
+
+                <tr>
+                    <th>Comptes crées (Jour)</th>
+                    <th>Comptes crées (Mois)</th>
+                    <th>Comptes crées (YTD)</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td><?php echo $user_account_creation_day ?></td>
+                    <td><?php echo $user_account_creation_month ?></td>
+                    <td><?php echo $user_account_creation_ytd ?></td>
+                </tr>
+
+            </tbody>
+
+
+        </table>
+
+    </div>
+
+</div>
 
 
 </div>
+
+
+<script>
+    Admin.getUserAcquisitionGraph()
+</script>

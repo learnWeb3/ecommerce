@@ -6,9 +6,15 @@ class AdminController extends ApplicationController
     {
 
         // ajax call to fetch datas for pie chart
-        if (isset($_GET['remote'], $_GET['highchart']))
+        if (isset($_GET['remote'], $_GET['highchart_product']))
         {
             echo Book::getBookCountPerCategory();
+            die();
+        }
+
+        if (isset($_GET['remote'], $_GET['highchart_user']))
+        {
+            echo User::getUserAcquisitionData(365);
             die();
         }
 
@@ -45,6 +51,9 @@ class AdminController extends ApplicationController
         }
 
         $users = User::getAllAndAddreses();
+        $user_account_creation_day = User::getAccountCreationNumber(1)["user_account_creation_number"];
+        $user_account_creation_month=User::getAccountCreationNumber(30)["user_account_creation_number"];
+        $user_account_creation_ytd=User::getAccountCreationNumber(365)["user_account_creation_number"];
         $day_revenue = Invoice::getRevenue(1)[0];
         $month_revenue=Invoice::getRevenue(30)[0];
         $year_to_date_revenue=Invoice::getRevenue(365)[0];
@@ -61,9 +70,12 @@ class AdminController extends ApplicationController
                       "day_revenue"=>$day_revenue,
                       "month_revenue"=>$month_revenue,
                       "year_to_date_revenue"=>$year_to_date_revenue,
-                      "users"=>$users
-                    );
+                      "users"=>$users,
+                      "user_account_creation_day"=>$user_account_creation_day,
+                      "user_account_creation_month"=>$user_account_creation_month,
+                      "user_account_creation_ytd"=>$user_account_creation_ytd,
 
+                    );
         $this->render($view_name, $title, $description, $vars, true);
     }
 

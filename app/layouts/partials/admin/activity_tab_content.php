@@ -152,7 +152,7 @@
 
 
         </div>
-        <div class="col-12 col-md-6" id="highchart-container">
+        <div class="col-12 col-md-6" id="highchart-container-product">
 
 
 

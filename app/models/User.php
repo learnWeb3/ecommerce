@@ -500,4 +500,35 @@ class User
 
         return $results;
     }
+
+
+    public static function getAccountCreationNumber($periodicity)
+    {
+        $connection = Db::connect();
+        $to =  strftime("%Y-%m-%d %H:%M:%S",time()); // current time in epoch
+        $from = strftime("%Y-%m-%d %H:%M:%S",time() - $periodicity * (24 * 60 * 60)); // to seconds 
+        $statement = "SELECT 
+        COUNT(id) AS user_account_creation_number
+        FROM users WHERE created_at >= ? AND created_at <= ?";
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute(array($from, $to));
+
+        return $prepared_statement->fetchAll(PDO::FETCH_ASSOC)[0];
+    }
+
+    public static function getUserAcquisitionData($periodicity)
+    {
+        $connection = Db::connect();
+        $to =  strftime("%Y-%m-%d %H:%M:%S",time()); // current time in epoch
+        $from = strftime("%Y-%m-%d %H:%M:%S",time() - $periodicity * (24 * 60 * 60)); // to seconds 
+        $statement = "SELECT
+        CONCAT(YEAR(created_at),'-', MONTH(created_at),'-',DAY(created_at)) as full_creation_date,
+        COUNT(id) AS user_account_creation_number
+        FROM users
+        GROUP BY DAY(created_at), MONTH(created_at), YEAR(created_at)";
+        $prepared_statement = $connection->prepare($statement);
+        $prepared_statement->execute(array($from, $to));
+
+        return json_encode($prepared_statement->fetchAll(PDO::FETCH_ASSOC));
+    }
 }

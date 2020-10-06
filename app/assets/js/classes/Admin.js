@@ -268,7 +268,7 @@ class Admin {
     }
 
 
-   static  getCategoriesRepartition() {
+    static getCategoriesRepartition() {
 
         // Create the chart
 
@@ -276,7 +276,7 @@ class Admin {
         const options = {
             chart: {
                 type: 'pie',
-                renderTo: 'highchart-container'
+                renderTo: 'highchart-container-product'
             },
             title: {
                 text: 'Repartitions des produits par catégorie'
@@ -313,7 +313,7 @@ class Admin {
 
 
 
-        $.get("index.php?controller=admin&method=index&remote=true&highchart=true", function (datas) {
+        $.get("index.php?controller=admin&method=index&remote=true&highchart_product=true", function (datas) {
             JSON.parse(datas).map((e) => {
                 let {
                     name,
@@ -326,11 +326,56 @@ class Admin {
                     drilldown: drilldown
                 });
             });
-            var chart = new Highcharts.Chart(options);
+            let chart = new Highcharts.Chart(options);
+        });
+    }
+
+
+    static getUserAcquisitionGraph() {
+
+        // Create the chart
+
+
+        const options = {
+            chart: {
+                type: 'area',
+                backgroundColor: null,
+                renderTo: 'highchart-container-user'
+            },
+            title: {
+                text: 'Evolution du nombre de compte utilisateur'
+            },
+            xAxis: {
+                categories: []
+            },
+            yAxis: {
+                title: {
+                    text: 'Nombre de compte'
+                }
+            },
+            series: [{
+                name: 'Nombre de compte par date',
+                data: []
+            }]
+
+        };
+
+        const url = "index.php?controller=admin&method=index&remote=true&highchart_user=true";
+        $.get(url, function (datas) {
+
+            datas = JSON.parse(datas);
+            datas.map((e)=>{
+                options.xAxis.categories.push(e.full_creation_date);
+                options.series[0].data.push(parseInt(e.user_account_creation_number));
+
+            });
+            
+            let chart = new Highcharts.Chart(options);
         });
     }
 
 }
+
 
 
 function getBookTvaOptions(tvaId, tvaOptions) {
