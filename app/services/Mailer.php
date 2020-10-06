@@ -62,6 +62,6 @@ class Mailer
 }
 
 
-$mailer = new Mailer("osiris@yopmail.com", "Bienvenue parmis nous", "../layouts/mailer/welcome_send.php");
+// $mailer = new Mailer("osiris@yopmail.com", "Bienvenue parmis nous", "../layouts/mailer/welcome_send.php");
 
-$mailer->send(array("user" => "antoine"));
+// $mailer->send(array("user" => "antoine"));

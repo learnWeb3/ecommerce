@@ -18,6 +18,8 @@ class UserController extends ApplicationController
                 $flash = new Flash($sign_up_attempt["message"], "success");
                 $controller = "home";
                 $method = "index";
+                $mailer = new Mailer($_POST['user_email'], "Bienvenue parmis nous", LAYOUT_PATH."/mailer/welcome_send.php");
+                $mailer->send(array("user_email" => $_POST['user_email']));
             } else {
                 $flash = new Flash($sign_up_attempt["message"], "danger");
                 $controller = "user";

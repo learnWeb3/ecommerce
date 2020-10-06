@@ -225,6 +225,8 @@
                                                             </tr>
                                                             </tbody>
                                                         </table>
+
+                            
                                                         <table class="module" role="module" data-type="text" border="0"
                                                                cellpadding="0" cellspacing="0" width="100%"
                                                                style="table-layout: fixed; background-image: url('https://i.imgur.com/C1ykp1c.jpg')"

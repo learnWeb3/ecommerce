@@ -41,6 +41,9 @@ class CheckoutController extends ApplicationController
             $invoice->create();
             $basket->updateBasketState();
             Session::destroyBasket();
+
+            $mailer = new Mailer($user->getEmail(), "Votre commande:", LAYOUT_PATH."/mailer/welcome_send.php");
+            $mailer->send(array("invoice"=>$invoice));
                 
             $this->render("success", "Achat réussi", "La Nuit des Temps vous confirme le succès de votre commande, nous faisons le maximum pour vous livrer dans les meilleurs délais");
         }else{
