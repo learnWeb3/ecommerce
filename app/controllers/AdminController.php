@@ -5,83 +5,80 @@ class AdminController extends ApplicationController
     public function index()
     {
 
-       if (User::isUserSignedIn() && User::getCurrentUser()->getAdmin())
-       {
+        if (User::isUserSignedIn() && User::getCurrentUser()->getAdmin()) {
             // ajax call to fetch datas for pie chart
-        if (isset($_GET['remote'], $_GET['highchart_product']))
-        {
-            echo Book::getBookCountPerCategory();
-            die();
-        }
-
-        if (isset($_GET['remote'], $_GET['highchart_user']))
-        {
-            echo User::getUserAcquisitionData(365);
-            die();
-        }
-
-        $view_name = "index";
-        $title = "Administration";
-        $description = "Gérer, créer, mettre à jour vos données";
-
-        $start = isset($_GET['start']) ? $_GET['start'] : 0;
-        $limit = isset($_GET['limit']) ? $_GET['limit'] : 25;
-        $next = $start+$limit;
-        $previous = $start - $limit > 0 ? $start-$limit : 0;
-
-
-        if (isset($_GET['search_input'], $_GET['search_filter'])) {
-            $column_name = $_GET['search_filter'];
-            $value = $_GET['search_input'];
-            $order_column = isset($_GET['sort_by']) ? $_GET["sort_by"] : "book_updated_at";
-            $order = isset($_GET["order"]) ? $_GET["order"] : "DESC";
-
-            $search_matches = Book::searchLike($column_name, $value, $limit, $start, $order_column, $order);
-
-            if (isset($_GET['remote'])) {
-
-                echo Book::resultToJson($search_matches,$_GET);
-
+            if (isset($_GET['remote'], $_GET['highchart_product'])) {
+                echo Book::getBookCountPerCategory();
                 die();
-            }else{
-                $books = $search_matches;
             }
-        }else{
 
-            $books = Book::getAllWithCategories($limit, $start);
-            
+            if (isset($_GET['remote'], $_GET['highchart_user'])) {
+                echo User::getUserAcquisitionData(365);
+                die();
+            }
+
+            $view_name = "index";
+            $title = "Administration";
+            $description = "Gérer, créer, mettre à jour vos données";
+
+            $start = isset($_GET['start']) ? $_GET['start'] : 0;
+            $limit = isset($_GET['limit']) ? $_GET['limit'] : 25;
+            $next = $start + $limit;
+            $previous = $start - $limit > 0 ? $start - $limit : 0;
+
+
+            if (isset($_GET['search_input'], $_GET['search_filter'])) {
+                $column_name = $_GET['search_filter'];
+                $value = $_GET['search_input'];
+                $order_column = isset($_GET['sort_by']) ? $_GET["sort_by"] : "book_updated_at";
+                $order = isset($_GET["order"]) ? $_GET["order"] : "DESC";
+
+                $search_matches = Book::searchLike($column_name, $value, $limit, $start, $order_column, $order);
+
+                if (isset($_GET['remote'])) {
+
+                    echo Book::resultToJson($search_matches, $_GET);
+
+                    die();
+                } else {
+                    $books = $search_matches;
+                }
+            } else {
+
+                $books = Book::getAllWithCategories($limit, $start);
+            }
+
+            $users = User::getAllAndAddreses();
+            $user_account_creation_day = User::getAccountCreationNumber(1)["user_account_creation_number"];
+            $user_account_creation_month = User::getAccountCreationNumber(30)["user_account_creation_number"];
+            $user_account_creation_ytd = User::getAccountCreationNumber(365)["user_account_creation_number"];
+            $day_revenue = Invoice::getRevenue(1)[0];
+            $month_revenue = Invoice::getRevenue(30)[0];
+            $year_to_date_revenue = Invoice::getRevenue(365)[0];
+            $total_stock = Book::getTotalStock();
+            $categories = Category::findAll("created_at");
+            $tva_types =  Book::getAllTvaTypes();
+            $vars = array(
+                "books" => $books,
+                "categories" => $categories,
+                "tva_types" => $tva_types,
+                "next" => $next,
+                "previous" => $previous,
+                "limit" => $limit,
+                "total_stock" => $total_stock,
+                "day_revenue" => $day_revenue,
+                "month_revenue" => $month_revenue,
+                "year_to_date_revenue" => $year_to_date_revenue,
+                "users" => $users,
+                "user_account_creation_day" => $user_account_creation_day,
+                "user_account_creation_month" => $user_account_creation_month,
+                "user_account_creation_ytd" => $user_account_creation_ytd,
+
+            );
+            $this->render($view_name, $title, $description, $vars, true);
+        } else {
+            renderError(403);
         }
-
-        $users = User::getAllAndAddreses();
-        $user_account_creation_day = User::getAccountCreationNumber(1)["user_account_creation_number"];
-        $user_account_creation_month=User::getAccountCreationNumber(30)["user_account_creation_number"];
-        $user_account_creation_ytd=User::getAccountCreationNumber(365)["user_account_creation_number"];
-        $day_revenue = Invoice::getRevenue(1)[0];
-        $month_revenue=Invoice::getRevenue(30)[0];
-        $year_to_date_revenue=Invoice::getRevenue(365)[0];
-        $total_stock = Book::getTotalStock();
-        $categories = Category::findAll("created_at");
-        $tva_types =  Book::getAllTvaTypes();
-        $vars = array("books" => $books, 
-                      "categories" => $categories, 
-                      "tva_types" => $tva_types, 
-                      "next"=>$next, 
-                      "previous"=>$previous,
-                      "limit"=>$limit, 
-                      "total_stock"=>$total_stock,
-                      "day_revenue"=>$day_revenue,
-                      "month_revenue"=>$month_revenue,
-                      "year_to_date_revenue"=>$year_to_date_revenue,
-                      "users"=>$users,
-                      "user_account_creation_day"=>$user_account_creation_day,
-                      "user_account_creation_month"=>$user_account_creation_month,
-                      "user_account_creation_ytd"=>$user_account_creation_ytd,
-
-                    );
-        $this->render($view_name, $title, $description, $vars, true);
-       }else{
-           renderError(403);
-       }
     }
 
 
@@ -146,8 +143,4 @@ class AdminController extends ApplicationController
             }
         }
     }
-
-
-
-
 }
