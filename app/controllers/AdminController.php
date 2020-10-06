@@ -5,7 +5,9 @@ class AdminController extends ApplicationController
     public function index()
     {
 
-        // ajax call to fetch datas for pie chart
+       if (User::isUserSignedIn() && User::getCurrentUser()->getAdmin())
+       {
+            // ajax call to fetch datas for pie chart
         if (isset($_GET['remote'], $_GET['highchart_product']))
         {
             echo Book::getBookCountPerCategory();
@@ -77,6 +79,9 @@ class AdminController extends ApplicationController
 
                     );
         $this->render($view_name, $title, $description, $vars, true);
+       }else{
+           renderError(403);
+       }
     }
 
 
