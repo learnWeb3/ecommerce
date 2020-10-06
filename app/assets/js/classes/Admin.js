@@ -153,7 +153,7 @@ class Admin {
 
 
     static destroyProduct() {
-        $('.delete').submit(function (event) {
+        $('#admin-table form.delete').submit(function (event) {
 
             event.stopPropagation();
             event.preventDefault();

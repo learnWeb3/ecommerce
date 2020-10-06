@@ -82,22 +82,22 @@
                             <?php if ($user['user']->getAdmin()) : ?>
 
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" name="user_admin" id="admin<?php echo $user['user']->getId()?>-no" value="0" class="custom-control-input">
-                                    <label class="custom-control-label" for="admin<?php echo $user['user']->getId()?>-no">Non</label>
+                                    <input type="radio" name="user_admin" id="admin<?php echo $user['user']->getId() ?>-no" value="0" class="custom-control-input">
+                                    <label class="custom-control-label" for="admin<?php echo $user['user']->getId() ?>-no">Non</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" name="user_admin" id="admin<?php echo $user['user']->getId()?>-yes" value="1" class="custom-control-input" checked>
-                                    <label class="custom-control-label" for="admin<?php echo $user['user']->getId()?>-yes">Oui</label>
+                                    <input type="radio" name="user_admin" id="admin<?php echo $user['user']->getId() ?>-yes" value="1" class="custom-control-input" checked>
+                                    <label class="custom-control-label" for="admin<?php echo $user['user']->getId() ?>-yes">Oui</label>
                                 </div>
-            
+
                             <?php else : ?>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" name="user_admin" id="admin<?php echo $user['user']->getId()?>-no" value="0" class="custom-control-input" checked>
-                                    <label class="custom-control-label" for="admin<?php echo $user['user']->getId()?>-no">Non</label>
+                                    <input type="radio" name="user_admin" id="admin<?php echo $user['user']->getId() ?>-no" value="0" class="custom-control-input" checked>
+                                    <label class="custom-control-label" for="admin<?php echo $user['user']->getId() ?>-no">Non</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" name="user_admin" id="admin<?php echo $user['user']->getId()?>-yes" value="1" class="custom-control-input" >
-                                    <label class="custom-control-label" for="admin<?php echo $user['user']->getId()?>-yes">Oui</label>
+                                    <input type="radio" name="user_admin" id="admin<?php echo $user['user']->getId() ?>-yes" value="1" class="custom-control-input">
+                                    <label class="custom-control-label" for="admin<?php echo $user['user']->getId() ?>-yes">Oui</label>
                                 </div>
                             <?php endif; ?>
                         </form>
@@ -168,7 +168,9 @@
 
 
 <script>
-    Admin.getUserAcquisitionGraph();
-   
-    User.update();
+    $(document).ready(function() {
+        Admin.getUserAcquisitionGraph();
+        User.update();
+        User.delete();
+    })
 </script>

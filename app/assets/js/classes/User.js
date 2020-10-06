@@ -68,28 +68,31 @@ class User {
     }
 
 
-    static update()
-    {
+    static update() {
 
-        $("#admin-table-user form").submit(function(e){
+        $("#admin-table-user form").submit(function (e) {
+
+            // preventing default action classic http request to the server to serve a file
             e.preventDefault();
-            let url = "index.php";
-            let datas = $(this).serialize()+"&controller=user&method=update&remote=true";
 
-            $.post(url, datas, function(results){
+
+            let url = "index.php";
+            let datas = $(this).serialize() + "&controller=user&method=update&remote=true";
+
+            $.post(url, datas, function (results) {
 
                 // results of ajax request to JSON format 
                 let userDatas = JSON.parse(results);
 
                 // object destructuring for better accessibility and redability 
-                let {id,email,firstname,lastname, date_of_birth} = userDatas;
+                let { id, email, firstname, lastname, date_of_birth } = userDatas;
 
                 // targeing correct row
                 let targetedRow = $(`tr#user-${userDatas.id}`);
 
                 // targeting userss input fields
                 let emailInput = targetedRow.find("input[name=user_email]");
-                let firstnameInput =  targetedRow.find("input[name=user_firstname]");
+                let firstnameInput = targetedRow.find("input[name=user_firstname]");
                 let lastnameInput = targetedRow.find("input[name=user_lastname]");
                 let dateOfbirthInput = targetedRow.find("input[name=user_date_of_birth]");
 
@@ -98,24 +101,49 @@ class User {
                 firstnameInput.val(firstname);
                 lastnameInput.val(lastname);
                 dateOfbirthInput.val(date_of_birth);
-               
+
 
             });
         });
 
         // event blur for input 
-        $('#admin-table-user form input').blur(function(e){
-            let form  = $(this).parent('form')
+        $('#admin-table-user form input').blur(function (e) {
+            let form = $(this).parent('form')
 
             form.submit();
         });
 
         //event click for radio // TO BE REVIEWED
-        $('#admin-table-user .custom-radio').click(function(e){
-            let form  = $(this).parent('form')
+        $('#admin-table-user .custom-radio').click(function (e) {
+            let form = $(this).parent('form')
             form.submit();
         });
-        
+
+    }
+
+
+    static delete() {
+        $("#admin-table-user form.delete").submit(function (event) {
+            event.preventDefault();
+
+            let userConfirm = confirm("Voulez vous réellement supprimé ce produit ?");
+
+            if (userConfirm) {
+
+                let url = "index.php";
+                let datas = $(this).serialize() + "&controller=user&method=destroy&remote=true";
+
+                $.post(url, datas, function (results) {
+
+                    results = JSON.parse(results);
+
+                    let {user_id} = results;
+                    $(`#user-${user_id}`).remove();
+                })
+
+            }
+
+        })
     }
 
 

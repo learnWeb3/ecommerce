@@ -45,10 +45,16 @@ class UserController extends ApplicationController
     public function destroy()
     {
         if (isset($_SESSION['current_user'], $_POST['user_id'])) {
-            if (User::getCurrentUser()->getId() == intval($_POST['user_id'])) {
+            if (User::getCurrentUser()->getId() == intval($_POST['user_id']) || User::getCurrentUser()->isUserAdmin()) {
                 $user_destroy = User::destroy($_POST['user_id']);
 
                 if (isset($_POST['remote'])) {
+
+                    echo json_encode(
+                        array(
+                            "user_id" => intval($_POST['user_id'])
+                        )
+                    );
                 }
             }
         }
@@ -78,17 +84,18 @@ class UserController extends ApplicationController
                     if (isset($_POST['user_email'])) {
                         $user->updateDatas(null, null, null, $_POST['user_email'], null);
                     } elseif (isset($_POST['user_firstname'])) {
-                        $user->updateDatas($_POST['user_firstname'], null, null, null,null);
+                        $user->updateDatas($_POST['user_firstname'], null, null, null, null);
                     } elseif (isset($_POST['user_lastname'])) {
-                        $user->updateDatas(null, $_POST['user_lastname'], null, null,null);
+                        $user->updateDatas(null, $_POST['user_lastname'], null, null, null);
                     } elseif (isset($_POST['user_date_of_birth'])) {
-                        $user->updateDatas(null, null, $_POST['user_date_of_birth'], null,null);
+                        $user->updateDatas(null, null, $_POST['user_date_of_birth'], null, null);
                     } elseif (isset($_POST['user_admin'])) {
-                        $user->updateDatas(null, null, null, null, $_POST['user_admin'],null);
+                        $user->updateDatas(null, null, null, null, $_POST['user_admin'], null);
                     }
                     if (isset($_POST['remote'])) {
                         $user = User::find($user->getId())[0];
                         echo User::resultToJson($user);
+                        die();
                     } else {
                         $path = REDIRECT_BASE_URL . "controller=admin&method=index";
                         header("Location:" . $path);
