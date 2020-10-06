@@ -126,7 +126,7 @@ class User {
         $("#admin-table-user form.delete").submit(function (event) {
             event.preventDefault();
 
-            let userConfirm = confirm("Voulez vous réellement supprimé ce produit ?");
+            let userConfirm = confirm("Voulez vous réellement supprimé ce compte utilisateur ?");
 
             if (userConfirm) {
 
