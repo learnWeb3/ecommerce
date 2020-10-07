@@ -3,6 +3,11 @@
 class User
 {
     // ATTRIBUTES
+
+    protected $id;
+    protected $created_at;
+    protected $updated_at;
+    
     protected $email;
     protected $password;
     protected $admin;

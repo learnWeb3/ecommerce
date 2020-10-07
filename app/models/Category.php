@@ -6,6 +6,10 @@ class Category
     // ATTIRBUTES
     public $name;
 
+    protected $id;
+    protected $created_at;
+    protected $updated_at;
+
     // USING COMMON METHODS
     use Db;
 

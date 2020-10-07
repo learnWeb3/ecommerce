@@ -31,7 +31,7 @@ class SessionController extends ApplicationController
                 die();
             } else {
                 $flash->storeInSession();
-                header("Location:" . REDIRECT_BASE_URL . "controller=$controller&method=$method");
+                //header("Location:" . REDIRECT_BASE_URL . "controller=$controller&method=$method");
             }
         }
     }

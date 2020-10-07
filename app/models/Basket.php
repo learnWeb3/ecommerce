@@ -5,6 +5,9 @@ require_once 'BasketItem.php';
 class Basket
 {
     // ATTRIBUTES
+    protected $id;
+    protected $created_at;
+    protected $updated_at;
     protected $user_id;
     protected $state_id;
     protected $basket_items = [];
@@ -264,7 +267,8 @@ class Basket
         }
         // constructing instance of basket
         if (!empty($basketItems)) {
-            return  new Basket($owner_id, $basket_state_name, $basketItems, $basket_datas["basket_id"], $basket_datas["basket_created_at"], $basket_datas["basket_updated_at"]);
+            $basket = new Basket($owner_id, $basket_state_name, $basketItems, $basket_datas["basket_id"], $basket_datas["basket_created_at"], $basket_datas["basket_updated_at"]);
+            return  $basket;
         } else {
             $basket = Basket::getCurrentBasket($owner_id)[0];
             return $basket;
