@@ -3,6 +3,10 @@
 class Book
 {
 
+    protected $id;
+    protected $created_at;
+    protected $updated_at;
+    
     // ATTRIBUTES
     protected $title;
     protected $author;

@@ -3,6 +3,11 @@
 class BasketItem
 {
     // ATTRIBUTES
+
+    protected $id;
+    protected $created_at;
+    protected $updated_at;
+    
     protected $book_id;
     protected $basket_id;
     protected $quantity;

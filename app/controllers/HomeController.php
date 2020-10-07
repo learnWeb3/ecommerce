@@ -29,5 +29,8 @@ class HomeController extends ApplicationController
                 "popular_books" => $popular_books
             )
         );
+
+
+        // var_dump(Basket::getBasket());
     }
 }

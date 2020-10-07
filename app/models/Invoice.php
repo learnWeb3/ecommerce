@@ -3,6 +3,11 @@
 
 class Invoice
 {
+
+    protected $id;
+    protected $created_at;
+    protected $updated_at; 
+    
     protected $basket_id;
     protected $total_amount_ttc;
     protected $total_amount_ht;
