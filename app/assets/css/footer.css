@@ -1,3 +1,7 @@
+footer {
+    font-family: Raleway, monospace;
+}
+
 /*FOOTER*/
 .bg-deep-purple {
     background-color: #4F38B4;
@@ -7,7 +11,80 @@
     background-color: #2f2f2f;
 }
 
-hr{
+hr {
     width: 60px;
-    background-color: #4F38B4;
+    color: #4F38B4;
+}
+
+footer h6, footer a, footer p, footer .fas, footer .fab {
+    color: aliceblue;
+}
+
+.social-network-row,
+.copyright-row {
+    /*height: 5vh;*/
+}
+
+.social-network-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.social-network-col {
+    display: flex;
+    align-items: center;
+    width: auto;
+}
+
+.social-network-logo {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.footer-title-row {
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer-title-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-links-row {
+    height: 20vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    background-color: #212121;
+}
+
+.footer-links-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    color: whitesmoke;
+}
+
+.footer-links-title {
+    flex: 1;
+}
+
+.footer-links-title,
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.footer-links {
+    flex: 3;
+}
+
+.copyright-row {
+    background-color: #484848;
+}
+
+.copyright-col {
+    text-align: center;
 }

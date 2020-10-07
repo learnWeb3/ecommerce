@@ -8,7 +8,9 @@
     <meta name="author" content="Antoine LE GUILLOU">
     <meta name="description" content="<?php echo $description ?>">
     <!-- MAIN STYLESHEET -->
+    <script src="https://kit.fontawesome.com/e69cba65d0.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="<?php echo ABSOLUTE_ASSET_PATH . "/css/main.css" ?>">
+    <link rel="stylesheet" href="<?php echo ABSOLUTE_ASSET_PATH . "/css/footer.css" ?>">
     <!-- JQUERY LIBRARY -->
     <script src="<?php echo ABSOLUTE_ASSET_PATH . "/vendor/jquery-3.5.1.min.js" ?>"></script>
     <!-- STRIPE JS  -->
