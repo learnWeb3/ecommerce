@@ -924,7 +924,7 @@ class Book
             $this->getId()
         ));
         $stripe_product_id = $prepared_statement->fetchAll(PDO::FETCH_ASSOC)[0]['stripe_product_id'];
-        $this->stripe_porduct_id = $stripe_product_id;
+        $this->stripe_product_id = $stripe_product_id;
         return $this->stripe_product_id;
     }
 

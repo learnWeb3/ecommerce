@@ -404,14 +404,14 @@ function getBookCategoryOptions(categoryId, categories) {
 
 
 async function update(form) {
-    let response = await $.post('index.php?controller=admin&method=update', form.serialize() + '&remote=true', function (results) {
+    let response = await $.post('/ecommerce/index.php?controller=admin&method=update', form.serialize() + '&remote=true', function (results) {
     });
 
     return JSON.parse(response);
 }
 
 async function destroy(form) {
-    let response = await $.post('index.php?controller=admin&method=destroy', form.serialize() + '&remote=true', function (results) {
+    let response = await $.post('/ecommerce/index.php?controller=admin&method=destroy', form.serialize() + '&remote=true', function (results) {
     });
 
     return JSON.parse(response);
@@ -420,11 +420,11 @@ async function destroy(form) {
 function getOppositeSort(element) {
     if (element.attr('data') == "desc") {
         var dataAttr = "asc";
-        var imageSrc = "/app/assets/icons/action/sort_up.svg";
+        var imageSrc = "/ecommerce/app/assets/icons/action/sort_up.svg";
     } else {
 
         var dataAttr = "desc";
-        var imageSrc = "/app/assets/icons/action/sort_down.svg";
+        var imageSrc = "/ecommerce/app/assets/icons/action/sort_down.svg";
     }
 
     element.attr('src', imageSrc);
@@ -435,7 +435,7 @@ function getOppositeSort(element) {
 function resetSort(element) {
     $(element).each(function (index) {
         let dataAttr = "desc";
-        let imageSrc = "/app/assets/icons/action/sort_down.svg";
+        let imageSrc = "/ecommerce/app/assets/icons/action/sort_down.svg";
         $(this).attr('src', imageSrc);
         $(this).attr('data', dataAttr);
     })

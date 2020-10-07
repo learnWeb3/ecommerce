@@ -92,7 +92,7 @@ class AdminController extends ApplicationController
                 $book = $book[0];
                 if (isset($_POST['book_image_path']) || isset($_POST['book_title']) || isset($_POST['book_description'])) {
                     $stripe_product_id = $book->getStripeProductId();
-                    $app_stripe->updateProduct($stripe_product_id, $_POST['book_title'], $_POST['book_description'], [$_POST['book_image_path']]);
+                    $app_stripe->updateProduct($stripe_product_id, $_POST['book_title'], $_POST['book_description'], $_POST['book_image_path']);
                 }
                 if (isset($_POST['book_category_id'])) {
                     $book->registerUpdate("category_id", intval($_POST['book_category_id']));
