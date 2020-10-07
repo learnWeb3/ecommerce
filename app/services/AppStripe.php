@@ -86,18 +86,14 @@ class AppStripe
 
 
     // UPDATE STRIPE PRICE ATTRIBUTES ON STRIPE
-    public function updatePrice(string $stripe_price_id, string $stripe_product_id, string $currency_symbol, int $price)
+    public function updatePrice(string $stripe_price_id)
     {
         $stripe = new \Stripe\StripeClient(
             $this->stripe_secret_key
         );
-        return $stripe->prices->update(
+        $stripe->prices->update(
             $stripe_price_id,
-            array(
-                "product" => $stripe_product_id,
-                "currency" => $currency_symbol,
-                "unit_amount" => ceil($price * 100),
-            )
+            ['active'=>false]
         );
     }
 

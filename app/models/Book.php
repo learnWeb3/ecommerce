@@ -893,6 +893,14 @@ class Book
         return $prepared_statement->execute(array($this->getId(), $this->stripe_product_id, $this->stripe_price_id));
     }
 
+    public function updateStripeDetails()
+    {
+        $connection = Db::connect();
+        $statement = "UPDATE stripe_details SET book_id=?, stripe_product_id=?, stripe_price_id=?";
+        $prepared_statement = $connection->prepare($statement);
+        return $prepared_statement->execute(array($this->getId(), $this->stripe_product_id, $this->stripe_price_id));
+    }
+
 
     public function getStripePriceId()
     {

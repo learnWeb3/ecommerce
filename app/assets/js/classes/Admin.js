@@ -407,6 +407,8 @@ async function update(form) {
     let response = await $.post('/ecommerce/index.php?controller=admin&method=update', form.serialize() + '&remote=true', function (results) {
     });
 
+    console.log(response);
+
     return JSON.parse(response);
 }
 

@@ -115,7 +115,9 @@ class AdminController extends ApplicationController
                     $book->registerUpdate("price", $price);
                     $stripe_product_id = $book->getStripeProductId();
                     $stripe_price_id = $book->getStripePriceId();
-                    $app_stripe->updatePrice($stripe_price_id, $stripe_product_id, 'eur', $price);
+                    $app_stripe->updatePrice($stripe_price_id);
+                    $book->setStripePriceId(intval($_POST['book_price'])*100, $currency_symbol = 'eur');
+                    $book->updateStripeDetails();
                 }
 
                 if (isset($_POST['remote'])) {
