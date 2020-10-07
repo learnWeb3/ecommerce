@@ -226,7 +226,7 @@
                                                             </tbody>
                                                         </table>
 
-                            
+
                                                         <table class="module" role="module" data-type="text" border="0"
                                                                cellpadding="0" cellspacing="0" width="100%"
                                                                style="table-layout: fixed; background-image: url('https://i.imgur.com/C1ykp1c.jpg')"
@@ -238,7 +238,8 @@
                                                                     role="module-content">
                                                                     <div>
                                                                         <div style="font-family: inherit; text-align: center">
-                                                                            <span style="color: #ffffff; font-size: 48px; font-family: inherit">Welcome, Antoine!</span>
+                                                                            <span style="color: #ffffff; font-size: 48px; font-family: inherit">Welcome, <?php
+                                                                                echo $user_email ?>!</span>
                                                                         </div>
                                                                         <div></div>
                                                                     </div>
@@ -448,18 +449,18 @@
                                                             </tr>
                                                             </tbody>
                                                         </table>-->
-                                                       <!-- <table class="module" role="module" data-type="spacer"
-                                                               border="0" cellpadding="0" cellspacing="0" width="100%"
-                                                               style="table-layout: fixed;"
-                                                               data-muid="2931446b-8b48-42bd-a70c-bffcfe784680.1">
-                                                            <tbody>
-                                                            <tr>
-                                                                <td style="padding:0px 0px 20px 0px;"
-                                                                    role="module-content" bgcolor="#4d5171">
-                                                                </td>
-                                                            </tr>
-                                                            </tbody>
-                                                        </table>-->
+                                                        <!-- <table class="module" role="module" data-type="spacer"
+                                                                border="0" cellpadding="0" cellspacing="0" width="100%"
+                                                                style="table-layout: fixed;"
+                                                                data-muid="2931446b-8b48-42bd-a70c-bffcfe784680.1">
+                                                             <tbody>
+                                                             <tr>
+                                                                 <td style="padding:0px 0px 20px 0px;"
+                                                                     role="module-content" bgcolor="#4d5171">
+                                                                 </td>
+                                                             </tr>
+                                                             </tbody>
+                                                         </table>-->
                                                         <!--<table border="0" cellpadding="0" cellspacing="0" align="center"
                                                                width="100%" role="module" data-type="columns"
                                                                style="padding:0px 20px 30px 20px;" bgcolor="#4d5171">
