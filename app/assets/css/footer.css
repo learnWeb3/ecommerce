@@ -82,9 +82,10 @@ footer h6, footer a, footer p, footer .fas, footer .fab {
 }
 
 .copyright-row {
-    background-color: #484848;
+    background-color: #1c1c1c;
 }
 
 .copyright-col {
     text-align: center;
+    color: ghostwhite;
 }
