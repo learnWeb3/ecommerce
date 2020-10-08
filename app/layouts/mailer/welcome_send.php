@@ -112,7 +112,8 @@
 <center class="wrapper" data-link-color="#1188E6"
         data-body-style="font-size:14px; font-family:inherit; color:#000000; background-color:#f0f0f0;">
     <div class="webkit">
-        <table cellpadding="0" cellspacing="0" border="0" width="100%" class="wrapper" bgcolor="#f0f0f0">
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" class="wrapper" bgcolor="#f0f0f0"
+               style="height: 100vh">
             <tbody>
             <tr>
                 <td valign="top" bgcolor="#f0f0f0" width="100%">
@@ -282,7 +283,7 @@
                                                         </table>
                                                         <table class="module" role="module" data-type="text" border="0"
                                                                cellpadding="0" cellspacing="0" width="100%"
-                                                               style="table-layout: fixed;"
+                                                               style="table-layout: fixed; height: 30vh"
                                                                data-muid="eb301547-da19-441f-80a1-81e1b56e64ad">
                                                             <tbody>
                                                             <tr>
@@ -299,30 +300,6 @@
                                                             </tr>
                                                             </tbody>
                                                         </table>
-                                                        <div data-role="module-unsubscribe" class="module" role="module"
-                                                             data-type="unsubscribe"
-                                                             style="color:#444444; font-size:12px; line-height:20px; padding:16px 16px 16px 16px; text-align:Center;"
-                                                             data-muid="4e838cf3-9892-4a6d-94d6-170e474d21e5">
-                                                            <div class="Unsubscribe--addressLine"><p
-                                                                        class="Unsubscribe--senderName"
-                                                                        style="font-size:12px; line-height:20px;">
-                                                                    {{Sender_Name}}</p>
-                                                                <p style="font-size:12px; line-height:20px;"><span
-                                                                            class="Unsubscribe--senderAddress">{{Sender_Address}}</span>,
-                                                                    <span class="Unsubscribe--senderCity">{{Sender_City}}</span>,
-                                                                    <span class="Unsubscribe--senderState">{{Sender_State}}</span>
-                                                                    <span class="Unsubscribe--senderZip">{{Sender_Zip}}</span>
-                                                                </p></div>
-                                                            <p style="font-size:12px; line-height:20px;"><a
-                                                                        class="Unsubscribe--unsubscribeLink"
-                                                                        href="{{{unsubscribe}}}" target="_blank"
-                                                                        style="">Unsubscribe</a> - <a
-                                                                        href="{{{unsubscribe_preferences}}}"
-                                                                        target="_blank"
-                                                                        class="Unsubscribe--unsubscribePreferences"
-                                                                        style="">Unsubscribe Preferences</a></p>
-                                                        </div>
-                                                    
                                                     </td>
                                                 </tr>
                                                 </tbody>
