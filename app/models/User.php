@@ -363,7 +363,7 @@ class User
     }
 
 
-    public function updateDatas($firstname = null, $lastname = null, $date_of_birth = null, $email= null,$admin)
+    public function updateDatas($firstname = null, $lastname = null, $date_of_birth = null, $email= null,$admin=null)
     {
         if ($firstname != null) {
             $this->setFirstname($firstname);

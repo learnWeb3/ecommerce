@@ -10,8 +10,7 @@ class AppStripe {
         // Create an instance of the Stripe object with your publishable API key
 
         var stripe = Stripe(this.stripePublishableKey);
-        // var checkoutButton = document.getElementById('stripe-checkout');
-
+        var checkoutButton = document.getElementById('stripe-checkout');
         var checkoutButton = $(checkoutButton)
 
 
@@ -21,8 +20,9 @@ class AppStripe {
                 url: "index.php",
                 type: "POST",
                 data: "controller=checkout&method=create&remote=true",
-                dataType: "JSON",
+                // dataType: "JSON",
                 success: function(result, status) {
+                    console.log(result);
                     if (result.error) {
                         alert(result.error.message);
                     } else {

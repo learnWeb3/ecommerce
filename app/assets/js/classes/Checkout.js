@@ -65,7 +65,6 @@ class Checkout {
                 dataType: "JSON",
                 success: function (results, status) {
 
-                    console.log(results);
                     if (results.hasOwnProperty("type")) {
                         if (results.type == "success") {
                            self.getAvailableAdresses()
