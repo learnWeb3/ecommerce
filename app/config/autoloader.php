@@ -18,7 +18,8 @@ define(
     "SERVICES_CLASSES",
     [
         "BookScrapper",
-        "AppStripe"
+        "AppStripe",
+        "Mailer"
     ]
 );
 define(

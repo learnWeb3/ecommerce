@@ -1,4 +1,4 @@
-/* GENERAL MARKUP STYLES */
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&family=Roboto&display=swap"); /* GENERAL MARKUP STYLES */
 
 * {
     margin: 0;
@@ -69,12 +69,12 @@
  :root {
     --var-white: #fff;
     --var-black: #202020;
-    --var-dark: ;
+    /*--var-dark: ;*/
     --var-light: #D0D0D0;
     --var-success: #00A129;
-    --var-danger: ;
-    --var-warning: ;
-    --var-info: ;
+    /*--var-danger: ;*/
+    /*--var-warning: ;*/
+    /*--var-info: ;*/
     --var-primary: #4F38B4;
     --var-secondary: #ff922c;
     --var-danger:#FF2F2F;
@@ -107,7 +107,6 @@ body {
 
 /* FONT TYPE */
 
-@import url("https://fonts.googleapis.com/css2?family=PT+Sans&family=Roboto&display=swap");
 h1,
 h2,
 h3,
@@ -272,7 +271,7 @@ select {
 
 input[type="number"] {
     -moz-appearance: textfield;
-    appearance: textfield;
+    -webkit-appearance: textfield;
     text-align: center;
     padding-left: 0;
 }
@@ -388,7 +387,7 @@ nav {
     z-index: 100;
     justify-content: space-evenly;
     padding: 1rem;
-    background-color: none;
+    background-color: unset;
     position: absolute;
     top:0;
 }
@@ -1210,7 +1209,7 @@ form.form-inline {
     z-index: 8000;
     width: 60vw;
     top: 5rem;
-    left: 0rem;
+    left: 0;
     padding-left: 2rem;
     display: none;
     background-color: rgba(255, 255, 255, 0.90);
@@ -1294,7 +1293,7 @@ form.form-inline {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: 2;
+    transition: 2s;
 }
 
 #basket-price-zone {
@@ -1474,7 +1473,7 @@ blockquote::after
 
 .tab-container{
     width:100%;
-    height: 5rem;
+    /*height: 5rem;*/
     display: flex;
     list-style-type: none;
     height: max-content;
