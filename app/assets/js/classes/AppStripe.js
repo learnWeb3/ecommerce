@@ -20,7 +20,7 @@ class AppStripe {
                 url: "index.php",
                 type: "POST",
                 data: "controller=checkout&method=create&remote=true",
-                // dataType: "JSON",
+                dataType: "JSON",
                 success: function(result, status) {
                     console.log(result);
                     if (result.error) {

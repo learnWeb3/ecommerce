@@ -12,8 +12,7 @@ class CheckoutController extends ApplicationController
 
             // storing stripe session to check later payment status and instantialte order
             Session::storeStripeSession($stripe_session);
-
-            // var_dump($session);
+            
             echo json_encode($stripe_session);
         }
     }
