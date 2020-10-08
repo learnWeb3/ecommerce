@@ -5,6 +5,8 @@ if ($_SERVER['DOCUMENT_ROOT'] == '/var/www/boutiqueenligne') {
     define("ABSOLUTE_ASSET_PATH", "http://" . $_SERVER["SERVER_NAME"] . "/app/assets");
     define("REDIRECT_BASE_URL", "http://" . $_SERVER["SERVER_NAME"] . "/index.php?");
     define("ABSOLUTE_UPLOAD_PATH", "http://" . $_SERVER["SERVER_NAME"] . "/app/public/upload");
+    define("STRIPE_SUCCESS_URL", "http://".$_SERVER['SERVER_NAME']."/index.php?controller=checkout&method=success");
+    define("STRIPE_CANCEL_URL", "http://".$_SERVER['SERVER_NAME']."/index.php?controller=checkout&method=error");
     // DEFINE STRIPE URL 
     
 } else {
