@@ -32,18 +32,18 @@ class Mailer
     /**
      * @param array $vars
      */
-    public function send(array $vars = [])
+    public function send($vars=[])
     {
-        extract($vars);
+       extract($vars);
        ob_start();
        require_once $this->message_path;
        $html = ob_get_clean();
-       $sendgrid_apikey = "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";
+       $sendgrid_apikey = "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";
 
        $url = 'https://api.sendgrid.com/';
 
        $params = array(
-           'to'        => "test@yopmail.com",
+           'to'        => $this->recipient_email,
            'toname'    => "Example User",
            'from'      =>  $this->sender_email,
            'fromname'  => "lndt",
@@ -71,7 +71,7 @@ class Mailer
        curl_close($session);
 
        // print everything out
-       print_r($response);
+       return $response;
     }
 }
 

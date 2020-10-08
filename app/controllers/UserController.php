@@ -11,15 +11,19 @@ class UserController extends ApplicationController
 
     public function create()
     {
+
         if (isset($_POST['user_email'], $_POST['user_password'], $_POST["user_password_confirmation"])) {
             $user = new User($_POST['user_email'], $_POST['user_password']);
             $sign_up_attempt =  $user->signUp($_POST["user_password_confirmation"]);
+
+            // mailer send
+            $mailer = new Mailer($_POST['user_email'], "Bienvenue parmis nous", LAYOUT_PATH."/mailer/welcome_send.php");
+            $mailer->send(array("user_email" => $_POST['user_email']));
+
             if ($sign_up_attempt["type"] == "success") {
                 $flash = new Flash($sign_up_attempt["message"], "success");
                 $controller = "home";
                 $method = "index";
-                $mailer = new Mailer($_POST['user_email'], "Bienvenue parmis nous", LAYOUT_PATH."/mailer/welcome_send.php");
-                $mailer->send(array("user_email" => $_POST['user_email']));
             } else {
                 $flash = new Flash($sign_up_attempt["message"], "danger");
                 $controller = "user";
@@ -33,6 +37,7 @@ class UserController extends ApplicationController
             }
 
             if (isset($_POST['remote'])) {
+            
                 echo json_encode($sign_up_attempt);
                 die();
             } else {
