@@ -44,7 +44,9 @@
 
     $(document).ready(function(){
         appendArrowInputNumber();
-    })
+    });
+
+    
 </script>
 </body>
 

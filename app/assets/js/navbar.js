@@ -9,7 +9,7 @@ $(document).ready(function() {
             $("nav").removeClass("fixed");
         }
 
-        if (scrollPos >= $('.jumbotron').outerHeight() / 4) {
+        if (scrollPos >= navHeight ) {
             $("nav").addClass('bg-white')
         } else {
             $("nav").removeClass('bg-white')
