@@ -86,7 +86,5 @@
 <?php require_once LAYOUT_PATH . "/flash/flash.php" ?>
 
 
-
-<script src="<?php echo ABSOLUTE_ASSET_PATH . "/js/page_specific/admin/admin.js" ?>">
-
-</script>
+<!-- PAGE SPECIFIC SCRIPT -->
+<script src="<?php echo ABSOLUTE_ASSET_PATH . "/js/page_specific/admin/admin.js" ?>"></script>
