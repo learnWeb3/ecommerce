@@ -23,7 +23,7 @@ footer h6, footer a, footer p, footer .fas, footer .fab {
 .social-network-row {
     display: flex;
     justify-content: space-between;
-    background-color: #484848;
+    background-color: #212121;
 }
 
 .social-network-col {

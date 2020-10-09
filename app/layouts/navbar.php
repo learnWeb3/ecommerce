@@ -35,6 +35,9 @@
                 <?php else:?>
                     <li><a href="<?php echo REDIRECT_BASE_URL."controller=user&method=edit"?>" id="edit">Mon profil</a></li>
                     <li><a href="<?php echo REDIRECT_BASE_URL."controller=session&method=destroy"?>" id="sign-out">Deconnexion</a></li>
+                    <?php if ($current_user->isUserAdmin()):?>
+                        <li><a href="<?php echo REDIRECT_BASE_URL."controller=admin&method=index"?>">Administrateur</a></li>
+                    <?php endif;?>
                 <?php endif;?>
                 </ul>
             </li>
