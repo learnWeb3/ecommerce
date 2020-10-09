@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html data-editor-version="2" class="sg-campaigns" xmlns="http://www.w3.org/1999/xhtml">
+<html data-editor-version="2" class="sg-campaigns" xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
@@ -864,57 +864,6 @@
                                                             </tr>
                                                             </tbody>
                                                         </table>
-                                                        <div data-role="module-unsubscribe" class="module" role="module"
-                                                             data-type="unsubscribe"
-                                                             style="background-color:#4d5171; color:#444444; font-size:12px; line-height:20px; padding:16px 16px 16px 16px; text-align:Center;"
-                                                             data-muid="4e838cf3-9892-4a6d-94d6-170e474d21e5">
-                                                            <div class="Unsubscribe--addressLine"><p
-                                                                        class="Unsubscribe--senderName"
-                                                                        style="font-size:12px; line-height:20px;">
-                                                                    {{Sender_Name}}</p>
-                                                                <p style="font-size:12px; line-height:20px;"><span
-                                                                            class="Unsubscribe--senderAddress">{{Sender_Address}}</span>,
-                                                                    <span class="Unsubscribe--senderCity">{{Sender_City}}</span>,
-                                                                    <span class="Unsubscribe--senderState">{{Sender_State}}</span>
-                                                                    <span class="Unsubscribe--senderZip">{{Sender_Zip}}</span>
-                                                                </p></div>
-                                                            <p style="font-size:12px; line-height:20px;"><a
-                                                                        class="Unsubscribe--unsubscribeLink"
-                                                                        href="{{{unsubscribe}}}" target="_blank"
-                                                                        style="color:#80817f;">Unsubscribe</a> - <a
-                                                                        href="{{{unsubscribe_preferences}}}"
-                                                                        target="_blank"
-                                                                        class="Unsubscribe--unsubscribePreferences"
-                                                                        style="color:#80817f;">Unsubscribe
-                                                                    Preferences</a></p>
-                                                        </div>
-                                                        <!--<table border="0" cellpadding="0" cellspacing="0" class="module"
-                                                               data-role="module-button" data-type="button"
-                                                               role="module" style="table-layout:fixed;" width="100%"
-                                                               data-muid="04084f31-d714-4785-98c7-39de4df9fb7b">
-                                                            <tbody>
-                                                            <tr>
-                                                                <td align="center" bgcolor="#4d5171" class="outer-td"
-                                                                    style="padding:20px 0px 20px 0px;">
-                                                                    <table border="0" cellpadding="0" cellspacing="0"
-                                                                           class="wrapper-mobile"
-                                                                           style="text-align:center;">
-                                                                        <tbody>
-                                                                        <tr>
-                                                                            <td align="center" bgcolor="#f5f8fd"
-                                                                                class="inner-td"
-                                                                                style="border-radius:6px; font-size:16px; text-align:center; background-color:inherit;">
-                                                                                <a href="https://sendgrid.com/"
-                                                                                   style="background-color:#f5f8fd; border:1px solid #f5f8fd; border-color:#f5f8fd; border-radius:25px; border-width:1px; color:#a8b9d5; display:inline-block; font-size:10px; font-weight:normal; letter-spacing:0px; line-height:normal; padding:5px 18px 5px 18px; text-align:center; text-decoration:none; border-style:solid; font-family:helvetica,sans-serif;"
-                                                                                   target="_blank">♥ POWERED BY TWILIO
-                                                                                    SENDGRID</a></td>
-                                                                        </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </td>
-                                                            </tr>
-                                                            </tbody>
-                                                        </table>-->
                                                     </td>
                                                 </tr>
                                                 </tbody>
