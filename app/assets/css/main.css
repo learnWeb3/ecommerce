@@ -1190,6 +1190,12 @@ form.form-inline {
     background-color: var(--var-white);
 }
 
+.card-product .form-buy button[type="submit"] img,
+#form-buy button[type="submit"] img {
+    height: 2rem;
+    width: 2rem;
+}
+
 .card-product .form-buy button[type="submit"]:hover,
 #form-buy button[type="submit"]:hover {
     transition: border .25s ease-in-out;

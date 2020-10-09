@@ -20,14 +20,10 @@ footer h6, footer a, footer p, footer .fas, footer .fab {
     color: aliceblue;
 }
 
-.social-network-row,
-.copyright-row {
-    /*height: 5vh;*/
-}
-
 .social-network-row {
     display: flex;
     justify-content: space-between;
+    background-color: #484848;
 }
 
 .social-network-col {

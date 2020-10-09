@@ -1,30 +1,4 @@
 <footer>
-    <div class="social-network-row py-3 bg-deep-purple">
-        <div class="social-network-col px-2">
-            <h6>Suivez nous sur nos réseaux!</h6>
-        </div>
-        <div class="social-network-col px-2 social-network-logo">
-            <a class="fb-ic">
-                <i class="fab fa-facebook-f fa-fw mx-1"> </i>
-            </a>
-            <!-- Twitter -->
-            <a class="tw-ic">
-                <i class="fab fa-twitter fa-fw mx-1"> </i>
-            </a>
-            <!-- Google +-->
-            <a class="gplus-ic">
-                <i class="fab fa-google-plus-g fa-fw mx-1"> </i>
-            </a>
-            <!--Linkedin -->
-            <a class="li-ic">
-                <i class="fab fa-linkedin-in fa-fw mx-1"> </i>
-            </a>
-            <!--Instagram-->
-            <a class="ins-ic">
-                <i class="fab fa-instagram fa-fw mx-1"> </i>
-            </a>
-        </div>
-    </div>
     <div class="footer-links-row py-2">
         <div class="footer-links-col px-2">
             <div class="footer-links-title">
@@ -77,8 +51,35 @@
             </div>
         </div>
     </div>
+
+    <div class="social-network-row py-3">
+        <div class="social-network-col px-2">
+            <h6>Suivez nous sur nos réseaux!</h6>
+        </div>
+        <div class="social-network-col px-2 social-network-logo">
+            <a class="fb-ic">
+                <i class="fab fa-facebook-f fa-fw mx-1"> </i>
+            </a>
+            <!-- Twitter -->
+            <a class="tw-ic">
+                <i class="fab fa-twitter fa-fw mx-1"> </i>
+            </a>
+            <!-- Google +-->
+            <a class="gplus-ic">
+                <i class="fab fa-google-plus-g fa-fw mx-1"> </i>
+            </a>
+            <!--Linkedin -->
+            <a class="li-ic">
+                <i class="fab fa-linkedin-in fa-fw mx-1"> </i>
+            </a>
+            <!--Instagram-->
+            <a class="ins-ic">
+                <i class="fab fa-instagram fa-fw mx-1"> </i>
+            </a>
+        </div>
+    </div>
     <div class="copyright-row py-2">
-        <div class="copyright-col">© 2020 Copyright:
+        <div class="copyright-col" style="color:#FFF">© 2020 Copyright:
             <a href=""> La Nuit des Temps</a>
         </div>
     </div>
