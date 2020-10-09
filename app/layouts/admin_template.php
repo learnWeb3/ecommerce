@@ -45,7 +45,7 @@
         <?php echo  $yield ?>
     </main>
 
-    <?php require_once LAYOUT_PATH . "/footer.php" ?>
+    <?php require_once LAYOUT_PATH . "/footer_admin.php" ?>
 
 
     <script>
