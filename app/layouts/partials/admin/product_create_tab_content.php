@@ -85,14 +85,14 @@
 
         <div class="form-group col-12 col-md-6">
 
-            <label for="">Image (upload) * </label>
+            <label for="product_image_upload">Image (upload) * </label>
             <input type="file" class="form-control" name="product_image_upload">
 
         </div>
 
         <div class="form-group col-12 col-md-6">
 
-            <label for="">Image (url) * </label>
+            <label for="product_image_url">Image (url) * </label>
             <input type="text" class="form-control" name="product_image_url">
 
         </div>
@@ -106,8 +106,8 @@
     </div>
 
     <div class="form-group">
-        <label for="">Description: * </label>
-        <textarea name="product_description" id="product_description" cols="30" rows="10" class="form-control" name="product_description"></textarea>
+        <label for="product_description">Description: * </label>
+        <textarea name="product_description" id="product_description" cols="30" rows="10" class="form-control"></textarea>
 
     </div>
 
