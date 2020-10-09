@@ -69,7 +69,5 @@
 
 </div>
 
-<script>
-    User.create("#signUp", "#user_password_sign_up_checkout", "#user_password_sign_up_confirmation_checkout", "#signUpContainer");
-    Session.create("#signIn", "#signInContainer");
-</script>
+<!-- PAGE SPECIFIC SCRIPT -->
+<script src="<?php echo ABSOLUTE_ASSET_PATH . "/js/page_specific/checkout/sign_actions.js" ?>"></script>

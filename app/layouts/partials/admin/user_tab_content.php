@@ -167,10 +167,5 @@
 </div>
 
 
-<script>
-    $(document).ready(function() {
-        Admin.getUserAcquisitionGraph();
-        User.update();
-        User.delete();
-    })
-</script>
+<!-- PAGE SPECIFIC SCRIPT -->
+<script src="<?php echo ABSOLUTE_ASSET_PATH . "/js/page_specific/admin/admin_user_tab_content.js" ?>"></script>
