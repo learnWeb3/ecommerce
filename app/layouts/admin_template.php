@@ -45,7 +45,11 @@
         <?php echo  $yield ?>
     </main>
 
+<<<<<<< HEAD
     <?php //require_once LAYOUT_PATH . "/footer_admin.php" ?>
+=======
+    <?php require_once LAYOUT_PATH . "/footer.php" ?>
+>>>>>>> parent of 941e69f... changing errors layouts
 
 
     <script>
