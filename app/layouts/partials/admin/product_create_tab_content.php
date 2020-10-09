@@ -100,6 +100,12 @@
     </div>
 
     <div class="form-group">
+        <label for="product_quantity">Quantitée * </label>
+        <input type="number" name="product_quantity" id="product_quantity">
+
+    </div>
+
+    <div class="form-group">
         <label for="">Description: * </label>
         <textarea name="product_description" id="product_description" cols="30" rows="10" class="form-control" name="product_description"></textarea>
 

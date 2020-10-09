@@ -53,9 +53,9 @@ class BookController extends ApplicationController
     public function create()
     {
 
-        if (isset($_POST["product_title"], $_POST['product_category_id'], $_POST["product_author"],  $_POST["product_collection"],  $_POST["product_price"],  $_POST["product_publication_date"],  $_POST["product_description"], $_POST['book_tva_id'])) {
+        if (isset($_POST["product_title"], $_POST['product_category_id'], $_POST["product_author"],  $_POST["product_collection"],  $_POST["product_price"],  $_POST["product_publication_date"],  $_POST["product_description"], $_POST['book_tva_id'], $_POST['product_quantity'])) {
 
-            if (!empty($_POST["product_title"]) && !empty($_POST['product_author']) && !empty($_POST["product_collection"]) && !empty($_POST["product_price"]) && !empty($_POST["product_publication_date"]) && !empty($_POST["product_description"]) && !empty( $_POST['book_tva_id'])) {
+            if (!empty($_POST["product_title"]) && !empty($_POST['product_author']) && !empty($_POST["product_collection"]) && !empty($_POST["product_price"]) && !empty($_POST["product_publication_date"]) && !empty($_POST["product_description"]) && !empty( $_POST['book_tva_id']) && !empty($_POST['product_quantity'])) {
 
                 if (isset($_FILES["product_image_upload"])) {
                     try {
@@ -81,6 +81,7 @@ class BookController extends ApplicationController
                     $price_value = ceil($book->getPrice()) * 100;
                     $book->setStripePriceId($price_value);
                     $book->createStripeDetails();
+                    $book->setStock(intval($_POST['product_quantity']));
 
                     // USER ALERT
                     $message = ["Produit ajouté avec succès"];
